@@ -1,0 +1,94 @@
+@startuml
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity "User" as us {
+  *User_id: Integer<<PK>>
+  --
+  *Name : Varchar
+  *Email : Varchar
+  *DOB : Date
+}
+
+entity "Owner" as own {
+  *Owner_id: Integer<<PK>>
+  --
+  *Name : Varchar
+  *Email : Varchar
+  *DOB : Date
+}
+
+entity "Boarding_House" as bh {
+  *Boarding_id : Integer <<PK>>
+  --
+  *Name : Varchar
+  *Address : Varchar
+  *LocationMaps : Varchar
+  *Type : Varchar
+  *Rooms : Integer
+  *Shared_Bathroom : Boolean
+  *Price : Integer
+  Description : Varchar
+}
+
+entity "Amenities" as amnt {
+  *Amenities_id : Integer <<FK>>
+  --
+  *Name : Varchar
+  *Description : Varchar
+}
+
+entity "Amenities_table" as amntbl {
+  *Amenities_FK : Integer <<FK>>
+  *Amenities_Boarding_House_FK : Integer <<FK>>
+}
+
+amntbl ||..o{ bh
+amntbl ||..o{ amnt
+
+
+entity "Rent_Boarding_House" as rbh {
+  *Rent_Owner_FK : Integer <<FK>>
+  *Rent_Boarding_FK : Integer <<FK>>
+  --
+  *Start_Date : Date
+  *Duration : Integer
+  *End_Date : Date
+}
+
+rbh ||..o{ us
+rbh ||..o{ bh
+
+entity "Sell_Boarding_House" as sbh {
+  *Rent_Owner_FK : Integer <<FK>>
+  *Rent_Boarding_FK : Integer <<FK>>
+  --
+  *Date_Created : Date
+}
+
+sbh ||..o{ own
+sbh ||..o{ bh
+
+entity "Review" as rvw {
+  *Review_User_FK : Integer <<FK>>
+  *Review_Boarding_FK : Integer <<FK>>
+  --
+  *Rating : Integer
+  *Description : Varchar
+  *Date_Created : Date
+}
+
+rvw ||..o{ us
+rvw ||..o{ bh
+
+@enduml
+
+
+' https://plantuml.com/ie-diagram
+' * Meaning
+' optional attribute
+'   **optional bold attribute
+'   * mandatory bold attribute
