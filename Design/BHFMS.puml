@@ -7,22 +7,35 @@ skinparam linetype ortho
 
 entity "User" as us {
   *User_id: Integer<<PK>>
+  *User_Role_FK : Integer <<FK>>
   --
   *Name : Varchar
   *Email : Varchar
   *DOB : Date
+  *Phone : Varchar
+  *profile_picture : Varchar
 }
 
-entity "Owner" as own {
-  *Owner_id: Integer<<PK>>
+entity "User_Role" as usrl {
+  *User_Role_id: Integer<<PK>>
+  --
+  *Role_Name : Varchar
+}
+
+us ||..o{ usrl
+
+entity "Boarding_House_Type" as bht {
+  *Type_id : Integer <<PK>>
   --
   *Name : Varchar
-  *Email : Varchar
-  *DOB : Date
+  *Description : Varchar
 }
+
+
 
 entity "Boarding_House" as bh {
   *Boarding_id : Integer <<PK>>
+  *Type_FK : Integer <<FK>>
   --
   *Name : Varchar
   *Address : Varchar
@@ -42,35 +55,45 @@ entity "Amenities" as amnt {
 }
 
 entity "Amenities_table" as amntbl {
-  *Amenities_FK : Integer <<FK>>
+  *Amenities_Amnt_FK : Integer <<FK>>
   *Amenities_Boarding_House_FK : Integer <<FK>>
 }
 
-amntbl ||..o{ bh
-amntbl ||..o{ amnt
+bh ||..o{ amntbl
+amnt ||..o{ amntbl
 
+entity "Boarding_House_Img" as bhi {
+  *Boarding_House_Img_id : Integer <<PK>>
+  *Boarding_House_Img_FK : Integer <<FK>>
+  --
+  *Image : Varchar
+}
+
+bhi ||..o{ bh
 
 entity "Rent_Boarding_House" as rbh {
   *Rent_Owner_FK : Integer <<FK>>
   *Rent_Boarding_FK : Integer <<FK>>
+  *Payment_Type_FK : Integer <<FK>>
   --
   *Start_Date : Date
   *Duration : Integer
   *End_Date : Date
 }
 
-rbh ||..o{ us
-rbh ||..o{ bh
+us ||..o{ rbh
+bh ||..o{ rbh
+
 
 entity "Sell_Boarding_House" as sbh {
-  *Rent_Owner_FK : Integer <<FK>>
-  *Rent_Boarding_FK : Integer <<FK>>
+  *Sell_Owner_FK : Integer <<FK>>
+  *Sell_Boarding_FK : Integer <<FK>>
   --
   *Date_Created : Date
 }
 
-sbh ||..o{ own
-sbh ||..o{ bh
+us ||..o{ sbh
+bh ||..o{ sbh
 
 entity "Review" as rvw {
   *Review_User_FK : Integer <<FK>>
@@ -81,8 +104,42 @@ entity "Review" as rvw {
   *Date_Created : Date
 }
 
-rvw ||..o{ us
+us ||..o{ rvw
 rvw ||..o{ bh
+
+bht ||..o{ bh
+
+entity "Favourite_Rent" as fr {
+  *Favourite_Rent_Boarding_FK: Integer<<FK>>
+  *Favourite_Rent_User_FK: Integer<<FK>>
+}
+
+entity "Payment_Type" as pymnt {
+  *Payment_id: Integer<<PK>>
+  *Description: Varchar
+}
+pymnt ||..o{ rbh
+
+us ||..o{ fr
+bh ||..o{ fr
+
+entity "Chat" as cht {
+  *Chats_id: Integer<<PK>>
+  *Chats_User_FK: Integer<<FK>>
+  *Chatroom_FK: Integer<<FK>>
+  --
+  *Message: Varchar
+  *Is_Deleted: Boolean
+  *IS_Edited: Boolean
+}
+
+entity "Chatroom" as chtrm {
+  *Chatsroom_id: Integer<<PK>>
+  --
+}
+
+us |o..o{ cht
+chtrm |o..o{ cht
 
 @enduml
 
