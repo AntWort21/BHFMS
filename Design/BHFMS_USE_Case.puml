@@ -1,0 +1,89 @@
+@startuml
+left to right direction
+
+rectangle BHFMS {
+    ' General'
+    usecase (Chat) as cht
+    usecase (Login) as lgn
+    usecase (Register) as rgs
+    usecase (View Boarding House Own) as view_bh
+    
+    ' Boarding House Owner'
+    usecase (Request New Boarding House Addition) as req_bh
+    usecase (Edit Boarding House) as edit_bh
+
+    ' User'
+    usecase (Rent Boarding House) as rent_bh
+    usecase (WishList Boarding House) as wish_bh
+    usecase (Pay Rent) as rpymnt
+    usecase (Make Complain) as cmpln
+    usecase (Make Review) as rvw
+    usecase (Wishlist Notification) as ntf_wl_bh
+
+    ' Supervisor / Admin'
+    usecase (View All Boarding House List) as show_bh_admin
+    usecase (Rent Boarding House) as rent_bh
+    usecase (Delete Boarding House Admin) as del_bh_admin
+    usecase (Edit Boarding House) as edit_bh_admin
+    usecase (Approve Boarding House Creation) as aprv_bh_admin
+
+    usecase (View All Facilities) as show_fcl_admin
+    usecase (Delete Facilities) as del_fcl_admin
+    usecase (Edit Facilities) as edit_fcl_admin
+    usecase (Add Facilities) as aprv_fcl_admin
+}
+
+actor :Owner: as own
+actor :User: as user
+actor :Admin: as adm
+actor :Manager: as mngr
+
+
+' usecase (Delete Amenities) as del_amnt
+' usecase (Edit Amenities) as edit_amnt
+
+' user <|-down- Admin
+' user <|-down-Manager
+' Manager <-down-Owner
+
+
+' adm <|-down- user
+' adm <|-down- mngr
+mngr <|-right- own
+
+adm ---> lgn
+user ---> lgn
+mngr ---> lgn
+
+adm ---> cht
+user ---> cht
+mngr ---> cht
+
+user ---> rgs
+mngr ---> rgs
+
+adm ---> show_bh_admin
+adm ---> show_fcl_admin
+
+user ---> rpymnt
+user ---> rent_bh
+user ---> cmpln
+user ---> rvw
+user ---> wish_bh
+wish_bh ...> ntf_wl_bh: <<Include>>
+
+mngr ---> view_bh
+
+' CRUD Boarding House
+view_bh ...> req_bh: <<Extend>>
+view_bh ...> edit_bh: <<Extend>>
+
+show_bh_admin ...> del_bh_admin: <<Extend>>
+show_bh_admin ...> edit_bh_admin: <<Extend>>
+show_bh_admin ...> aprv_bh_admin: <<Extend>>
+
+show_fcl_admin ...> del_fcl_admin: <<Extend>>
+show_fcl_admin ...> edit_fcl_admin: <<Extend>>
+show_fcl_admin ...> aprv_fcl_admin: <<Extend>>
+
+@enduml

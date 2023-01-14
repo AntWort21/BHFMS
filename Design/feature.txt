@@ -109,3 +109,10 @@ DB Tables
 - Node : 14 /16/18
 - Laravel 8
 - 
+
+
+Diagram To Make=
+=ERD
+=Use Case
+=Activity Diagram
+=Sequence Diagram
