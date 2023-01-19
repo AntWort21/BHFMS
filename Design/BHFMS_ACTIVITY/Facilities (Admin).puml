@@ -1,0 +1,56 @@
+@startuml
+title Boarding House (Admin)
+
+(*)  --> "Click on View All Facilities"
+--> "Show All Facilities"
+-->"Show Choices"
+If "User Input Choice" then
+--> [Add] "Show Add New Facility Form"
+--> "User Add New Facility Details"
+--> "Show Add Confirmation"
+    If "User Click" then
+    --> [Yes] "Facility Validation (Add)"
+        If "Is Valid ?" then
+        --> [Valid] "System Add New Facility"
+        --> "Show Success Add New Facility Message"
+        --> "Show All Facility"
+        else
+        --> [Not Valid] "Show Failed Add New Facility Message"
+        --> "Show Add New Facility Form"
+        Endif
+    else
+    --> [No] "Show All Facilities"
+    Endif
+
+else
+--> [Delete] "Show Delete Facility Form"
+--> "Show Delete Confirmation"
+    If "User Click" then
+    --> [Yes] "System Delete Selected Facility"
+    --> "Show Success Delete Facility Message"
+    --> "Show All Facilities"
+    else
+    --> [No] "Show All Facilities"
+    Endif
+
+else
+--> [Update] "Show Facility Update Form"
+--> "User Update Facility Details"
+--> "Show Update Confirmation"
+    If "User Click" then
+    --> [Yes] "Facility Validation (Update)"
+        If "Is Valid ?" then
+        --> [Valid] "System Update Selected Facility"
+        --> "Show Success Update Facility Message"
+        --> "Show All Facilities"
+        else
+        --> [Not Valid] "Show Failed Update Facility Message"
+        --> "Show Facility Update Form"
+        Endif
+    else
+    --> [No] "Show All Facilities"
+    Endif
+Endif
+
+-->(*)
+@enduml

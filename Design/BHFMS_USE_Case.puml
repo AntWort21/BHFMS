@@ -11,6 +11,8 @@ rectangle BHFMS {
     ' Boarding House Owner'
     usecase (Request New Boarding House Addition) as req_bh
     usecase (Edit Boarding House) as edit_bh
+    usecase (View Complains) as view_cmpln
+    usecase (Mark Complain as Solved) as rply_cmpln
 
     ' User'
     usecase (Rent Boarding House) as rent_bh
@@ -72,6 +74,9 @@ user ---> rvw
 user ---> wish_bh
 wish_bh ...> ntf_wl_bh: <<Include>>
 
+
+own ---> view_cmpln
+view_cmpln ...> rply_cmpln: <<Extend>>
 mngr ---> view_bh
 
 ' CRUD Boarding House
