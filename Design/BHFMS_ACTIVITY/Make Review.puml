@@ -1,0 +1,27 @@
+@startuml
+
+partition User {
+    (*) --> "Open Review Page"
+}
+
+partition Website {
+    "Open Review Page" --> "Show Review Page"    
+}
+
+partition User {
+    "Show Review Page" --> "Insert Review"
+
+    "Insert Review" --> "Give Rating"
+
+    "Give Rating" --> "Submit"
+}
+
+partition Website {
+    "Submit" --> "Insert To DB"
+
+    "Insert To DB" --> "Show Home Page"
+
+    "Show Home Page" --> (*)
+}
+
+@enduml
