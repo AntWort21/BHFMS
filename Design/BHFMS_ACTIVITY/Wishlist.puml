@@ -1,0 +1,30 @@
+@startuml
+
+partition User {
+    (*) --> "Checkout boarding house detail"
+}
+
+partition Website {
+    "Checkout boarding house detail" --> "Show boarding house detail page"    
+}
+
+partition User {
+    "Show boarding house detail page" --> "Add this boarding house to wishlist" 
+}
+
+partition Website {
+    "Add this boarding house to wishlist" --> "Set boarding house to user wishlist"
+
+    "Set boarding house to user wishlist" --> "Show added to wishlist popup" 
+
+    "Show added to wishlist popup" --> "Check boarding house capacity periodically"
+    
+    if "Boarding House has empty slot" then
+    --> [true] "Notify User"
+    else
+    --> [false] "Check boarding house capacity periodically"
+
+    "Notify User" --> (*)
+}
+
+@enduml
