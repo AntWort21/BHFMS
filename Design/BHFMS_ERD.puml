@@ -94,6 +94,7 @@ entity "Rent_Transaction_Detail" as rtd {
   *Start_Date : Date
   *Duration : Integer
   *End_Date : Date
+  *Status : Boolean
   *created_at : Date
   *updated_at : Date
 }

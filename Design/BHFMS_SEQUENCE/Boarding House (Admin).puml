@@ -1,0 +1,8 @@
+@startuml
+actor Owner as own
+participant ":ViewAllBoardingHouse\n<<UI>>" as view_all
+participant BoardingController as Foo1
+participant Participant as Foo2
+participant Participant as Foo3
+own -> view_all : To actor 
+@enduml

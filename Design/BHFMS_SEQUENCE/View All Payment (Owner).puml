@@ -1,0 +1,36 @@
+@startuml
+
+' left to right direction
+top to bottom direction
+
+title View All Payment (Owner)
+partition User {
+(*)  --> "Click on View All Payment"
+}
+partition Website {
+--> "Show All Payment"
+-->"Show Approve Payment Button"
+}
+partition User {
+--> "User Click Input Payment Button"
+}
+partition Website {
+--> "Show Selected Payment Detail"
+-->"Show Approve Payment Confirmation Button"
+}
+partition User {
+--> "User Click Approve Confirmation"
+}
+partition Website {
+    If "User Click (Approve)" then
+    --> [Yes] "System Update Selected Payment status to approved"
+    --> "Show Success Approving Payment Message"
+    --> "Show All Payment"
+    else
+    --> [No] "Show All Payment"
+    Endif
+-->(*)
+}
+
+
+@enduml
