@@ -1,0 +1,10 @@
+@startuml
+User -> Website: Request Boarding House detail page
+User <-- Website: Return Boarding House detail page
+User -> Website: Set selected boarding house to wishlist
+Website -> Controller: Send Insert into DB User Details, current boarding house details
+Controller -> Database: Insert into DB User Details, current boarding house details
+Controller <-- Database: Return Success insertion
+Website <-- Controller: Return Success Response
+User <-- Website: Show Added to Wishlist Notification Popup
+@enduml

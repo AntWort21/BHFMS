@@ -1,0 +1,21 @@
+@startuml
+User -> Website: Request Registration Page
+User <-- Website: Return Registration Page
+User -> Website: Input User Credentials
+Website -> Controller: Validate User Input
+alt Input Validated
+    Website <-- Controller: Send Input Validated Response
+    User <-- Website: Send Email Confirmation
+    User -> Website: Confirm Through Email
+    Website -> Controller: Send Insert to DB request
+    Controller -> Database: Insert New User to DB
+    Controller <-- Database: Send Insert Success Response
+    Website <-- Controller: Send Success Response
+    User <-- Website: Show Welcome Page
+    
+else Input Invalid
+    Website <-- Controller: Send Error Response
+    User <-- Website: Show Login Page With Error
+end
+
+@enduml
