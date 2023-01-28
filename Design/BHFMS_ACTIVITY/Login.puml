@@ -15,7 +15,7 @@ partition User {
 partition Website {
     "Insert Credentials" --> "Check Credentials"
     
-    "Check Credentials" --> if "Do Credentials Match the Database?" then 
+    If "Do Credentials Match the Database?" then 
     --> [true] "Log user into the website" 
     else 
     --> [false] "Show Login Page"
