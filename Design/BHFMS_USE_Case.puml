@@ -6,13 +6,16 @@ rectangle BHFMS {
     usecase (Chat) as cht
     usecase (Login) as lgn
     usecase (Register) as rgs
+
+    ' Manager'
+    usecase (View Complains) as view_cmpln
+    usecase (Mark Complain as Solved) as rply_cmpln
+    usecase (Accept Tenant) as accept_tenant
     usecase (View Boarding House Own) as view_bh
     
     ' Boarding House Owner'
     usecase (Request New Boarding House Addition) as req_bh
     usecase (Edit Boarding House) as edit_bh
-    usecase (View Complains) as view_cmpln
-    usecase (Mark Complain as Solved) as rply_cmpln
 
     ' User'
     usecase (Rent Boarding House) as rent_bh
@@ -101,4 +104,5 @@ show_fcl_admin ...> del_fcl_admin: <<Extend>>
 show_fcl_admin ...> edit_fcl_admin: <<Extend>>
 show_fcl_admin ...> aprv_fcl_admin: <<Extend>>
 
+view_bh ...>  accept_tenant: <<Extend>>
 @enduml
