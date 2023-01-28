@@ -1,0 +1,17 @@
+@startuml
+User -> Website: Request Login Page
+User <-- Website: Return Login Page
+User -> Website: Input User Credentials
+Website -> Controller: Validate User Credentials
+Controller -> Database: Request User Details
+
+alt SUCCESS
+    Controller <-- Database: Return User Details
+    Website <-- Controller: Return Validated Login Response
+    User <-- Website: Show Home Page
+else FAIL
+    Controller <-- Database: Return User Not Found
+    Website <-- Controller: Return Fail Login Response
+    User <-- Website: Show Login Page
+end
+@enduml
