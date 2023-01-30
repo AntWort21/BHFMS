@@ -1,36 +1,33 @@
 @startuml
+actor Owner as own
+participant ":ViewAllPayments\n<<UI>>" as view
+participant Controller as ctrl
+participant Database as db
 
-' left to right direction
-top to bottom direction
+own -> view : Request Show All Payments (Owner) Page
+view -> ctrl : Request Payment List Page
+ctrl -> db : Get Payment List Page
+ctrl <-- db : Return Payment List
+view <-- ctrl : Return Show All Payment (Owner) Page 
 
-title View All Payment (Owner)
-partition User {
-(*)  --> "Click on View All Payment"
-}
-partition Website {
---> "Show All Payment"
--->"Show Approve Payment Button"
-}
-partition User {
---> "User Click Input Payment Button"
-}
-partition Website {
---> "Show Selected Payment Detail"
--->"Show Approve Payment Confirmation Button"
-}
-partition User {
---> "User Click Approve Confirmation"
-}
-partition Website {
-    If "User Click (Approve)" then
-    --> [Yes] "System Update Selected Payment status to approved"
-    --> "Show Success Approving Payment Message"
-    --> "Show All Payment"
-    else
-    --> [No] "Show All Payment"
-    Endif
--->(*)
-}
-
+alt Owner View Specific Payment
+own -> view : View Selected Payment
+view -> ctrl : Request Payment Details
+ctrl -> db : Get Payment Details
+ctrl <-- db : Return Payment Details
+view <-- ctrl : Return Payment Details
+    alt Owner Click Approve Payment
+    own->view : Approve Payment
+    view->ctrl : Request Approve Payment
+        alt Owner Approved
+        ctrl->db : Update Selected Payment Status to Approved
+        db-->ctrl: Show Success Message
+        ctrl-->view: Show Success Message
+        else Owner did not Approved
+        ctrl->db : Update Selected Payment Declined_Reason
+        db-->ctrl: Show Success Message
+        ctrl-->view: Show Success Message
+        end
+    end
 
 @enduml

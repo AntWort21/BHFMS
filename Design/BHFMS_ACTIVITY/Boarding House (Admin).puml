@@ -1,79 +1,50 @@
 @startuml
-
-left to right direction
-
 title Boarding House (Admin)
 partition User {
-(*)  --> "Click on View All Boarding House"
-}
-partition Website {
---> "Show All Boarding House"
--->"Show Choices"
-}
-partition User {
---> "User Input Choice"
-}
-partition Website {
-If "User Click" then
-
---> [Approve] "Show Requested Boarding House Detail"
---> "Show Approve Confirmation"
-}
-partition User {
---> "User Click Approve Confirmation"
-}
-partition Website {
-    If "User Click (Approve)" then
-    --> [Yes] "System Updates Selected Boarding House status to approved"
-    --> "Show Success Approving Boarding House Message"
-    --> "Show All Boarding House"
-    else
-    --> [No] "Show All Boarding House"
-    Endif
-
-else
---> [Delete] "Delete Boarding House Form"
---> "Show Delete Confirmation"
-}
-partition User {
---> "User Click Delete Confirmation"
-}
-partition Website {
-    If "User Click (Delete)" then
-    --> [Yes] "System Delete Selected Boarding House"
-    --> "Show Success Delete Boarding House Message"
-    --> "Show All Boarding House"
-    else
-    --> [No] "Show All Boarding House"
-    Endif
-
-else
---> [Update] "Show Update Form"
-}
-partition User {
---> "User Update Boarding House Details"
-}
-partition Website {
---> "Show Update Confirmation"
-}
-partition User {
---> "User Click Update Confirmation"
-}
-partition Website {
-    If "User Click" then
-    --> [Yes] "Boarding House Validation"
-        If "Is Boarding House Details Valid ?" then
-        --> [Valid] "System Update Selected Boarding House"
-        --> "Show Success Update Boarding House Message"
-        --> "Show All Boarding House"
+(*)  --> "See All Boarding Houses"
+--> "Select Boarding House"
+    If "User Input Choices" then
+    --> [Approve New Boarding House] "Check Requested Boarding House Details"
+     If "User Approve" then
+        --> [Yes] "User Accept Boarding House"
         else
-        --> [Not Valid] "Show Failed Update Boarding House Message"
-        --> "Show Update Form"
+        --> [No] "User Write Reason For Declined"
         Endif
     else
-    --> [No] "Show All Boarding House"
+    --> [Update Boarding House] "User Update Boarding House Details"
+    --> "User Click Submit (Update)"
+        
+    else
+    --> [Delete Boarding House] "Check Boarding House Deatils"
+    --> "User Click Submit (Delete)"
     Endif
-Endif
--->(*)
+}
+
+partition Website {
+    "User Click Submit (Update)" --> If "Is Boarding House Details Valid ?" then
+        --> [Valid] "System Update Selected Boarding House"
+        --> "Show Success Update Boarding House Message"
+        -->(*)
+        else
+        --> [Not Valid] "Show Failed Update Boarding House Message"
+        --> (*)
+    Endif
+    
+
+    "User Accept Boarding House" --> "Update Request Status"
+    "User Write Reason For Declined" --> "Update Request Status"
+
+    If "Is Status Approved ?" then
+    --> [Yes] "Update Boarding House status to valid"
+    --> "Show Success Approving Boarding House Message"
+    -->(*)
+    else
+    --> [No] "Update Boarding House Declined_Reason" 
+    --> "Show Success Declining Boarding House Message"
+    --> (*)
+
+    "User Click Submit (Delete)" --> "System Delete Selected Boarding House"
+    --> "Show Success Deleting Boarding House Message"
+    --> (*)
 }
 @enduml

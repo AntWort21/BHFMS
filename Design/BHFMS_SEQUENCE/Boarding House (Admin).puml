@@ -1,8 +1,49 @@
 @startuml
-actor Owner as own
-participant ":ViewAllBoardingHouse\n<<UI>>" as view_all
-participant BoardingController as Foo1
-participant Participant as Foo2
-participant Participant as Foo3
-own -> view_all : To actor 
+actor Admin as own
+participant ":ViewAllBoardingHouse\n<<UI>>" as view
+participant Controller as ctrl
+participant Database as db
+
+own -> view : Request Show All Boarding House (Admin) Page
+view -> ctrl : Request Boarding House List Page
+ctrl -> db : Get Boarding House List Page
+ctrl <-- db : Return Boarding House List
+view <-- ctrl : Return Show All Boarding House (Admin) Page 
+
+alt Admin View Specific Boarding House
+own -> view : View Selected Boarding House
+view -> ctrl : Request Boarding House Details
+ctrl -> db : Get Boarding House Details
+ctrl <-- db : Return Boarding House Details
+view <-- ctrl : Return Boarding House Details
+    alt Admin Click Approve Boarding House
+    own->view : Approve New Boarding House
+    view->ctrl : Request Approve Boarding House
+        alt Admin Approved
+        ctrl->db : Update Selected Boarding House Status to Approved
+        db-->ctrl: Show Success Message
+        ctrl-->view: Show Success Message
+        else Admin did not Approved
+        ctrl->db : Update Selected Boarding House Declined_Reason
+        db-->ctrl: Show Success Message
+        ctrl-->view: Show Success Message
+        end
+    else Admin Click Delete Boarding House
+    own->view : Delete Boarding House
+    view->ctrl : Request Delete New Boarding House
+    ctrl->db : Delete Selected Boarding House
+    db-->ctrl: Show Success Message
+    ctrl-->view: Show Success Message
+    else Admin Click Update Boarding House
+    own->view : Update Boarding House Detail
+    view->ctrl : Boarding House Validation (Update)
+        alt Validation Success
+        ctrl->db : Update Selected Boarding House Details
+        db-->ctrl: Show Success Message
+        ctrl-->view: Show Success Message
+        else Validation Failed
+        ctrl-->view: Show Failed Message
+        end
+end
+
 @enduml
