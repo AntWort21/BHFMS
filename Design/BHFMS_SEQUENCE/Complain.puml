@@ -1,0 +1,25 @@
+@startuml
+User -> Website: Request User Complain List
+Website -> Controller: Request User Complain List
+Controller -> Database: get user complain list
+Controller <-- Database: Return user complain list
+Website <-- Controller: Return user complain list
+User <-- Website: Return User Complain List
+
+alt Create New Complain
+
+    User -> Website: Create New Complain
+    User <-- Website: Show Complain Form
+    User -> Website: Fill Complain Form
+    Website -> Controller: Fill Complain Form
+    Controller -> Database: Save Complain
+else View Complain
+
+    User -> Website: View Specific Complain
+    Website -> Controller: View Specific Complain
+    Controller -> Database: View Specific Complain
+    Controller <-- Database: Return complain detail
+    Website <-- Controller: Return complain detail
+    User <-- Website: Return complain detail
+end
+@enduml

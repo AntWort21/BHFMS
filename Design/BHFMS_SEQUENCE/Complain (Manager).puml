@@ -1,0 +1,24 @@
+@startuml
+Manager -> Website: Request Complain List
+Website -> Controller: Request Complain List
+Controller -> Database: Request complain list
+Controller <-- Database: Return complain list
+Website <-- Controller: Return complain list
+Manager <-- Website: Return Complain List
+opt Update Status
+
+    Manager -> Website: Click Complain
+    Website -> Controller: Request Complain 
+    Controller -> Database: Request complain 
+    Controller <-- Database: Return complain 
+    Website <-- Controller: Return complain 
+    Manager <-- Website: Return Complain
+
+    Manager -> Website: Update Complain Status
+    Website -> Controller: Update Complain Status
+    Controller -> Database: Update Complain Status
+    Controller <-- Database: Show Success
+    Website <-- Controller: Show Success
+    Manager <-- Website: Show Success
+end
+@enduml
