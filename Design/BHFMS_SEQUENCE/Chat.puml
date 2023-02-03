@@ -1,0 +1,18 @@
+@startuml
+User -> Website: Request User Chat History
+Website -> Controller: Request User Chat History
+Controller -> Database: Get user chat history
+Controller <-- Database: Return user chat history
+Website <-- Controller: Return user payment list
+User <-- Website: Return User Chat History
+User -> Website: Choose one of the chat
+User <-- Website: Show Chat
+User -> Website: Send Message
+Website -> Controller: Save Message
+Controller -> Database: Save Message
+opt New Message
+    Controller <-- Database: Return New Message
+    Website <-- Controller: Return Success Response
+    User <-- Website: Show User New Message
+end
+@enduml

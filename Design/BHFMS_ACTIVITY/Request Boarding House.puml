@@ -6,7 +6,7 @@ partition Owner {
     --> "Request Approval Boarding House"
 }
 
-partition Manager {
+partition Admin {
     "Request Approval Boarding House" --> "Decide On Approval"
     If "Request Approved" then
     --> [Yes] "Update Request Status"

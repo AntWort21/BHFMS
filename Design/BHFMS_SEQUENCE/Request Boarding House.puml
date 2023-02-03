@@ -1,0 +1,18 @@
+@startuml
+Owner -> Website: Request New Boarding House Form
+Owner <-- Website: Return New Boarding House Form
+Owner -> Website: Fill New Boarding House Form
+Controller -> Database: Request New Boarding House Form
+
+alt Boarding House Approved
+
+    Controller <-- Database:  Show Boarding House Page
+    Website <-- Controller: Show Boarding House Page
+    Owner <-- Website: Show Boarding House Page
+else Boarding House Was Not Approved
+    Controller <-- Database: Show Declined Reason
+    Website <-- Controller: Show Declined Reason
+    Owner <-- Website: Show Declined Reason
+
+end
+@enduml

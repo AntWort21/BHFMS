@@ -1,0 +1,50 @@
+@startuml
+
+Manager -> Website: Request Boarding Houses
+Website -> Controller: Request Boarding Houses
+Controller -> Database: Request Boarding Houses
+Controller <-- Database: Return Boarding Houses
+Website <-- Controller: Return Boarding Houses
+Manager <-- Website: Return Boarding Houses
+Manager -> Website: Select Boarding House
+Website -> Controller: Select Boarding House
+Website <-- Controller: Return Boarding Houses
+Manager <-- Website: Return Boarding Houses
+alt Check Tenant Request
+
+    Manager -> Website: Check List New Tenant Request
+    Website -> Controller: Request List New Tenant Request
+    Controller -> Database: Request List New Tenant Request
+    Controller <-- Database: Return List New Tenant Request
+    Website <-- Controller: Return List New Tenant Request
+    Manager <-- Website: Return List New Tenant Request
+    alt Approve Tenant
+        Manager -> Website: Approve Tenant
+        Website -> Controller: Update List of Tenant
+        Controller -> Database: Update List of Tenant
+        Controller <-- Database: Show Success
+        Website <-- Controller: Show Success
+        Manager <-- Website: Show Success
+    else Decline Tenant
+         anager -> Website: Write Decline Reason
+        Website -> Controller: Update Decline Reason
+        Controller -> Database: Update Decline Reason
+        Controller <-- Database:  Show Success
+        Website <-- Controller:  Show Success
+        Manager <-- Website:  Show Success
+    end
+else Update Boarding House
+
+    Manager -> Website: Request Boarding House Detail Form
+    Website -> Controller: Request Boarding House Detail Form
+    Website <-- Controller: Return Boarding House Detail Form
+    Manager <-- Website: Return Boarding Houses Detail Form
+
+    Manager -> Website: Upadte Boarding House Detail
+    Website -> Controller: Upadte Boarding House Detail
+    Controller -> Database: Upadte Boarding House Detail
+    Controller <-- Database: Show Success
+    Website <-- Controller: Show Success
+    Manager <-- Website: Show Success
+end
+@enduml
