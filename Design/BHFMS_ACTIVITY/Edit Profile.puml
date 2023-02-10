@@ -1,0 +1,25 @@
+@startuml
+
+partition User {
+    (*) --> "Open Edit Profile Page"
+}
+
+partition Website {
+    "Open Edit Profile Page" --> "Show Edit Profile Page"
+}
+
+partition User {
+    "Show Edit Profile Page" --> "Update Profile"
+}
+
+partition Website {
+    "Update Profile" --> "Check Update Form Input"
+    "Check Update Form Input" --> if "Update Form Input is Acceptable" then 
+    --> [True] "Show Success Update Profile Message"
+    --> "Update User Profile in Database"
+    --> (*)
+    else
+    --> [False] "Show Edit Profile Page"
+}
+
+@enduml

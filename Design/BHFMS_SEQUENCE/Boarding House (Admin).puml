@@ -21,28 +21,34 @@ view <-- ctrl : Return Boarding House Details
     view->ctrl : Request Approve Boarding House
         alt Admin Approved
         ctrl->db : Update Selected Boarding House Status to Approved
-        db-->ctrl: Show Success Message
-        ctrl-->view: Show Success Message
+        db-->ctrl: Return Success Message
+        ctrl-->view: Return Success Message
+        view-->own: Show Success Message
         else Admin did not Approved
         ctrl->db : Update Selected Boarding House Declined_Reason
-        db-->ctrl: Show Success Message
-        ctrl-->view: Show Success Message
+        db-->ctrl: Return Success Message
+        ctrl-->view: Return Success Message
+        view-->own: Show Success Message
         end
     else Admin Click Delete Boarding House
     own->view : Delete Boarding House
     view->ctrl : Request Delete New Boarding House
     ctrl->db : Delete Selected Boarding House
-    db-->ctrl: Show Success Message
-    ctrl-->view: Show Success Message
+    db-->ctrl: Return Success Message
+    ctrl-->view: Return Success Message
+    view-->own: Show Success Message
     else Admin Click Update Boarding House
     own->view : Update Boarding House Detail
     view->ctrl : Boarding House Validation (Update)
         alt Validation Success
         ctrl->db : Update Selected Boarding House Details
-        db-->ctrl: Show Success Message
-        ctrl-->view: Show Success Message
+        db-->ctrl: Return Success Message
+        ctrl-->view: Return Success Message
+        view-->own: Show Success Message
         else Validation Failed
-        ctrl-->view: Show Failed Message
+        db-->ctrl: Return Failed Message
+        ctrl-->view: Return Failed Message
+        view-->own: Show Success Message
         end
 end
 

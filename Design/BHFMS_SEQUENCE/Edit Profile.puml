@@ -1,0 +1,15 @@
+@startuml
+User -> Website: Request Show Edit Profile
+User <-- Website: Return Edit Profile
+User -> Website: Fill in Update Profile Form
+Website -> Controller: Validate User Input
+alt Validation Success
+        Controller -> Database: Update User Profile
+        Controller <-- Database: Show Success Update to DB Response
+        Website <-- Controller: Return Update Successful Message
+        User <-- Website: Show Home Page
+else Validation Failed
+        Website <-- Controller: Return Update Successful Message
+        User <-- Website: Show Home Page
+end
+@enduml

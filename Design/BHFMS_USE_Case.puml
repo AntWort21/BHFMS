@@ -6,6 +6,7 @@ rectangle BHFMS {
     usecase (Chat) as cht
     usecase (Login) as lgn
     usecase (Register) as rgs
+    usecase (Edit Profile) as edt_profile
 
     ' Manager'
     usecase (View Complains) as view_cmpln
@@ -37,6 +38,7 @@ rectangle BHFMS {
     usecase (Delete Facilities) as del_fcl_admin
     usecase (Edit Facilities) as edit_fcl_admin
     usecase (Add Facilities) as aprv_fcl_admin
+    
     usecase (View All Payment History) as view_payment
     usecase (Accept Payment) as accpt_payment
 }
@@ -46,19 +48,13 @@ actor :User: as user
 actor :Admin: as adm
 actor :Manager: as mngr
 
-'Use case blm ad activityny'
+
+adm ---> edt_profile
+user ---> edt_profile
+mngr ---> edt_profile
+
 own ---> view_payment
 view_payment ...> accpt_payment: <<Extend>>
-' usecase (Delete Amenities) as del_amnt
-' usecase (Edit Amenities) as edit_amnt
-
-' user <|-down- Admin
-' user <|-down-Manager
-' Manager <-down-Owner
-
-
-' adm <|-down- user
-' adm <|-down- mngr
 
 mngr <|-right- own
 

@@ -22,16 +22,16 @@ alt Check Tenant Request
         Manager -> Website: Approve Tenant
         Website -> Controller: Update List of Tenant
         Controller -> Database: Update List of Tenant
-        Controller <-- Database: Show Success
-        Website <-- Controller: Show Success
-        Manager <-- Website: Show Success
+        Controller <-- Database: Return Success Message
+        Website <-- Controller: Return Success Message
+        Manager <-- Website: Show Success Message
     else Decline Tenant
          anager -> Website: Write Decline Reason
         Website -> Controller: Update Decline Reason
         Controller -> Database: Update Decline Reason
-        Controller <-- Database:  Show Success
-        Website <-- Controller:  Show Success
-        Manager <-- Website:  Show Success
+        Controller <-- Database:  Return Success Message
+        Website <-- Controller:  Return Success Message
+        Manager <-- Website:  Show Success Message
     end
 else Update Boarding House
 
@@ -43,8 +43,8 @@ else Update Boarding House
     Manager -> Website: Upadte Boarding House Detail
     Website -> Controller: Upadte Boarding House Detail
     Controller -> Database: Upadte Boarding House Detail
-    Controller <-- Database: Show Success
-    Website <-- Controller: Show Success
-    Manager <-- Website: Show Success
+    Controller <-- Database: Return Success Message
+    Website <-- Controller: Return Success Message
+    Manager <-- Website: Show Success Message
 end
 @enduml
