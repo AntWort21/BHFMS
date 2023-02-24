@@ -1,0 +1,37 @@
+@startuml
+title Boarding House (Manager)
+partition Manager {
+    (*)  --> "See All Boarding Houses"
+    --> "Select Boarding House"
+
+    If "Manager Input Choices" then
+    --> [Update] "Update Boarding House"
+    --> "Manager Update Boarding House"
+    --> "Submit"
+    else
+    --> [Accept New Tenant] "Check Tenant Request"
+    
+        If "Manager Approve" then
+        --> [Yes] "Manager Accept Tenant"
+        else
+        --> [No] "Manager Write Reason For Declined"
+        Endif
+        
+    Endif
+}
+
+partition Website {
+    "Submit" --> "Update Boarding House To DB"
+    -->(*)
+
+    "Manager Accept Tenant" --> "Update Request Status"
+    "Manager Write Reason For Declined" --> "Update Request Status"
+
+    If "Status Approved" then
+    --> [Yes] "Add Tenant To  List Of Tenant"
+    -->(*)
+    else
+    --> [No] (*)
+}
+
+@enduml

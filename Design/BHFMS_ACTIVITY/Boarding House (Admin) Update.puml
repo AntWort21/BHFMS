@@ -1,0 +1,19 @@
+@startuml
+title Boarding House (Admin)
+partition User {
+(*) --> "Select Update Boarding House"
+    --> "User Update Boarding House Details"
+    --> "User Click Submit (Update)"
+        
+}
+
+partition Website {
+    "User Click Submit (Update)" --> If "Is Boarding House Details Valid ?" then
+        --> [Valid] "System Update Selected Boarding House"
+        --> "Show Success Update Boarding House Message"
+        -->(*)
+        else
+        --> [Not Valid] "Show Failed Update Boarding House Message"
+        --> (*)
+}
+@enduml

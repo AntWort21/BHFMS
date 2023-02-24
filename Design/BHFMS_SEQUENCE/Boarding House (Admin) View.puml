@@ -1,0 +1,13 @@
+@startuml
+actor Admin as own
+participant ":ViewAllBoardingHouse\n<<UI>>" as view
+participant Controller as ctrl
+participant Database as db
+
+own -> view : Request Show All Boarding House (Admin) Page
+view -> ctrl : Request Boarding House List Page
+ctrl -> db : Get Boarding House List Page
+ctrl <-- db : Return Boarding House List
+view <-- ctrl : Return Show All Boarding House (Admin) Page 
+
+@enduml

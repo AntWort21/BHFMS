@@ -1,0 +1,10 @@
+@startuml
+
+Manager -> Website: Request Boarding Houses
+Website -> Controller: Request Boarding Houses
+Controller -> Database: Request Boarding Houses
+Controller <-- Database: Return Boarding Houses
+Website <-- Controller: Return Boarding Houses
+Manager <-- Website: Return Boarding Houses
+
+@enduml

@@ -6,13 +6,17 @@ rectangle BHFMS {
     usecase (Chat) as cht
     usecase (Login) as lgn
     usecase (Register) as rgs
+    usecase (Edit Profile) as edt_profile
+
+    ' Manager'
+    usecase (View Complains) as view_cmpln
+    usecase (Mark Complain as Solved) as rply_cmpln
+    usecase (Accept Tenant) as accept_tenant
     usecase (View Boarding House Own) as view_bh
     
     ' Boarding House Owner'
     usecase (Request New Boarding House Addition) as req_bh
     usecase (Edit Boarding House) as edit_bh
-    usecase (View Complains) as view_cmpln
-    usecase (Mark Complain as Solved) as rply_cmpln
 
     ' User'
     usecase (Rent Boarding House) as rent_bh
@@ -29,10 +33,14 @@ rectangle BHFMS {
     usecase (Edit Boarding House) as edit_bh_admin
     usecase (Approve Boarding House Creation) as aprv_bh_admin
 
-    usecase (View All Facilities) as show_fcl_admin
+    'Penamaanny slh bikin bingung'
+    usecase (View All Facilities) as show_fcl_admin 
     usecase (Delete Facilities) as del_fcl_admin
     usecase (Edit Facilities) as edit_fcl_admin
     usecase (Add Facilities) as aprv_fcl_admin
+    
+    usecase (View All Payment History) as view_payment
+    usecase (Accept Payment) as accpt_payment
 }
 
 actor :Owner: as own
@@ -41,17 +49,16 @@ actor :Admin: as adm
 actor :Manager: as mngr
 
 
-' usecase (Delete Amenities) as del_amnt
-' usecase (Edit Amenities) as edit_amnt
+adm ---> edt_profile
+user ---> edt_profile
+mngr ---> edt_profile
 
-' user <|-down- Admin
-' user <|-down-Manager
-' Manager <-down-Owner
+own ---> view_payment
+view_payment ...> accpt_payment: <<Extend>>
 
-
-' adm <|-down- user
-' adm <|-down- mngr
 mngr <|-right- own
+
+mngr ---> view_bh
 
 adm ---> lgn
 user ---> lgn
@@ -75,13 +82,15 @@ user ---> wish_bh
 wish_bh ...> ntf_wl_bh: <<Include>>
 
 
-own ---> view_cmpln
+mngr ---> view_cmpln
 view_cmpln ...> rply_cmpln: <<Extend>>
-mngr ---> view_bh
+' mngr ---> view_bh
 
 ' CRUD Boarding House
-view_bh ...> req_bh: <<Extend>>
-view_bh ...> edit_bh: <<Extend>>
+' view_bh ...> req_bh: <<Extend>>
+' view_bh ...> edit_bh: <<Extend>>
+own ---> edit_bh
+own ---> req_bh
 
 show_bh_admin ...> del_bh_admin: <<Extend>>
 show_bh_admin ...> edit_bh_admin: <<Extend>>
@@ -91,4 +100,5 @@ show_fcl_admin ...> del_fcl_admin: <<Extend>>
 show_fcl_admin ...> edit_fcl_admin: <<Extend>>
 show_fcl_admin ...> aprv_fcl_admin: <<Extend>>
 
+view_bh ...>  accept_tenant: <<Extend>>
 @enduml

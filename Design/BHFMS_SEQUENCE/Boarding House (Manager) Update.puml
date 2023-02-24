@@ -1,0 +1,20 @@
+@startuml
+Manager -> Website: Select Boarding House
+Website -> Controller: Select Boarding House
+Website <-- Controller: Return Boarding Houses
+Manager <-- Website: Return Boarding Houses
+
+
+    Manager -> Website: Request Boarding House Detail Form
+    Website -> Controller: Request Boarding House Detail Form
+    Website <-- Controller: Return Boarding House Detail Form
+    Manager <-- Website: Return Boarding Houses Detail Form
+
+    Manager -> Website: Upadte Boarding House Detail
+    Website -> Controller: Upadte Boarding House Detail
+    Controller -> Database: Upadte Boarding House Detail
+    Controller <-- Database: Return Success Message
+    Website <-- Controller: Return Success Message
+    Manager <-- Website: Show Success Message
+
+@enduml

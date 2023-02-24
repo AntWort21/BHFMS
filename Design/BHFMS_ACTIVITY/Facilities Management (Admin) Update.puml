@@ -1,0 +1,19 @@
+@startuml
+title Facility Management (Admin) Update
+partition User {
+(*) --> "Select Update Facility"
+    --> "User Update Facility Details"
+    --> "User Click Submit (Update)"
+        
+}
+
+partition Website {
+    "User Click Submit (Update)" --> If "Is Facility Details Valid ?" then
+        --> [Valid] "System Update Selected Facility"
+        --> "Show Success Update Facility Message"
+        -->(*)
+        else
+        --> [Not Valid] "Show Failed Update Facility Message"
+        --> (*)
+}
+@enduml

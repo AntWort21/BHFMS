@@ -1,0 +1,24 @@
+@startuml
+actor Owner as own
+participant ":ViewAllPayments\n<<UI>>" as view
+participant Controller as ctrl
+participant Database as db
+
+own -> view : View Selected Payment
+view -> ctrl : Request Payment Details
+ctrl -> db : Get Payment Details
+ctrl <-- db : Return Payment Details
+view <-- ctrl : Return Payment Details
+    own->view : Approve Payment
+    view->ctrl : Request Approve Payment
+        alt Owner Approved
+        ctrl->db : Update Selected Payment Status to Approved
+        db-->ctrl: Show Success Message
+        ctrl-->view: Show Success Message
+        else Owner did not Approved
+        ctrl->db : Update Selected Payment Declined_Reason
+        db-->ctrl: Show Success Message
+        ctrl-->view: Show Success Message
+        end
+
+@enduml

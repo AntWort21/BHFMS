@@ -1,0 +1,30 @@
+@startuml
+
+Manager -> Website: Select Boarding House
+Website -> Controller: Select Boarding House
+Website <-- Controller: Return Boarding Houses
+Manager <-- Website: Return Boarding Houses
+
+    Manager -> Website: Check List New Tenant Request
+    Website -> Controller: Request List New Tenant Request
+    Controller -> Database: Request List New Tenant Request
+    Controller <-- Database: Return List New Tenant Request
+    Website <-- Controller: Return List New Tenant Request
+    Manager <-- Website: Return List New Tenant Request
+    alt Approve Tenant
+        Manager -> Website: Approve Tenant
+        Website -> Controller: Update List of Tenant
+        Controller -> Database: Update List of Tenant
+        Controller <-- Database: Return Success Message
+        Website <-- Controller: Return Success Message
+        Manager <-- Website: Show Success Message
+    else Decline Tenant
+        Manager -> Website: Write Decline Reason
+        Website -> Controller: Update Decline Reason
+        Controller -> Database: Update Decline Reason
+        Controller <-- Database:  Return Success Message
+        Website <-- Controller:  Return Success Message
+        Manager <-- Website:  Show Success Message
+    end
+
+@enduml

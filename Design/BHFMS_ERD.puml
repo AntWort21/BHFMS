@@ -47,6 +47,7 @@ entity "Boarding_House" as bh {
   *Shared_Bathroom : Boolean
   *Price : Integer
   *Description : Varchar
+  *Declined_Reason : Varchar
   *created_at : Date
   *updated_at : Date
 }
@@ -94,6 +95,8 @@ entity "Rent_Transaction_Detail" as rtd {
   *Start_Date : Date
   *Duration : Integer
   *End_Date : Date
+  *Status : Boolean
+  *Declined_Reason : Varchar
   *created_at : Date
   *updated_at : Date
 }

@@ -1,0 +1,29 @@
+@startuml
+title View All Payment (Owner)
+partition Owner {
+    (*) --> "Select Payment"
+
+    --> "Approve Payment Request"
+    --> "Check Payment Detail"
+        If "Owner Approve" then
+        --> [Yes] "Owner Approved Payment"
+        else
+        --> [No] "Owner Declined Payment"
+        --> "Owner Input Reason for Declined"
+        Endif
+}
+
+partition Website {
+    "Owner Approved Payment" --> "Update Request Status"
+    "Owner Input Reason for Declined" --> "Update Request Status"
+    If "Status Approved" then
+    --> [Yes] "Update Payment Status to Approved"
+    --> "Show Success Approving Payment Message"
+    -->(*)
+    else
+    --> [No] "Update Payment Declined_Reason"
+    --> "Show Success Declining Payment Message" 
+    -->(*)
+}
+
+@enduml

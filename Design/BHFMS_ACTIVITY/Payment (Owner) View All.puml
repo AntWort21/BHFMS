@@ -1,0 +1,12 @@
+@startuml
+title View All Payment (Owner)
+partition Owner {
+    (*)  --> "Select See All Payments"
+}
+
+partition Website {
+    --> "Show All Payments Page"
+    -->(*)
+}
+
+@enduml
