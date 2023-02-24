@@ -1,8 +1,7 @@
 @startuml
 title View All Payment (Owner)
 partition Owner {
-    (*)  --> "See All Payments"
-    --> "Select Payment"
+    (*) --> "Select Payment"
 
     --> "Approve Payment Request"
     --> "Check Payment Detail"
@@ -16,7 +15,7 @@ partition Owner {
 
 partition Website {
     "Owner Approved Payment" --> "Update Request Status"
-    "Owner Declined Payment" --> "Update Request Status"
+    "Owner Input Reason for Declined" --> "Update Request Status"
     If "Status Approved" then
     --> [Yes] "Update Payment Status to Approved"
     --> "Show Success Approving Payment Message"

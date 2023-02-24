@@ -1,0 +1,19 @@
+@startuml
+title Facilities Management (Admin) Add
+partition User {
+(*) --> "Select Add New Facility"
+    --> "Show Add New Facility Form"
+    --> "User Input New Facility Details"
+    --> "User Click Submit (Add New)"
+}
+
+partition Website {
+    "User Click Submit (Add New)" --> If "Is Facility Details Valid ? (Add)" then
+        --> [Valid] "System Add New Facility"
+        --> "Show Success Add New Facility Message"
+        -->(*)
+        else
+        --> [Not Valid] "Show Failed Add New Facility Message"
+        --> (*)
+}
+@enduml

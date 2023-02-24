@@ -1,0 +1,21 @@
+@startuml
+title Boarding House (Admin)
+partition User {
+(*) --> "Select Approve Boarding House"
+    -->"Check Requested Boarding House Details"
+     If "User Approve" then
+        --> [Yes] "User Accept Boarding House"
+        else
+        --> [No] "User Write Reason For Declined"
+        Endif
+}
+
+partition Website {
+    "User Accept Boarding House" --> "Update Boarding House status to valid"
+    --> "Show Success Approving Boarding House Message"
+    -->(*)
+    "User Write Reason For Declined" --> "Update Boarding House Declined_Reason"
+    --> "Show Success Declining Boarding House Message"
+    --> (*)
+}
+@enduml

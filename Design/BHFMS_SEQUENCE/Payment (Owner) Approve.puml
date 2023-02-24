@@ -4,19 +4,11 @@ participant ":ViewAllPayments\n<<UI>>" as view
 participant Controller as ctrl
 participant Database as db
 
-own -> view : Request Show All Payments (Owner) Page
-view -> ctrl : Request Payment List Page
-ctrl -> db : Get Payment List Page
-ctrl <-- db : Return Payment List
-view <-- ctrl : Return Show All Payment (Owner) Page 
-
-alt Owner View Specific Payment
 own -> view : View Selected Payment
 view -> ctrl : Request Payment Details
 ctrl -> db : Get Payment Details
 ctrl <-- db : Return Payment Details
 view <-- ctrl : Return Payment Details
-    alt Owner Click Approve Payment
     own->view : Approve Payment
     view->ctrl : Request Approve Payment
         alt Owner Approved
@@ -28,6 +20,5 @@ view <-- ctrl : Return Payment Details
         db-->ctrl: Show Success Message
         ctrl-->view: Show Success Message
         end
-    end
 
 @enduml

@@ -1,5 +1,6 @@
 @startuml
 
+' Rule of Diagram
 partition User {
     (*) --> "Checkout boarding house detail"
 }
@@ -20,9 +21,9 @@ partition Website {
     "Show added to wishlist popup" --> "Check boarding house capacity periodically"
     
     if "Boarding House has empty slot" then
-    --> [true] "Notify User"
+    --> [is_empty] "Notify User"
     else
-    --> [false] "Check boarding house capacity periodically"
+    --> [is_full] "Check boarding house capacity periodically"
 
     "Notify User" --> (*)
 }

@@ -1,0 +1,14 @@
+@startuml
+title Boarding House (Admin)
+partition User {
+(*) --> "Select Delete Boarding House"
+    --> "Check Boarding House Deatils"
+    --> "User Click Submit (Delete)"
+}
+
+partition Website {
+    "User Click Submit (Delete)" --> "System Delete Selected Boarding House"
+    --> "Show Success Deleting Boarding House Message"
+    --> (*)
+}
+@enduml
