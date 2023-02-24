@@ -1,0 +1,32 @@
+@startuml
+
+|User|
+start
+:Open Payment List Page;
+
+|Website|
+:Show Payment List Page;
+
+|User|
+:Select One Payment From the List;
+
+|Website|
+:Show Payment Details;
+
+|User|
+:Select Payment Method;
+
+|Website|
+:Show Upload Payment Receipt/Proof;
+
+|User|
+:Upload Payment Receipt/Proof;
+
+|Website|
+:Process Payment Receipt/Proof;
+:Insert Payment Receipt/Proof to DB;
+:Notify Owner/Manager Regarding Payment;
+:Show Payment List Page;
+stop
+
+@enduml
