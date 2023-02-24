@@ -1,28 +1,24 @@
 @startuml
+|User|
+start
+:Open Login Page;
 
-partition User {
-    (*) --> "Open Login Page"
-}
+|Website|
+:Show Login Page;
 
-partition Website {
-    "Open Login Page" --> "Show Login Page"    
-}
+|User|
+:Insert Credentials;
 
-partition User {
-    "Show Login Page" --> "Insert Credentials"
-}
+|Website|
+:Check Credentials;
 
-partition Website {
-    "Insert Credentials" --> "Check Credentials"
-    
-    If "Do Credentials Match the Database?" then 
-    --> [true] "Log user into the website" 
-    else 
-    --> [false] "Show Login Page"
-    
-    "Log user into the website" --> "Show Home Page"
-    
-    "Show Home Page" --> (*)
-}
+if (Do Credentials Match the Database?) then (yes) 
+         :Log user into the website;
+         :Show Home Page;
+         
+else (no) 
+         :Show Login Page; 
+endif
 
+stop
 @enduml

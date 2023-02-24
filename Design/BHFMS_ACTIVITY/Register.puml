@@ -1,35 +1,27 @@
 @startuml
+|User|
+start
+:Open Registration Page;
 
-partition User {
-    (*) --> "Open Registration Page"
-}
+|Website|
+repeat :Show Registration Page;
 
-partition Website {
-    "Open Registration Page" --> "Show Registration Page"
-}
+|User|
+:Insert Credentials;
 
-partition User {
-    "Show Registration Page" --> "Insert Credentials"
-}
+|Website|
+:Check Form Input;
+repeat while (Form Input is Acceptable?) is (no)
+    ->yes;
+:Soft Register Users;
+:Send Email Confirmation;
+:Show Email Confirmation Page;
 
-partition Website {
-    "Insert Credentials" --> "Check Form Input"
-    "Check Form Input" --> if "Form Input is Acceptable" then 
-    --> [true] "Soft Register Users"
-    else
-    --> [false] "Show Registration Page"
+|User|
+:Confirm by Email;
 
-    "Soft Register Users" --> "Send Email Confirmation"
-    "Send Email Confirmation" --> "Show Email Confirmation Page"
-}
-
-partition User {
-    "Show Email Confirmation Page" --> "Confirm by Email"
-}
-
-partition Website {
-    "Confirm by Email" --> "Hard Register User"
-    "Hard Register User" --> "Show Login Page"
-    "Show Login Page" --> (*)
-}
+|Website|
+:Hard Register User;
+:Show Login Page;
+stop
 @enduml
