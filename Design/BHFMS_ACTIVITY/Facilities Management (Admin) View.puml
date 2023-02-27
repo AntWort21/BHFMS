@@ -1,11 +1,13 @@
 @startuml
-title Facilities Management (Admin) View
-partition User {
-(*)  --> "User Click See All Facilities"
-}
+title Facilities Management View (Admin) 
+|User|
+start 
+:"User Click See All Facilities";
 
-partition Website {
-"User Click See All Facilities" --> "Show All Facilities"
---> (*)
-}
+
+|Website|
+:"System Retrieves All Facilities Data";
+:"Show All Facilities";
+stop
+
 @enduml

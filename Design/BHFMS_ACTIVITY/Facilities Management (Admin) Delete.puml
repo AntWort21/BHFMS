@@ -1,14 +1,18 @@
 @startuml
-title Facilities Management (Admin) Delete
-partition User {
-(*) --> "Select Delete Facility"
-    --> "Check Facility Deatils"
-    --> "User Click Submit (Delete)"
-}
+title Facility Delete (Admin)
+|User|
+start 
+    :"Select Delete Facility";
+|Website|
+    :"Show Facility Details";
 
-partition Website {
-    "User Click Submit (Delete)" --> "System Delete Selected Facility"
-    --> "Show Success Deleting Facility Message"
-    --> (*)
-}
+|User|
+    : "Check Facility Details";
+    : "User Click Submit (Delete)";
+
+
+|Website|
+    : "System Delete Selected Facility";
+    : "Show Success Deleting Facility Message";
+    stop
 @enduml

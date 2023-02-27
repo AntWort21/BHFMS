@@ -1,12 +1,13 @@
 @startuml
-title View All Payment (Owner)
-partition Owner {
-    (*)  --> "Select See All Payments"
-}
+title Payments View (Admin)
+|User|
+start 
+:"User Click See All Payments";
 
-partition Website {
-    --> "Show All Payments Page"
-    -->(*)
-}
+
+|Website|
+:"System Retrieves All Payments Data";
+:"Show All Payments";
+stop
 
 @enduml
