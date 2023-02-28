@@ -14,7 +14,7 @@ start
         : "System Add Selected Facility";
         : "Show Success Add Facility Message";
         stop
-        else (Not Valid)
+    else (Not Valid)
         : "Show Failed Add Facility Message";
         stop
 @enduml

@@ -1,22 +1,22 @@
 @startuml
 title Boarding House (Manager)
-partition Owner {
-    (*)  --> "Request Adding New Boarding House"
-    --> "Insert Boarding House Detail"
-    --> "Request Approval Boarding House"
-}
+|Owner|
+start
 
-partition Admin {
-    "Request Approval Boarding House" --> "Decide On Approval"
-    If "Request Approved" then
-    --> [Yes] "Update Request Status"
-    else
-    --> [No] "Admin Write Reason For Declined"
-    --> (*)
-}
+    :Request Adding New Boarding House;
+    :Insert Boarding House Detail;
+    :Request Approval Boarding House;
+|Admin|
+    :Request Approval Boarding House;
 
-partition Website {
-    "Update Request Status" --> "Add Boarding House To List Of Boarding House"
-    --> (*)
-}
+    If (Request Approved) then (Yes)
+        :Update Request Status;
+    else (No)
+        :Admin Write Reason For Declined;
+    stop
+    endif
+
+|Website|
+    :Add Boarding House To List Of Boarding House;
+stop
 @enduml

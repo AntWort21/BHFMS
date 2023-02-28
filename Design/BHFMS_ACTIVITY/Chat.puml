@@ -1,19 +1,15 @@
 @startuml
 title Chat
-partition User {
-    (*)  --> "See All Chat History"
-    --> "Click Specific Chat"
-    --> "User Send New Message"
-    If "User Wants To See Other Chatting" then
-    --> [Yes] "User Press Back Button"
-    --> "See All Chat History"
-    else
-    -->[No](*)
-    Endif
-}
-partition Website {
-    ' Message Save Asynchronous
-    "User Send New Message" --> "Insert Message To DB" 
+|User|
+start
+    :See All Chat History;
+    repeat
+        :Click Specific Chat;
+        :User Send New Message;
+        backward :Press Back Button;
+    repeat while (User Wants To See Other Chatting) is (Yes)
     
-}
+|Website|
+    :Insert Message To DB;
+stop
 @enduml

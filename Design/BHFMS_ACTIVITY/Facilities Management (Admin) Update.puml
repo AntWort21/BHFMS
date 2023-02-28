@@ -14,7 +14,8 @@ start
         : "System Update Selected Facility";
         : "Show Success Update Facility Message";
         stop
-        else (Not Valid)
+    else (Not Valid)
         : "Show Failed Update Facility Message";
         stop
+    endif
 @enduml

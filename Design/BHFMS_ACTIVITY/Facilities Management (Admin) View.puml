@@ -2,12 +2,12 @@
 title Facilities Management View (Admin) 
 |User|
 start 
-:"User Click See All Facilities";
+    :"User Click See All Facilities";
 
 
 |Website|
-:"System Retrieves All Facilities Data";
-:"Show All Facilities";
+    :"System Retrieves All Facilities Data";
+    :"Show All Facilities";
 stop
 
 @enduml
