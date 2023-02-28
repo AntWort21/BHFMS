@@ -1,8 +1,7 @@
 @startuml
 title Boarding House (Manager)
 |Manager|
-    :See All Boarding Houses;
-    :Select Boarding House;
+    :See List Tenant Request;
     :Check Tenant Request;
     
     If (Manager Approve) then (Yes)

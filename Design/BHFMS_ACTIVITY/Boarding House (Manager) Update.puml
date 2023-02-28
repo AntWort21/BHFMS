@@ -1,7 +1,6 @@
 @startuml
 title Boarding House (Manager)
 |Manager|
-    :See All Boarding Houses;
     :Select Boarding House;
     :Update Boarding House;
     :Manager Update Boarding House;
