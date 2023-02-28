@@ -1,19 +1,19 @@
 @startuml
 |User|
 start
-:Open Review Page;
+    :Open Review Page;
 
 |Website|
-:Show Review Page;
+    :Show Review Page;
 
 |User|
-:Insert Review;
-:Give Rating;
-:Submit;
+    :Insert Review;
+    :Give Rating;
+    :Submit;
 
 |Website|
-:Insert To DB;
-:Show Home Page;
+    :Insert To DB;
+    :Show Home Page;
 
 stop
 @enduml

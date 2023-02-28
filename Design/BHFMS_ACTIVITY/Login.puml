@@ -1,24 +1,24 @@
 @startuml
 |User|
 start
-:Open Login Page;
+    :Open Login Page;
 
 |Website|
-:Show Login Page;
+    :Show Login Page;
 
 |User|
-:Insert Credentials;
+    :Insert Credentials;
 
 |Website|
-:Check Credentials;
+    :Check Credentials;
 
-if (Do Credentials Match the Database?) then (yes) 
-         :Log user into the website;
-         :Show Home Page;
-         
-else (no) 
-         :Show Login Page; 
-endif
+    if (Do Credentials Match the Database?) then (yes) 
+            :Log user into the website;
+            :Show Home Page;
+            
+    else (no) 
+            :Show Login Page; 
+    endif
 
 stop
 @enduml
