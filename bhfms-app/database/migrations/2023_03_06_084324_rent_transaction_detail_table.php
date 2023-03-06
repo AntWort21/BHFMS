@@ -33,6 +33,8 @@ class RentTransactionDetailTable extends Migration
             $table->boolean('payment_status');
             $table->string('declined_reason');
 
+            $table->string('receipt_image');
+
             $table->timestamps();
         });
     }
