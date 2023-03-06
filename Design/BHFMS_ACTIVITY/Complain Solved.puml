@@ -1,0 +1,11 @@
+@startuml
+|Owner|
+start
+    :See All Complain;
+    :Update Complain Status;
+    If (Complaint Has Been Resolved) then (Yes)
+        :Mark As Resolved;
+        stop
+    else (No)
+        stop
+@enduml
