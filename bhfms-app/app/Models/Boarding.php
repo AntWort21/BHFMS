@@ -34,4 +34,10 @@ class Boarding extends Model
     public function complains(){
         return $this->hasMany(Complain::class);
     }
+    use HasFactory;
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
 }

@@ -136,12 +136,6 @@ entity "complains" as cmpln {
   *updated_at : Date
 }
 
-entity "complain_types" as cmplnt {
-  *id : Integer <<PK>>
-  --
-  *name : Varchar
-}
-
 ' Composite key
 entity "wishlists" as fr {
   *id: Integer <<PK>>
