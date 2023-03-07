@@ -52,16 +52,15 @@ entity "Boarding_House" as bh {
   *updated_at : Date
 }
 
-entity "Facility_Detail" as fd {
+entity "facility_details" as fd {
   *Facility_Detail_Id: Integer <<FK>>
   --
   *Name : Varchar
-  *Description : Varchar
   *created_at : Date
   *updated_at : Date
 }
 
-entity "Facility" as f {
+entity "facilities" as f {
   *Facility_id : Integer <<PK FK>>
   *Boarding_id : Integer <<PK FK>>
   --
