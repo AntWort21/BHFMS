@@ -1,27 +1,27 @@
 @startuml
 |User|
 start
-:Open Registration Page;
+    :Open Registration Page;
 
 |Website|
-repeat :Show Registration Page;
+    repeat :Show Registration Page;
 
 |User|
-:Insert Credentials;
+    :Insert Credentials;
 
 |Website|
-:Check Form Input;
-repeat while (Form Input is Acceptable?) is (no)
-    ->yes;
-:Soft Register Users;
-:Send Email Confirmation;
-:Show Email Confirmation Page;
+    :Check Form Input;
+    repeat while (Form Input is Acceptable?) is (no)
+        ->yes;
+    :Soft Register Users;
+    :Send Email Confirmation;
+    :Show Email Confirmation Page;
 
 |User|
-:Confirm by Email;
+    :Confirm by Email;
 
 |Website|
-:Hard Register User;
-:Show Login Page;
+    :Hard Register User;
+    :Show Login Page;
 stop
 @enduml

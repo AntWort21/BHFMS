@@ -1,25 +1,17 @@
 @startuml
-title Complain
-partition User {
-    (*)  --> "See All Complain History"
-    If "User Want To Complain" then
-    --> [Create New Complain] "User Clicks Create New Complain"
-    --> "User Input Complain Type and Description"
-    else
-    --> [View Current Complain] "User Click Specific Complain"
-    --> "Click Specific Chat"
-    --> "User Can See The Complain Status"
-    -->(*)
-    Endif
-}
-partition Owner {
-    "User Input Complain Type and Description" --> "See All Complain"
-    -->"Update Complain Status"
-    If "complaint has been resolved" then
-    --> [Yes]"Mark As Resolved"
-    -->(*)
-    else
-    --> [No] (*)
-}
+|User|
+start
+    :See All Complain History;
 
+    If (User Want To Complain) then (Create New Complain)
+        :User Clicks Create New Complain;
+        :User Input Complain Type and Description;
+
+    else (View Current Complain)
+        :User Click Specific Complain;
+        :Click Specific Chat;
+        :User Can See The Complain Status;
+        
+    endif
+stop
 @enduml

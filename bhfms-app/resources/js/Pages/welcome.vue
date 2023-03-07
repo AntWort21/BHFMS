@@ -1,5 +1,10 @@
 <script setup>
-defineProps();
+import Header from "../Shared/Header.vue";
+import Footer from "../Shared/Footer.vue";
 </script>
 
-<template>hello, welcome to inertia</template>
+<template>
+    <Header></Header>
+    hello, welcome to inertia
+    <Footer> </Footer>
+</template>

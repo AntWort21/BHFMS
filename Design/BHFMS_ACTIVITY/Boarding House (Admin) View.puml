@@ -2,12 +2,12 @@
 title Boarding House (Admin)
 |User|
 start 
-:"User Click See All Boarding Houses";
+    :"User Click See All Boarding Houses";
 
 
 |Website|
-:"System Retrieves All Boarding Houses Data";
-:"Show All Boarding Houses";
-stop
+    :"System Retrieves All Boarding Houses Data";
+    :"Show All Boarding Houses";
+    stop
 
 @enduml
