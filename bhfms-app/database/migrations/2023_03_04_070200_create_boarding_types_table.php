@@ -16,7 +16,7 @@ class CreateBoardingTypesTable extends Migration
         Schema::create('boarding_house_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            // $table->string('description');
             $table->timestamps();
 
         });
