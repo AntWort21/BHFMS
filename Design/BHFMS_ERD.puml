@@ -40,7 +40,8 @@ entity "Boarding_House" as bh {
   --
   *Name : Varchar
   *Address : Varchar
-  *LocationMaps : Varchar
+  *latitude : Varchar
+  *longitude : Varchar
   *Type_id : Integer <<FK>>
   *Boarding_House_Image_id : Integer<<FK>>
   *Rooms : Integer
