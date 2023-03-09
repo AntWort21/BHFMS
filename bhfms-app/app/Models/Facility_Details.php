@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Boarding extends Model
+class Facility_Details extends Model
 {
     public function boardingType(){
         return $this->belongsTo(RentTransactionHeader::class, 'boarding_types_id');
@@ -35,9 +35,4 @@ class Boarding extends Model
         return $this->hasMany(Complain::class);
     }
     use HasFactory;
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
 }
