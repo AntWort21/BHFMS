@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +17,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return inertia('welcome');
+});
+
+Route::get('/login', function() {
+    return inertia('Login');
+});
+
+Route::get('/register', function() {
+    return inertia('Register');
+});
+
+Route::post('/users', function() {
+    dd(Request::all());
+    // User::create($request->validate([
+    //     'first_name' => ['required', 'max:50'],
+    //     'last'
+    // ]));
 });
