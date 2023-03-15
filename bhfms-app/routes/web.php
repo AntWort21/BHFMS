@@ -1,7 +1,6 @@
 <?php
 
-use App\Models\User;
-use Illuminate\Support\Facades\Request;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,10 +26,6 @@ Route::get('/register', function() {
     return inertia('Register');
 });
 
-Route::post('/users', function() {
-    dd(Request::all());
-    // User::create($request->validate([
-    //     'first_name' => ['required', 'max:50'],
-    //     'last'
-    // ]));
-});
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/logout', [AuthController::class, 'logout']);

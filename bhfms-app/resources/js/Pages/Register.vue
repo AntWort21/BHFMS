@@ -1,7 +1,10 @@
 <script setup>
 import Header from "../Shared/Header.vue";
 import Footer from "../Shared/Footer.vue";
-import { useForm } from "@inertiajs/inertia-vue3";
+import { Link, useForm } from "@inertiajs/inertia-vue3";
+import FormErrorMessage from "../Shared/FormErrorMessage.vue";
+import FormTextBoxInput from "../Shared/FormTextBoxInput.vue";
+import FormSelectInput from "../Shared/FormSelectInput.vue";
 
 let form = useForm({
     firstName: "",
@@ -14,8 +17,10 @@ let form = useForm({
 });
 
 let submit = () => {
-    form.post("/users");
+    form.post("/register");
 };
+
+let genderList = ["Male", "Female"];
 </script>
 
 <template>
@@ -30,98 +35,71 @@ let submit = () => {
                 <div class="mt-4">
                     <div class="flex flex-column">
                         <div class="mx-2">
-                            <label class="block" for="email">First Name</label>
-                            <input
+                            <FormTextBoxInput
                                 v-model="form.firstName"
-                                type="text"
-                                placeholder="First Name"
-                                class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                                :input-type="'text'"
+                                :label-name="'First Name'"
                             />
-                            <!-- <div
-                                v-if="form.errors.firstName"
-                                v-text="form.errors.firstName"
-                                class="text-red-500 text-xs mt-1"
-                            /> -->
+                            <FormErrorMessage
+                                :error-message="form.errors.firstName"
+                            />
                         </div>
                         <div class="mx-2">
-                            <label class="block">Last Name</label>
-                            <input
+                            <FormTextBoxInput
                                 v-model="form.lastName"
-                                type="text"
-                                placeholder="Last Name"
-                                class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                                :input-type="'text'"
+                                :label-name="'Last Name'"
+                            />
+                            <FormErrorMessage
+                                :error-message="form.errors.lastName"
                             />
                         </div>
-                        <!-- <div
-                            v-if="form.errors.lastName"
-                            v-text="form.errors.lastName"
-                            class="text-red-500 text-xs mt-1"
-                        /> -->
                     </div>
                     <div class="mt-4 mx-2">
-                        <label class="block">Gender</label>
-                        <input
+                        <FormSelectInput
                             v-model="form.gender"
-                            type="text"
-                            placeholder="Gender"
-                            class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                            :label-name="'Gender'"
+                            :option-list="genderList"
                         />
-                        <!-- <div
-                            v-if="form.errors.gender"
-                            v-text="form.errors.gender"
-                            class="text-red-500 text-xs mt-1"
-                        /> -->
+                        <FormErrorMessage :error-message="form.errors.gender" />
                     </div>
                     <div class="mt-4 mx-2">
-                        <label class="block">Date of Birth</label>
-                        <input
+                        <FormTextBoxInput
                             v-model="form.dateOfBirth"
-                            type="date"
-                            placeholder="Date of Birth"
-                            class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                            :input-type="'date'"
+                            :label-name="'Date of Birth'"
                         />
-                        <!-- <div
-                            v-if="form.errors.dateOfBirth"
-                            v-text="form.errors.dateOfBirth"
-                            class="text-red-500 text-xs mt-1"
-                        /> -->
+                        <FormErrorMessage
+                            :error-message="form.errors.dateOfBirth"
+                        />
                     </div>
                     <div class="mt-4 mx-2">
-                        <label class="block">Email</label>
-                        <input
+                        <FormTextBoxInput
                             v-model="form.email"
-                            type="email"
-                            placeholder="Email"
-                            class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                            :input-type="'email'"
+                            :label-name="'Email'"
                         />
+                        <FormErrorMessage :error-message="form.errors.email" />
                     </div>
                     <div class="mt-4 mx-2">
-                        <label class="block">Password</label>
-                        <input
+                        <FormTextBoxInput
                             v-model="form.password"
-                            type="password"
-                            placeholder="Password"
-                            class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                            :input-type="'password'"
+                            :label-name="'Password'"
                         />
-                        <!-- <div
-                            v-if="form.errors.password"
-                            v-text="form.errors.password"
-                            class="text-red-500 text-xs mt-1"
-                        /> -->
+                        <FormErrorMessage
+                            :error-message="form.errors.password"
+                        />
                     </div>
                     <div class="mt-4 mx-2">
-                        <label class="block">Confirm Password</label>
-                        <input
+                        <FormTextBoxInput
                             v-model="form.confirmPassword"
-                            type="password"
-                            placeholder="Confirm Password"
-                            class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                            :input-type="'password'"
+                            :label-name="'Confirm Password'"
                         />
-                        <!-- <div
-                            v-if="form.errors.confirmPassword"
-                            v-text="form.errors.confirmPassword"
-                            class="text-red-500 text-xs mt-1"
-                        /> -->
+                        <FormErrorMessage
+                            :error-message="form.errors.confirmPassword"
+                        />
                     </div>
                     <div
                         class="flex items-baseline justify-betweens space-x-6 mt-4"
@@ -131,11 +109,12 @@ let submit = () => {
                         >
                             Register
                         </button>
-                        <a
-                            href="#"
+                        <Link
+                            href="/login"
                             class="text-xs text-blue-600 hover:underline"
-                            >Already Have an Account? Login</a
                         >
+                            Already Have an Account? Login
+                        </Link>
                     </div>
                 </div>
             </form>
