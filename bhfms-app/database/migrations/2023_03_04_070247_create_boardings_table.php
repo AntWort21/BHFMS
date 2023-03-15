@@ -17,7 +17,8 @@ class CreateBoardingsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('address');
-            $table->string('map_location');
+            $table->string('latitude');
+            $table->string('longitude');
             $table->unsignedBigInteger('type_id');
             $table->foreign('type_id')->references('id')->on('boarding_house_types');
             $table->integer('rooms');
