@@ -9,28 +9,28 @@ defineProps({
 <template>
     <section class="flex justify-between text-center align-middle mx-10">
         <div class="font-bold self-center">
-            <p>
+            <h3>
                 Payment List
-            </p>
+            </h3>
         </div>
         <div class="flex flex-row">
             <button class="flex flex-row w-6 h-6 mr-5 text-base bg-blue-400 items-center font-bold justify-center text-white rounded-xl font-mono">
                 +
             </button>
-            <p class="self-center">Add New Payment</p>
+            <h3 class="self-center">Add New Payment</h3>
         </div>
     </section>
     <section class="mx-2">
         <div class="flex justify-around text-center">
             <div class="w-1/4">
-                <p>Status</p>
+                <h4>Status</h4>
             </div>
             <div class="w-1/4">
-                <p>Date</p>
+                <h4>Date</h4>
             </div>
             <div class="w-1/4">
-                <p v-if="type=='Tenant'">Tenant Name</p>
-                <p v-else-if="type=='Manager'">Boarding House</p>
+                <h4 v-if="type=='Tenant'">Tenant Name</h4>
+                <h4 v-else-if="type=='Manager'">Boarding House</h4>
             </div>
             <div class="w-1/4">
             </div>
