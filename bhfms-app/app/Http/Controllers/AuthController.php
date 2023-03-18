@@ -13,7 +13,7 @@ class AuthController extends Controller
         $validation = Request::validate([
             'firstName' => ['required', 'max:50'],
             'lastName' => ['required', 'max:50'],
-            'gender' => ['required'],
+            'gender' => ['required', 'in:Male,Female'],
             'dateOfBirth' => ['required'],
             'email' => ['required', 'email'],
             'password' => ['required', 'alpha_num', 'min:6'],
