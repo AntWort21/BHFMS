@@ -5,7 +5,6 @@ defineProps({
   type: String,
   listPayments: Array
 })
-let listPayments = [[1,'10/20/2022','Tenant']]
 </script>
 
 <template>
@@ -46,10 +45,10 @@ let listPayments = [[1,'10/20/2022','Tenant']]
 // 2 = accept
 // 3 = canceled
  -->
-        <div v-for="payment of listPayments" class="flex justify-around text-center py-1">
-            <PaymentTab
+        <div v-for="payment in listPayments" class="flex justify-around text-center py-1">
+            <PaymentHistoryTab
             payment="payment">
-            </PaymentTab>
+            </PaymentHistoryTab>
         </div>
     </section>
 </template>
