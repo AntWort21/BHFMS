@@ -1,4 +1,11 @@
 {
+<<<<<<< HEAD
     "/js/app.js": "/js/app.js?id=fece93d51c70c883874d0a628aec5f29",
     "/css/app.css": "/css/app.css?id=529f09d54031d1dcd7ee6f2576c94d2f"
+=======
+    "/js/app.js": "/js/app.js?id=c5d78781621477a0d6c83cba10882c5f",
+    "/css/app.css": "/css/app.css?id=68b329da9893e34099c7d8ad5cb9c940"
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css"
+>>>>>>> parent of c93580b (Add Models)
 }

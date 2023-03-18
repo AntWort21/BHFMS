@@ -2,12 +2,7 @@
 
 namespace App\Http\Controllers;
 
-// use App\Models\Boarding;
-
-use App\Models\boarding_house_types;
-use App\Models\boardings;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 
 class BoardingController extends Controller
 {
@@ -16,12 +11,9 @@ class BoardingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
     public function index()
     {
-        return Inertia::render('Boarding/ListBoarding', [
-            'boardings' => boardings::get(),
-        ]);
+        //
     }
 
     /**
@@ -31,9 +23,7 @@ class BoardingController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Boarding/CreateBoarding',[
-            'types' => boarding_house_types::get(),
-        ]);
+        //
     }
 
     /**

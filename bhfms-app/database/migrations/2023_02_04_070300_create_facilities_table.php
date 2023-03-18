@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFacilityDetailsTable extends Migration
+class CreateFacilitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,6 +16,7 @@ class CreateFacilityDetailsTable extends Migration
         Schema::create('facility_details', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('description');
             $table->timestamps();
         });
     }
