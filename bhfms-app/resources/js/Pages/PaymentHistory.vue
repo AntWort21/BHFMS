@@ -1,9 +1,11 @@
 <script setup>
 import { Link } from '@inertiajs/inertia-vue3';
+import PaymentHistoryTab from '../Shared/PaymentHistoryTab.vue';
 defineProps({
   type: String,
   listPayments: Array
 })
+let listPayments = [[1,'10/20/2022','Tenant']]
 </script>
 
 <template>
@@ -31,6 +33,7 @@ defineProps({
             <div class="w-1/4">
                 <h4 v-if="type=='Tenant'">Tenant Name</h4>
                 <h4 v-else-if="type=='Manager'">Boarding House</h4>
+                <h4 v-else>Boarding House</h4>
             </div>
             <div class="w-1/4">
             </div>
@@ -44,35 +47,9 @@ defineProps({
 // 3 = canceled
  -->
         <div v-for="payment of listPayments" class="flex justify-around text-center py-1">
-            <div class="w-1/4 flex justify-center">
-                <p v-if="payment[0]==0" class="py-2 px-8 bg-red-600 border-2 w-min text-white">
-                    Late
-                </p>
-                <p v-else-if="payment[0]==1" class="py-2 px-5 bg-gray-600 border-2 w-min text-white">
-                    Pending
-                </p>
-                <p v-else-if="payment[0]==2" class="py-2 px-6 bg-green-600 border-2 w-min text-white">
-                    Accept
-                </p>
-                <p  v-else-if="payment[0]==3" class="py-2 px-4 bg-yellow-400 border-2 w-min text-white">
-                    Canceled
-                </p>
-            </div>
-            <div class="w-1/4 m-auto">
-                <p>
-                    {{ payment[1] }}
-                </p>
-            </div>
-            <div class="w-1/4 m-auto">
-                <p>
-                    {{ payment[2] }}
-                </p>
-            </div>
-            <div class="w-1/4">
-                <button class="bg-blue-600 text-white p-2">
-                    Details
-                </button>
-            </div>
+            <PaymentTab
+            payment="payment">
+            </PaymentTab>
         </div>
     </section>
 </template>
