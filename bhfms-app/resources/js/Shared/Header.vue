@@ -42,7 +42,10 @@ let hover = ref(false);
                 @mouseleave="hover = false"
                 class="h-10"
             >
-                <div class="px-6 py-2 bg-white rounded-2xl text-black">
+                <div v-if="hover == false" class="px-6 py-2 bg-white rounded-2xl text-black">
+                    User
+                </div>
+                <div v-if="hover == true" class="border-solid  border-b-4 border-indigo-900 px-6 py-2 bg-white rounded-2xl text-black">
                     User
                 </div>
                 <div
