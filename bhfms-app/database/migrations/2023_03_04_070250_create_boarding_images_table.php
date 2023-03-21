@@ -15,9 +15,11 @@ class CreateBoardingImagesTable extends Migration
     {
         Schema::create('boarding_images', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('boarding_id');
+            $table->foreign('boarding_id')->references('id')
+            ->on('boardings')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('image');
             $table->timestamps();
-
         });
     }
 

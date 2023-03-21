@@ -15,9 +15,6 @@ class CreateReviewsTable extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->integer('rating');
-            $table->string('description');
-
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')
             ->on('users')->cascadeOnUpdate()->cascadeOnDelete();
@@ -25,6 +22,10 @@ class CreateReviewsTable extends Migration
             $table->unsignedBigInteger('boarding_id');
             $table->foreign('boarding_id')->references('id')
             ->on('boardings')->cascadeOnUpdate()->cascadeOnDelete();
+            
+            $table->integer('rating');
+            $table->string('description');
+
             
             $table->timestamps();
         });
