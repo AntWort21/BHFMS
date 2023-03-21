@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class OwnerBoardingTable extends Migration
+class CreateFacilitiesBoardingTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class OwnerBoardingTable extends Migration
      */
     public function up()
     {
-        Schema::create('owner_boardings', function (Blueprint $table) {
+        Schema::create('facilities', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')
-            ->on('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->unsignedBigInteger('facility_id');
+            $table->foreign('facility_id')->references('id')
+            ->on('facility_details')->cascadeOnUpdate()->cascadeOnDelete();
 
             $table->unsignedBigInteger('boarding_id');
             $table->foreign('boarding_id')->references('id')
@@ -35,6 +35,6 @@ class OwnerBoardingTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('owner_boardings');
+        Schema::dropIfExists('facilities');
     }
 }

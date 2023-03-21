@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class WishlistsTable extends Migration
+class CreateComplainsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class WishlistsTable extends Migration
      */
     public function up()
     {
-        Schema::create('wishlists', function (Blueprint $table) {
+        Schema::create('complains', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger('user_id');
@@ -23,6 +23,12 @@ class WishlistsTable extends Migration
             $table->unsignedBigInteger('boarding_id');
             $table->foreign('boarding_id')->references('id')
             ->on('boardings')->cascadeOnUpdate()->cascadeOnDelete();
+
+            $table->unsignedBigInteger('complain_type_id');
+            $table->foreign('complain_type_id')->references('id')
+            ->on('complain_types')->cascadeOnUpdate()->cascadeOnDelete();
+
+            $table->string('description');
             
             $table->timestamps();
         });
@@ -35,6 +41,6 @@ class WishlistsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wishlists');
+        Schema::dropIfExists('complains');
     }
 }

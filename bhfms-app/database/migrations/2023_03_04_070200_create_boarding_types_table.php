@@ -13,7 +13,7 @@ class CreateBoardingTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('boarding_house_types', function (Blueprint $table) {
+        Schema::create('boarding_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             // $table->string('description');
@@ -29,6 +29,6 @@ class CreateBoardingTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('boarding_house_types');
+        Schema::dropIfExists('boarding_types');
     }
 }

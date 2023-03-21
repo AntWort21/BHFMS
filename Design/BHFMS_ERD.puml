@@ -5,7 +5,7 @@ hide circle
 ' avoid problems with angled crows feet
 skinparam linetype ortho
 
-entity "User" as usr {
+entity "users" as usr {
   *User_id: Integer<<PK>>
   --
   *Name : Varchar
@@ -26,7 +26,7 @@ entity "User_Role" as usrl {
   *updated_at : Date
 }
 
-entity "Boarding_House_Type" as bht {
+entity "Boarding_Type" as bht {
   *Type_id : Integer <<PK>>
   --
   *Name : Varchar
@@ -70,7 +70,7 @@ entity "Facility" as f {
   *updated_at : Date
 }
 
-entity "Boarding_House_Img" as bhi {
+entity "boarding_images" as bhi {
   *Boarding_House_Img_id : Integer <<PK>>
   --
   *Image : image

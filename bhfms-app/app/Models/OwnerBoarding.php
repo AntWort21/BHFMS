@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class complain_types extends Model
+class OwnerBoarding extends Model
 {
     use HasFactory;
 }

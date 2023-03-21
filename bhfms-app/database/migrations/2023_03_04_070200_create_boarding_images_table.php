@@ -13,7 +13,7 @@ class CreateBoardingImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('boarding_house_images', function (Blueprint $table) {
+        Schema::create('boarding_images', function (Blueprint $table) {
             $table->id();
             $table->string('image');
             $table->timestamps();
@@ -28,6 +28,6 @@ class CreateBoardingImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('boarding_house_images');
+        Schema::dropIfExists('boarding_images');
     }
 }

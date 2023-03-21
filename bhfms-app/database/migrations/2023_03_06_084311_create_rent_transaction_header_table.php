@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ReviewsTable extends Migration
+class CreateRentTransactionHeaderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,13 @@ class ReviewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reviews', function (Blueprint $table) {
+        Schema::create('rent_transaction_header', function (Blueprint $table) {
             $table->id();
-            $table->integer('rating');
-            $table->string('description');
-
             $table->unsignedBigInteger('user_id');
+            
             $table->foreign('user_id')->references('id')
             ->on('users')->cascadeOnUpdate()->cascadeOnDelete();
 
-            $table->unsignedBigInteger('boarding_id');
-            $table->foreign('boarding_id')->references('id')
-            ->on('boardings')->cascadeOnUpdate()->cascadeOnDelete();
-            
             $table->timestamps();
         });
     }
@@ -37,7 +31,6 @@ class ReviewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reviews');
+        Schema::dropIfExists('rent_transaction_header');
     }
 }
-
