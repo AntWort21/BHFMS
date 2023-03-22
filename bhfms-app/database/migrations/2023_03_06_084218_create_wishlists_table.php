@@ -24,6 +24,7 @@ class CreateWishlistsTable extends Migration
             $table->foreign('boarding_id')->references('id')
             ->on('boardings')->cascadeOnUpdate()->cascadeOnDelete();
             
+            $table->unique(['user_id', 'boarding_id']);
             $table->timestamps();
         });
     }

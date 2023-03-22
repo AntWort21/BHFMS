@@ -24,6 +24,7 @@ class CreateFacilitiesBoardingTable extends Migration
             $table->foreign('boarding_id')->references('id')
             ->on('boardings')->cascadeOnUpdate()->cascadeOnDelete();
             
+            $table->unique(['facility_id', 'boarding_id']);
             $table->timestamps();
         });
     }
