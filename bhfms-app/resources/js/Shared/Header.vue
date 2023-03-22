@@ -1,11 +1,23 @@
 <script setup>
-import { Link } from '@inertiajs/inertia-vue3';
+import { Link } from "@inertiajs/inertia-vue3";
+import { ref } from "vue";
+
+let hover = ref(false);
+let selectedProfile = ref(false);
+let selectedLogout = ref(false);
+
 </script>
 
 <template>
-    <section class="p-6 bg-indigo-900 flex items-center justify-between text-white">
+    <section
+        class="p-6 bg-indigo-900 flex items-center justify-between text-white"
+    >
         <div class="mx-3">
-            <img :src="'../storage/BHFMS_transparent.png'" alt="No Image" class="w-16 h-auto">
+            <img
+                :src="'../storage/BHFMS_transparent.png'"
+                alt="No Image"
+                class="w-16 h-auto"
+            />
         </div>
         <div class="space-x-9">
             <Link href="">Boarding House Management</Link>
@@ -23,9 +35,35 @@ import { Link } from '@inertiajs/inertia-vue3';
             <Link href="">My Payments</Link>
         </div>
         <div class="flex space-x-3">
-            <input type="text" class="bg-white rounded-lg text-black text-sm w-full p-2.5" placeholder="Search">
-            <div class="px-6 py-2 bg-white rounded-2xl text-black">
-                User
+            <input
+                type="text"
+                class="bg-white rounded-lg text-black text-sm w-full p-2.5"
+                placeholder="Search"
+            />
+            <div
+                @mouseover="hover = true"
+                @mouseleave="hover = false"
+                class="h-10"
+            >
+                <div v-if="hover == false" class="px-6 py-2 bg-white rounded-2xl text-black">
+                    User
+                </div>
+                <div v-if="hover == true" class="border-solid border-b-4 border-indigo-900 px-6 py-2 bg-white rounded-2xl text-black">
+                    User
+                </div>
+                <div
+                    class="rounded-lg bg-white text-black"
+                    v-if="hover == true"
+                >
+                    <ul>
+                        <li class="p-2 hover:bg-gray-200 hover:rounded-lg">
+                            <Link href="#">Profile</Link>
+                        </li>
+                        <li class="p-2 hover:bg-gray-200 hover:rounded-lg">
+                            <Link href="/logout">Logout</Link>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
