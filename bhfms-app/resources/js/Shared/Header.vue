@@ -57,7 +57,7 @@ let selectedLogout = ref(false);
                 >
                     <ul>
                         <li class="p-2 hover:bg-gray-200 hover:rounded-lg">
-                            <Link href="#">Profile</Link>
+                            <Link href="/profile">Profile</Link>
                         </li>
                         <li class="p-2 hover:bg-gray-200 hover:rounded-lg">
                             <Link href="/logout">Logout</Link>
