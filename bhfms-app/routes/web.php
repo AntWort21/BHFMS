@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BoardingController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,14 @@ Route::get('/', function () {
 });
 
 Route::resource('boarding', BoardingController::class);
+Route::get('/login', function() {
+    return inertia('Login');
+});
+
+Route::get('/register', function() {
+    return inertia('Register');
+});
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/logout', [AuthController::class, 'logout']);
