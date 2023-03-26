@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBoardingTypesTable extends Migration
+class CreateBoardingImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateBoardingTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('boarding_types', function (Blueprint $table) {
+        Schema::create('boarding_images', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->unsignedBigInteger('boarding_id');
+            $table->foreign('boarding_id')->references('id')
+            ->on('boardings')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->string('image');
             $table->timestamps();
-
         });
     }
 
@@ -28,6 +30,6 @@ class CreateBoardingTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('boarding_types');
+        Schema::dropIfExists('boarding_images');
     }
 }

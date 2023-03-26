@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBoardingTypesTable extends Migration
+class CreatePaymentTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateBoardingTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('boarding_types', function (Blueprint $table) {
+        Schema::create('payment_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->timestamps();
-
         });
     }
 
@@ -28,6 +27,6 @@ class CreateBoardingTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('boarding_types');
+        Schema::dropIfExists('payment_types');
     }
 }

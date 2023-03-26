@@ -5,182 +5,188 @@ hide circle
 ' avoid problems with angled crows feet
 skinparam linetype ortho
 
-entity "User" as usr {
-  *User_id: Integer<<PK>>
+entity "users" as usr {
+  *id: Integer<<PK>>
   --
-  *Name : Varchar
-  *Email : Varchar
-  *DOB : Date
-  *Phone : Varchar
-  *User_Role_id : Integer <<FK>>
+  *name : Varchar
+  *gender : Varchar
+  *email : Varchar
+  *email_verified_at : Varchar
+  *date_of_birth : Date
+  *phone : Varchar
+  *user_role_id : Integer <<FK>>
   *profile_picture : Varchar
+  *password : Varchar
   *created_at : Date
   *updated_at : Date
 }
 
-entity "User_Role" as usrl {
-  *User_Role_id: Integer<<PK>>
+entity "user_roles" as usrl {
+  *id: Integer<<PK>>
   --
-  *Role_Name : Varchar
+  *name : Varchar
   *created_at : Date
   *updated_at : Date
 }
 
-entity "Boarding_House_Type" as bht {
-  *Type_id : Integer <<PK>>
+entity "boarding_types" as bht {
+  *id : Integer <<PK>>
   --
-  *Name : Varchar
-  *Description : Varchar
+  *name : Varchar
   *created_at : Date
   *updated_at : Date
 }
 
-entity "Boarding_House" as bh {
-  *Boarding_House_id : Integer <<PK>>
+entity "boardings" as bh {
+  *id : Integer <<PK>>
   --
-  *Name : Varchar
-  *Address : Varchar
+  *name : Varchar
+  *address : Varchar
   *latitude : Varchar
   *longitude : Varchar
-  *Type_id : Integer <<FK>>
-  *Boarding_House_Image_id : Integer<<FK>>
-  *Rooms : Integer
-  *Shared_Bathroom : Boolean
-  *Price : Integer
-  *Description : Varchar
-  *Declined_Reason : Varchar
+  *type_id : Integer <<FK>>
+  *rooms : Integer
+  *shared_bathroom : Boolean
+  *price : Integer
+  *description : Varchar
+  *declined_reason : Varchar
   *created_at : Date
   *updated_at : Date
 }
 
-entity "Facility_Detail" as fd {
-  *Facility_Detail_Id: Integer <<FK>>
+entity "facility_details" as fd {
+  *id: Integer <<FK>>
   --
-  *Name : Varchar
-  *Description : Varchar
+  *name : Varchar
   *created_at : Date
   *updated_at : Date
 }
 
-entity "Facility" as f {
-  *Facility_id : Integer <<PK FK>>
-  *Boarding_id : Integer <<PK FK>>
+' Composite key
+entity "facilities" as f {
+  *id : Integer <<PK>>
+  *facility_id : Integer <<FK>>
+  *boarding_id : Integer <<FK>>
   --
   *created_at : Date
   *updated_at : Date
 }
 
-entity "Boarding_House_Img" as bhi {
-  *Boarding_House_Img_id : Integer <<PK>>
+entity "boarding_images" as bhi {
+  *id : Integer <<PK>>
+  *boarding_id : Integer <<FK>>
   --
-  *Image : image
+  *image : image
   *created_at : Date
   *updated_at : Date
 }
 
-entity "Rent_Transaction_Header" as rt {
-  *Rent_Transaction_id : Integer <<PK>>
+entity "rent_transaction_header" as rt {
+  *id : Integer <<PK>>
   --
-  *User_id Integer <<FK>>
+  *user_id : Integer <<FK>>
   *created_at : Date
   *updated_at : Date
   
 }
 
-entity "Rent_Transaction_Detail" as rtd {
-  *RentTransaction_Detail_id : Integer <<PK>>
+entity "rent_transaction_detail" as rtd {
+  *id : Integer <<PK>>
   --
-  *Rent_Transaction_Header_id : Integer <<FK>> 
-  *Boarding_House_id : Integer <<FK>>
-  *Payment_Type_id : Integer <<FK>>
-  *Start_Date : Date
-  *End_Date : Date
+  *transaction_header_id : Integer <<FK>> 
+  *boarding_id : Integer <<FK>>
+  *payment_type_id : Integer <<FK>>
+  *start_date : Date
+  *end_date : Date
   *payment_status : Boolean
-  *Declined_Reason : Varchar
+  *declined_reason : Varchar
   *created_at : Date
   *updated_at : Date
 }
+
 
 entity "owner_boardings" as lobh {
-  *list_owner_id : Integer <<PK>>
+  *id : Integer <<PK>>
   --
-  *User_id : Integer <<FK>>
-  *Boarding_House_id : Integer <<FK>>
+  *user_id : Integer <<FK>>
+  *boarding_id : Integer <<FK>>
   *created_at : Date
   *updated_at : Date
 }
 
-entity "Review" as rvw {
-  *Review_id : Integer <<PK>>
+entity "reviews" as rvw {
+  *id : Integer <<PK>>
   --
-  *User_id : Integer <<FK>>
-  *Boarding_house_id : Integer <<FK>>
-  *Rating : Integer
-  *Description : Varchar
+  *user_id : Integer <<FK>>
+  *boarding_id : Integer <<FK>>
+  *rating : Integer
+  *description : Varchar
   *created_at : Date
   *updated_at : Date
 }
 
 entity "complains" as cmpln {
-  *Complains_id : Integer <<PK>>
+  *id : Integer <<PK>>
   --
-  *User_id : Integer <<FK>>
-  *Boarding_House_id : Integer <<FK>>
-  *Complain_Type_id : Integer <<FK>>
-  *Description : Varchar
+  *user_id : Integer <<FK>>
+  *boarding_id : Integer <<FK>>
+  *complain_type_id : Integer <<FK>>
+  *description : Varchar
   *created_at : Date
   *updated_at : Date
 }
 
-entity "complain_Types" as cmplnt {
-  *Complain_Type_id : Integer <<PK>>
+entity "complain_types" as cmplnt {
+  *id : Integer <<PK>>
   --
-  *Description : Varchar
+  *name : Varchar
 }
 
-entity "wishlists" as fr { 
-  *Boarding_id: Integer<<PK FK>>
-  *User_id: Integer<<PK FK>>
+' Composite key
+entity "wishlists" as fr {
+  *id: Integer <<PK>>
+  *boarding_id: Integer<<FK>>
+  *user_id: Integer<<FK>>
   --
   *created_at : Date
   *updated_at : Date
 }
 
 entity "payment_types" as pymnt {
-  *Payment_id: Integer<<PK>>
+  *id: Integer<<PK>>
   --
   *name: Varchar
   *created_at : Date
   *updated_at : Date
 }
 
-entity "Chat" as cht {
-  *Chats_id: Integer<<PK>>
+entity "chats" as cht {
+  *id: Integer<<PK>>
   --
-  *User_FK: Integer<<FK>>
-  *Chatroom_id: Integer<<FK>>
-  *Message: Varchar
-  *Is_Deleted: Boolean
-  *IS_Edited: Boolean
+  *user_id: Integer<<FK>>
+  *chatroom_id: Integer<<FK>>
+  *message: Varchar
+  *is_deleted: Boolean
+  *is_edited: Boolean
   *created_at : Date
   *updated_at : Date
 }
 
-entity "Chatroom" as chtrm {
-  *Chatsroom_id: Integer<<PK>>
+entity "chatrooms" as chtrm {
+  *id: Integer<<PK>>
   --
   *created_at : Date
   *updated_at : Date
 }
 
-usr ||..o{ usrl
+usrl ||..o{usr
 bh ||..o{ bhi
 bh ||..o{ f
 fd ||..o{ f
 
 usr ||..o{ rt
 bh ||..o{ rtd
-rt ||..{rtd
+rt ||..||rtd
 pymnt ||..o{ rtd
 
 usr ||..o{ lobh
