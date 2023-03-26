@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class BoardingType extends Model
 {
     use HasFactory;
+    public function boardings(){
+        return $this->hasMany(Boarding::class);
+    }
 }

@@ -12,6 +12,30 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function rentTransactionHeaders(){
+        return $this->hasMany(RentTransactionHeader::class);
+    }
+
+    public function ownerBoardings(){
+        return $this->hasMany(OwnerBoarding::class);
+    }
+
+    public function complains(){
+        return $this->hasMany(Complain::class);
+    }
+
+    public function reviews(){
+        return $this->hasMany(Review::class);
+    }
+
+    public function wishlists(){
+        return $this->hasMany(Wishlistr::class);
+    }
+
+    public function userRole(){
+        return $this->belongsTo(UserRole::class,'user_roles_id');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

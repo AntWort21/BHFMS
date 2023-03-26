@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class ComplainType extends Model
 {
     use HasFactory;
+
+    public function complains(){
+        return $this->hasMany(Complain::class);
+    }
 }
