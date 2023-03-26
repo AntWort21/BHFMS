@@ -39,7 +39,6 @@ let selectedLogout = ref(false);
                 class="bg-white rounded-lg text-black text-sm w-full p-2.5"
                 placeholder="Search"
             />
-            <div class="px-6 py-2 bg-white rounded-2xl text-black">User</div>
             <div
                 @mouseover="hover = true"
                 @mouseleave="hover = false"
@@ -57,7 +56,7 @@ let selectedLogout = ref(false);
                 >
                     <ul>
                         <li class="p-2 hover:bg-gray-200 hover:rounded-lg">
-                            <Link href="#">Profile</Link>
+                            <Link href="/profile">Profile</Link>
                         </li>
                         <li class="p-2 hover:bg-gray-200 hover:rounded-lg">
                             <Link href="/logout">Logout</Link>

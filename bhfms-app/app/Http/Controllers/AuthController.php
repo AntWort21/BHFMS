@@ -3,14 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 
 class AuthController extends Controller
 {
-    public function register()
+    public function getRegisterPage()
     {
-        $validation = Request::validate([
+        return inertia('Register');
+    }
+
+    public function getLoginPage()
+    {
+        return inertia('Login');
+    }
+
+    public function register(Request $request)
+    {
+        $validation = $request->validate([
             'firstName' => ['required', 'max:50'],
             'lastName' => ['required', 'max:50'],
             'gender' => ['required', 'in:Male,Female'],
@@ -33,15 +43,15 @@ class AuthController extends Controller
 
         return redirect('/login');
     }
-    public function login()
+    public function login(Request $request)
     {
-        $validation = Request::validate([
+        $validation = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required', 'alpha_num']
         ]);
 
         if (Auth::attempt($validation)) {
-            Request::session()->regenerate();
+            $request->session()->regenerate();
 
             return redirect('/');
         }
@@ -51,11 +61,11 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::logout();
-        Request::session()->invalidate();
-        Request::session()->regenerateToken();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect('/login');
     }
 }
