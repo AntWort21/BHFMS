@@ -1,0 +1,6 @@
+INSERT INTO `facility_details` (`id`, `name`, `created_at`, `updated_at`) VALUES (NULL, 'Shower', NULL, NULL), (NULL, 'Electric Shower', NULL, NULL), (NULL, 'Elegant Door', NULL, NULL), (NULL, 'Not so Elegant Door', NULL, NULL), (NULL, 'Parking Spot', NULL, NULL), (NULL, 'Wi-Fi', NULL, NULL), (NULL, 'Personal Butler', NULL, NULL), (NULL, 'CCTV', NULL, NULL), (NULL, 'Pets Friendly', NULL, NULL), (NULL, 'Electric Door', NULL, NULL), (NULL, 'Smart House', NULL, NULL);
+
+INSERT INTO `boarding_house_types` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES (NULL, 'apartment', 'this is apart', NULL, NULL), (NULL, 'standalone building', 'standalone building ! standalone building !!', NULL, NULL), (NULL, 'Trailer', 'Thriller', NULL, NULL);
+
+INSERT INTO `boardings` (`id`, `name`, `address`, `map_location`, `type_id`, `rooms`, `shared_bathroom`, `price`, `description`, `declined_reason`, `created_at`, `updated_at`) VALUES (NULL, 'Lovely Boarding', 'Maple Street', '123 333', '1', '4', '1', '12000000', 'lovely place to stay', '', NULL, NULL), (NULL, 'BINUSS SQUAREEE', '123 JAKPOSA', '2313 333', '3', '123', '0', '32222222', 'szsdasdwad', '', NULL, NULL);
+
