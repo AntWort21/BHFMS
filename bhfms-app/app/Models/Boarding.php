@@ -12,15 +12,15 @@ class Boarding extends Model
     }
 
     public function facilities(){
-        return $this->hasMany(facility::class);
+        return $this->hasMany(Facility::class);
     }
 
     public function rent_transaction_detail(){
-        return $this->hasMany(rent_transaction_detail::class);
+        return $this->hasMany(RentTransactionDetail::class);
     }
 
     public function wishlists(){
-        return $this->hasMany(Wishlistr::class);
+        return $this->hasMany(Wishlist::class);
     }
 
     public function reviews(){
