@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\BoardingController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BoardingController;
+// use App\Http\Controllers\BoardingController;
 use Illuminate\Support\Facades\Route;
 
 /*
