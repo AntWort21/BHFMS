@@ -1,9 +1,8 @@
 <script setup>
 import Header from "../Shared/Header.vue";
 import Footer from "../Shared/Footer.vue";
-import FormTextBoxInput from "../Shared/FormTextBoxInput.vue";
+import FormTextBoxInput from "../Shared/AccountFormInput/FormTextBoxInput.vue";
 import { useForm } from "@inertiajs/inertia-vue3";
-import { Inertia } from "@inertiajs/inertia";
 
 const props = defineProps({
     userDetails: Object,

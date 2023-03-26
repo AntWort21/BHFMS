@@ -10,12 +10,12 @@ class AuthController extends Controller
 {
     public function getRegisterPage()
     {
-        return inertia('Register');
+        return inertia('Auth/Register');
     }
 
     public function getLoginPage()
     {
-        return inertia('Login');
+        return inertia('Auth/Login');
     }
 
     public function register(Request $request)
