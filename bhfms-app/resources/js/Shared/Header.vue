@@ -5,7 +5,6 @@ import { ref } from "vue";
 let hover = ref(false);
 let selectedProfile = ref(false);
 let selectedLogout = ref(false);
-
 </script>
 
 <template>
@@ -25,14 +24,14 @@ let selectedLogout = ref(false);
 
             <Link href="">Homepage</Link>
 
-            <Link href="">Boarding House List</Link>
+            <!-- <Link href="">Boarding House List</Link>
 
             <Link href="">Make Complains</Link>
             <Link href="">Payments</Link>
 
             <Link href="">My Boarding House</Link>
             <Link href="">My Complains</Link>
-            <Link href="">My Payments</Link>
+            <Link href="">My Payments</Link> -->
         </div>
         <div class="flex space-x-3">
             <input
@@ -40,6 +39,7 @@ let selectedLogout = ref(false);
                 class="bg-white rounded-lg text-black text-sm w-full p-2.5"
                 placeholder="Search"
             />
+            <div class="px-6 py-2 bg-white rounded-2xl text-black">User</div>
             <div
                 @mouseover="hover = true"
                 @mouseleave="hover = false"

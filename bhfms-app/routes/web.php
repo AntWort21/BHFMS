@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BoardingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,3 +33,4 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/profile/update', [UserController::class, 'updateProfile']);
 });
+Route::resource('boarding', BoardingController::class);
