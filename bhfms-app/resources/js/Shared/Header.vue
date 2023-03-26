@@ -39,7 +39,6 @@ let selectedLogout = ref(false);
                 class="bg-white rounded-lg text-black text-sm w-full p-2.5"
                 placeholder="Search"
             />
-            <div class="px-6 py-2 bg-white rounded-2xl text-black">User</div>
             <div
                 @mouseover="hover = true"
                 @mouseleave="hover = false"
