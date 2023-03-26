@@ -179,14 +179,14 @@ entity "chatrooms" as chtrm {
   *updated_at : Date
 }
 
-usr ||..o{ usrl
+usrl ||..o{usr
 bh ||..o{ bhi
 bh ||..o{ f
 fd ||..o{ f
 
 usr ||..o{ rt
 bh ||..o{ rtd
-rt ||..{rtd
+rt ||..||rtd
 pymnt ||..o{ rtd
 
 usr ||..o{ lobh
