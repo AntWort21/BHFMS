@@ -1,9 +1,9 @@
 <script setup>
-import Header from "../Shared/Header.vue";
-import Footer from "../Shared/Footer.vue";
+import Header from "../../Shared/Header.vue";
+import Footer from "../../Shared/Footer.vue";
 import { Link, useForm } from "@inertiajs/inertia-vue3";
-import FormTextBoxInput from "../Shared/FormTextBoxInput.vue";
-import FormErrorMessage from "../Shared/FormErrorMessage.vue";
+import FormTextBoxInput from "../../Shared/AccountFormInput/FormTextBoxInput.vue";
+import FormErrorMessage from "../../Shared/AccountFormInput/FormErrorMessage.vue";
 
 let form = useForm({
     email: "",

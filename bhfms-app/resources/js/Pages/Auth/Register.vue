@@ -1,10 +1,10 @@
 <script setup>
-import Header from "../Shared/Header.vue";
-import Footer from "../Shared/Footer.vue";
+import Header from "../../Shared/Header.vue";
+import Footer from "../../Shared/Footer.vue";
 import { Link, useForm } from "@inertiajs/inertia-vue3";
-import FormErrorMessage from "../Shared/FormErrorMessage.vue";
-import FormTextBoxInput from "../Shared/FormTextBoxInput.vue";
-import FormSelectInput from "../Shared/FormSelectInput.vue";
+import FormErrorMessage from "../../Shared/AccountFormInput/FormErrorMessage.vue";
+import FormTextBoxInput from "../../Shared/AccountFormInput/FormTextBoxInput.vue";
+import FormSelectInput from "../../Shared/AccountFormInput/FormSelectInput.vue";
 
 let form = useForm({
     firstName: "",
