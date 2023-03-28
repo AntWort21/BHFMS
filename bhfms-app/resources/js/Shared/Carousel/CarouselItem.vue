@@ -11,16 +11,19 @@
     </transition>
 </template>
 
-<script>
-export default {
-    emits: ["mouseenter", "mouseout"],
-    props: ["slide", "currentSlide", "index", "direction"],
-    computed: {
-        transitionEffect() {
-            return this.direction === "right" ? "slide-out" : "slide-in";
-        },
-    },
+<script setup>
+defineEmits(["mouseenter", "mouseout"]);
+defineProps({
+    slide: Array,
+    currentSlide: Number,
+    index: Number,
+    direction: String,
+})
+
+const transitionEffect = () => {
+    return this.direction === "right" ? "slide-out" : "slide-in";
 };
+
 </script>
 
 <style scoped>

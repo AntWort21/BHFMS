@@ -4,11 +4,9 @@
     <button class="carousel-control right" @click="$emit('next')">Next</button>
 </template>
 
-<script>
-export default {
-    emits: ["prev", "next"], // vue v3
-    props: ["size"],
-};
+<script setup>
+defineEmits(["prev", "next"]);
+defineProps(["size"]);
 </script>
 <style scoped>
 .carousel-control {
