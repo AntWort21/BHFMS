@@ -17,23 +17,19 @@ import Header from "../Shared/Header.vue";
                 class="w-[45vh] px-8 py-6 mt-4 text-left shadow-lg ml-80 bg-white"
             >
                 <form @submit.prevent="submit">
-                    <div class="mt-4">
+                    <div class="mt-4 space-y-3">
                         <FormTextBoxInput
                             :input-type="'text'"
                             :label-name="'Location'"
                         />
-                        <div class="mt-4">
-                            <FormTextBoxInput
-                                :input-type="'text'"
-                                :label-name="'Rental Period'"
-                            />
-                        </div>
-                        <div class="mt-4">
-                            <FormTextBoxInput
-                                :input-type="'text'"
-                                :label-name="'Number of Tenants'"
-                            />
-                        </div>
+                        <FormTextBoxInput
+                            :input-type="'text'"
+                            :label-name="'Rental Period'"
+                        />
+                        <FormTextBoxInput
+                            :input-type="'text'"
+                            :label-name="'Number of Tenants'"
+                        />
                         <div
                             class="flex items-baseline justify-end items-center space-x-10"
                         >
@@ -73,7 +69,7 @@ import Header from "../Shared/Header.vue";
                 Look at our highly rated accomodation
             </p>
             <div class="w-full h-[50vh] bg-gray-500 flex">
-                <div class="w-1/6 my-2 mx-2 bg-white">
+                <div class="w-1/6 my-2 mr-2 bg-white">
                     <div class="h-2/3 bg-gray-200">ini buat pic</div>
                     <div class="h-1/3 space-y-2">
                         <div class="text-xs text-gray-600">Cayman Islands</div>
@@ -133,7 +129,7 @@ import Header from "../Shared/Header.vue";
                         </div>
                     </div>
                 </div>
-                <div class="w-1/6 my-2 mx-2 bg-white">
+                <div class="w-1/6 my-2 ml-2 bg-white">
                     <div class="h-2/3 bg-gray-200">ini buat pic</div>
                     <div class="h-1/3 space-y-2">
                         <div class="text-xs text-gray-600">Cayman Islands</div>
