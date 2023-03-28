@@ -114,6 +114,12 @@ entity "owner_boardings" as lobh {
   *updated_at : Date
 }
 
+entity "complain_types" as cmplnt {
+  *id : Integer <<PK>>
+  --
+  *name : Varchar
+}
+
 entity "reviews" as rvw {
   *id : Integer <<PK>>
   --
@@ -134,12 +140,6 @@ entity "complains" as cmpln {
   *description : Varchar
   *created_at : Date
   *updated_at : Date
-}
-
-entity "complain_types" as cmplnt {
-  *id : Integer <<PK>>
-  --
-  *name : Varchar
 }
 
 ' Composite key
