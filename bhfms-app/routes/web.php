@@ -33,4 +33,5 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/profile/update', [UserController::class, 'updateProfile']);
 });
+
 Route::resource('boarding', BoardingController::class);

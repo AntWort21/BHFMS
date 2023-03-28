@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 // use App\Models\Boarding;
 
-use App\Models\BoardingType;
-use App\Models\Boarding;
+use App\Models\boarding_house_types;
+use App\Models\boardings;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -20,7 +20,7 @@ class BoardingController extends Controller
     public function index()
     {
         return Inertia::render('Boarding/ListBoarding', [
-            'boardings' => Boarding::get(),
+            'boardings' => boardings::get(),
         ]);
     }
 

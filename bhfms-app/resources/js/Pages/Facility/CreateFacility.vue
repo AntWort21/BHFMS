@@ -4,7 +4,6 @@ import { useForm, Head } from "@inertiajs/inertia-vue3";
 defineProps({
     types: Object,
 });
-// const user = computed(() => usePage().props.auth.user);
 const form = useForm({
     name: "",
     address: "",
@@ -17,14 +16,6 @@ const form = useForm({
 });
 </script>
 <template>
-    <!-- <span v-text="$page.props.auth.user" /> -->
-    <h1 v-if="$page.props.user">
-        You are logged in as: {{ $page.props.user.name }}, with id =
-        {{ $page.props.user.id }}
-    </h1>
-    <h1 v-else>Oh no 😢</h1>
-
-    <!-- You are logged in as: {{ user.name }} + {{ user.id }} + {{ user.email }} -->
     <div class="overflow-x-auto">
         <div
             class="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center bg-gray font-sans overflow-hidden"
