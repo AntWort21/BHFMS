@@ -104,12 +104,21 @@ entity "rent_transaction_detail" as rtd {
   *updated_at : Date
 }
 
+entity "boarding_status" as bhst{
+    *id : Integer <<PK>>
+    --
+    *name : Varchar
+    *created_at : Date
+    *updated_at : Date
+}
+
 
 entity "owner_boardings" as lobh {
   *id : Integer <<PK>>
   --
   *user_id : Integer <<FK>>
   *boarding_id : Integer <<FK>>
+  *status_id : Integer <<FK>>
   *created_at : Date
   *updated_at : Date
 }

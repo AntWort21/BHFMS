@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 // use App\Models\Boarding;
 
-use App\Models\boarding_house_types;
-use App\Models\boardings;
+use App\Models\BoardingType;
+use App\Models\Boarding;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -20,7 +20,7 @@ class BoardingController extends Controller
     public function index()
     {
         return Inertia::render('Boarding/ListBoarding', [
-            'boardings' => boardings::get(),
+            'boardings' => Boarding::get(),
         ]);
     }
 
@@ -31,9 +31,21 @@ class BoardingController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Boarding/CreateBoarding',[
-            'types' => boarding_house_types::get(),
+        $slides = [
+            "https://picsum.photos/id/1032/900/400",
+            "https://picsum.photos/id/1033/900/400",
+            "https://picsum.photos/id/1037/900/400",
+            "https://picsum.photos/id/1035/900/400",
+            "https://picsum.photos/id/1036/900/400",
+        ];
+
+        return Inertia::render('Boarding/CarouselTry',[
+                'slides' => $slides
         ]);
+
+        // return Inertia::render('Boarding/CreateBoarding',[
+        //     'types' => BoardingType::get(),
+        // ]);
     }
 
     /**

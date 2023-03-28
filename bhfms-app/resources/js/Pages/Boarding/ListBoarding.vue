@@ -1,16 +1,28 @@
 <script setup>
+import Header from "../../Shared/Header.vue";
+import Footer from "../../Shared/Footer.vue";
 defineProps({
     boardings: Object,
 });
 </script>
 
 <template>
+    <Header />
     <!-- component -->
     <div class="overflow-x-auto">
         <div
-            class="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center bg-gray font-sans overflow-hidden"
+            class="top-0 min-w-screen min-h-screen bg-gray-100 flex justify-center bg-gray font-sans overflow-hidden"
         >
             <div class="w-full lg:w-5/6">
+                <div class="flex mt-2">
+                    <button
+                        class="right-0 flex w-6 h-6 mr-5 text-base bg-blue-400 items-center font-bold justify-center text-white rounded-xl font-mono"
+                    >
+                        +
+                    </button>
+                    <h3 class="right-0 self-center">Add New Boarding</h3>
+                </div>
+
                 <div class="bg-white shadow-md rounded my-6">
                     <table class="min-w-max w-full table-auto">
                         <thead>
@@ -45,14 +57,24 @@ defineProps({
                                 </td>
                                 <td class="py-3 px-6 text-left">
                                     <span
+                                        v-if="boarding.status == 'Approved'"
                                         class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs"
                                     >
-                                        Completed
+                                        Approved
                                     </span>
 
                                     <span
-                                        class="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs"
+                                        v-else-if="
+                                            boarding.status == 'Declined'
+                                        "
+                                        class="bg-yellow-200 text-yellow-600 py-1 px-3 rounded-full text-xs"
                                         >Pending</span
+                                    >
+
+                                    <span
+                                        v-else
+                                        class="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs"
+                                        >Declined</span
                                     >
                                 </td>
 
@@ -136,4 +158,5 @@ defineProps({
             </div>
         </div>
     </div>
+    <Footer />
 </template>
