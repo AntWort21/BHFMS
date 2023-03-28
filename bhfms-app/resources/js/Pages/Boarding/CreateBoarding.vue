@@ -1,5 +1,7 @@
 <script setup>
-import { numberLiteral } from "@babel/types";
+// import { computed } from "vue";
+// import { usePage } from "@inertiajs/inertia-vue3";
+// import { numberLiteral } from "@babel/types";
 import { useForm, Head } from "@inertiajs/inertia-vue3";
 defineProps({
     types: Object,
