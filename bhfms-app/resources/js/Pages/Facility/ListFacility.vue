@@ -16,7 +16,7 @@ defineProps({
                         <thead>
                             <tr class="uppercase text-sm leading-normal">
                                 <th class="py-3 px-6 text-left">
-                                    facility Name
+                                    Facility Name
                                 </th>
                                 <th class="py-3 px-6 text-left">Status</th>
                                 <th class="py-3 px-6 text-center">
