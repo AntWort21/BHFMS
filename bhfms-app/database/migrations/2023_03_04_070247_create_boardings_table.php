@@ -25,7 +25,9 @@ class CreateBoardingsTable extends Migration
             $table->boolean('shared_bathroom');
             $table->integer('price');
             $table->string('description');
-            $table->string('declined_reason');
+            // $table->enum();
+            // $table->string('status');
+            $table->string('declined_reason')->nullable();
             $table->timestamps();
 
         });
