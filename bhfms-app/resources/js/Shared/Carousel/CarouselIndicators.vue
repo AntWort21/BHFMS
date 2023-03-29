@@ -10,11 +10,9 @@
     </div>
 </template>
 
-<script>
-export default {
-    emits: ["switch"],
-    props: ["total", "currentIndex"],
-};
+<script setup>
+defineEmits(["switch"]);
+defineProps(["total", "currentIndex"]);
 </script>
 
 <style scoped>
