@@ -1,8 +1,25 @@
 <script setup>
+import { Inertia } from "@inertiajs/inertia";
+import { ref, watch } from "vue";
 import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
 defineProps({
+    all_count: Number,
+    approved: Number,
+    declined: Number,
+    pending: Number,
     boardings: Object,
+});
+
+let search = ref("");
+watch(search, (value) => {
+    Inertia.get(
+        "/boardings",
+        { search: value },
+        {
+            preserveState: true,
+        }
+    );
 });
 </script>
 
@@ -13,14 +30,38 @@ defineProps({
         <div
             class="top-0 min-w-screen min-h-screen bg-gray-100 flex justify-center bg-gray font-sans overflow-hidden"
         >
-            <div class="w-full lg:w-5/6">
-                <div class="flex mt-2">
-                    <button
-                        class="right-0 flex w-6 h-6 mr-5 text-base bg-blue-400 items-center font-bold justify-center text-white rounded-xl font-mono"
-                    >
-                        +
-                    </button>
-                    <h3 class="right-0 self-center">Add New Boarding</h3>
+            <!-- Filtering -->
+            <div class="flow-root">
+                <div class="flow-root">
+                    <div class="mt-2 float-left">
+                        <div
+                            class="rounded border block bg-white border-gray-400 text-gray-700 py-2 px-4 flex"
+                        >
+                            <button
+                                class="flex w-6 h-6 mr-5 text-base bg-blue-400 items-center font-bold justify-center text-white rounded-xl font-mono"
+                            >
+                                +
+                            </button>
+                            <h3 class="self-center">Add New Boarding</h3>
+                        </div>
+                    </div>
+                    <div class="mt-2 float-right">
+                        <select
+                            class="rounded border block bg-white border-gray-400 text-gray-700 py-2 px-4"
+                            v-model="search"
+                        >
+                            <option value="">All ({{ all_count }})</option>
+                            <option value="approved">
+                                Approved ({{ approved }})
+                            </option>
+                            <option value="pending">
+                                Pending ({{ declined }})
+                            </option>
+                            <option value="declinded">
+                                Declined ({{ pending }})
+                            </option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="bg-white shadow-md rounded my-6">
@@ -57,16 +98,14 @@ defineProps({
                                 </td>
                                 <td class="py-3 px-6 text-left">
                                     <span
-                                        v-if="boarding.status == 'Approved'"
+                                        v-if="boarding.status == 'approved'"
                                         class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs"
                                     >
                                         Approved
                                     </span>
 
                                     <span
-                                        v-else-if="
-                                            boarding.status == 'Declined'
-                                        "
+                                        v-else-if="boarding.status == 'pending'"
                                         class="bg-yellow-200 text-yellow-600 py-1 px-3 rounded-full text-xs"
                                         >Pending</span
                                     >

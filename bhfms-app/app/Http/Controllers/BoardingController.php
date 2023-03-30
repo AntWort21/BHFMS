@@ -17,10 +17,19 @@ class BoardingController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    public function index()
+    public function index(Request $request)
     {
+        $data = Boarding::when($request->search, function($query, $search){
+            $query->where('status','=',$search);
+
+        })->get();
+        
         return Inertia::render('Boarding/ListBoarding', [
-            'boardings' => Boarding::get(),
+            'all_count' => Boarding::count(),
+            'approved' => Boarding::where('status','=','approved')->count(),
+            'declined' => Boarding::where('status','=','declined')->count(),
+            'pending' => Boarding::where('status','=','pending')->count(),
+            'boardings' => $data
         ]);
     }
 
