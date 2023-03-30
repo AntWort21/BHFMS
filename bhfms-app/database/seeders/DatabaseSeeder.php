@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             BoardingSeeder::class,
             FacilitySeeder::class,
             BoardingImageSeeder::class,
+            LocationSeeder::class,
         ]);
         
     }
