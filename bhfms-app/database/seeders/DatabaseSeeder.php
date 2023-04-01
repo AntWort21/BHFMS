@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Boarding;
+use App\Models\BoardingType;
+use App\Models\FacilityDetail;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +16,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(10)->create();
+        $this->call([
+            BoardingTypeSeeder::class,
+            FacilityDetailSeeder::class,
+            BoardingSeeder::class,
+            FacilitySeeder::class,
+            BoardingImageSeeder::class,
+        ]);
+        
     }
 }

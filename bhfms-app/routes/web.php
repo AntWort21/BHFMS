@@ -35,3 +35,4 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('boarding', BoardingController::class);
+Route::get('/test/boarding', [BoardingController::class, 'testCarousel']);
