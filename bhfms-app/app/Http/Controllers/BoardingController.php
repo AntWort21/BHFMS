@@ -40,7 +40,7 @@ class BoardingController extends Controller
         $allBoardingHouse = Boarding::all();
 
         foreach ($allBoardingHouse as $key => $boardingHouse) {
-            $allBoardingHouse[$key]->imageUrl = BoardingImage::where('id', $boardingHouse->id)->first()->image;
+            $allBoardingHouse[$key]->imageUrl = BoardingImage::where('boarding_id', $boardingHouse->id)->first()->image;
         }
 
         return Inertia::render('Boarding/AllBoardingHouse', ['allBoardingHouse' => $allBoardingHouse]);
