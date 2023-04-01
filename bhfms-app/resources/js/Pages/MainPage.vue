@@ -1,8 +1,7 @@
 <script setup>
 import { Link } from "@inertiajs/inertia-vue3";
 import Footer from "../Shared/Footer.vue";
-import FormErrorMessage from "../Shared/FormErrorMessage.vue";
-import FormTextBoxInput from "../Shared/FormTextBoxInput.vue";
+import FormTextBoxInput from "../Shared/AccountFormInput/FormTextBoxInput.vue";
 import Header from "../Shared/Header.vue";
 </script>
 
@@ -54,7 +53,7 @@ import Header from "../Shared/Header.vue";
                 style="background-image: url('../storage/sofa.png')"
             >
                 <Link
-                    href="#"
+                    href="/boarding/all"
                     class="w-60 h-14 mb-32 bg-white flex items-center justify-center rounded-md"
                 >
                     Discover Accomodation
