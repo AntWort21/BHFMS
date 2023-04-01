@@ -37,7 +37,8 @@ defineProps({
                             {{ boardingHouse.description }}
                         </div>
                         <Link
-                            href="#"
+                            href="/boarding/detail"
+                            :data="{id: boardingHouse.id}"
                             class="text-xs flex items-center font-semibold"
                         >
                             VIEW MORE DETAIL

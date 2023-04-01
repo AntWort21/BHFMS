@@ -46,6 +46,17 @@ class BoardingController extends Controller
         return Inertia::render('Boarding/AllBoardingHouse', ['allBoardingHouse' => $allBoardingHouse]);
     }
 
+    public function getBoardingHouseDetail(Request $request)
+    {
+        $selectedBoardingHouseDetail = Boarding::where('id', $request->id)->first();
+        $imagesForSelectedBoardingHouse = BoardingImage::where('boarding_id', $request->id)->get()->pluck('image');
+
+        return Inertia::render('Boarding/SelectedBoardingHouse', [
+            'boardingHouseDetail' => $selectedBoardingHouseDetail,
+            'images' => $imagesForSelectedBoardingHouse
+        ]);
+    }
+
     //Show the form for creating a new resource.
     public function create()
     {
