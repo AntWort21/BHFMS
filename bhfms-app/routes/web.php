@@ -22,10 +22,14 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'getRegisterPage'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 
+Route::get('/', function() {
+    return inertia('MainPage');
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
 
-    Route::get('/', function () {
+    Route::get('/welcome', function () {
         return inertia('welcome');
     });
 
