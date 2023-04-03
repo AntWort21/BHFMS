@@ -3,6 +3,7 @@ import { Inertia } from "@inertiajs/inertia";
 import { ref, watch } from "vue";
 import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
+// import { TailwindPagination } from "laravel-vue-pagination";
 defineProps({
     all_count: Number,
     approved: Number,
@@ -14,7 +15,7 @@ defineProps({
 let search = ref("");
 watch(search, (value) => {
     Inertia.get(
-        "/boardings",
+        "/boarding",
         { search: value },
         {
             preserveState: true,
@@ -55,10 +56,10 @@ watch(search, (value) => {
                                 Approved ({{ approved }})
                             </option>
                             <option value="pending">
-                                Pending ({{ declined }})
+                                Pending ({{ pending }})
                             </option>
-                            <option value="declinded">
-                                Declined ({{ pending }})
+                            <option value="declined">
+                                Declined ({{ declined }})
                             </option>
                         </select>
                     </div>
@@ -80,7 +81,7 @@ watch(search, (value) => {
                         </thead>
                         <tbody class="text-gray-600 text-sm font-light">
                             <tr
-                                v-for="boarding in boardings"
+                                v-for="boarding in boardings.data"
                                 class="border-b border-gray-200 bg-gray-50 hover:bg-gray-100"
                             >
                                 <td class="py-3 px-6 text-left">

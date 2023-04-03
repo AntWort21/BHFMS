@@ -17,13 +17,16 @@ class BoardingController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    public function index(Request $request)
+    public function indexOwner(Request $request)
     {
+        // $data = Boarding::when($request->search, function($query, $search){
+        //     $query->where('status','=',$search);
+        // })->get();
+
         $data = Boarding::when($request->search, function($query, $search){
             $query->where('status','=',$search);
+        })->paginate(10)->withQueryString();
 
-        })->get();
-        
         return Inertia::render('Boarding/ListBoarding', [
             'all_count' => Boarding::count(),
             'approved' => Boarding::where('status','=','approved')->count(),
@@ -51,21 +54,21 @@ class BoardingController extends Controller
     //Show the form for creating a new resource.
     public function create()
     {
-        $slides = [
-            "https://picsum.photos/id/1032/900/400",
-            "https://picsum.photos/id/1033/900/400",
-            "https://picsum.photos/id/1037/900/400",
-            "https://picsum.photos/id/1035/900/400",
-            "https://picsum.photos/id/1036/900/400",
-        ];
+        // $slides = [
+        //     "https://picsum.photos/id/1032/900/400",
+        //     "https://picsum.photos/id/1033/900/400",
+        //     "https://picsum.photos/id/1037/900/400",
+        //     "https://picsum.photos/id/1035/900/400",
+        //     "https://picsum.photos/id/1036/900/400",
+        // ];
 
-        return Inertia::render('Boarding/CarouselTry',[
-                'slides' => $slides
-        ]);
-
-        // return Inertia::render('Boarding/CreateBoarding',[
-        //     'types' => BoardingType::get(),
+        // return Inertia::render('Boarding/CarouselTry',[
+        //         'slides' => $slides
         // ]);
+
+        return Inertia::render('Boarding/CreateBoarding',[
+            'types' => BoardingType::get(),
+        ]);
     }
 
     //Store a newly created resource in storage

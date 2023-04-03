@@ -2,10 +2,15 @@
 // import { computed } from "vue";
 // import { usePage } from "@inertiajs/inertia-vue3";
 // import { numberLiteral } from "@babel/types";
+import { ref, watch } from "vue";
 import { useForm, Head } from "@inertiajs/inertia-vue3";
+import VueMultiselect from "vue-multiselect";
+import Multiselect from "vue-multiselect";
 defineProps({
     types: Object,
+    selected: Object,
 });
+let selected = ref("");
 // const user = computed(() => usePage().props.auth.user);
 const form = useForm({
     name: "",
@@ -17,7 +22,10 @@ const form = useForm({
     price: 0,
     description: "",
 });
+
+const customLabel = ({ name, id }) => `${name} with an id of ${id}`;
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>
 <template>
     <!-- <span v-text="$page.props.auth.user" /> -->
     <h1 v-if="$page.props.user">
@@ -97,6 +105,43 @@ const form = useForm({
                                 {{ typ.id }} - {{ typ.name }}
                             </option>
                         </select>
+                    </div>
+                    <div class="mb-4">
+                        <label
+                            class="block text-gray-700 text-sm font-bold mb-2"
+                            for="type_id"
+                        >
+                            Boarding House Type w/ NPM
+                        </label>
+                        <VueMultiselect
+                            v-model="selected"
+                            :options="types"
+                            :custom-label="customLabel"
+                            label="name"
+                            track-by="name"
+                        >
+                        </VueMultiselect>
+                    </div>
+                    {{ selected.id }}
+                    <div class="mb-4">
+                        <label
+                            class="block text-gray-700 text-sm font-bold mb-2"
+                            for="type_id"
+                        >
+                            Boarding House Type w/ NPM Multi Select
+                        </label>
+                        <multiselect
+                            v-model="selected"
+                            :options="types"
+                            :multiple="true"
+                            :close-on-select="false"
+                            :clear-on-select="false"
+                            :preserve-search="true"
+                            placeholder="Pick some"
+                            label="name"
+                            track-by="name"
+                        >
+                        </multiselect>
                     </div>
                     <div class="mb-4">
                         <label
