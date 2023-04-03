@@ -1,4 +1,4 @@
-INSERT INTO provinces(id,country_id,name,lat,lng) VALUES
+INSERT INTO provinces(id,country_id,province_name,province_lat,province_lng) VALUES
  (11,62,'ACEH',4.040507015,96.64900293)
 ,(12,62,'SUMATERA UTARA',1.831365669,98.74243176)
 ,(13,62,'SUMATERA BARAT',-1.554441694,100.2447987)
