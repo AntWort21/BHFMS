@@ -42,8 +42,8 @@ entity "boardings" as bh {
   --
   *name : Varchar
   *address : Varchar
-  *latitude : Varchar
-  *longitude : Varchar
+  *lat : Varchar
+  *lng : Varchar
   *type_id : Integer <<FK>>
   *rooms : Integer
   *shared_bathroom : Boolean
@@ -187,6 +187,53 @@ entity "chatrooms" as chtrm {
   *created_at : Date
   *updated_at : Date
 }
+
+entity "countries" as country {
+  *id: Integer<<PK>>
+  --
+  *name: Varchar
+  *lat: Double
+  *lng: Double
+  *created_at : Date
+  *updated_at : Date
+}
+
+entity "provinces" as prov {
+  *id: Integer<<PK>>
+  --
+  *country_id: Integer<<FK>>
+  *name: Varchar
+  *lat: Double
+  *lng: Double
+  *created_at : Date
+  *updated_at : Date
+}
+
+entity "cities" as city {
+  *id: Integer<<PK>>
+  --
+  *province_id: Integer<<FK>>
+  *name: Varchar
+  *lat: Double
+  *lng: Double
+  *created_at : Date
+  *updated_at : Date
+}
+
+entity "districts" as dist {
+  *id: Integer<<PK>>
+  --
+  *city_id: Integer<<FK>>
+  *name: Varchar
+  *lat: Double
+  *lng: Double
+  *created_at : Date
+  *updated_at : Date
+}
+
+prov ||..o{country
+city ||..o{prov
+dist ||..o{city
 
 usrl ||..o{usr
 bh ||..o{ bhi

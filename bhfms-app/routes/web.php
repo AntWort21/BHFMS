@@ -22,10 +22,14 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'getRegisterPage'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 
+Route::get('/', function() {
+    return inertia('MainPage');
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
 
-    Route::get('/', function () {
+    Route::get('/welcome', function () {
         return inertia('welcome');
     });
 
@@ -34,5 +38,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/update', [UserController::class, 'updateProfile']);
 });
 
-Route::resource('boarding', BoardingController::class);
-Route::get('/test/boarding', [BoardingController::class, 'testCarousel']);
+// Route::resource('boarding', BoardingController::class);
+Route::get('/boarding', [BoardingController::class, 'index']);
+Route::get('/boarding/create', [BoardingController::class, 'create']);
+
+Route::get('/boarding/test', [BoardingController::class, 'testCarousel']);
+Route::get('/boarding/all', [BoardingController::class, 'getAllBoardingHouse']);
