@@ -15,7 +15,7 @@ class CreateBoardingsTable extends Migration
     {
         Schema::create('boardings', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('boarding_name');
             $table->string('address');
             $table->string('latitude');
             $table->string('longitude');
@@ -25,7 +25,7 @@ class CreateBoardingsTable extends Migration
             $table->integer('rooms');
             $table->boolean('shared_bathroom');
             $table->integer('price');
-            $table->string('description');
+            $table->string('boarding_desc');
             $table->string('declined_reason')->nullable();
             $table->timestamps();
 
