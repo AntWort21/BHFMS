@@ -17,7 +17,7 @@ class LocationSeeder extends Seeder
     {
         // Country
         // $sql_1 = file_get_contents(storage_path('app/public/Location_Database/countries.sql'));
-        $sql_1 = "INSERT INTO countries (id, name, lat, lng) VALUES ('62', 'Indonesia', '-2.46534253', '118.0150932');";
+        $sql_1 = "INSERT INTO countries (id, country_name, country_lat, country_lng) VALUES ('62', 'Indonesia', '-2.46534253', '118.0150932');";
         DB::statement($sql_1);
 
         // Province
