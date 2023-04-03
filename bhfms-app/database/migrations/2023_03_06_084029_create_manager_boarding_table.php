@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateComplainsTable extends Migration
+class CreateManagerBoardingTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,14 @@ class CreateComplainsTable extends Migration
      */
     public function up()
     {
-        Schema::create('complains', function (Blueprint $table) {
+        Schema::create('manager_boardings', function (Blueprint $table) {
             $table->id();
-
+            $table->unsignedBigInteger('owner_boarding_id');
+            $table->foreign('owner_boarding_id')->references('id')
+            ->on('owner_boardings')->cascadeOnUpdate()->cascadeOnDelete();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')
             ->on('users')->cascadeOnUpdate()->cascadeOnDelete();
-
-            $table->unsignedBigInteger('boarding_id');
-            $table->foreign('boarding_id')->references('id')
-            ->on('boardings')->cascadeOnUpdate()->cascadeOnDelete();
-
-            $table->unsignedBigInteger('complain_type_id');
-            $table->foreign('complain_type_id')->references('id')
-            ->on('complain_types')->cascadeOnUpdate()->cascadeOnDelete();
-
-            $table->string('complain_desc');
-            
             $table->timestamps();
         });
     }
@@ -41,6 +32,6 @@ class CreateComplainsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('complains');
+        Schema::dropIfExists('manager_boardings');
     }
 }

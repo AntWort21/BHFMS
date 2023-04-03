@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 
 use App\Models\FacilityDetail;
@@ -15,22 +14,22 @@ class FacilityDetailSeeder extends Seeder
     public function run()
     {
         FacilityDetail::create([
-            "name" =>'Electric Shower'
+            "facility_detail_name" =>'Electric Shower'
         ]);
         FacilityDetail::create([
-            "name" =>'Shower'
+            "facility_detail_name" =>'Shower'
         ]);
         FacilityDetail::create([
-            "name" =>'Electric Lock'
+            "facility_detail_name" =>'Electric Lock'
         ]);
         FacilityDetail::create([
-            "name" =>'Pool'
+            "facility_detail_name" =>'Pool'
         ]);
         FacilityDetail::create([
-            "name" =>'Free Parking'
+            "facility_detail_name" =>'Free Parking'
         ]);
         FacilityDetail::create([
-            "name" =>'Pets Allowed'
+            "facility_detail_name" =>'Pets Allowed'
         ]);
     }
 }

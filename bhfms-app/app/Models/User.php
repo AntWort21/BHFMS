@@ -32,9 +32,6 @@ class User extends Authenticatable
         return $this->hasMany(Wishlist::class);
     }
 
-    public function userRole(){
-        return $this->belongsTo(UserRole::class,'user_roles_id');
-    }
 
     /**
      * The attributes that are mass assignable.
