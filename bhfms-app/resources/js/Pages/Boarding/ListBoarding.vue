@@ -4,6 +4,7 @@ import { ref, watch } from "vue";
 import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
 // import { TailwindPagination } from "laravel-vue-pagination";
+import Pagination from "../../Shared/Pagination.vue";
 defineProps({
     all_count: Number,
     approved: Number,
@@ -83,6 +84,7 @@ watch(search, (value) => {
                             <tr
                                 v-for="boarding in boardings.data"
                                 class="border-b border-gray-200 bg-gray-50 hover:bg-gray-100"
+                                :key="boarding.id"
                             >
                                 <td class="py-3 px-6 text-left">
                                     <div class="flex items-center">
@@ -194,6 +196,10 @@ watch(search, (value) => {
                             </tr>
                         </tbody>
                     </table>
+                    <Pagination
+                        class="my-4 pb-4 flex justify-center"
+                        :links="boardings.links"
+                    />
                 </div>
             </div>
         </div>

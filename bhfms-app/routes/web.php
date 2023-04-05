@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
 
 // Route::resource('boarding', BoardingController::class);
 Route::get('/boarding', [BoardingController::class, 'index']);
-Route::get('/boarding/create', [BoardingController::class, 'create']);
+Route::get('/boarding/create', [BoardingController::class, 'createOwner']);
 
 Route::get('/boarding/test', [BoardingController::class, 'testCarousel']);
 Route::get('/boarding/all', [BoardingController::class, 'getAllBoardingHouse']);

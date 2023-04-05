@@ -18,7 +18,7 @@ class CreateCitiesTable extends Migration
             $table->unsignedBigInteger('province_id');
             $table->foreign('province_id')->references('id')
             ->on('provinces')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->string('name');
+            $table->string('city_name');
             $table->double('lat');
             $table->double('lng');
             $table->timestamps();

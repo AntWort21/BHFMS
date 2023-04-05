@@ -7,6 +7,8 @@ namespace App\Http\Controllers;
 use App\Models\Boarding;
 use App\Models\BoardingImage;
 use App\Models\BoardingType;
+use App\Models\Country;
+use App\Models\FacilityDetail;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -18,7 +20,7 @@ class BoardingController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    public function indexOwner(Request $request)
+    public function index(Request $request)
     {
         // $data = Boarding::when($request->search, function($query, $search){
         //     $query->where('status','=',$search);
@@ -26,7 +28,7 @@ class BoardingController extends Controller
 
         $data = Boarding::when($request->search, function($query, $search){
             $query->where('status','=',$search);
-        })->paginate(10)->withQueryString();
+        })->paginate(5)->withQueryString();
 
         return Inertia::render('Boarding/ListBoarding', [
             'all_count' => Boarding::count(),
@@ -64,10 +66,21 @@ class BoardingController extends Controller
     }
 
     //Show the form for creating a new resource.
-    public function create()
+    public function createOwner()
     {
+        // $location = Country::with('provinces.cities.districts')->where([
+        //     ['provinces.id', '=', 'cities.province_id'],
+        //     ['cities.id', '<>', 'districts.city_id'],
+        // ])->get();
+        // dd($location);
+        $location = Country::join('provinces','countries.id','=','provinces.country_id')
+        ->join('cities','provinces.id','=','cities.province_id')
+        ->join('districts','cities.id','=','districts.city_id')->get();
+        // dd($location);
         return Inertia::render('Boarding/CreateBoarding', [
+            'facilities' => FacilityDetail::get(),
             'types' => BoardingType::get(),
+            'locations'=>$location,
         ]);
     }
 

@@ -6,12 +6,22 @@ import { ref, watch } from "vue";
 import { useForm, Head } from "@inertiajs/inertia-vue3";
 import VueMultiselect from "vue-multiselect";
 import Multiselect from "vue-multiselect";
+import VueGoogleAutocomplete from "vue-google-autocomplete";
+// import { Loader } from "@googlemaps/js-api-loader";
+
 defineProps({
     types: Object,
-    selected: Object,
+    facilities: Object,
+    locations: Object,
+    selectedType: Object,
+    selectedLocation: Object,
+    selectedFacility: Object,
+    // selectedLoactionGoogle: Object,
 });
-let selected = ref("");
-// const user = computed(() => usePage().props.auth.user);
+let selectedType = ref("");
+let selectedLocation = ref("");
+let selectedFacility = ref("");
+// let selectedLoactionGoogle = ref("");
 const form = useForm({
     name: "",
     address: "",
@@ -23,7 +33,21 @@ const form = useForm({
     description: "",
 });
 
-const customLabel = ({ name, id }) => `${name} with an id of ${id}`;
+const address = ref("");
+
+const getAddressData = (addressData, placeResultData, id) => {
+    address.value = addressData;
+};
+
+const customLabelLocation = ({
+    country_name,
+    province_name,
+    city_name,
+    district_name,
+}) => `${country_name}, ${province_name}, ${city_name}, ${district_name}`;
+
+// const customLabelLocation = ({ province_name, city_name, district_name }) =>
+//     `${province_name} with an id of ${province_id} & ${city_id}`;
 </script>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
 <template>
@@ -63,28 +87,55 @@ const customLabel = ({ name, id }) => `${name} with an id of ${id}`;
                             class="block text-gray-700 text-sm font-bold mb-2"
                             for="address"
                         >
-                            Address
+                            Address Google
                         </label>
-                        <input
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        <vue-google-autocomplete
                             id="address"
-                            type="text"
-                            placeholder="address"
-                        />
-                    </div>
-                    <div class="mb-4">
-                        <label
-                            class="block text-gray-700 text-sm font-bold mb-2"
-                            for="map_location"
-                        >
-                            map_location
-                        </label>
-                        <input
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="map_location"
-                            type="text"
-                            placeholder="map_location"
-                        />
+                            classname="form-control"
+                            placeholder="Start typing"
+                            v-on:placechanged="getAddressData"
+                        >
+                        </vue-google-autocomplete>
+                        <!-- <h1>
+                            {{ address }}
+                            {{ address.latitude }}
+                            {{ address.longitude }}
+                        </h1> -->
+                    </div>
+                    <div class="mb-4 flow-root">
+                        <div class="float-left w-5/12">
+                            <label
+                                class="block text-gray-700 text-sm font-bold mb-2"
+                                for="lat"
+                            >
+                                Latitude
+                            </label>
+                            <input
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="lat"
+                                type="text"
+                                placeholder="Latitude"
+                                readonly
+                                :value="address.latitude"
+                            />
+                        </div>
+                        <div class="float-right w-5/12">
+                            <label
+                                class="block text-gray-700 text-sm font-bold mb-2"
+                                for="lng"
+                            >
+                                Longitude
+                            </label>
+                            <input
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="lng"
+                                type="text"
+                                placeholder="Longitude"
+                                readonly
+                                :value="address.longitude"
+                            />
+                        </div>
                     </div>
                     <div class="mb-4">
                         <label
@@ -93,51 +144,29 @@ const customLabel = ({ name, id }) => `${name} with an id of ${id}`;
                         >
                             Boarding House Type
                         </label>
-                        <select
-                            data-te-select-init
-                            data-te-select-filter="true"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="type_id"
-                            type="text"
-                            placeholder="type_id"
-                        >
-                            <option v-for="typ in types" value="{{ typ.id }}">
-                                {{ typ.id }} - {{ typ.name }}
-                            </option>
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label
-                            class="block text-gray-700 text-sm font-bold mb-2"
-                            for="type_id"
-                        >
-                            Boarding House Type w/ NPM
-                        </label>
                         <VueMultiselect
-                            v-model="selected"
+                            v-model="selectedType"
                             :options="types"
-                            :custom-label="customLabel"
                             label="name"
                             track-by="name"
                         >
                         </VueMultiselect>
                     </div>
-                    {{ selected.id }}
                     <div class="mb-4">
                         <label
                             class="block text-gray-700 text-sm font-bold mb-2"
-                            for="type_id"
+                            for="facilities_id[]"
                         >
-                            Boarding House Type w/ NPM Multi Select
+                            Facilites
                         </label>
                         <multiselect
-                            v-model="selected"
-                            :options="types"
+                            v-model="selectedFacility"
+                            :options="facilities"
                             :multiple="true"
                             :close-on-select="false"
                             :clear-on-select="false"
                             :preserve-search="true"
-                            placeholder="Pick some"
+                            placeholder="Select Facilities"
                             label="name"
                             track-by="name"
                         >
@@ -146,9 +175,59 @@ const customLabel = ({ name, id }) => `${name} with an id of ${id}`;
                     <div class="mb-4">
                         <label
                             class="block text-gray-700 text-sm font-bold mb-2"
+                            for="type_id"
+                        >
+                            Boarding House Location
+                        </label>
+                        <VueMultiselect
+                            v-model="selectedLocation"
+                            :options="locations"
+                            :custom-label="customLabelLocation"
+                        >
+                        </VueMultiselect>
+                    </div>
+                    <!-- {{ selectedLocation.lat }} -->
+                    <!-- {{ selectedLocation.lng }} -->
+                    <div class="mb-4 flow-root">
+                        <div class="float-left w-5/12">
+                            <label
+                                class="block text-gray-700 text-sm font-bold mb-2"
+                                for="lat"
+                            >
+                                Latitude
+                            </label>
+                            <input
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="lat"
+                                type="text"
+                                placeholder="Latitude"
+                                readonly
+                                :value="selectedLocation.lat"
+                            />
+                        </div>
+                        <div class="float-right w-5/12">
+                            <label
+                                class="block text-gray-700 text-sm font-bold mb-2"
+                                for="lng"
+                            >
+                                Longitude
+                            </label>
+                            <input
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="lng"
+                                type="text"
+                                placeholder="Longitude"
+                                readonly
+                                :value="selectedLocation.lng"
+                            />
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label
+                            class="block text-gray-700 text-sm font-bold mb-2"
                             for="rooms"
                         >
-                            rooms
+                            Number of Rooms
                         </label>
                         <input
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -160,23 +239,9 @@ const customLabel = ({ name, id }) => `${name} with an id of ${id}`;
                     <div class="mb-4">
                         <label
                             class="block text-gray-700 text-sm font-bold mb-2"
-                            for="shared_bathroom"
-                        >
-                            shared_bathroom
-                        </label>
-                        <input
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="shared_bathroom"
-                            type="text"
-                            placeholder="shared_bathroom"
-                        />
-                    </div>
-                    <div class="mb-4">
-                        <label
-                            class="block text-gray-700 text-sm font-bold mb-2"
                             for="price"
                         >
-                            price
+                            Price per Month
                         </label>
                         <input
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -190,7 +255,7 @@ const customLabel = ({ name, id }) => `${name} with an id of ${id}`;
                             class="block text-gray-700 text-sm font-bold mb-2"
                             for="description"
                         >
-                            description
+                            Description
                         </label>
                         <input
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

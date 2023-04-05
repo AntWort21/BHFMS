@@ -21,9 +21,11 @@
         "vue-loader": "^16.8.3"
     },
     "dependencies": {
+        "@googlemaps/js-api-loader": "^1.15.1",
         "@inertiajs/inertia": "^0.11.1",
         "@inertiajs/inertia-vue3": "^0.6.0",
         "vue": "^3.2.36",
+        "vue-google-autocomplete": "^1.1.4",
         "vue-multiselect": "^3.0.0-beta.1",
         "watch": "^0.13.0"
     },
