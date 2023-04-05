@@ -188,53 +188,6 @@ entity "chatrooms" as chtrm {
   *updated_at : Date
 }
 
-entity "countries" as country {
-  *id: Integer<<PK>>
-  --
-  *country_name: Varchar
-  *country_lat: Double
-  *country_lng: Double
-  *created_at : Date
-  *updated_at : Date
-}
-
-entity "provinces" as prov {
-  *id: Integer<<PK>>
-  --
-  *country_id: Integer<<FK>>
-  *province_name: Varchar
-  *province_lat: Double
-  *province_lng: Double
-  *created_at : Date
-  *updated_at : Date
-}
-
-entity "cities" as city {
-  *id: Integer<<PK>>
-  --
-  *province_id: Integer<<FK>>
-  *city_name: Varchar
-  *city_lat: Double
-  *city_lng: Double
-  *created_at : Date
-  *updated_at : Date
-}
-
-entity "districts" as dist {
-  *id: Integer<<PK>>
-  --
-  *city_id: Integer<<FK>>
-  *district_name: Varchar
-  *district_lat: Double
-  *district_lng: Double
-  *created_at : Date
-  *updated_at : Date
-}
-
-prov ||..o{country
-city ||..o{prov
-dist ||..o{city
-
 usrl ||..o{usr
 bh ||..o{ bhi
 bh ||..o{ f
