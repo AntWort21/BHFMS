@@ -15,25 +15,25 @@ class BoardingTypeSeeder extends Seeder
     public function run()
     {
         BoardingType::create([
-            "name" =>'Mansion'
+            "boarding_type_name" =>'Mansion'
         ]);
         BoardingType::create([
-            "name" =>'House'
+            "boarding_type_name" =>'House'
         ]);
         BoardingType::create([
-            "name" =>'Apartment'
+            "boarding_type_name" =>'Apartment'
         ]);
         BoardingType::create([
-            "name" =>'Not a Mansion'
+            "boarding_type_name" =>'Not a Mansion'
         ]);
         BoardingType::create([
-            "name" =>'Condo'
+            "boarding_type_name" =>'Condo'
         ]);
         BoardingType::create([
-            "name" =>'Trailer'
+            "boarding_type_name" =>'Trailer'
         ]);
         BoardingType::create([
-            "name" =>'CyberSpace'
+            "boarding_type_name" =>'CyberSpace'
         ]);
     }
 }

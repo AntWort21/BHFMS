@@ -15,7 +15,7 @@ class CreateFacilityDetailsTable extends Migration
     {
         Schema::create('facility_details', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('facility_detail_name');
             $table->timestamps();
         });
     }
