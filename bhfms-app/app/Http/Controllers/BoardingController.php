@@ -84,6 +84,12 @@ class BoardingController extends Controller
         ]);
     }
 
+    public function postOwner(Request $request)
+    {
+        // $lat = $request['address']['latitude'];
+        dd($request);
+    }
+
     //Store a newly created resource in storage
     public function store(Request $request)
     {

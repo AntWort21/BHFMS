@@ -38,9 +38,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/update', [UserController::class, 'updateProfile']);
 });
 
-// Route::resource('boarding', BoardingController::class);
+
 Route::get('/boarding', [BoardingController::class, 'index']);
 Route::get('/boarding/create', [BoardingController::class, 'createOwner']);
+Route::post('/boarding/create', [BoardingController::class, 'postOwner']);
 
 Route::get('/boarding/test', [BoardingController::class, 'testCarousel']);
 Route::get('/boarding/all', [BoardingController::class, 'getAllBoardingHouse']);

@@ -36,16 +36,19 @@ watch(search, (value) => {
             <div class="flow-root">
                 <div class="flow-root">
                     <div class="mt-2 float-left">
-                        <div
-                            class="rounded border block bg-white border-gray-400 text-gray-700 py-2 px-4 flex"
-                        >
-                            <button
-                                class="flex w-6 h-6 mr-5 text-base bg-blue-400 items-center font-bold justify-center text-white rounded-xl font-mono"
+                        <a href="/boarding/create">
+                            <div
+                                class="rounded border block bg-white border-gray-400 text-gray-700 py-2 px-4 flex"
                             >
-                                +
-                            </button>
-                            <h3 class="self-center">Add New Boarding</h3>
-                        </div>
+                                <button
+                                    class="flex w-6 h-6 mr-5 text-base bg-blue-400 items-center font-bold justify-center text-white rounded-xl font-mono"
+                                >
+                                    +
+                                </button>
+
+                                <h3 class="self-center">Add New Boarding</h3>
+                            </div>
+                        </a>
                     </div>
                     <div class="mt-2 float-right">
                         <select

@@ -2,7 +2,7 @@
 // import { computed } from "vue";
 // import { usePage } from "@inertiajs/inertia-vue3";
 // import { numberLiteral } from "@babel/types";
-import { ref, watch } from "vue";
+import { reactive, ref, watch } from "vue";
 import { useForm, Head } from "@inertiajs/inertia-vue3";
 import VueMultiselect from "vue-multiselect";
 import Multiselect from "vue-multiselect";
@@ -16,38 +16,38 @@ defineProps({
     selectedType: Object,
     selectedLocation: Object,
     selectedFacility: Object,
-    // selectedLoactionGoogle: Object,
-});
-let selectedType = ref("");
-let selectedLocation = ref("");
-let selectedFacility = ref("");
-// let selectedLoactionGoogle = ref("");
-const form = useForm({
-    name: "",
-    address: "",
-    map_location: "",
-    type_id: "",
-    rooms: 0,
-    shared_bathroom: false,
-    price: 0,
-    description: "",
 });
 
+const selectedType = ref("");
+const selectedFacility = ref("");
 const address = ref("");
 
 const getAddressData = (addressData, placeResultData, id) => {
     address.value = addressData;
 };
 
-const customLabelLocation = ({
-    country_name,
-    province_name,
-    city_name,
-    district_name,
-}) => `${country_name}, ${province_name}, ${city_name}, ${district_name}`;
+const form = useForm({
+    name: "",
+    address: address,
+    type: selectedType,
+    facility: selectedFacility,
+    rooms: 0,
+    price: 0,
+    description: "",
+});
 
-// const customLabelLocation = ({ province_name, city_name, district_name }) =>
-//     `${province_name} with an id of ${province_id} & ${city_id}`;
+// form.post("/boarding/create", {
+//     preserveScroll: true,
+//     // onSuccess: () => form.reset("password"),
+// });
+
+const submit = () => {
+    form.post("/boarding/create", {
+        preserveScroll: true,
+        preserveState: true,
+        // onSuccess: () => form.reset("password"),
+    });
+};
 </script>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
 <template>
@@ -64,7 +64,11 @@ const customLabelLocation = ({
             class="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center bg-gray font-sans overflow-hidden"
         >
             <div class="w-11/12">
-                <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <form
+                    @submit.prevent="submit"
+                    enctype="multipart/form-data"
+                    class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+                >
                     <h1 class="text-blue-600 font-bold text-2xl mb-8">
                         Add New Boarding House
                     </h1>
@@ -80,6 +84,7 @@ const customLabelLocation = ({
                             id="name"
                             type="text"
                             placeholder="name"
+                            v-model="form.name"
                         />
                     </div>
                     <div class="mb-4">
@@ -87,21 +92,17 @@ const customLabelLocation = ({
                             class="block text-gray-700 text-sm font-bold mb-2"
                             for="address"
                         >
-                            Address Google
+                            Address
                         </label>
                         <vue-google-autocomplete
                             id="address"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             classname="form-control"
-                            placeholder="Start typing"
+                            placeholder="Select Address"
                             v-on:placechanged="getAddressData"
+                            v-model="form.address"
                         >
                         </vue-google-autocomplete>
-                        <!-- <h1>
-                            {{ address }}
-                            {{ address.latitude }}
-                            {{ address.longitude }}
-                        </h1> -->
                     </div>
                     <div class="mb-4 flow-root">
                         <div class="float-left w-5/12">
@@ -117,7 +118,7 @@ const customLabelLocation = ({
                                 type="text"
                                 placeholder="Latitude"
                                 readonly
-                                :value="address.latitude"
+                                v-model="address.latitude"
                             />
                         </div>
                         <div class="float-right w-5/12">
@@ -133,7 +134,7 @@ const customLabelLocation = ({
                                 type="text"
                                 placeholder="Longitude"
                                 readonly
-                                :value="address.longitude"
+                                v-model="address.longitude"
                             />
                         </div>
                     </div>
@@ -175,56 +176,6 @@ const customLabelLocation = ({
                     <div class="mb-4">
                         <label
                             class="block text-gray-700 text-sm font-bold mb-2"
-                            for="type_id"
-                        >
-                            Boarding House Location
-                        </label>
-                        <VueMultiselect
-                            v-model="selectedLocation"
-                            :options="locations"
-                            :custom-label="customLabelLocation"
-                        >
-                        </VueMultiselect>
-                    </div>
-                    <!-- {{ selectedLocation.lat }} -->
-                    <!-- {{ selectedLocation.lng }} -->
-                    <div class="mb-4 flow-root">
-                        <div class="float-left w-5/12">
-                            <label
-                                class="block text-gray-700 text-sm font-bold mb-2"
-                                for="lat"
-                            >
-                                Latitude
-                            </label>
-                            <input
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="lat"
-                                type="text"
-                                placeholder="Latitude"
-                                readonly
-                                :value="selectedLocation.lat"
-                            />
-                        </div>
-                        <div class="float-right w-5/12">
-                            <label
-                                class="block text-gray-700 text-sm font-bold mb-2"
-                                for="lng"
-                            >
-                                Longitude
-                            </label>
-                            <input
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="lng"
-                                type="text"
-                                placeholder="Longitude"
-                                readonly
-                                :value="selectedLocation.lng"
-                            />
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <label
-                            class="block text-gray-700 text-sm font-bold mb-2"
                             for="rooms"
                         >
                             Number of Rooms
@@ -234,6 +185,7 @@ const customLabelLocation = ({
                             id="rooms"
                             type="text"
                             placeholder="rooms"
+                            v-model="form.rooms"
                         />
                     </div>
                     <div class="mb-4">
@@ -248,6 +200,7 @@ const customLabelLocation = ({
                             id="price"
                             type="text"
                             placeholder="price"
+                            v-model="form.price"
                         />
                     </div>
                     <div class="mb-4">
@@ -262,12 +215,13 @@ const customLabelLocation = ({
                             id="description"
                             type="text"
                             placeholder="description"
+                            v-model="form.description"
                         />
                     </div>
                     <div class="flex justify-center">
                         <button
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            type="button"
+                            type="submit"
                         >
                             Submit
                         </button>
