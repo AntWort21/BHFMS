@@ -6,7 +6,7 @@
             @mouseenter="$emit('mouseenter')"
             @mouseout="$emit('mouseout')"
         >
-            <img :src="slide" />
+            <img :src="slide" class="object-cover" />
         </div>
     </transition>
 </template>
