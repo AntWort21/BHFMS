@@ -16,7 +16,7 @@ class RentTransactionSeeder extends Seeder
     public function run()
     {
         RentTransaction::create([
-            "tenant_id"=>1,
+            "tenant_boarding_id"=>1,
             "payment_type_id"=>1,
             "payment_status"=>1,
             "start_date"=>Carbon::today(),

@@ -16,9 +16,9 @@ class CreateRentTransactionsTable extends Migration
         Schema::create('rent_transactions', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('tenant_id');
-            $table->foreign('tenant_id')->references('id')
-            ->on('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->unsignedBigInteger('tenant_boarding_id');
+            $table->foreign('tenant_boarding_id')->references('id')
+            ->on('tenant_boardings')->cascadeOnUpdate()->cascadeOnDelete();
 
             $table->unsignedBigInteger('payment_type_id');
             $table->foreign('payment_type_id')->references('id')
