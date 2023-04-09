@@ -7,6 +7,10 @@ namespace App\Http\Controllers;
 use App\Models\Boarding;
 use App\Models\BoardingImage;
 use App\Models\BoardingType;
+use App\Models\Facility;
+use App\Models\FacilityDetail;
+use App\Models\OwnerBoarding;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -49,11 +53,24 @@ class BoardingController extends Controller
     public function getBoardingHouseDetail(Request $request)
     {
         $selectedBoardingHouseDetail = Boarding::where('id', $request->id)->first();
-        $imagesForSelectedBoardingHouse = BoardingImage::where('boarding_id', $request->id)->get()->pluck('image');
+        $boardingHouseImages = BoardingImage::where('boarding_id', $request->id)->get()->pluck('image');
+
+        $ownerId = OwnerBoarding::where('boarding_id', $request->id)->first()->user_id;
+        $ownerName = User::where('id', $ownerId)->first()->user_name;
+
+        $facilityList = Facility::where('boarding_id', $request->id)->get();
+        foreach ($facilityList as $key => $facility) {
+            $facilityList[$key]->facility_detail_name = FacilityDetail::where('id', $facility->facility_id)->first()->facility_detail_name;
+        }
+
+        //review list
+        //similar boarding house
 
         return Inertia::render('Boarding/SelectedBoardingHouse', [
             'boardingHouseDetail' => $selectedBoardingHouseDetail,
-            'images' => $imagesForSelectedBoardingHouse
+            'images' => $boardingHouseImages,
+            'ownerName' => $ownerName,
+            'facilityList' => $facilityList->pluck('facility_detail_name')
         ]);
     }
 
