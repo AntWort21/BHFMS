@@ -11,4 +11,6 @@ class FacilityDetail extends Model
     public function facilities(){
         return $this->hasMany(facility::class);
     }
+
+    protected $guarded = [];
 }

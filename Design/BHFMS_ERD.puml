@@ -42,16 +42,24 @@ entity "boardings" as bh {
   --
   *boarding_name : Varchar
   *address : Varchar
-  *lat : Varchar
-  *lng : Varchar
+  *latitude : Double
+  *longitude : Double
   *type_id : Integer <<FK>>
   *rooms : Integer
   *shared_bathroom : Boolean
   *price : Integer
   *boarding_desc : Varchar
-  *declined_reason : Varchar
   *created_at : Date
   *updated_at : Date
+}
+
+entity "tenant_boardings" as tb {
+  *id : Integer <<PK>>
+  --
+  *user_id : Integer <<FK>>
+  *boarding_id : Integer <<FK>>
+  *status : Boolean
+  *declined_reason : Varchar
 }
 
 entity "facility_details" as fd {
@@ -81,20 +89,11 @@ entity "boarding_images" as bhi {
   *updated_at : Date
 }
 
-entity "rent_transaction_header" as rt {
+entity "rent_transaction" as rt {
   *id : Integer <<PK>>
   --
-  *user_id : Integer <<FK>>
-  *created_at : Date
-  *updated_at : Date
-  
-}
-
-entity "rent_transaction_detail" as rtd {
-  *id : Integer <<PK>>
-  --
+  *tenant_boarding_id : Integer <<FK>>
   *transaction_header_id : Integer <<FK>> 
-  *boarding_id : Integer <<FK>>
   *payment_type_id : Integer <<FK>>
   *start_date : Date
   *end_date : Date
@@ -104,12 +103,22 @@ entity "rent_transaction_detail" as rtd {
   *updated_at : Date
 }
 
+' entity "boarding_status" as bhst{
+'     *id : Integer <<PK>>
+'     --
+'     *name : Varchar
+'     *created_at : Date
+'     *updated_at : Date
+' }
+
 
 entity "owner_boardings" as lobh {
   *id : Integer <<PK>>
   --
   *user_id : Integer <<FK>>
   *boarding_id : Integer <<FK>>
+  *status: Enumerate
+  *declined_reason : Varchar
   *created_at : Date
   *updated_at : Date
 }
@@ -193,10 +202,11 @@ bh ||..o{ bhi
 bh ||..o{ f
 fd ||..o{ f
 
-usr ||..o{ rt
-bh ||..o{ rtd
-rt ||..||rtd
-pymnt ||..o{ rtd
+usr ||..o{ tb
+bh ||..o{ tb
+
+tb ||..o{ rt
+pymnt ||..o{ rt
 
 usr ||..o{ lobh
 bh ||..o{ lobh

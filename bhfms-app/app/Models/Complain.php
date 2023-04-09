@@ -20,4 +20,6 @@ class Complain extends Model
     public function complainType(){
         return $this->belongsTo(ComplainType::class,'complain_types_id');
     }
+
+    protected $guarded = [];
 }

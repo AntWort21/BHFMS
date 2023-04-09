@@ -11,4 +11,6 @@ class BoardingImage extends Model
     public function boarding() {
         return $this->belongsTo(BoardingImage::class,'boarding_images_id');
     }
+
+    protected $guarded = [];
 }

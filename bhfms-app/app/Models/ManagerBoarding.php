@@ -15,4 +15,6 @@ class ManagerBoarding extends Model
     public function ownerBoarding(){
         return $this->belongsTo(OwnerBoarding::class,'owner_boardings_id');
     }
+
+    protected $guarded = [];
 }
