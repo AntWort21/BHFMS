@@ -12,8 +12,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public function rentTransactionHeaders(){
-        return $this->hasMany(RentTransactionHeader::class);
+    public function tenantBoardings(){
+        return $this->hasMany(TenantBoarding::class);
     }
 
     public function ownerBoardings(){

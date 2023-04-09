@@ -13,13 +13,21 @@ class CreateRentTransactionHeaderTable extends Migration
      */
     public function up()
     {
-        Schema::create('rent_transaction_header', function (Blueprint $table) {
+        Schema::create('rent_transaction', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            
-            $table->foreign('user_id')->references('id')
+
+            $table->unsignedBigInteger('tenant_id');
+            $table->foreign('tenant_id')->references('id')
             ->on('users')->cascadeOnUpdate()->cascadeOnDelete();
 
+            $table->unsignedBigInteger('payment_type_id');
+            $table->foreign('payment_type_id')->references('id')
+            ->on('payment_types')->cascadeOnUpdate()->cascadeOnDelete();
+            
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->boolean('payment_status');
+            $table->string('declined_reason')->nullable();
             $table->timestamps();
         });
     }

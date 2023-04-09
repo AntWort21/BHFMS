@@ -53,6 +53,15 @@ entity "boardings" as bh {
   *updated_at : Date
 }
 
+entity "tenant_boardings" as tb {
+  *id : Integer <<PK>>
+  --
+  *user_id : Integer <<FK>>
+  *boarding_id : Integer <<FK>>
+  *status : Boolean
+  *declined_reason : Varchar
+}
+
 entity "facility_details" as fd {
   *id: Integer <<FK>>
   --
@@ -80,20 +89,11 @@ entity "boarding_images" as bhi {
   *updated_at : Date
 }
 
-entity "rent_transaction_header" as rt {
+entity "rent_transaction" as rt {
   *id : Integer <<PK>>
   --
-  *user_id : Integer <<FK>>
-  *created_at : Date
-  *updated_at : Date
-  
-}
-
-entity "rent_transaction_detail" as rtd {
-  *id : Integer <<PK>>
-  --
+  *tenant_id : Integer <<FK>>
   *transaction_header_id : Integer <<FK>> 
-  *boarding_id : Integer <<FK>>
   *payment_type_id : Integer <<FK>>
   *start_date : Date
   *end_date : Date
@@ -212,10 +212,11 @@ bh ||..o{ bhi
 bh ||..o{ f
 fd ||..o{ f
 
-usr ||..o{ rt
-bh ||..o{ rtd
-rt ||..||rtd
-pymnt ||..o{ rtd
+usr ||..o{ tb
+bh ||..o{ tb
+
+tb ||..o{ rt
+pymnt ||..o{ rt
 
 usr ||..o{ lobh
 bh ||..o{ lobh

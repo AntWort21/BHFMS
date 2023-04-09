@@ -9,8 +9,8 @@ class PaymentType extends Model
 {
     use HasFactory;
 
-    public function rentTransactionalDetails(){
-        return $this->hasMany(RentTransactionDetail::class);
+    public function rentTransactionals(){
+        return $this->hasMany(RentTransaction::class);
     }
 
     protected $guarded = [];
