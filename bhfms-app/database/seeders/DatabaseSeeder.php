@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             FacilitySeeder::class,
             BoardingImageSeeder::class,
             UserSeeder::class,
+            OwnerBoardingSeeder::class,
         ]);
 
     }
