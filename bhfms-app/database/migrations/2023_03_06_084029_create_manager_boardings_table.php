@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateManagerBoardingTable extends Migration
+class CreateManagerBoardingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -21,6 +21,8 @@ class CreateManagerBoardingTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')
             ->on('users')->cascadeOnUpdate()->cascadeOnDelete();
+            
+            $table->unique(['owner_boarding_id', 'user_id']);
             $table->timestamps();
         });
     }

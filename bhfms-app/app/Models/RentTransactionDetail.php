@@ -20,4 +20,6 @@ class RentTransactionDetail extends Model
     public function rentTransactionHeader(){
         return $this->belongsTo(RentTransactionHeader::class,'rent_transaction_header_id');
     }
+
+    protected $guarded = [];
 }

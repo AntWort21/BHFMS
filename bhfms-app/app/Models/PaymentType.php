@@ -12,4 +12,6 @@ class PaymentType extends Model
     public function rentTransactionalDetails(){
         return $this->hasMany(RentTransactionDetail::class);
     }
+
+    protected $guarded = [];
 }

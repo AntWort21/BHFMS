@@ -24,8 +24,6 @@ class BoardingSeeder extends Seeder
             "rooms"=>3,
             "shared_bathroom"=>1,
             "price"=>23000,
-            "status"=>2,
-            "declined_reason"=>"Too many mouse",
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
@@ -37,8 +35,6 @@ class BoardingSeeder extends Seeder
             "rooms"=>3,
             "shared_bathroom"=>0,
             "price"=>230000,
-            "status"=>2,
-            "declined_reason"=>"Too many Cats",
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
@@ -50,8 +46,6 @@ class BoardingSeeder extends Seeder
             "rooms"=>rand(1,10),
             "shared_bathroom"=>rand(0,1),
             "price"=>rand(200000,3000000),
-            "status"=>1,
-            "declined_reason"=>"",
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
@@ -63,8 +57,6 @@ class BoardingSeeder extends Seeder
             "rooms"=>rand(1,10),
             "shared_bathroom"=>rand(0,1),
             "price"=>rand(200000,3000000),
-            "status"=>1,
-            "declined_reason"=>"",
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
@@ -76,8 +68,6 @@ class BoardingSeeder extends Seeder
             "rooms"=>rand(1,10),
             "shared_bathroom"=>rand(0,1),
             "price"=>rand(200000,3000000),
-            "status"=>1,
-            "declined_reason"=>"",
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
@@ -89,8 +79,6 @@ class BoardingSeeder extends Seeder
             "rooms"=>rand(1,10),
             "shared_bathroom"=>rand(0,1),
             "price"=>rand(200000,3000000),
-            "status"=>1,
-            "declined_reason"=>"",
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
@@ -102,8 +90,6 @@ class BoardingSeeder extends Seeder
             "rooms"=>rand(1,10),
             "shared_bathroom"=>rand(0,1),
             "price"=>rand(200000,3000000),
-            "status"=>1,
-            "declined_reason"=>"",
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
@@ -115,8 +101,6 @@ class BoardingSeeder extends Seeder
             "rooms"=>rand(1,10),
             "shared_bathroom"=>rand(0,1),
             "price"=>rand(200000,3000000),
-            "status"=>2,
-            "declined_reason"=>"",
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
@@ -128,8 +112,6 @@ class BoardingSeeder extends Seeder
             "rooms"=>rand(1,10),
             "shared_bathroom"=>rand(0,1),
             "price"=>rand(200000,3000000),
-            "status"=>2,
-            "declined_reason"=>"",
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
@@ -141,8 +123,6 @@ class BoardingSeeder extends Seeder
             "rooms"=>rand(1,10),
             "shared_bathroom"=>rand(0,1),
             "price"=>rand(200000,3000000),
-            "status"=>2,
-            "declined_reason"=>"",
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
@@ -154,8 +134,6 @@ class BoardingSeeder extends Seeder
             "rooms"=>rand(1,10),
             "shared_bathroom"=>rand(0,1),
             "price"=>rand(200000,3000000),
-            "status"=>2,
-            "declined_reason"=>"",
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
@@ -167,8 +145,6 @@ class BoardingSeeder extends Seeder
             "rooms"=>rand(1,10),
             "shared_bathroom"=>rand(0,1),
             "price"=>rand(200000,3000000),
-            "status"=>2,
-            "declined_reason"=>"",
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
@@ -180,8 +156,6 @@ class BoardingSeeder extends Seeder
             "rooms"=>rand(1,10),
             "shared_bathroom"=>rand(0,1),
             "price"=>rand(200000,3000000),
-            "status"=>2,
-            "declined_reason"=>"",
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
@@ -193,8 +167,6 @@ class BoardingSeeder extends Seeder
             "rooms"=>rand(1,10),
             "shared_bathroom"=>rand(0,1),
             "price"=>rand(200000,3000000),
-            "status"=>2,
-            "declined_reason"=>"",
         ]);
         
     }

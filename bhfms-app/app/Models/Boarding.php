@@ -31,7 +31,13 @@ class Boarding extends Model
         return $this->hasMany(OwnerBoarding::class);
     }
 
+    public function tenantBoardings(){
+        return $this->hasMany(TenantBoarding::class);
+    }
+
     public function complains(){
         return $this->hasMany(Complain::class);
     }
+
+    protected $guarded = [];
 }
