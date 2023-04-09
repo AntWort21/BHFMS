@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateManagerBoardingTable extends Migration
+class CreateOwnerBoardingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,21 @@ class CreateManagerBoardingTable extends Migration
      */
     public function up()
     {
-        Schema::create('manager_boardings', function (Blueprint $table) {
+        Schema::create('owner_boardings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('owner_boarding_id');
-            $table->foreign('owner_boarding_id')->references('id')
-            ->on('owner_boardings')->cascadeOnUpdate()->cascadeOnDelete();
+
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')
             ->on('users')->cascadeOnUpdate()->cascadeOnDelete();
+
+            $table->unsignedBigInteger('boarding_id');
+            $table->foreign('boarding_id')->references('id')
+            ->on('boardings')->cascadeOnUpdate()->cascadeOnDelete();
+            
+            $table->enum('status',['pending','approved','declined'])->default('pending');
+            $table->string('declined_reason')->nullable();
+
+            $table->unique(['user_id', 'boarding_id']);
             $table->timestamps();
         });
     }
@@ -32,6 +39,6 @@ class CreateManagerBoardingTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('manager_boardings');
+        Schema::dropIfExists('owner_boardings');
     }
 }
