@@ -104,21 +104,30 @@ entity "rent_transaction_detail" as rtd {
   *updated_at : Date
 }
 
-entity "boarding_status" as bhst{
-    *id : Integer <<PK>>
-    --
-    *name : Varchar
-    *created_at : Date
-    *updated_at : Date
-}
+' entity "boarding_status" as bhst{
+'     *id : Integer <<PK>>
+'     --
+'     *name : Varchar
+'     *created_at : Date
+'     *updated_at : Date
+' }
 
+entity "tenant_boardings" as tenbh {
+  *id : Integer <<PK>>
+  --
+  *user_id : Integer <<FK>>
+  *boarding_id : Integer <<FK>>
+  *status: Enumerate
+  *created_at : Date
+  *updated_at : Date
+}
 
 entity "owner_boardings" as lobh {
   *id : Integer <<PK>>
   --
   *user_id : Integer <<FK>>
   *boarding_id : Integer <<FK>>
-  *status_id : Integer <<FK>>
+  *status: Enumerate
   *created_at : Date
   *updated_at : Date
 }
@@ -209,6 +218,9 @@ pymnt ||..o{ rtd
 
 usr ||..o{ lobh
 bh ||..o{ lobh
+
+usr ||..o{ tenbh
+bh ||..o{ tenbh
 
 usr ||..o{ mabh
 lobh ||..o{ mabh

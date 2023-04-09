@@ -24,17 +24,31 @@ class BoardingController extends Controller
     {
         // $data = Boarding::when($request->search, function($query, $search){
         //     $query->where('status','=',$search);
+        // })->with(['ownerBoardings' => function ($query) {
+        //     $query->select('status');
+        // }])->get();
+
+        // $users = User::whereHas('posts', function($q){
+        //     $q->where('created_at', '>=', '2015-01-01 00:00:00');
         // })->get();
 
-        $data = Boarding::when($request->search, function($query, $search){
+        $data = Boarding::join('owner_boardings','boardings.id','=','owner_boardings.boarding_id')->when($request->search, function($query, $search){
             $query->where('status','=',$search);
         })->paginate(5)->withQueryString();
 
+
+        // dd($data);
+
+
+        // $data = Boarding::when($request->search, function($query, $search){
+        //     $query->where('status','=',$search);
+        // })->paginate(5)->withQueryString();
+
         return Inertia::render('Boarding/ListBoarding', [
             'all_count' => Boarding::count(),
-            'approved' => Boarding::where('status','=','approved')->count(),
-            'declined' => Boarding::where('status','=','declined')->count(),
-            'pending' => Boarding::where('status','=','pending')->count(),
+            'approved' => Boarding::join('owner_boardings','boardings.id','=','owner_boardings.boarding_id')->where('status','=','approved')->count(),
+            'declined' => Boarding::join('owner_boardings','boardings.id','=','owner_boardings.boarding_id')->where('status','=','declined')->count(),
+            'pending' => Boarding::join('owner_boardings','boardings.id','=','owner_boardings.boarding_id')->where('status','=','pending')->count(),
             'boardings' => $data
         ]);
     }
@@ -73,14 +87,13 @@ class BoardingController extends Controller
         //     ['cities.id', '<>', 'districts.city_id'],
         // ])->get();
         // dd($location);
-        $location = Country::join('provinces','countries.id','=','provinces.country_id')
-        ->join('cities','provinces.id','=','cities.province_id')
-        ->join('districts','cities.id','=','districts.city_id')->get();
+        // $location = Country::join('provinces','countries.id','=','provinces.country_id')
+        // ->join('cities','provinces.id','=','cities.province_id')
+        // ->join('districts','cities.id','=','districts.city_id')->get();
         // dd($location);
         return Inertia::render('Boarding/CreateBoarding', [
             'facilities' => FacilityDetail::get(),
             'types' => BoardingType::get(),
-            'locations'=>$location,
         ]);
     }
 

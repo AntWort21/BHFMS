@@ -15,6 +15,7 @@ class CreateOwnerBoardingTable extends Migration
     {
         Schema::create('owner_boardings', function (Blueprint $table) {
             $table->id();
+            $table->enum('status',['pending','approved','declined'])->default('pending');
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')
