@@ -6,7 +6,7 @@ use App\Models\RentTransaction;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
-class RentTransactionHeaderSeeder extends Seeder
+class RentTransactionSeeder extends Seeder
 {
     /**
      * Run the database seeds.

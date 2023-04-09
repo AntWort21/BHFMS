@@ -20,10 +20,6 @@ class User extends Authenticatable
         return $this->hasMany(OwnerBoarding::class);
     }
 
-    public function tenantBoardings(){
-        return $this->hasMany(TenantBoarding::class);
-    }
-
     public function complains(){
         return $this->hasMany(Complain::class);
     }

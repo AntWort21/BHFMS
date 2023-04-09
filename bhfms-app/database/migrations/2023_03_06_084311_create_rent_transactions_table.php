@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRentTransactionHeaderTable extends Migration
+class CreateRentTransactionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateRentTransactionHeaderTable extends Migration
      */
     public function up()
     {
-        Schema::create('rent_transaction', function (Blueprint $table) {
+        Schema::create('rent_transactions', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger('tenant_id');
@@ -39,6 +39,6 @@ class CreateRentTransactionHeaderTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rent_transaction_header');
+        Schema::dropIfExists('rent_transactions');
     }
 }

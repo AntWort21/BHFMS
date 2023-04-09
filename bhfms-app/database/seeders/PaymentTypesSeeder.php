@@ -15,7 +15,7 @@ class PaymentTypesSeeder extends Seeder
     public function run()
     {
         PaymentType::create([
-            "name"=>"QRIS"
+            "payment_type_name"=>"QRIS"
         ]);
     }
 }
