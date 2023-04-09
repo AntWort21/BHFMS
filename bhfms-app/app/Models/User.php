@@ -32,9 +32,6 @@ class User extends Authenticatable
         return $this->hasMany(Wishlist::class);
     }
 
-    public function userRole(){
-        return $this->belongsTo(UserRole::class,'user_roles_id');
-    }
 
     /**
      * The attributes that are mass assignable.
@@ -42,7 +39,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'user_name',
         'gender',
         'date_of_birth',
         'user_role_id',

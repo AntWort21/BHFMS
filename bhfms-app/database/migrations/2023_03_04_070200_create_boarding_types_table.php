@@ -15,7 +15,7 @@ class CreateBoardingTypesTable extends Migration
     {
         Schema::create('boarding_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('boarding_type_name');
             $table->timestamps();
 
         });
