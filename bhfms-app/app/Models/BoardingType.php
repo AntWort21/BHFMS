@@ -11,4 +11,6 @@ class BoardingType extends Model
     public function boardings(){
         return $this->hasMany(Boarding::class);
     }
+
+    protected $guarded = [];
 }

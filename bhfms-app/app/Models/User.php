@@ -12,8 +12,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public function rentTransactionHeaders(){
-        return $this->hasMany(RentTransactionHeader::class);
+    public function tenantBoardings(){
+        return $this->hasMany(TenantBoarding::class);
     }
 
     public function ownerBoardings(){
@@ -39,7 +39,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'user_name',
         'gender',
         'date_of_birth',
         'user_role_id',

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOwnerBoardingTable extends Migration
+class CreateTenantBoardingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateOwnerBoardingTable extends Migration
      */
     public function up()
     {
-        Schema::create('owner_boardings', function (Blueprint $table) {
+        Schema::create('tenant_boardings', function (Blueprint $table) {
             $table->id();
-            $table->enum('status',['pending','approved','declined'])->default('pending');
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')
@@ -25,6 +24,8 @@ class CreateOwnerBoardingTable extends Migration
             $table->foreign('boarding_id')->references('id')
             ->on('boardings')->cascadeOnUpdate()->cascadeOnDelete();
             
+            $table->enum('status',['pending','approved','declined'])->default('pending');
+            $table->string('declined_reason')->nullable();
             $table->timestamps();
         });
     }
@@ -36,6 +37,6 @@ class CreateOwnerBoardingTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('owner_boardings');
+        Schema::dropIfExists('tenant_boardings');
     }
 }
