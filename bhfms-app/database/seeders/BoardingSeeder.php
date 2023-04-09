@@ -16,7 +16,7 @@ class BoardingSeeder extends Seeder
     {
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
-            "address"=>Str::random(10).' Boarding House',
+            "address"=>"Jl. Jalur Sutera Bar. No.Kav. 21, RT.001/RW.004, Panunggangan, Kec. Pinang, Kota Tangerang, Banten 15143",
             "latitude"=>10,
             "longitude"=>22,
             "type_id"=>2,
@@ -27,7 +27,7 @@ class BoardingSeeder extends Seeder
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
-            "address"=>Str::random(10).' Boarding House',
+            "address"=>"Jl. Jalur Sutera Bar. No.Kav. 21, RT.001/RW.004, Panunggangan, Kec. Pinang, Kota Tangerang, Banten 15143",
             "latitude"=>33,
             "longitude"=>11,
             "type_id"=>4,
@@ -38,7 +38,7 @@ class BoardingSeeder extends Seeder
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
-            "address"=>Str::random(10).' Boarding House',
+            "address"=>"Jl. Jalur Sutera Bar. No.Kav. 21, RT.001/RW.004, Panunggangan, Kec. Pinang, Kota Tangerang, Banten 15143",
             "latitude"=>rand(2,50),
             "longitude"=>rand(2,50),
             "type_id"=>rand(1,7),
@@ -49,7 +49,7 @@ class BoardingSeeder extends Seeder
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
-            "address"=>Str::random(10).' Boarding House',
+            "address"=>"Jl. Jalur Sutera Bar. No.Kav. 21, RT.001/RW.004, Panunggangan, Kec. Pinang, Kota Tangerang, Banten 15143",
             "latitude"=>rand(2,50),
             "longitude"=>rand(2,50),
             "type_id"=>rand(1,7),
@@ -60,7 +60,7 @@ class BoardingSeeder extends Seeder
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
-            "address"=>Str::random(10).' Boarding House',
+            "address"=>"Jl. Jalur Sutera Bar. No.Kav. 21, RT.001/RW.004, Panunggangan, Kec. Pinang, Kota Tangerang, Banten 15143",
             "latitude"=>rand(2,50),
             "longitude"=>rand(2,50),
             "type_id"=>rand(1,7),
@@ -71,7 +71,7 @@ class BoardingSeeder extends Seeder
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
-            "address"=>Str::random(10).' Boarding House',
+            "address"=>"Jl. Jalur Sutera Bar. No.Kav. 21, RT.001/RW.004, Panunggangan, Kec. Pinang, Kota Tangerang, Banten 15143",
             "latitude"=>rand(2,50),
             "longitude"=>rand(2,50),
             "type_id"=>rand(1,7),
@@ -82,7 +82,7 @@ class BoardingSeeder extends Seeder
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
-            "address"=>Str::random(10).' Boarding House',
+            "address"=>"Jl. Jalur Sutera Bar. No.Kav. 21, RT.001/RW.004, Panunggangan, Kec. Pinang, Kota Tangerang, Banten 15143",
             "latitude"=>rand(2,50),
             "longitude"=>rand(2,50),
             "type_id"=>rand(1,7),
@@ -93,7 +93,7 @@ class BoardingSeeder extends Seeder
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
-            "address"=>Str::random(10).' Boarding House',
+            "address"=>"Jl. Jalur Sutera Bar. No.Kav. 21, RT.001/RW.004, Panunggangan, Kec. Pinang, Kota Tangerang, Banten 15143",
             "latitude"=>rand(2,50),
             "longitude"=>rand(2,50),
             "type_id"=>rand(1,7),
@@ -104,7 +104,7 @@ class BoardingSeeder extends Seeder
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
-            "address"=>Str::random(10).' Boarding House',
+            "address"=>"Jl. Jalur Sutera Bar. No.Kav. 21, RT.001/RW.004, Panunggangan, Kec. Pinang, Kota Tangerang, Banten 15143",
             "latitude"=>rand(2,50),
             "longitude"=>rand(2,50),
             "type_id"=>rand(1,7),
@@ -115,7 +115,7 @@ class BoardingSeeder extends Seeder
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
-            "address"=>Str::random(10).' Boarding House',
+            "address"=>"Jl. Jalur Sutera Bar. No.Kav. 21, RT.001/RW.004, Panunggangan, Kec. Pinang, Kota Tangerang, Banten 15143",
             "latitude"=>rand(2,50),
             "longitude"=>rand(2,50),
             "type_id"=>rand(1,7),
@@ -126,7 +126,7 @@ class BoardingSeeder extends Seeder
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
-            "address"=>Str::random(10).' Boarding House',
+            "address"=>"Jl. Jalur Sutera Bar. No.Kav. 21, RT.001/RW.004, Panunggangan, Kec. Pinang, Kota Tangerang, Banten 15143",
             "latitude"=>rand(2,50),
             "longitude"=>rand(2,50),
             "type_id"=>rand(1,7),
@@ -137,7 +137,7 @@ class BoardingSeeder extends Seeder
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
-            "address"=>Str::random(10).' Boarding House',
+            "address"=>"Jl. Jalur Sutera Bar. No.Kav. 21, RT.001/RW.004, Panunggangan, Kec. Pinang, Kota Tangerang, Banten 15143",
             "latitude"=>rand(2,50),
             "longitude"=>rand(2,50),
             "type_id"=>rand(1,7),
@@ -148,7 +148,7 @@ class BoardingSeeder extends Seeder
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
-            "address"=>Str::random(10).' Boarding House',
+            "address"=>"Jl. Jalur Sutera Bar. No.Kav. 21, RT.001/RW.004, Panunggangan, Kec. Pinang, Kota Tangerang, Banten 15143",
             "latitude"=>rand(2,50),
             "longitude"=>rand(2,50),
             "type_id"=>rand(1,7),
@@ -159,7 +159,7 @@ class BoardingSeeder extends Seeder
         ]);
         Boarding::create([
             "boarding_name" =>Str::random(10).' Boarding House',
-            "address"=>Str::random(10).' Boarding House',
+            "address"=>"Jl. Jalur Sutera Bar. No.Kav. 21, RT.001/RW.004, Panunggangan, Kec. Pinang, Kota Tangerang, Banten 15143",
             "latitude"=>rand(2,50),
             "longitude"=>rand(2,50),
             "type_id"=>rand(1,7),
@@ -168,6 +168,6 @@ class BoardingSeeder extends Seeder
             "shared_bathroom"=>rand(0,1),
             "price"=>rand(200000,3000000),
         ]);
-        
+
     }
 }

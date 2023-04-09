@@ -22,6 +22,6 @@ class DatabaseSeeder extends Seeder
             OwnerBoardingSeeder::class,
             TenantBoardingSeeder::class,
         ]);
-        
+
     }
 }
