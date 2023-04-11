@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class BoardingImage extends Model
 {
     use HasFactory;
+    
     public function boarding() {
         return $this->belongsTo(BoardingImage::class,'boarding_images_id');
     }

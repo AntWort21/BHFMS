@@ -8,13 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ManagerBoarding extends Model
 {
     use HasFactory;
-    public function user(){
-        return $this->belongsTo(User::class,'user_id');
-    }
-
-    public function ownerBoarding(){
-        return $this->belongsTo(OwnerBoarding::class,'owner_boardings_id');
-    }
 
     protected $guarded = [];
 }
