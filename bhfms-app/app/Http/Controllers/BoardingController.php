@@ -7,8 +7,9 @@ namespace App\Http\Controllers;
 use App\Models\Boarding;
 use App\Models\BoardingImage;
 use App\Models\BoardingType;
-use App\Models\Country;
+use App\Models\Facility;
 use App\Models\FacilityDetail;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -32,9 +33,18 @@ class BoardingController extends Controller
         //     $q->where('created_at', '>=', '2015-01-01 00:00:00');
         // })->get();
 
-        $data = Boarding::join('owner_boardings','boardings.id','=','owner_boardings.boarding_id')->when($request->search, function($query, $search){
-            $query->where('status','=',$search);
+        $Boarding_data = Boarding::join('owner_boardings','boardings.id','=','owner_boardings.boarding_id')
+            ->join('users','users.id','=','owner_boardings.user_id')
+            ->when($request->search, function($query, $search){
+            if($search=='all'){
+                $query;
+                
+            }else{
+                $query->where('status','=',$search);
+            }
+            
         })->paginate(5)->withQueryString();
+
 
 
         // dd($data);
@@ -49,22 +59,7 @@ class BoardingController extends Controller
             'approved' => Boarding::join('owner_boardings','boardings.id','=','owner_boardings.boarding_id')->where('status','=','approved')->count(),
             'declined' => Boarding::join('owner_boardings','boardings.id','=','owner_boardings.boarding_id')->where('status','=','declined')->count(),
             'pending' => Boarding::join('owner_boardings','boardings.id','=','owner_boardings.boarding_id')->where('status','=','pending')->count(),
-            'boardings' => $data
-        ]);
-    }
-
-    public function testCarousel()
-    {
-        $slides = [
-            "https://picsum.photos/id/1032/900/400",
-            "https://picsum.photos/id/1033/900/400",
-            "https://picsum.photos/id/1037/900/400",
-            "https://picsum.photos/id/1035/900/400",
-            "https://picsum.photos/id/1036/900/400",
-        ];
-
-        return Inertia::render('Boarding/CarouselTry', [
-            'slides' => $slides
+            'boardings' => $Boarding_data,
         ]);
     }
 
@@ -80,27 +75,45 @@ class BoardingController extends Controller
     }
 
     //Show the form for creating a new resource.
-    public function createOwner()
+    public function createOwnerBoarding()
     {
-        // $location = Country::with('provinces.cities.districts')->where([
-        //     ['provinces.id', '=', 'cities.province_id'],
-        //     ['cities.id', '<>', 'districts.city_id'],
-        // ])->get();
-        // dd($location);
-        // $location = Country::join('provinces','countries.id','=','provinces.country_id')
-        // ->join('cities','provinces.id','=','cities.province_id')
-        // ->join('districts','cities.id','=','districts.city_id')->get();
-        // dd($location);
+        $Manager_data = User::where('user_role_id','=','4')->get();
         return Inertia::render('Boarding/CreateBoarding', [
             'facilities' => FacilityDetail::get(),
             'types' => BoardingType::get(),
+            'managers' => $Manager_data,
         ]);
     }
 
-    public function postOwner(Request $request)
+    public function postOwnerBoarding(Request $request)
     {
-        // $lat = $request['address']['latitude'];
-        dd($request);
+        // dd($request['facility']);
+        $validation = $request->validate([
+            // 'name' => ['required', 'max:50'],
+            // 'address' => ['required'],
+            // 'type' => ['required'],
+            // 'rooms' => ['required','numeric','min:1'],
+            // 'price' => ['required','numeric','min:1'],
+            // 'description' => ['required', 'max:200','min:5'],
+            // 'images' => ['max:3']
+        ]);
+
+        
+
+        $BoardingNow = Boarding::create([
+            'boarding_name' => $request['name'],
+            'address' => $request['address'],
+            'latitude' => $request['lat'],
+            'longitude' => $request['lng'],
+            'type_id' => $request['type'],
+            'rooms' => $request['rooms'],
+            'shared_bathroom' => $request['sharedBathroom'],
+            'price' => $request['price'],
+            'boarding_desc' => $request['description'],
+        ]);
+
+        $BoardingNow->facilities()->attach($request['facility']);
+
     }
 
     //Store a newly created resource in storage

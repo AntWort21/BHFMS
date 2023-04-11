@@ -12,7 +12,8 @@ class Boarding extends Model
     }
 
     public function facilities(){
-        return $this->hasMany(Facility::class);
+        return $this->belongsToMany(FacilityDetail::class, 'facilities', 'boarding_id', 'facility_id');
+        // return $this->belongsToMany(Facility::class);
     }
 
     public function tenantBoardings(){

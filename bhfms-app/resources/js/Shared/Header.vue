@@ -20,7 +20,7 @@ let selectedLogout = ref(false);
             />
         </div>
         <div class="space-x-9">
-            <Link href="">Boarding House Management</Link>
+            <Link href="/boarding">Boarding House Management</Link>
             <Link href="">Facilities Management</Link>
 
             <Link href="">Homepage</Link>
@@ -49,7 +49,10 @@ let selectedLogout = ref(false);
                     v-if="hover == false"
                     class="px-6 py-2 bg-white rounded-2xl text-black"
                 >
-                    User
+                    <div v-if="$page.props.user">
+                        {{ $page.props.user.user_name }}
+                    </div>
+                    <div v-else>User</div>
                 </div>
                 <div
                     v-if="hover == true"

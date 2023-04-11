@@ -30,8 +30,24 @@ watch(search, (value) => {
     <!-- component -->
     <div class="overflow-x-auto">
         <div
-            class="top-0 min-w-screen min-h-screen bg-gray-100 flex justify-center bg-gray font-sans overflow-hidden"
+            class="top-0 bg-gray-100 flex justify-center bg-gray font-sans overflow-hidden mt-2"
         >
+            <div
+                v-if="$page.props.flash.message"
+                class="flex items-center bg-blue-500 text-white text-sm font-bold px-4 py-3"
+                role="alert"
+            >
+                <svg
+                    class="fill-current w-4 h-4 mr-2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                >
+                    <path
+                        d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z"
+                    />
+                </svg>
+                <p>{{ $page.props.flash.message }}</p>
+            </div>
             <!-- Filtering -->
             <div class="flow-root">
                 <div class="flow-root">
@@ -55,7 +71,10 @@ watch(search, (value) => {
                             class="rounded border block bg-white border-gray-400 text-gray-700 py-2 px-4"
                             v-model="search"
                         >
-                            <option value="">All ({{ all_count }})</option>
+                            <option value="" selected hidden>
+                                Filter Status
+                            </option>
+                            <option value="all">All ({{ all_count }})</option>
                             <option value="approved">
                                 Approved ({{ approved }})
                             </option>
@@ -78,7 +97,7 @@ watch(search, (value) => {
                                 </th>
                                 <th class="py-3 px-6 text-left">Status</th>
                                 <th class="py-3 px-6 text-center">
-                                    See Details
+                                    Boarding Owner Name
                                 </th>
                                 <th class="py-3 px-6 text-center">Actions</th>
                             </tr>
@@ -98,7 +117,7 @@ watch(search, (value) => {
                                             />
                                         </div>
                                         <span class="font-medium"
-                                            >{{ boarding.name }}
+                                            >{{ boarding.boarding_name }}
                                         </span>
                                     </div>
                                 </td>
@@ -124,7 +143,7 @@ watch(search, (value) => {
                                 </td>
 
                                 <td class="py-3 px-6 text-center">
-                                    <a href="#">see details</a>
+                                    <a href="#">{{ boarding.user_name }}</a>
                                 </td>
 
                                 <td class="py-3 px-6 text-center">
@@ -176,6 +195,27 @@ watch(search, (value) => {
                                             </a>
                                         </div>
                                         <div
+                                            class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
+                                        >
+                                            <a href="http://">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor"
+                                                >
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                                    />
+                                                </svg>
+                                            </a>
+                                        </div>
+
+                                        <div
+                                            v-if="boarding.status == 'approved'"
                                             class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                                         >
                                             <a href="http://">
