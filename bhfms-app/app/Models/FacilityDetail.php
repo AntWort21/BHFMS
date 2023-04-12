@@ -9,7 +9,7 @@ class FacilityDetail extends Model
 {
     use HasFactory;
     public function boardings(){
-        return $this->belongsToMany(Boarding::class, 'facilities', 'boarding_id','boardings_id');
+        return $this->belongsToMany(Boarding::class, 'facilities', 'facility_id','boardings_id');
     }
 
     protected $guarded = [];

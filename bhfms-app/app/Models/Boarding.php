@@ -28,10 +28,6 @@ class Boarding extends Model
         return $this->belongsToMany(User::class, 'reviews', 'boarding_id', 'user_id');
     }
 
-    public function ownerBoardings(){
-        return $this->belongsToMany(User::class, 'owner_boardings', 'boarding_id', 'user_id');
-    }
-
     public function complains(){
         return $this->belongsToMany(User::class, 'complains', 'boarding_id', 'user_id');
     }
