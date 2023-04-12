@@ -16,10 +16,6 @@ defineProps({
     managers: Object,
     locations: Object,
     images: Array,
-    // selectedType: Object,
-    // selectedLocation: Object,
-    // selectedFacility: Object,
-    // selectedManager: Object,
 });
 const selectedType = ref("");
 const selectedFacility = ref("");
@@ -27,7 +23,7 @@ const selectedManager = ref("");
 const address = ref("");
 const images = ref([]);
 
-const getAddressData = (addressData, placeResultData, id) => {
+const getAddressData = (addressData, placeResultData) => {
     address.value = placeResultData.formatted_address;
     form.lat = addressData.latitude;
     form.lng = addressData.longitude;
@@ -64,13 +60,12 @@ const form = useForm({
     images: images,
     sharedBathroom: false,
     manager: selectedManager,
-    currentUserID: usePage().props.user,
     lat: 0,
     lng: 0,
 });
 
 const submit = () => {
-    form.post("/boarding/create", {
+    form.post("/boardingOwner/create", {
         preserveScroll: true,
         preserveState: true,
         // onSuccess: () => form.reset("password"),
@@ -80,13 +75,6 @@ const submit = () => {
 <template>
     <Header />
     <!-- Set ID of current User -->
-    <!-- <input
-        hidden
-        id="currentUserID"
-        type="text"
-        :value="$page.props.user.user_name"
-        v-model="form.currentUserID"
-    /> -->
 
     <h1 v-if="$page.props.user">
         You are logged in as: {{ $page.props.user.user_name }}, with id =

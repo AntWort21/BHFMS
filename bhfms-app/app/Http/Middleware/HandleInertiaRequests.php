@@ -41,6 +41,7 @@ class HandleInertiaRequests extends Middleware
                 // 'id' => "123 OK THEN",
                 'id' => auth()->user()->id,
                 'user_name' => auth()->user()->user_name,
+                'role_id' => auth()->user()->user_role_id
             ]: null,
             'flash' => [
                 'message' => fn () => $request->session()->get('message')
