@@ -19952,7 +19952,7 @@ __webpack_require__.r(__webpack_exports__);
       lng: 0
     });
     var submit = function submit() {
-      form.post("/boardingOwner/create", {
+      form.post("/boarding/create", {
         preserveScroll: true,
         preserveState: true
         // onSuccess: () => form.reset("password"),

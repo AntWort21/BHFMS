@@ -65,7 +65,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post("/boardingOwner/create", {
+    form.post("/boarding/create", {
         preserveScroll: true,
         preserveState: true,
         // onSuccess: () => form.reset("password"),

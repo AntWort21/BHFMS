@@ -89,7 +89,7 @@ class BoardingController extends Controller
             
         })->paginate(5)->withQueryString();
 
-        return Inertia::render('Boarding/BoardingManagementManager', [
+        return Inertia::render('Boarding/BoardingManagementOwner', [
             'all_count' => Boarding::join('owner_boardings','boardings.id','=','owner_boardings.boarding_id')->where('owner_boardings.user_id','=',auth()->id())->count(),
             'approved' => Boarding::join('owner_boardings','boardings.id','=','owner_boardings.boarding_id')->where([['owner_boardings.user_id','=',auth()->id()],['status','=','approved']])->count(),
             'declined' => Boarding::join('owner_boardings','boardings.id','=','owner_boardings.boarding_id')->where([['owner_boardings.user_id','=',auth()->id()],['status','=','declined']])->count(),
@@ -121,7 +121,8 @@ class BoardingController extends Controller
     }
 
     public function postOwnerBoarding(Request $request)
-    {    
+    {   
+        // dd($request); 
         $validation = $request->validate([
             'name' => ['required', 'max:50'],
             'address' => ['required'],
@@ -130,7 +131,6 @@ class BoardingController extends Controller
             'price' => ['required','numeric','min:1'],
             'description' => ['required', 'max:200','min:5'],
             'images' => ['max:3'],
-            'images.*' =>['max:2000','size:2000'],
         ]);
         
 
