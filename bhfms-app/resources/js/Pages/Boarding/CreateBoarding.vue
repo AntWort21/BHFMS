@@ -9,6 +9,7 @@ import Multiselect from "vue-multiselect";
 import VueGoogleAutocomplete from "vue-google-autocomplete";
 import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
+import TextBoxInput from "../../Shared/BoardingShared/TextBoxInput.vue";
 
 defineProps({
     types: Object,
@@ -74,15 +75,12 @@ const submit = () => {
 </script>
 <template>
     <Header />
-    <!-- Set ID of current User -->
-
-    <h1 v-if="$page.props.user">
+    <!-- Check Current User -->
+    <!-- <h1 v-if="$page.props.user">
         You are logged in as: {{ $page.props.user.user_name }}, with id =
         {{ $page.props.user.id }}
     </h1>
-    <h1 v-else>Oh no 😢</h1>
-
-    <!-- You are logged in as: {{ user.name }} + {{ user.id }} + {{ user.email }} -->
+    <h1 v-else>Oh no 😢</h1> -->
     <div class="overflow-x-auto">
         <div
             class="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center bg-gray font-sans overflow-hidden"
@@ -97,23 +95,12 @@ const submit = () => {
                         Add New Boarding House
                     </h1>
                     <div class="mb-4">
-                        <label
-                            class="block text-gray-700 text-sm font-bold mb-2"
-                            for="name"
-                        >
-                            Boarding House Name
-                        </label>
-                        <input
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="name"
-                            type="text"
-                            placeholder="Boarding House Name"
+                        <TextBoxInput
                             v-model="form.name"
-                        />
-                        <div
-                            v-if="form.errors.name"
-                            v-text="form.errors.name"
-                            class="text-red-500 text-xs mt-1"
+                            :input-type="'text'"
+                            :label-name="'Boarding House Name'"
+                            :placeholder="'Boarding House Name'"
+                            :error-message="form.errors.name"
                         />
                     </div>
                     <div class="mb-4">
@@ -251,58 +238,30 @@ const submit = () => {
                         </div>
                     </div>
                     <div class="mb-4">
-                        <label
-                            class="block text-gray-700 text-sm font-bold mb-2"
-                            for="rooms"
-                        >
-                            Number of Rooms
-                        </label>
-                        <input
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="rooms"
-                            type="text"
-                            placeholder="rooms"
+                        <TextBoxInput
                             v-model="form.rooms"
+                            :input-type="'text'"
+                            :label-name="'Number of Rooms'"
+                            :placeholder="'Number of Rooms'"
+                            :error-message="form.errors.rooms"
                         />
                     </div>
                     <div class="mb-4">
-                        <label
-                            class="block text-gray-700 text-sm font-bold mb-2"
-                            for="price"
-                        >
-                            Price per Month
-                        </label>
-                        <input
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="price"
-                            type="text"
-                            placeholder="price"
+                        <TextBoxInput
                             v-model="form.price"
-                        />
-                        <div
-                            v-if="form.errors.price"
-                            v-text="form.errors.price"
-                            class="text-red-500 text-xs mt-1"
+                            :input-type="'text'"
+                            :label-name="'Price per Month'"
+                            :placeholder="'Price per Month'"
+                            :error-message="form.errors.price"
                         />
                     </div>
                     <div class="mb-4">
-                        <label
-                            class="block text-gray-700 text-sm font-bold mb-2"
-                            for="description"
-                        >
-                            Description
-                        </label>
-                        <input
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="description"
-                            type="text"
-                            placeholder="description"
+                        <TextBoxInput
                             v-model="form.description"
-                        />
-                        <div
-                            v-if="form.errors.description"
-                            v-text="form.errors.description"
-                            class="text-red-500 text-xs mt-1"
+                            :input-type="'text'"
+                            :label-name="'Description'"
+                            :placeholder="'Description'"
+                            :error-message="form.errors.description"
                         />
                     </div>
 
