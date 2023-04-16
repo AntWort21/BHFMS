@@ -40,8 +40,12 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/boardingAdmin', [BoardingController::class, 'indexAdmin']);
 Route::get('/boardingOwner', [BoardingController::class, 'indexOwner']);
+
 Route::get('/boarding/create', [BoardingController::class, 'createOwnerBoarding']);
 Route::post('/boarding/create', [BoardingController::class, 'postOwnerBoarding']);
+Route::get('/boarding/update/{id}', [BoardingController::class, 'getUpdateBoarding']);
+Route::post('/boarding/update/{id}', [BoardingController::class, 'updateBoarding']);
+
 Route::get('/boardingManager', [BoardingController::class, 'indexManager']);
 
 Route::get('/boarding/test', [BoardingController::class, 'testCarousel']);

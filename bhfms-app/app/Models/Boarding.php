@@ -36,5 +36,17 @@ class Boarding extends Model
         return $this->hasMany(BoardingImage::class);
     }
 
+    // protected $fillable = [
+    //     'boarding_name',
+    //     'gender',
+    //     'date_of_birth',
+    //     'user_role_id',
+    //     'phone',
+    //     'profile_picture',
+    //     'email',
+    //     'password',
+    //     'confirm_password',
+    // ];
+
     protected $guarded = [];
 }

@@ -5,6 +5,7 @@ import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
 // import { TailwindPagination } from "laravel-vue-pagination";
 import Pagination from "../../Shared/Pagination.vue";
+import { Link } from "@inertiajs/inertia-vue3";
 defineProps({
     all_count: Number,
     approved: Number,
@@ -129,7 +130,10 @@ watch(search, (value) => {
                                 </td>
 
                                 <td class="py-3 px-6 text-center">
-                                    <a href="#">{{ boarding.user_name }}</a>
+                                    <a href="#"
+                                        >{{ boarding.user_name }} --
+                                        {{ boarding.boarding_id }}</a
+                                    >
                                 </td>
 
                                 <!-- Icon List -->
@@ -137,6 +141,7 @@ watch(search, (value) => {
                                     <div
                                         class="flex item-center justify-center"
                                     >
+                                        <!-- See details -->
                                         <div
                                             class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                                         >
@@ -162,10 +167,14 @@ watch(search, (value) => {
                                                 </svg>
                                             </a>
                                         </div>
+
+                                        <!-- Edit -->
                                         <div
                                             class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                                         >
-                                            <a href="http://">
+                                            <Link
+                                                :href="`/boarding/update/${boarding.boarding_id}`"
+                                            >
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     fill="none"
@@ -179,8 +188,10 @@ watch(search, (value) => {
                                                         d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
                                                     />
                                                 </svg>
-                                            </a>
+                                            </Link>
                                         </div>
+
+                                        <!-- Delete -->
                                         <div
                                             class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                                         >
@@ -201,6 +212,7 @@ watch(search, (value) => {
                                             </a>
                                         </div>
 
+                                        <!-- Accept/ Decline -->
                                         <div
                                             v-if="boarding.status == 'pending'"
                                             class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"

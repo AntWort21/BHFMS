@@ -38,6 +38,8 @@ class BoardingController extends Controller
             
         })->paginate(5)->withQueryString();
 
+        // dd($Boarding_data);
+
         return Inertia::render('Boarding/BoardingManagementAdmin', [
             'all_count' => Boarding::count(),
             'approved' => Boarding::join('owner_boardings','boardings.id','=','owner_boardings.boarding_id')->where('status','=','approved')->count(),
@@ -179,6 +181,33 @@ class BoardingController extends Controller
         }
 
         return redirect('/boardingOwner')->with('message', 'Success Adding new Boarding House');
+    }
+
+    public function getUpdateBoarding($id)
+    {
+        $Manager_data = User::where('user_role_id','=','4')->get();
+        $currBoarding = Boarding::where('id','=',$id)->get()->first();
+
+        $currFacilities = $currBoarding->facilities()->get();
+        $sharedBathroom = $currBoarding['shared_bathroom'];
+        if($sharedBathroom == true){
+            $sharedBathroom = true;
+        }else{
+            $sharedBathroom = false;
+        }
+        
+        return Inertia::render('Boarding/UpdateBoarding', [
+            'currBoarding' => $currBoarding,
+            'currFacilities' => $currFacilities,
+            'facilities' => FacilityDetail::get(),
+            'types' => BoardingType::get(),
+            'sharedBathroom' => $sharedBathroom,
+            'managers' => $Manager_data,
+        ]);
+    }
+
+    public function updateBoarding(Request $request){
+        dd($request);
     }
 
     //Store a newly created resource in storage
