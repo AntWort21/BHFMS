@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BoardingController;
+use App\Http\Controllers\ComplainController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,3 +45,7 @@ Route::get('/boarding/create', [BoardingController::class, 'create']);
 
 Route::get('/boarding/test', [BoardingController::class, 'testCarousel']);
 Route::get('/boarding/all', [BoardingController::class, 'getAllBoardingHouse']);
+
+
+Route::get('/complain/create', [ComplainController::class, 'getCreateComplainPage']);
+Route::post('/complain/create', [ComplainController::class, 'createComplain']);
