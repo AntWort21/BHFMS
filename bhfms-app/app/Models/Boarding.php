@@ -8,15 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Boarding extends Model
 {
     public function boardingType(){
-        return $this->belongsTo(RentTransactionHeader::class, 'boarding_types_id');
+        return $this->belongsTo(BoardingType::class, 'boarding_types_id');
     }
 
     public function facilities(){
         return $this->hasMany(Facility::class);
     }
 
-    public function rent_transaction_detail(){
-        return $this->hasMany(RentTransactionDetail::class);
+    public function tenantBoardings(){
+        return $this->hasMany(TenantBoarding::class);
     }
 
     public function wishlists(){
@@ -34,4 +34,6 @@ class Boarding extends Model
     public function complains(){
         return $this->hasMany(Complain::class);
     }
+
+    protected $guarded = [];
 }

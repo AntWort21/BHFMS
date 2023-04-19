@@ -12,4 +12,6 @@ class ComplainType extends Model
     public function complains(){
         return $this->hasMany(Complain::class);
     }
+
+    protected $guarded = [];
 }
