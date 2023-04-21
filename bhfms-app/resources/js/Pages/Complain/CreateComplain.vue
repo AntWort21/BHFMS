@@ -2,16 +2,17 @@
 import Footer from "../../Shared/Footer.vue";
 import Header from "../../Shared/Header.vue";
 import FormErrorMessage from "../../Shared/AccountFormInput/FormErrorMessage.vue";
-import FormTextBoxInput from "../../Shared/AccountFormInput/FormTextBoxInput.vue";
 import FormSelectInput from "../../Shared/AccountFormInput/FormSelectInput.vue";
 import { useForm } from "@inertiajs/inertia-vue3";
 
-let complainType = ["type1", "type2", "type3"];
+defineProps({
+    allComplainType: Object,
+})
 
 let form = useForm({
     complainType: "",
     description: "",
-    pictureFiles: "",
+    pictureFile: "",
 });
 
 let submit = () => {
@@ -29,7 +30,7 @@ let submit = () => {
                     <FormSelectInput
                         v-model="form.complainType"
                         :label-name="'Complain Type'"
-                        :option-list="complainType"
+                        :option-list="allComplainType"
                     />
                     <FormErrorMessage :error-message="form.errors.complainType" />
                 </div>
@@ -46,9 +47,8 @@ let submit = () => {
                 <label class="block">Upload Photo/Files</label>
                 <input
                     type="file"
-                    @input="form.pictureFiles = $event.target.files"
+                    @input="form.pictureFile = $event.target.files[0]"
                     class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
-                    multiple
                 />
             </div>
             <div

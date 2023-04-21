@@ -33,7 +33,7 @@ class TenantBoardingSeeder extends Seeder
                     "status"=>3,
                     "declined_reason"=>"Will give you Up"
                 ]);
-        
+
                 //Accepted
                 TenantBoarding::create([
                     "user_id"=>2,
@@ -70,7 +70,7 @@ class TenantBoardingSeeder extends Seeder
                     "boarding_id"=>10,
                     "status"=>2,
                 ]);
-                
+
                 //Pending
                 TenantBoarding::create([
                     "user_id"=>3,
@@ -91,6 +91,11 @@ class TenantBoardingSeeder extends Seeder
                     "user_id"=>4,
                     "boarding_id"=>14,
                     "status"=>3,
+                ]);
+                TenantBoarding::create([
+                    "user_id"=>10,
+                    "boarding_id"=>1,
+                    "status"=>2,
                 ]);
     }
 }
