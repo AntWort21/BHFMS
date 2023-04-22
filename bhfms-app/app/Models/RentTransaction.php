@@ -9,6 +9,8 @@ class RentTransaction extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function TenantBoarding(){
         return $this->belongsTo(TenantBoarding::class,'tenants_id');
     }

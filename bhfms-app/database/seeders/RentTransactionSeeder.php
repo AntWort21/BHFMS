@@ -16,11 +16,13 @@ class RentTransactionSeeder extends Seeder
     public function run()
     {
         RentTransaction::create([
-            "tenant_boarding_id"=>1,
+            "tenant_boarding_id"=>14,
             "payment_type_id"=>1,
+            "invoice_id"=>"230000001",
             "payment_status"=>1,
             "start_date"=>Carbon::today(),
-            "end_date"=>Carbon::create(2023,5,5)
+            "amount"=>0,
+            "repeat_payment"=>False,
         ]);
     }
 }

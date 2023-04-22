@@ -19,15 +19,15 @@ class CreateRentTransactionsTable extends Migration
             $table->unsignedBigInteger('tenant_boarding_id');
             $table->foreign('tenant_boarding_id')->references('id')
             ->on('tenant_boardings')->cascadeOnUpdate()->cascadeOnDelete();
-
-            $table->unsignedBigInteger('payment_type_id');
+            $table->unsignedBigInteger('invoice_id');
+            $table->unsignedBigInteger('payment_type_id')->nullable();
             $table->foreign('payment_type_id')->references('id')
             ->on('payment_types')->cascadeOnUpdate()->cascadeOnDelete();
-            
+            $table->integer('amount');
             $table->date('start_date');
-            $table->date('end_date');
-            $table->boolean('payment_status');
+            $table->enum('payment_status',['pending','approved','rejected','late'])->default('pending');
             $table->string('declined_reason')->nullable();
+            $table->boolean('repeat_payment');
             $table->timestamps();
         });
     }
