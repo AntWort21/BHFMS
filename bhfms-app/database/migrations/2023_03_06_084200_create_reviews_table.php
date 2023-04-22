@@ -26,7 +26,7 @@ class CreateReviewsTable extends Migration
             
             $table->unique(['user_id', 'boarding_id']);
             $table->integer('rating');
-            $table->string('review_desc');
+            $table->string('description');
 
             
             $table->timestamps();

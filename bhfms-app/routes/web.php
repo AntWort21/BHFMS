@@ -38,11 +38,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/update', [UserController::class, 'updateProfile']);
 });
 
-Route::get('/boardingAdmin', [BoardingController::class, 'indexAdmin']);
-Route::get('/boardingOwner', [BoardingController::class, 'indexOwner']);
-Route::get('/boarding/create', [BoardingController::class, 'createOwnerBoarding']);
-Route::post('/boarding/create', [BoardingController::class, 'postOwnerBoarding']);
-Route::get('/boardingManager', [BoardingController::class, 'indexManager']);
+// Route::resource('boarding', BoardingController::class);
+Route::get('/boarding', [BoardingController::class, 'index']);
+Route::get('/boarding/create', [BoardingController::class, 'create']);
 
 Route::get('/boarding/test', [BoardingController::class, 'testCarousel']);
 Route::get('/boarding/all', [BoardingController::class, 'getAllBoardingHouse']);
