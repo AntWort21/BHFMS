@@ -6,6 +6,7 @@ use App\Http\Controllers\BoardingController;
 use App\Http\Controllers\ComplainController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\BoardingImageController;
+use App\Http\Controllers\PaymentAddController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -75,3 +76,10 @@ Route::get('/boardingManager', [BoardingController::class, 'indexManager']);
 
 Route::get('/boarding/test', [BoardingController::class, 'testCarousel']);
 Route::get('/boarding/all', [BoardingController::class, 'getAllBoardingHouse']);
+
+Route::get('/addPayment',[PaymentAddController::class,'getAddPayment']);
+
+Route::post('/addPayment',[PaymentAddController::class,'addPayment']);
+Route::get('/paymentHistory',[PaymentAddController::class,'getAllPayment']);
+
+Route::post('/getInvoiceData',[PaymentAddController::class,'getInvoiceDetail']);
