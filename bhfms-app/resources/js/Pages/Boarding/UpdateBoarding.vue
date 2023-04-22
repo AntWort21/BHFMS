@@ -1,69 +1,57 @@
 <script setup>
-// import { computed } from "vue";
-// import { usePage } from "@inertiajs/inertia-vue3";
-// import { numberLiteral } from "@babel/types";
-import { computed, ref, watch, onMounted } from "vue";
-import { useForm, usePage } from "@inertiajs/inertia-vue3";
+import { ref, onMounted } from "vue";
+import { useForm } from "@inertiajs/inertia-vue3";
 import VueMultiselect from "vue-multiselect";
 import Multiselect from "vue-multiselect";
 import VueGoogleAutocomplete from "vue-google-autocomplete";
 import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
-import FormTextBoxInputBoarding from "../../Shared/AccountFormInput/FormTextBoxInputBoarding.vue";
+import TextBoxInput from "../../Shared/BoardingShared/TextBoxInput.vue";
+import { Link } from "@inertiajs/inertia-vue3";
 
 const props = defineProps({
     currBoarding: Object,
     currFacilities: Object,
+    currManager: Object,
+    currImages: Object,
     sharedBathroom: Boolean,
     types: Object,
     facilities: Object,
     managers: Object,
     locations: Object,
     images: Array,
+    images_max: Number,
 });
 
 // const currBoarding = ref("");
 const selectedType = ref(props.currBoarding.type_id);
 const selectedFacility = ref(props.currFacilities);
-const selectedManager = ref("");
+const selectedManager = ref(props.currManager);
 const address = ref("");
-// address.update(props.currBoarding.address);
-
+const previewImage = ref([]);
 const images = ref([]);
 
 let form = useForm({
+    currID: props.currBoarding.id,
     name: props.currBoarding.boarding_name,
     address: props.currBoarding.address,
     type: selectedType,
     facility: selectedFacility,
     rooms: props.currBoarding.rooms,
     price: props.currBoarding.price,
-    description: props.currBoarding.rooms,
+    description: props.currBoarding.boarding_desc,
     images: images,
     sharedBathroom: props.sharedBathroom,
     manager: selectedManager,
     lat: ref(props.currBoarding.latitude),
     lng: ref(props.currBoarding.longitude),
+    max_image: ref(props.currImages.length),
 });
-
-// onMounted(() => {
-//     // To demonstrate functionality of exposed component functions
-//     // Here we make focus on the user input
-//     addressRef.value.focus();
-// });
 
 onMounted(() => {
-    // To demonstrate functionality of exposed component functions
-    // Here we make focus on the user input
     address.value.update(props.currBoarding.address);
-    // address.update(props.currBoarding.address);
-    // address.update(props.currBoarding.address);
-    // address.value = props.currBoarding.address;
+    // form.images_max.value = props.currImages.length;
 });
-
-// const currAddress = () => {
-//     address.value = props.currBoarding.address;
-// };
 
 const getAddressData = (addressData, placeResultData) => {
     form.address = placeResultData.formatted_address;
@@ -81,41 +69,74 @@ const onFileChange = (e) => {
 
     for (let i = 0; i < images.value.length; i++) {
         let reader = new FileReader();
-        reader.onload = (e) => {
-            images.value[i].src = reader.result;
-        };
-
         reader.readAsDataURL(images.value[i]);
+        reader.onload = (e) => {
+            // images.value[i].src = reader.result;
+            previewImage.value[i] = e.target.result;
+            // images.value[i].src = e.target.result;
+        };
     }
 };
+
+const deleteFileUploaded = (idx) => {
+    previewImage.value.splice(idx, 1);
+    images.value.splice(idx, 1);
+};
+
+const deleteFileDatabase = (idx) => {
+    // form.post(`/image/delete/${idx}`, {
+    // });
+};
+
+// const onFileChange = (e) => {
+//     const files = e.target.files;
+
+//     for (let i = 0; i < files.length; i++) {
+//         const file = files[i];
+//         images.value.push(files[i]);
+//         // form.append(`images[${i}]`, file);
+//         const reader = new FileReader();
+//         reader.readAsDataURL(file);
+//         reader.onload = () => {
+//             this.images.push(reader.result);
+//         };
+//     }
+// };
 
 const customLabelManager = ({ user_name, email }) =>
     `${user_name} - (${email})`;
 
-const submit = () => {
-    form.post("/boarding/update/id", {
-        // onSuccess: () => form.reset("password"),
+const resetImages = () => {
+    form.images = [];
+    images = [];
+};
+const submitUpdate = (this_id) => {
+    form.post(`/boarding/update/${this_id}`, {
+        // onError: () => form.images.reset(),
+        // onError: () => resetImages(),
+        // onSuccess: () => form.images.reset(),
     });
 };
 </script>
+
 <template>
     <Header />
     <!-- Set ID of current User -->
-
+    <!-- 
     <h1 v-if="$page.props.user">
         You are logged in as: {{ $page.props.user.user_name }}, with id =
         {{ $page.props.user.id }}
     </h1>
-    <h1 v-else>Oh no 😢</h1>
-
-    <!-- You are logged in as: {{ user.name }} + {{ user.id }} + {{ user.email }} -->
+    <h1 v-else>Oh no 😢</h1> -->
     <div class="overflow-x-auto">
         <div
             class="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center bg-gray font-sans overflow-hidden"
         >
-            <div class="w-11/12">
+            <!-- {{ props.currBoarding.id }} -->
+            <!-- {{ currBoarding.boarding_name }} -->
+            <div class="w-11/12 mt-5">
                 <form
-                    @submit.prevent="submit"
+                    @submit.prevent="submitUpdate(props.currBoarding.id)"
                     enctype="multipart/form-data"
                     class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
                 >
@@ -123,27 +144,12 @@ const submit = () => {
                         Add New Boarding House
                     </h1>
                     <div class="mb-4">
-                        <label
-                            class="block text-gray-700 text-sm font-bold mb-2"
-                            for="name"
-                        >
-                            Boarding House Name
-                        </label>
-                        <input
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            type="text"
-                            placeholder="Boarding House Name"
-                            v-model="form.name"
-                        />
-                        <!-- <FormTextBoxInputBoarding
+                        <TextBoxInput
                             v-model="form.name"
                             :input-type="'text'"
-                            :label-name="'name'"
-                        /> -->
-                        <div
-                            v-if="form.errors.name"
-                            v-text="form.errors.name"
-                            class="text-red-500 text-xs mt-1"
+                            :label-name="'Boarding House Name'"
+                            :placeholder="'Boarding House Name'"
+                            :error-message="form.errors.name"
                         />
                     </div>
                     <div class="mb-4">
@@ -153,7 +159,6 @@ const submit = () => {
                         >
                             Address
                         </label>
-                        <input type="text" v-model="form.address" />
                         <vue-google-autocomplete
                             id="address"
                             type="text"
@@ -293,58 +298,30 @@ const submit = () => {
                         </div>
                     </div>
                     <div class="mb-4">
-                        <label
-                            class="block text-gray-700 text-sm font-bold mb-2"
-                            for="rooms"
-                        >
-                            Number of Rooms
-                        </label>
-                        <input
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="rooms"
-                            type="text"
-                            placeholder="rooms"
+                        <TextBoxInput
                             v-model="form.rooms"
+                            :input-type="'text'"
+                            :label-name="'Number of Rooms'"
+                            :placeholder="'Number of Rooms'"
+                            :error-message="form.errors.rooms"
                         />
                     </div>
                     <div class="mb-4">
-                        <label
-                            class="block text-gray-700 text-sm font-bold mb-2"
-                            for="price"
-                        >
-                            Price per Month
-                        </label>
-                        <input
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="price"
-                            type="text"
-                            placeholder="price"
+                        <TextBoxInput
                             v-model="form.price"
-                        />
-                        <div
-                            v-if="form.errors.price"
-                            v-text="form.errors.price"
-                            class="text-red-500 text-xs mt-1"
+                            :input-type="'text'"
+                            :label-name="'Price per Month'"
+                            :placeholder="'Price per Month'"
+                            :error-message="form.errors.price"
                         />
                     </div>
                     <div class="mb-4">
-                        <label
-                            class="block text-gray-700 text-sm font-bold mb-2"
-                            for="description"
-                        >
-                            Description
-                        </label>
-                        <input
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="description"
-                            type="text"
-                            placeholder="description"
+                        <TextBoxInput
                             v-model="form.description"
-                        />
-                        <div
-                            v-if="form.errors.description"
-                            v-text="form.errors.description"
-                            class="text-red-500 text-xs mt-1"
+                            :input-type="'text'"
+                            :label-name="'Description'"
+                            :placeholder="'Description'"
+                            :error-message="form.errors.description"
                         />
                     </div>
 
@@ -369,19 +346,60 @@ const submit = () => {
                         />
                     </div>
 
+                    <!-- Preview Image in Database -->
                     <div class="mb-4">
                         <label
                             class="block text-gray-700 text-sm font-bold mb-2"
                             for="images"
                         >
-                            Pictures
+                            Current Images
                         </label>
+                        <div
+                            class="flow-root mt-4 items-center align-center flex shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            v-for="img in currImages"
+                        >
+                            <div class="float-left flex items-center">
+                                <img
+                                    class="w-40 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    :src="`/storage/Boarding_House_Images/${img.image}`"
+                                />
+                                <div class="mt-4 ml-2">
+                                    {{ img.image }} -- {{ img.id }}
+                                </div>
+                            </div>
+                            <div class="float-right h-100">
+                                <div class="flex justify-center">
+                                    <button
+                                        class="bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-4 rounded items-center align-center"
+                                        @click.prevent="
+                                            deleteFileDatabase(img.id)
+                                        "
+                                    >
+                                        <span>Delete</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Input new Image -->
+                        <label
+                            class="block text-gray-700 text-sm font-bold mt-4"
+                            for="images"
+                        >
+                            Upload New Images (Max: 5 Files in total)
+                            <div>
+                                Current Boarding House Images:
+                                {{ currImages.length }}
+                            </div>
+                            <div>Uploaded Images: {{ images.length }}</div>
+                        </label>
+
                         <input
                             id="images"
                             type="file"
                             multiple
                             @change="onFileChange"
-                            class="mb-2"
+                            class="mb-2 mt-2"
                         />
                         <div
                             v-if="form.errors.images"
@@ -392,10 +410,27 @@ const submit = () => {
                         <div
                             v-for="(image, key) in images"
                             :key="key"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            class="flow-root mt-4 items-center align-center flex shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         >
-                            <img class="preview" :ref="'image'" />
-                            {{ image.name }}
+                            <div class="float-left flex items-center">
+                                <img
+                                    class="w-40 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    :src="previewImage[key]"
+                                />
+                                <div class="mt-4 ml-2">
+                                    {{ image.name }}
+                                </div>
+                            </div>
+                            <div
+                                class="float-right align-middle items-center flex"
+                            >
+                                <button
+                                    class="mt-4 bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-4 rounded"
+                                    @click.prevent="deleteFileUploaded(key)"
+                                >
+                                    <span>Delete</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
 

@@ -11,7 +11,7 @@ class OwnerBoarding extends Model
 
     //one to one relationship with middle table
     public function managerBoarding(){
-        return $this->belongsTo(managerBoarding::class,'users_id');
+        return $this->hasMany(managerBoarding::class,'users_id');
     }
 
     protected $guarded = [];

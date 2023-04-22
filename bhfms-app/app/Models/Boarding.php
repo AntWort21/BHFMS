@@ -20,6 +20,13 @@ class Boarding extends Model
         return $this->belongsToMany(User::class, 'tenant_boardings', 'boarding_id', 'user_id');
     }
 
+    public function ownerBoardings(){
+        return $this->belongsToMany(User::class, 'owner_boardings', 'boarding_id', 'user_id',);
+    }
+    public function managerBoardings(){
+        return $this->belongsToMany(User::class, 'manager_boardings', 'owner_boarding_id', 'manager_user_id',);
+    }
+
     public function wishlists(){
         return $this->belongsToMany(User::class, 'wishlists', 'boarding_id', 'user_id');
     }

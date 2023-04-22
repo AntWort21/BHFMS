@@ -13,6 +13,7 @@ use App\Models\ManagerBoarding;
 use App\Models\OwnerBoarding;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class BoardingController extends Controller
@@ -52,10 +53,10 @@ class BoardingController extends Controller
     public function indexManager(Request $request)
     {
         
-        $Boarding_data = Boarding::join('owner_boardings','boardings.id','=','owner_boardings.boarding_id')
-            ->join('manager_boardings','manager_boardings.owner_boarding_id','=','owner_boardings.id')
-            ->join('users','users.id','=','manager_boardings.user_id')
-            ->where('manager_boardings.user_id','=',auth()->id())
+        $Boarding_data = Boarding::join('manager_boardings','manager_boardings.boarding_id','=','boardings.id')
+            ->join('owner_boardings','manager_boardings.owner_boarding_id',"=",'owner_boardings.id')
+            ->join('users','users.id',"=","owner_boardings.user_id")
+            ->where('manager_boardings.manager_boarding_id','=',auth()->id())
             ->when($request->search, function($query, $search){
             if($search=='all'){
                 $query;
@@ -66,11 +67,13 @@ class BoardingController extends Controller
             
         })->paginate(5)->withQueryString();
 
+        // dd($Boarding_data);
+
         return Inertia::render('Boarding/BoardingManagementManager', [
-            'all_count' => ManagerBoarding::where('manager_boardings.user_id','=',auth()->id())->count(),
-            'approved' => ManagerBoarding::join('owner_boardings','manager_boardings.owner_boarding_id','=','owner_boardings.id')->where([['manager_boardings.user_id','=',auth()->id()],['status','=','approved']])->count(),
-            'declined' => ManagerBoarding::join('owner_boardings','manager_boardings.owner_boarding_id','=','owner_boardings.id')->where([['manager_boardings.user_id','=',auth()->id()],['status','=','declined']])->count(),
-            'pending' => ManagerBoarding::join('owner_boardings','manager_boardings.owner_boarding_id','=','owner_boardings.id')->where([['manager_boardings.user_id','=',auth()->id()],['status','=','pending']])->count(),
+            'all_count' => ManagerBoarding::where('manager_boardings.manager_boarding_id','=',auth()->id())->count(),
+            'approved' => ManagerBoarding::join('owner_boardings','manager_boardings.owner_boarding_id','=','owner_boardings.id')->where([['manager_boardings.manager_boarding_id','=',auth()->id()],['status','=','approved']])->count(),
+            'declined' => ManagerBoarding::join('owner_boardings','manager_boardings.owner_boarding_id','=','owner_boardings.id')->where([['manager_boardings.manager_boarding_id','=',auth()->id()],['status','=','declined']])->count(),
+            'pending' => ManagerBoarding::join('owner_boardings','manager_boardings.owner_boarding_id','=','owner_boardings.id')->where([['manager_boardings.manager_boarding_id','=',auth()->id()],['status','=','pending']])->count(),
             'boardings' => $Boarding_data,
         ]);
     }
@@ -111,8 +114,7 @@ class BoardingController extends Controller
         return Inertia::render('Boarding/AllBoardingHouse', ['allBoardingHouse' => $allBoardingHouse]);
     }
 
-    //Show the form for creating a new resource.
-    public function createOwnerBoarding()
+    public function getCreateOwnerBoarding()
     {
         $Manager_data = User::where('user_role_id','=','4')->get();
         return Inertia::render('Boarding/CreateBoarding', [
@@ -122,7 +124,7 @@ class BoardingController extends Controller
         ]);
     }
 
-    public function postOwnerBoarding(Request $request)
+    public function createOwnerBoarding(Request $request)
     {   
         // dd($request); 
         $validation = $request->validate([
@@ -131,8 +133,9 @@ class BoardingController extends Controller
             'type' => ['required'],
             'rooms' => ['required','numeric','min:1'],
             'price' => ['required','numeric','min:1'],
+            'facility'=>['min:1'],
             'description' => ['required', 'max:200','min:5'],
-            'images' => ['max:3'],
+            'images' => ['max:5'],
         ]);
         
 
@@ -157,15 +160,16 @@ class BoardingController extends Controller
         ]);
 
 
-        if(isset($request['manager'])){
+        if(isset($request['manager']) && $request['manager']!== null){
             $ManagerBoardingNow = ManagerBoarding::create([
                 'owner_boarding_id' =>$OwnerBoardingNow->id,
-                'user_id'=>$request['manager']['id'],
+                'manager_user_id'=>$request['manager']['id'],
+                'boarding_id'=>$BoardingNow->id,
             ]);
         }   
         
         //FILES
-        if(isset($request['images'])){
+        if(($request->file('images') !== null)){
             foreach($request->file('images') as $image){
                 
                 $path = $image->getClientOriginalName();
@@ -174,7 +178,9 @@ class BoardingController extends Controller
 
                 $img = new BoardingImage();
 
-                $img->image = $image->storeAs('public/Boarding_House_Images', $path);
+                // $img->image = $image->storeAs('public/Boarding_House_Images', $path);
+                Storage::putFileAs('public/Boarding_House_Images',$image, $path);
+                $img->image = $path;
                 $img->boarding_id = $BoardingNow->id;
                 $img->save();
             }
@@ -183,22 +189,35 @@ class BoardingController extends Controller
         return redirect('/boardingOwner')->with('message', 'Success Adding new Boarding House');
     }
 
-    public function getUpdateBoarding($id)
+    public function getUpdateBoarding(Request $request)
     {
         $Manager_data = User::where('user_role_id','=','4')->get();
-        $currBoarding = Boarding::where('id','=',$id)->get()->first();
+        $currBoarding = Boarding::where('id','=',$request->id)->get()->first();
 
-        $currFacilities = $currBoarding->facilities()->get();
+        // dd($request->id);
+        $currFacilities = ($currBoarding->facilities()->exists()) ? $currBoarding->facilities()->get(): null;
+
+        // $currFacilities = $currBoarding->images()->get();
+
         $sharedBathroom = $currBoarding['shared_bathroom'];
         if($sharedBathroom == true){
             $sharedBathroom = true;
         }else{
             $sharedBathroom = false;
         }
+
+        $currManager = $currBoarding->managerBoardings()->get();
+
+        $currImages = $currBoarding->images()->get();
+        // dd(count($currImages));
+
+        // dd($currBoarding);
         
         return Inertia::render('Boarding/UpdateBoarding', [
+            'currImages' => $currImages,
             'currBoarding' => $currBoarding,
             'currFacilities' => $currFacilities,
+            'currManager'=>$currManager,
             'facilities' => FacilityDetail::get(),
             'types' => BoardingType::get(),
             'sharedBathroom' => $sharedBathroom,
@@ -207,7 +226,61 @@ class BoardingController extends Controller
     }
 
     public function updateBoarding(Request $request){
+        // dd($request['max_image']);
+
+        // Current ID to be updated
+        // dd($request->id);
+
+        $max_pic = 5 - (int)$request['max_image'];
+        $total_pic = (int)$request['max_image'] + (int)count($request['images']);
+        // dd($max_pic);
+        $custom_messages = [
+            'images.max' => 'Maximum number of image is 5, you have '.$total_pic.' image in this Boarding House, Please Upload Again !',     
+          ];
+
+        $validation = $request->validate([
+            'name' => ['required', 'max:50'],
+            'address' => ['required'],
+            'type' => ['required'],
+            'rooms' => ['required','numeric','min:1'],
+            'price' => ['required','numeric','min:1'],
+            'facility'=>['min:1'],
+            'description' => ['required', 'max:200','min:5'],
+            'images' => ['max:'.$max_pic],
+        ], $custom_messages);
+
         dd($request);
+        
+
+        // Boarding::findOrFail(Auth::user()->id)->update([
+        // $BoardingNow = Boarding::update([
+        //     'boarding_name' => $request['name'],
+        //     'address' => $request['address'],
+        //     'latitude' => $request['lat'],
+        //     'longitude' => $request['lng'],
+        //     'type_id' => $request['type'],
+        //     'rooms' => $request['rooms'],
+        //     'shared_bathroom' => $request['sharedBathroom'],
+        //     'price' => $request['price'],
+        //     'boarding_desc' => $request['description'],
+        // ]);
+
+        $BoardingNow->facilities()->attach($request['facility']);
+
+        $OwnerBoardingNow = OwnerBoarding::create([
+            'boarding_id'=>$BoardingNow->id,
+            'user_id'=>$request->user()->id,
+            'status'=>'pending',
+        ]);
+
+
+        if(isset($request['manager'])){
+            $ManagerBoardingNow = ManagerBoarding::create([
+                'owner_boarding_id' =>$OwnerBoardingNow->id,
+                'manager_user_id'=>$request['manager']['id'],
+                'boarding_id'=>$BoardingNow->id,
+            ]);
+        }
     }
 
     //Store a newly created resource in storage
