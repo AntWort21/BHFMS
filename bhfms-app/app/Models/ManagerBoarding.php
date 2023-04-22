@@ -9,10 +9,12 @@ class ManagerBoarding extends Model
 {
     use HasFactory;
     public function user(){
-        return $this->belongsTo(User::class,'user_id');
+        return $this->hasOne(User::class);
     }
 
     public function ownerBoarding(){
-        return $this->belongsTo(OwnerBoarding::class,'owner_boardings_id');
+        return $this->hasOne(OwnerBoarding::class);
     }
+
+    protected $guarded = [];
 }

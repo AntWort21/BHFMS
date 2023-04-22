@@ -16,4 +16,6 @@ class Facility extends Model
     public function boarding(){
         return $this->belongsTo(Boarding::class,'boardings_id');
     }
+    
+    protected $guarded = [];
 }

@@ -9,15 +9,9 @@ class Complain extends Model
 {
     use HasFactory;
     
-    public function user(){
-        return $this->belongsTo(User::class,'users_id');
-    }
-
-    public function boarding(){
-        return $this->belongsTo(User::class,'boardings_id');
-    }
-
     public function complainType(){
         return $this->belongsTo(ComplainType::class,'complain_types_id');
     }
+
+    protected $guarded = [];
 }

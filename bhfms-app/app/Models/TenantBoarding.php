@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BoardingType extends Model
+class TenantBoarding extends Model
 {
     use HasFactory;
-    
-    public function boardings(){
-        return $this->hasMany(Boarding::class);
+    public function rentTransactions(){
+        return $this->hasMany(RentTransaction::class);
     }
-
+    
     protected $guarded = [];
 }
