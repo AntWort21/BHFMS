@@ -33,9 +33,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Boarding::class, 'complains', 'user_id', 'boarding_id');
     }
 
-    //one to one relationship with middle table
-    public function managerBoarding(){
-        return $this->belongsTo(managerBoarding::class,'owner_boardings_id');
+
+    public function managerBoardings(){
+        return $this->belongsToMany(Boarding::class, 'manager_boardings', 'manager_user_id', 'owner_boarding_id');
     }
 
 

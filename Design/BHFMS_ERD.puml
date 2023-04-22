@@ -127,7 +127,8 @@ entity "manager_boardings" as mabh {
   *id : Integer <<PK>>
   --
   *owner_boarding_id : Integer <<FK>>
-  *user_id : Integer <<FK>>
+  *manager_user_id : Integer <<FK>>
+  *boarding_id : Integer <<FK>>
   *created_at : Date
   *updated_at : Date
 }
@@ -211,7 +212,8 @@ pymnt ||..o{ rt
 usr ||..o{ lobh
 bh ||..o{ lobh
 
-usr ||..|| mabh
+usr ||..o{ mabh
+bh ||.o{ mabh
 lobh ||..|| mabh
 
 usr ||..o{ rvw

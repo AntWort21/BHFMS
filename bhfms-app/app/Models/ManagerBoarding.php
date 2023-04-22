@@ -9,11 +9,11 @@ class ManagerBoarding extends Model
 {
     use HasFactory;
     public function user(){
-        return $this->hasOne(User::class);
+        return $this->hasMany(User::class);
     }
 
     public function ownerBoarding(){
-        return $this->hasOne(OwnerBoarding::class);
+        return $this->hasMany(OwnerBoarding::class);
     }
 
     protected $guarded = [];

@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
         User::create([
             "user_name" =>'Admin 1',
             "gender"=>'1',
-            "email" =>'Admin1@gmail.com',
+            "email" =>'admin1@gmail.com',
             "date_of_birth" =>'1/1/2000',
             "phone" =>rand(1000000,5000000),
             "user_role_id" =>'1',
@@ -62,38 +62,38 @@ class UserSeeder extends Seeder
         User::create([
             "user_name" =>'Tenant  1',
             "gender"=>'1',
-            "email" =>'Tenant1@gmail.com',
+            "email" =>'tenant1@gmail.com',
             "date_of_birth" =>'1/1/2000',
             "phone" =>rand(1000000,5000000),
             "user_role_id" =>'2',
-            "password" =>bcrypt('Tenant 1'),
+            "password" =>bcrypt('tenant1'),
         ]);
         User::create([
             "user_name" =>'Tenant  2',
             "gender"=>'2',
-            "email" =>'Tenant2@gmail.com',
+            "email" =>'tenant2@gmail.com',
             "date_of_birth" =>'1/1/2000',
             "phone" =>rand(1000000,5000000),
             "user_role_id" =>'3',
-            "password" =>bcrypt('Tenant 2'),
+            "password" =>bcrypt('tenant2'),
         ]);
         User::create([
             "user_name" =>'Tenant  3',
             "gender"=>'2',
-            "email" =>'Tenant3@gmail.com',
+            "email" =>'tenant3@gmail.com',
             "date_of_birth" =>'1/1/2000',
             "phone" =>rand(1000000,5000000),
             "user_role_id" =>'2',
-            "password" =>bcrypt('Tenant 3'),
+            "password" =>bcrypt('tenant3'),
         ]);
         User::create([
-            "user_name" =>'Tenant  4',
+            "user_name" =>'Tenant 4',
             "gender"=>'1',
-            "email" =>'Tenant4@gmail.com',
+            "email" =>'tenant4@gmail.com',
             "date_of_birth" =>'1/1/2000',
             "phone" =>rand(1000000,5000000),
             "user_role_id" =>'2',
-            "password" =>bcrypt('Tenant 4'),
+            "password" =>bcrypt('tenant4'),
         ]);
         User::create([
             "user_name" =>"asd asd",
@@ -107,29 +107,29 @@ class UserSeeder extends Seeder
         User::create([
             "user_name" =>'Manager 1',
             "gender"=>'1',
-            "email" =>'Manager1@gmail.com',
+            "email" =>'manager1@gmail.com',
             "date_of_birth" =>'1/1/2000',
             "phone" =>rand(1000000,5000000),
             "user_role_id" =>'4',
-            "password" =>bcrypt('Manager1'),
+            "password" =>bcrypt('manager1'),
         ]);
         User::create([
-            "user_name" =>'Manager  4',
+            "user_name" =>'manager  4',
             "gender"=>'1',
             "email" =>'Manager4gmail.com',
             "date_of_birth" =>'1/1/2000',
             "phone" =>rand(1000000,5000000),
             "user_role_id" =>'4',
-            "password" =>bcrypt('Manager4'),
+            "password" =>bcrypt('manager4'),
         ]);
         User::create([
             "user_name" =>'Manager  2',
             "gender"=>'1',
-            "email" =>'Manager2@gmail.com',
+            "email" =>'manager2@gmail.com',
             "date_of_birth" =>'1/1/2000',
             "phone" =>rand(1000000,5000000),
             "user_role_id" =>'4',
-            "password" =>bcrypt('Manager2'),
+            "password" =>bcrypt('manager2'),
         ]);
     }
 }
