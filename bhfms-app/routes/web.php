@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BoardingController;
+use App\Http\Controllers\ComplainController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,6 +36,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/profile', [UserController::class, 'getProfilePage']);
     Route::post('/profile/update', [UserController::class, 'updateProfile']);
+
+    Route::get('/complain', [ComplainController::class, 'getComplainListPage']);
+    Route::get('/complain/create', [ComplainController::class, 'getCreateComplainPage']);
+    Route::post('/complain/create', [ComplainController::class, 'createComplain']);
+    Route::get('/complain/detail', [ComplainController::class, 'getComplainDetail']);
 });
 
 // Route::resource('boarding', BoardingController::class);
