@@ -7,8 +7,9 @@ namespace App\Http\Controllers;
 use App\Models\Boarding;
 use App\Models\BoardingImage;
 use App\Models\BoardingType;
+use App\Models\FacilityDetail;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class BoardingController extends Controller
