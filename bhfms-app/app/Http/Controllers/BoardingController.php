@@ -8,6 +8,8 @@ use App\Models\Boarding;
 use App\Models\BoardingImage;
 use App\Models\BoardingType;
 use App\Models\FacilityDetail;
+use App\Models\ManagerBoarding;
+use App\Models\OwnerBoarding;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -115,6 +117,16 @@ class BoardingController extends Controller
         }
 
         return Inertia::render('Boarding/AllBoardingHouse', ['allBoardingHouse' => $allBoardingHouse]);
+    }
+
+    public function getCreateOwnerBoarding()
+    {
+        $Manager_data = User::where('user_role_id','=','4')->get();
+        return Inertia::render('Boarding/CreateBoarding', [
+            'facilities' => FacilityDetail::get(),
+            'types' => BoardingType::get(),
+            'managers' => $Manager_data,
+        ]);
     }
 
 

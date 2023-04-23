@@ -233,7 +233,7 @@ let form = useForm({
                                     :src="`/storage/${img.image}`"
                                 />
                                 <div class="mt-4 ml-2">
-                                    {{ img.image }}
+                                    {{ img.image.split("/")[1] }}
                                 </div>
                             </div>
                         </div>
