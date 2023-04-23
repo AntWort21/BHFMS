@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Boarding;
 use App\Models\Complain;
 use App\Models\ComplainType;
+use App\Models\ManagerBoarding;
+use App\Models\OwnerBoarding;
 use App\Models\TenantBoarding;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -53,7 +56,7 @@ class ComplainController extends Controller
             'boarding_id' => TenantBoarding::where('user_id', Auth::user()->id)->first()->boarding_id,
             'complain_type_id' => ComplainType::where('complain_type_name', $request->complainType)->first()->id,
             'complain_desc' => $request->description,
-            'complain_image_url' => '/storage/images/'.$fileName ?? null
+            'complain_image_url' => '/storage/images/' . $fileName ?? null
         ]);
 
         return redirect('/complain');
@@ -68,5 +71,43 @@ class ComplainController extends Controller
             'complainType' => $complainType,
             'complain' => $complain
         ]);
+    }
+
+    public function setComplainStatus(Request $request)
+    {
+        Complain::find($request->id)->update([
+            'complain_status' => $request->status
+        ]);
+    }
+
+    public function getOwnerComplainPage()
+    {
+        //manager belum bisa liat complain list untuk boarding house yang dia manage !!!!
+        if (Auth::user()->user_role_id == 4) {
+            $allBoardingHouse = OwnerBoarding::where('boarding_id', ManagerBoarding::where('user_id', Auth::user()->id)->first()->boarding_id)->where('status', 'approved')->get();
+        } else if (Auth::user()->user_role_id == 3) {
+            $allBoardingHouse = OwnerBoarding::where('user_id', Auth::user()->id)->where('status', 'approved')->get();
+        }
+
+        $boardingHouseIDs = $allBoardingHouse->pluck('boarding_id');
+
+        $boardingHouse = [];
+        foreach ($boardingHouseIDs as $id) {
+            array_push($boardingHouse, Boarding::where('id', $id)->first());
+        }
+
+        return Inertia::render('Complain/Owner/BoardingHouseList', ['boardingHouseList' => $boardingHouse]);
+    }
+
+    public function getSelectedBoardingHouseComplainList(Request $request)
+    {
+        $selectedBoardingHouseComplainList = Complain::where('boarding_id', $request->id)->get();
+
+        foreach ($selectedBoardingHouseComplainList as $key => $complain) {
+            $selectedBoardingHouseComplainList[$key]->complain_type_name = ComplainType::where('id', $complain->complain_type_id)->first()->complain_type_name;
+            $selectedBoardingHouseComplainList[$key]->user_name = User::where('id', $complain->user_id)->first()->user_name;
+        }
+
+        return Inertia::render('Complain/Owner/SelectedBoardingHouseComplainList', ['complainList' => $selectedBoardingHouseComplainList]);
     }
 }
