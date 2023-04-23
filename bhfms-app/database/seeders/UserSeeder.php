@@ -104,32 +104,5 @@ class UserSeeder extends Seeder
             "user_role_id" => "2",
             "password" => bcrypt("asdasd"),
         ]);
-        User::create([
-            "user_name" =>'Manager 1',
-            "gender"=>'1',
-            "email" =>'Manager1@gmail.com',
-            "date_of_birth" =>'1/1/2000',
-            "phone" =>rand(1000000,5000000),
-            "user_role_id" =>'4',
-            "password" =>bcrypt('Manager1'),
-        ]);
-        User::create([
-            "user_name" =>'Manager  4',
-            "gender"=>'1',
-            "email" =>'Manager4gmail.com',
-            "date_of_birth" =>'1/1/2000',
-            "phone" =>rand(1000000,5000000),
-            "user_role_id" =>'4',
-            "password" =>bcrypt('Manager4'),
-        ]);
-        User::create([
-            "user_name" =>'Manager  2',
-            "gender"=>'1',
-            "email" =>'Manager2@gmail.com',
-            "date_of_birth" =>'1/1/2000',
-            "phone" =>rand(1000000,5000000),
-            "user_role_id" =>'4',
-            "password" =>bcrypt('Manager2'),
-        ]);
     }
 }
