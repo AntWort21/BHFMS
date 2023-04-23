@@ -34,7 +34,6 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/profile', [UserController::class, 'getProfilePage']);
-
     Route::post('/profile/update', [UserController::class, 'updateProfile']);
 });
 
