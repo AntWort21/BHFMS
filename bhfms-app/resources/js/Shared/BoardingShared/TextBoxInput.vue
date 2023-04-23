@@ -5,6 +5,7 @@ defineProps({
     modelValue: String,
     errorMessage: String,
     placeholder: String,
+    readOnly: Boolean,
 });
 
 defineEmits(["update:modelValue"]);
@@ -15,6 +16,16 @@ defineEmits(["update:modelValue"]);
         {{ labelName }}
     </label>
     <input
+        v-if="readOnly == true"
+        @input="$emit('update:modelValue', $event.target.value)"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        :type="inputType"
+        :value="modelValue"
+        :placeholder="placeholder"
+        readonly
+    />
+    <input
+        v-else
         @input="$emit('update:modelValue', $event.target.value)"
         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         :type="inputType"

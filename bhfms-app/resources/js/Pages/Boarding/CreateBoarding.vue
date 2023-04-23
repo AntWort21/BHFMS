@@ -1,9 +1,6 @@
 <script setup>
-// import { computed } from "vue";
-// import { usePage } from "@inertiajs/inertia-vue3";
-// import { numberLiteral } from "@babel/types";
-import { computed, ref, watch } from "vue";
-import { useForm, usePage } from "@inertiajs/inertia-vue3";
+import { ref } from "vue";
+import { useForm, Link } from "@inertiajs/inertia-vue3";
 import VueMultiselect from "vue-multiselect";
 import Multiselect from "vue-multiselect";
 import VueGoogleAutocomplete from "vue-google-autocomplete";
@@ -23,6 +20,7 @@ const selectedFacility = ref("");
 const selectedManager = ref("");
 const address = ref("");
 const images = ref([]);
+const previewImage = ref([]);
 
 const getAddressData = (addressData, placeResultData) => {
     address.value = placeResultData.formatted_address;
@@ -39,12 +37,18 @@ const onFileChange = (e) => {
 
     for (let i = 0; i < images.value.length; i++) {
         let reader = new FileReader();
-        reader.onload = (e) => {
-            images.value[i].src = reader.result;
-        };
-
         reader.readAsDataURL(images.value[i]);
+        reader.onload = (e) => {
+            // images.value[i].src = reader.result;
+            previewImage.value[i] = e.target.result;
+            // images.value[i].src = e.target.result;
+        };
     }
+};
+
+const deleteFileUploaded = (idx) => {
+    previewImage.value.splice(idx, 1);
+    images.value.splice(idx, 1);
 };
 
 const customLabelManager = ({ user_name, email }) =>
@@ -85,7 +89,23 @@ const submit = () => {
         <div
             class="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center bg-gray font-sans overflow-hidden"
         >
-            <div class="w-11/12">
+            <div class="w-11/12 mt-5">
+                <!-- to Admin Boarding Page -->
+                <Link
+                    v-if="$page.props.user.role_id == 0"
+                    class="my-2 mx-2 text-m float-right bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 rounded focus:outline-none focus:shadow-outline"
+                    :href="'/boardingAdmin'"
+                >
+                    Back
+                </Link>
+                <!--  to Owner Boarding Page -->
+                <Link
+                    v-if="$page.props.user.role_id == 3"
+                    class="my-2 mx-2 text-m float-right bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 rounded focus:outline-none focus:shadow-outline"
+                    :href="'/boardingOwner'"
+                >
+                    Back
+                </Link>
                 <form
                     @submit.prevent="submit"
                     enctype="multipart/form-data"
@@ -298,7 +318,7 @@ const submit = () => {
                             type="file"
                             multiple
                             @change="onFileChange"
-                            class="mb-2"
+                            class="mb-2 mt-2"
                         />
                         <div
                             v-if="form.errors.images"
@@ -309,10 +329,27 @@ const submit = () => {
                         <div
                             v-for="(image, key) in images"
                             :key="key"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            class="flow-root mt-4 items-center align-center flex shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         >
-                            <img class="preview" :ref="'image'" />
-                            {{ image.name }}
+                            <div class="float-left flex items-center">
+                                <img
+                                    class="w-40 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    :src="previewImage[key]"
+                                />
+                                <div class="mt-4 ml-2">
+                                    {{ image.name }}
+                                </div>
+                            </div>
+                            <div
+                                class="float-right align-middle items-center flex"
+                            >
+                                <button
+                                    class="mt-4 bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-4 rounded"
+                                    @click.prevent="deleteFileUploaded(key)"
+                                >
+                                    <span>Delete</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
 

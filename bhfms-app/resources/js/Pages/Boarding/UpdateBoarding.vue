@@ -84,24 +84,10 @@ const deleteFileUploaded = (idx) => {
 };
 
 const deleteFileDatabase = (idx) => {
+    form.put(`/boarding/image/delete/${idx}`, {});
     // form.post(`/image/delete/${idx}`, {
     // });
 };
-
-// const onFileChange = (e) => {
-//     const files = e.target.files;
-
-//     for (let i = 0; i < files.length; i++) {
-//         const file = files[i];
-//         images.value.push(files[i]);
-//         // form.append(`images[${i}]`, file);
-//         const reader = new FileReader();
-//         reader.readAsDataURL(file);
-//         reader.onload = () => {
-//             this.images.push(reader.result);
-//         };
-//     }
-// };
 
 const customLabelManager = ({ user_name, email }) =>
     `${user_name} - (${email})`;
@@ -110,6 +96,11 @@ const resetImages = () => {
     form.images = [];
     images = [];
 };
+
+const clearManagerInput = () => {
+    form.manager = "";
+};
+
 const submitUpdate = (this_id) => {
     form.post(`/boarding/update/${this_id}`, {
         // onError: () => form.images.reset(),
@@ -128,6 +119,7 @@ const submitUpdate = (this_id) => {
         {{ $page.props.user.id }}
     </h1>
     <h1 v-else>Oh no 😢</h1> -->
+
     <div class="overflow-x-auto">
         <div
             class="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center bg-gray font-sans overflow-hidden"
@@ -135,13 +127,29 @@ const submitUpdate = (this_id) => {
             <!-- {{ props.currBoarding.id }} -->
             <!-- {{ currBoarding.boarding_name }} -->
             <div class="w-11/12 mt-5">
+                <!-- to Admin Boarding Page -->
+                <Link
+                    v-if="$page.props.user.role_id == 0"
+                    class="my-2 mx-2 text-m float-right bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 rounded focus:outline-none focus:shadow-outline"
+                    :href="'/boardingAdmin'"
+                >
+                    Back
+                </Link>
+                <!--  to Owner Boarding Page -->
+                <Link
+                    v-if="$page.props.user.role_id == 3"
+                    class="my-2 mx-2 text-m float-right bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 rounded focus:outline-none focus:shadow-outline"
+                    :href="'/boardingOwner'"
+                >
+                    Back
+                </Link>
                 <form
                     @submit.prevent="submitUpdate(props.currBoarding.id)"
                     enctype="multipart/form-data"
                     class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
                 >
                     <h1 class="text-blue-600 font-bold text-2xl mb-8">
-                        Add New Boarding House
+                        Update Boarding House
                     </h1>
                     <div class="mb-4">
                         <TextBoxInput
@@ -326,12 +334,20 @@ const submitUpdate = (this_id) => {
                     </div>
 
                     <div class="mb-4">
-                        <label
-                            class="block text-gray-700 text-sm font-bold mb-2"
-                            for="manager"
-                        >
-                            Select Manager (Optional)
-                        </label>
+                        <div class="flow-root">
+                            <label
+                                class="float-left block text-gray-700 text-sm font-bold mb-2"
+                                for="manager"
+                            >
+                                Select Manager (Optional)
+                            </label>
+                            <button
+                                class="text-xs float-right bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 rounded focus:outline-none focus:shadow-outline"
+                                @click.prevent="clearManagerInput()"
+                            >
+                                Remove Manager
+                            </button>
+                        </div>
                         <VueMultiselect
                             v-model="selectedManager"
                             :options="managers"
@@ -364,7 +380,7 @@ const submitUpdate = (this_id) => {
                                     :src="`/storage/Boarding_House_Images/${img.image}`"
                                 />
                                 <div class="mt-4 ml-2">
-                                    {{ img.image }} -- {{ img.id }}
+                                    {{ img.image }}
                                 </div>
                             </div>
                             <div class="float-right h-100">

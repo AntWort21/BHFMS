@@ -27,7 +27,7 @@ watch(search, (value) => {
 
 <template>
     <Header />
-    {{ $page.props.user.id }}
+    <!-- {{ $page.props.user.id }} -->
     <!-- component -->
     <div class="overflow-x-auto">
         <div
@@ -112,12 +112,6 @@ watch(search, (value) => {
                             >
                                 <td class="py-3 px-6 text-left">
                                     <div class="flex items-center">
-                                        <div class="mr-2">
-                                            <img
-                                                class="w-6 h-6"
-                                                src="https://img.icons8.com/color/100/000000/vue-js.png"
-                                            />
-                                        </div>
                                         <span class="font-medium"
                                             >{{ boarding.boarding_name }}
                                         </span>

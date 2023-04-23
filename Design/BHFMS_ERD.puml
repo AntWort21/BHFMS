@@ -127,7 +127,6 @@ entity "manager_boardings" as mabh {
   *id : Integer <<PK>>
   --
   *owner_boarding_id : Integer <<FK>>
-  *manager_user_id : Integer <<FK>>
   *boarding_id : Integer <<FK>>
   *created_at : Date
   *updated_at : Date
@@ -214,7 +213,7 @@ bh ||..o{ lobh
 
 usr ||..o{ mabh
 bh ||.o{ mabh
-lobh ||..|| mabh
+' lobh ||..|| mabh
 
 usr ||..o{ rvw
 bh ||..o{ rvw

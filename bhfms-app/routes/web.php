@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BoardingController;
+use App\Http\Controllers\BoardingImageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,7 +46,11 @@ Route::get('/boardingOwner', [BoardingController::class, 'indexOwner']);
 Route::get('/boarding/create', [BoardingController::class, 'getCreateOwnerBoarding']);
 Route::post('/boarding/create', [BoardingController::class, 'createOwnerBoarding']);
 Route::get('/boarding/update/{id}', [BoardingController::class, 'getUpdateBoarding']);
+Route::get('/boarding/read/{id}', [BoardingController::class, 'getReadBoarding']);
 Route::post('/boarding/update/{id}', [BoardingController::class, 'updateBoarding']);
+Route::get('/boarding/delete/{id}', [BoardingController::class, 'deleteBoarding']);
+
+Route::put('/boarding/image/delete/{id}', [BoardingImageController::class, 'deleteImage']);
 
 Route::get('/boardingManager', [BoardingController::class, 'indexManager']);
 
