@@ -211,7 +211,7 @@ tb ||..o{ rt
 pymnt ||..o{ rt
 
 usr ||..o{ lobh
-bh ||..o{ lobh
+lobh ||..o{ bh
 
 usr ||..|| mabh
 lobh ||..|| mabh
