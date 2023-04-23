@@ -44,7 +44,7 @@ class ComplainController extends Controller
         if ($request->hasFile('pictureFile')) {
             $file = $request->pictureFile;
             $fileName = $file->getClientOriginalName();
-            $destinationPath = public_path() . '/images';
+            $destinationPath = storage_path('app/public/images');
             $file->move($destinationPath, $fileName);
         }
 
@@ -53,7 +53,7 @@ class ComplainController extends Controller
             'boarding_id' => TenantBoarding::where('user_id', Auth::user()->id)->first()->boarding_id,
             'complain_type_id' => ComplainType::where('complain_type_name', $request->complainType)->first()->id,
             'complain_desc' => $request->description,
-            'complain_image_url' => '/images/'.$fileName ?? null
+            'complain_image_url' => '/storage/images/'.$fileName ?? null
         ]);
 
         return redirect('/complain');
@@ -61,7 +61,6 @@ class ComplainController extends Controller
 
     public function getComplainDetail(Request $request)
     {
-        // dd($request->all(), Complain::find($request->id));
         $complain = Complain::find($request->id);
         $complainType = ComplainType::where('id', $complain->complain_type_id)->first()->complain_type_name;
 

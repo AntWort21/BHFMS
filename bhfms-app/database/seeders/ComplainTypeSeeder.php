@@ -33,5 +33,9 @@ class ComplainTypeSeeder extends Seeder
             "id" =>'4',
             "complain_type_name" => 'Wifi Problems'
         ]);
+        ComplainType::create([
+            "id" =>'5',
+            "complain_type_name" => 'Other'
+        ]);
     }
 }
