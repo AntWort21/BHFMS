@@ -14,7 +14,7 @@ let selectedLogout = ref(false);
     >
         <div class="mx-3">
             <img
-                :src="'../storage/BHFMS_transparent.png'"
+                :src="'/storage/BHFMS_transparent.png'"
                 alt="No Image"
                 class="w-16 h-auto"
             />
