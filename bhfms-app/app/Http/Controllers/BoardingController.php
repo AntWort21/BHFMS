@@ -23,7 +23,7 @@ class BoardingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
     public function indexAdmin(Request $request)
     {
 
@@ -32,11 +32,11 @@ class BoardingController extends Controller
             ->when($request->search, function($query, $search){
             if($search=='all'){
                 $query;
-                
+
             }else{
                 $query->where('status','=',$search);
             }
-            
+
         })->paginate(5)->withQueryString();
 
         // dd($Boarding_data);
@@ -52,7 +52,7 @@ class BoardingController extends Controller
 
     public function indexManager(Request $request)
     {
-        
+
         $Boarding_data = Boarding::join('manager_boardings','manager_boardings.boarding_id','=','boardings.id')
             ->join('owner_boardings','manager_boardings.owner_boarding_id',"=",'owner_boardings.id')
             ->join('users','users.id',"=","owner_boardings.user_id")
@@ -60,11 +60,11 @@ class BoardingController extends Controller
             ->when($request->search, function($query, $search){
             if($search=='all'){
                 $query;
-                
+
             }else{
                 $query->where('status','=',$search);
             }
-            
+
         })->paginate(5)->withQueryString();
 
         // dd($Boarding_data);
@@ -80,18 +80,18 @@ class BoardingController extends Controller
 
     public function indexOwner(Request $request)
     {
-        
+
         $Boarding_data = Boarding::join('owner_boardings','boardings.id','=','owner_boardings.boarding_id')
             ->join('users','users.id','=','owner_boardings.user_id')
             ->where('owner_boardings.user_id','=',auth()->id())
             ->when($request->search, function($query, $search){
             if($search=='all'){
                 $query;
-                
+
             }else{
                 $query->where('status','=',$search);
             }
-            
+
         })->paginate(5)->withQueryString();
 
         return Inertia::render('Boarding/BoardingManagementOwner', [
@@ -105,7 +105,7 @@ class BoardingController extends Controller
 
     public function getAllBoardingHouse()
     {
-        $allBoardingHouse = Boarding::all();
+        $allBoardingHouse = Boarding::paginate(18);
 
         foreach ($allBoardingHouse as $key => $boardingHouse) {
             $allBoardingHouse[$key]->imageUrl = BoardingImage::where('boarding_id', $boardingHouse->id)->first()->image;
@@ -127,9 +127,6 @@ class BoardingController extends Controller
             $facilityList[$key]->facility_detail_name = FacilityDetail::where('id', $facility->facility_id)->first()->facility_detail_name;
         }
 
-        //review list
-        //similar boarding house
-
         return Inertia::render('Boarding/SelectedBoardingHouse', [
             'boardingHouseDetail' => $selectedBoardingHouseDetail,
             'images' => $boardingHouseImages,
@@ -150,8 +147,8 @@ class BoardingController extends Controller
     }
 
     public function createOwnerBoarding(Request $request)
-    {   
-        // dd($request); 
+    {
+        // dd($request);
         $validation = $request->validate([
             'name' => ['required', 'max:50'],
             'address' => ['required'],
@@ -162,7 +159,7 @@ class BoardingController extends Controller
             'description' => ['required', 'max:200','min:5'],
             'images' => ['max:5'],
         ]);
-        
+
 
         $BoardingNow = Boarding::create([
             'boarding_name' => $request['name'],
@@ -191,12 +188,12 @@ class BoardingController extends Controller
                 'manager_user_id'=>$request['manager']['id'],
                 'boarding_id'=>$BoardingNow->id,
             ]);
-        }   
-        
+        }
+
         //FILES
         if(($request->file('images') !== null)){
             foreach($request->file('images') as $image){
-                
+
                 $path = $image->getClientOriginalName();
                 $path = str_replace(" ", "-", $path);
                 $path = time() . '-' . $path;
