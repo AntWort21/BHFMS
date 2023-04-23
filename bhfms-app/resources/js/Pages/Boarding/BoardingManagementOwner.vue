@@ -112,7 +112,8 @@ watch(search, (value) => {
                             >
                                 <td class="py-3 px-6 text-left">
                                     <div class="flex items-center">
-                                        <span class="font-medium"
+                                        <!-- <div class="mr-2"></div> -->
+                                        <span class="mr-2 font-medium"
                                             >{{ boarding.boarding_name }}
                                         </span>
                                     </div>

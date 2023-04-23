@@ -14,7 +14,7 @@ class BoardingImageController extends Controller
         $currImage = BoardingImage::where('id','=',$request->id)->first();
         // dd($currImage->image);
         if($currImage){
-            Storage::delete('public/Boarding_House_Images/'.$currImage->image);
+            Storage::delete('public/'.$currImage->image);
             $currImage -> delete();
         }
         return redirect()->back();

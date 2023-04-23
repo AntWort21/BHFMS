@@ -41,19 +41,6 @@ class BoardingController extends Controller
             
         })->paginate(5)->withQueryString();
 
-        // dd($Boarding_data);
-
-        // $Boarding_data_count = Boarding::join('owner_boardings','owner_boardings.boarding_id','=','boardings.id')
-        // ->select('status', DB::raw('count(*) as total'))
-        // ->groupBy('status')
-        // ->orderBy('status', 'asc')
-        // ->get();
-        // idx 0 -> pending
-        // idx 1 -> approved
-        // idx 2 -> declined
-
-        // dd($Boarding_data_count);
-
         $all_boarding_count = Boarding::get();
         $all = $all_boarding_count->count();
         $apv = $all_boarding_count->where('status','=','approved')->count();
@@ -117,12 +104,6 @@ class BoardingController extends Controller
             
         })->paginate(5)->withQueryString(); 
         
-        // foreach ($Boarding_data as $key => $bhouse) {
-        //     // if(BoardingImage::where('boarding_id','=',$bhouse->boarding_id)->get()->isNotEmpty())
-        //     $Boarding_data[$key]->imageUrl = BoardingImage::where('boarding_id','=',$bhouse->boarding_id)->first();
-        //     // else
-        //         // $Boarding_data[$key]->imageUrl->image = null;
-        // }
 
         $all_boarding_count = OwnerBoarding::where('user_id','=',auth()->id())->get();
         $all = $all_boarding_count->count();
@@ -219,12 +200,13 @@ class BoardingController extends Controller
                 $path = $image->getClientOriginalName();
                 $path = str_replace(" ", "-", $path);
                 $path = time() . '-' . $path;
+                $path = 'Boarding_House_Images/' . $path;
                 // $path = user_id + path;
 
                 $img = new BoardingImage();
 
                 // $img->image = $image->storeAs('public/Boarding_House_Images', $path);
-                Storage::putFileAs('public/Boarding_House_Images',$image, $path);
+                Storage::putFileAs('public/',$image, $path);
                 $img->image = $path;
                 $img->boarding_id = $BoardingNow->id;
                 $img->save();
@@ -242,12 +224,7 @@ class BoardingController extends Controller
         $currManager = $currBoarding->managerBoardings()->get()->first();
         $currImages = $currBoarding->images()->get();
 
-        $sharedBathroom = $currBoarding['shared_bathroom'];
-        if($sharedBathroom == true){
-            $sharedBathroom = true;
-        }else{
-            $sharedBathroom = false;
-        }
+        // dd($currManager);
 
         return Inertia::render('Boarding/ReadBoarding', [
             'currImages' => $currImages,
@@ -255,7 +232,6 @@ class BoardingController extends Controller
             'currFacilities' => $currFacilities,
             'currType' => $currType,
             'currManager'=>$currManager,
-            'sharedBathroom' => $sharedBathroom,
         ]);
     }
 
@@ -264,14 +240,6 @@ class BoardingController extends Controller
         $Manager_data = User::where('user_role_id','=','4')->get();
         $currBoarding = Boarding::where('id','=',$request->id)->get()->first();
         $currFacilities = ($currBoarding->facilities()->exists()) ? $currBoarding->facilities()->get(): null;
-
-
-        $sharedBathroom = $currBoarding['shared_bathroom'];
-        if($sharedBathroom == true){
-            $sharedBathroom = true;
-        }else{
-            $sharedBathroom = false;
-        }
 
         $currManager = $currBoarding->managerBoardings()->get()->first();
 
@@ -287,19 +255,13 @@ class BoardingController extends Controller
             'currManager'=>$currManager,
             'facilities' => FacilityDetail::get(),
             'types' => BoardingType::get(),
-            'sharedBathroom' => $sharedBathroom,
             'managers' => $Manager_data,
         ]);
     }
 
     public function updateBoarding(Request $request){
         // dd($request['max_image']);
-        dd($request);
-
-        // dd($request['manager']);
-
-        // Current ID of Boarding House to be updated
-        // dd($request->id);
+        // dd($request);
 
         $max_pic = 5 - (int)$request['max_image'];
         $total_pic = (int)$request['max_image'] + (int)count($request['images']);
@@ -374,15 +336,17 @@ class BoardingController extends Controller
         //FILES
         if(($request->file('images') !== null)){
             foreach($request->file('images') as $image){
-                
+            
                 $path = $image->getClientOriginalName();
                 $path = str_replace(" ", "-", $path);
                 $path = time() . '-' . $path;
+                $path = 'Boarding_House_Images/' . $path;
+                // $path = user_id + path;
 
                 $img = new BoardingImage();
 
                 // $img->image = $image->storeAs('public/Boarding_House_Images', $path);
-                Storage::putFileAs('public/Boarding_House_Images',$image, $path);
+                Storage::putFileAs('public/',$image, $path);
                 $img->image = $path;
                 $img->boarding_id = $request->id;
                 $img->save();
@@ -404,7 +368,7 @@ class BoardingController extends Controller
         // $images = [];
         foreach($currImages as $img) {
             // array_push($images,$img['image']);
-            Storage::delete('public/Boarding_House_Images/'.$img['image']);
+            Storage::delete('public/'.$img['image']);
             $img -> delete();
         }
 

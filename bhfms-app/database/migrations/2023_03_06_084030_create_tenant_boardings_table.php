@@ -23,7 +23,6 @@ class CreateTenantBoardingsTable extends Migration
             $table->unsignedBigInteger('boarding_id');
             $table->foreign('boarding_id')->references('id')
             ->on('boardings')->cascadeOnUpdate()->cascadeOnDelete();
-            
             $table->enum('status',['pending','approved','declined'])->default('pending');
             $table->string('declined_reason')->nullable();
             $table->timestamps();

@@ -20036,8 +20036,6 @@ __webpack_require__.r(__webpack_exports__);
     currManager: Object,
     currImages: Object,
     currType: Object,
-    sharedBathroom: Boolean,
-    // facilities: Object,
     images: Array
   },
   setup: function setup(__props, _ref) {
@@ -20046,7 +20044,7 @@ __webpack_require__.r(__webpack_exports__);
     var props = __props;
     var selectedFacility = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(props.currFacilities);
     var allFacility = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(props.currFacilities);
-    var selectedManager = props.currManager.user_name + " " + props.currManager.email;
+    var selectedManager = props.currManager ? props.currManager.user_name + " " + props.currManager.email : "None";
     var images = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
     var form = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.useForm)({
       currID: props.currBoarding.id,
@@ -20057,7 +20055,7 @@ __webpack_require__.r(__webpack_exports__);
       price: props.currBoarding.price,
       description: props.currBoarding.boarding_desc,
       images: images,
-      sharedBathroom: props.sharedBathroom,
+      sharedBathroom: props.currBoarding.sharedBathroom,
       manager: selectedManager,
       lat: props.currBoarding.latitude,
       lng: props.currBoarding.longitude
@@ -20124,13 +20122,11 @@ function _readOnlyError(name) { throw new TypeError("\"" + name + "\" is read-on
     currFacilities: Object,
     currManager: Object,
     currImages: Object,
-    sharedBathroom: Boolean,
     types: Object,
     facilities: Object,
     managers: Object,
     locations: Object,
-    images: Array,
-    images_max: Number
+    images: Array
   },
   setup: function setup(__props, _ref) {
     var expose = _ref.expose;
@@ -20144,6 +20140,7 @@ function _readOnlyError(name) { throw new TypeError("\"" + name + "\" is read-on
     var address = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)("");
     var previewImage = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
     var images = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
+    var max_img = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(props.currImages.length);
     var form = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.useForm)({
       currID: props.currBoarding.id,
       name: props.currBoarding.boarding_name,
@@ -20154,11 +20151,11 @@ function _readOnlyError(name) { throw new TypeError("\"" + name + "\" is read-on
       price: props.currBoarding.price,
       description: props.currBoarding.boarding_desc,
       images: images,
-      sharedBathroom: props.sharedBathroom,
+      sharedBathroom: props.currBoarding.sharedBathroom,
       manager: selectedManager,
       lat: (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(props.currBoarding.latitude),
       lng: (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(props.currBoarding.longitude),
-      max_image: (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(props.currImages.length)
+      max_image: (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(max_img)
     });
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
       address.value.update(props.currBoarding.address);
@@ -20195,6 +20192,8 @@ function _readOnlyError(name) { throw new TypeError("\"" + name + "\" is read-on
       images.value.splice(idx, 1);
     };
     var deleteFileDatabase = function deleteFileDatabase(idx) {
+      // form.max_image.value = form.max_image.value - 1;
+      form.max_image = form.max_image - 1;
       form.put("/boarding/image/delete/".concat(idx), {});
       // form.post(`/image/delete/${idx}`, {
       // });
@@ -20227,6 +20226,7 @@ function _readOnlyError(name) { throw new TypeError("\"" + name + "\" is read-on
       address: address,
       previewImage: previewImage,
       images: images,
+      max_img: max_img,
       form: form,
       getAddressData: getAddressData,
       onFileChange: onFileChange,
@@ -21417,34 +21417,28 @@ var _hoisted_17 = {
 var _hoisted_18 = {
   "class": "flex items-center"
 };
-var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "mr-2"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  "class": "w-6 h-6",
-  src: "https://img.icons8.com/color/100/000000/vue-js.png"
-})], -1 /* HOISTED */);
-var _hoisted_20 = {
-  "class": "font-medium"
+var _hoisted_19 = {
+  "class": "mr-2 font-medium"
 };
-var _hoisted_21 = {
+var _hoisted_20 = {
   "class": "py-3 px-6 text-left"
 };
-var _hoisted_22 = {
+var _hoisted_21 = {
   key: 0,
   "class": "bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs"
 };
-var _hoisted_23 = {
+var _hoisted_22 = {
   key: 1,
   "class": "bg-yellow-200 text-yellow-600 py-1 px-3 rounded-full text-xs"
 };
-var _hoisted_24 = {
+var _hoisted_23 = {
   key: 2,
   "class": "bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs"
 };
-var _hoisted_25 = {
+var _hoisted_24 = {
   "class": "py-3 px-6 text-center"
 };
-var _hoisted_26 = {
+var _hoisted_25 = {
   href: "#"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -21457,7 +21451,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
       "class": "border-b border-gray-200 bg-gray-50 hover:bg-gray-100",
       key: boarding.id
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [_hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(boarding.boarding_name), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_21, [boarding.status == 'approved' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_22, " Approved ")) : boarding.status == 'pending' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_23, "Pending")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_24, "Declined"))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(boarding.user_name) + " -- " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(boarding.boarding_id), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Icon List "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TableIconLinks"], {
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(boarding.boarding_name), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_20, [boarding.status == 'approved' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_21, " Approved ")) : boarding.status == 'pending' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_22, "Pending")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_23, "Declined"))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(boarding.user_name) + " -- " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(boarding.boarding_id), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Icon List "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TableIconLinks"], {
       currentID: boarding.boarding_id,
       boarding: boarding
     }, null, 8 /* PROPS */, ["currentID", "boarding"])]);
@@ -21552,34 +21546,28 @@ var _hoisted_17 = {
 var _hoisted_18 = {
   "class": "flex items-center"
 };
-var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "mr-2"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-  "class": "w-6 h-6",
-  src: "https://img.icons8.com/color/100/000000/vue-js.png"
-})], -1 /* HOISTED */);
-var _hoisted_20 = {
-  "class": "font-medium"
+var _hoisted_19 = {
+  "class": "mr-2 font-medium"
 };
-var _hoisted_21 = {
+var _hoisted_20 = {
   "class": "py-3 px-6 text-left"
 };
-var _hoisted_22 = {
+var _hoisted_21 = {
   key: 0,
   "class": "bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs"
 };
-var _hoisted_23 = {
+var _hoisted_22 = {
   key: 1,
   "class": "bg-yellow-200 text-yellow-600 py-1 px-3 rounded-full text-xs"
 };
-var _hoisted_24 = {
+var _hoisted_23 = {
   key: 2,
   "class": "bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs"
 };
-var _hoisted_25 = {
+var _hoisted_24 = {
   "class": "py-3 px-6 text-center"
 };
-var _hoisted_26 = {
+var _hoisted_25 = {
   href: "#"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -21592,7 +21580,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
       "class": "border-b border-gray-200 bg-gray-50 hover:bg-gray-100",
       key: boarding.id
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [_hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(boarding.boarding_name), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_21, [boarding.status == 'approved' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_22, " Approved ")) : boarding.status == 'pending' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_23, "Pending")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_24, "Declined"))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(boarding.user_name), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Icon List "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TableIconLinks"], {
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(boarding.boarding_name), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_20, [boarding.status == 'approved' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_21, " Approved ")) : boarding.status == 'pending' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_22, "Pending")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_23, "Declined"))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(boarding.user_name), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Icon List "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TableIconLinks"], {
       currentID: boarding.boarding_id,
       boarding: boarding
     }, null, 8 /* PROPS */, ["currentID", "boarding"])]);
@@ -21689,7 +21677,7 @@ var _hoisted_19 = {
   "class": "flex items-center"
 };
 var _hoisted_20 = {
-  "class": "font-medium"
+  "class": "mr-2 font-medium"
 };
 var _hoisted_21 = {
   "class": "py-3 px-6 text-left"
@@ -21722,7 +21710,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
       "class": "border-b border-gray-200 bg-gray-50 hover:bg-gray-100",
       key: boarding.id
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(boarding.boarding_name), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_21, [boarding.status == 'approved' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_22, " Approved ")) : boarding.status == 'pending' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_23, "Pending")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_24, "Declined"))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(boarding.user_name), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Icon List "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TableIconLinks"], {
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"mr-2\"></div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(boarding.boarding_name), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_21, [boarding.status == 'approved' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_22, " Approved ")) : boarding.status == 'pending' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_23, "Pending")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_24, "Declined"))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(boarding.user_name), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Icon List "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TableIconLinks"], {
       currentID: boarding.boarding_id,
       boarding: boarding
     }, null, 8 /* PROPS */, ["currentID", "boarding"])]);
@@ -22299,12 +22287,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $setup.form.manager = $event;
     }),
     "input-type": 'text',
-    "label-name": 'Boarding House Type',
-    placeholder: 'Boarding House Type'
+    "label-name": 'Boarding House Manager',
+    placeholder: 'None'
   }, null, 8 /* PROPS */, ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Preview Image in Database "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [_hoisted_28, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.currImages, function (img) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
       "class": "w-40 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
-      src: "/storage/Boarding_House_Images/".concat(img.image)
+      src: "/storage/".concat(img.image)
     }, null, 8 /* PROPS */, _hoisted_31), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(img.image), 1 /* TEXT */)])]);
   }), 256 /* UNKEYED_FRAGMENT */))])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Footer"])], 64 /* STABLE_FRAGMENT */);
 }
@@ -22590,14 +22578,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "mb-2",
     type: "checkbox",
     value: "",
-    id: "sharedBathroom",
-    checked: ""
+    id: "sharedBathroom"
   }, null, 512 /* NEED_PATCH */)), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $setup.form.sharedBathroom]]), _hoisted_25])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TextBoxInput"], {
     modelValue: $setup.form.rooms,
     "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
       return $setup.form.rooms = $event;
     }),
-    "input-type": 'text',
+    "input-type": 'number',
     "label-name": 'Number of Rooms',
     placeholder: 'Number of Rooms',
     "error-message": $setup.form.errors.rooms
@@ -22606,7 +22593,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "onUpdate:modelValue": _cache[9] || (_cache[9] = function ($event) {
       return $setup.form.price = $event;
     }),
-    "input-type": 'text',
+    "input-type": 'number',
     "label-name": 'Price per Month',
     placeholder: 'Price per Month',
     "error-message": $setup.form.errors.price
@@ -22639,13 +22626,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 8 /* PROPS */, _hoisted_32)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Preview Image in Database "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [_hoisted_34, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.currImages, function (img) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
       "class": "w-40 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
-      src: "/storage/Boarding_House_Images/".concat(img.image)
-    }, null, 8 /* PROPS */, _hoisted_37), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_38, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(img.image), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+      src: "/storage/".concat(img.image)
+    }, null, 8 /* PROPS */, _hoisted_37), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_38, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(img.image), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, [$setup.max_img > 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+      key: 0,
       "class": "bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-4 rounded items-center align-center",
       onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
         return $setup.deleteFileDatabase(img.id);
       }, ["prevent"])
-    }, _hoisted_43, 8 /* PROPS */, _hoisted_41)])])]);
+    }, _hoisted_43, 8 /* PROPS */, _hoisted_41)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]);
   }), 256 /* UNKEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Input new Image "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_44, [_hoisted_45, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, " Current Boarding House Images: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.currImages.length), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, "Uploaded Images: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.images.length), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     id: "images",
     type: "file",
@@ -23904,12 +23892,7 @@ __webpack_require__.r(__webpack_exports__);
       render: function render() {
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.h)(App, props);
       }
-    }).use(plugin).use(vue_google_autocomplete__WEBPACK_IMPORTED_MODULE_2__.GoogleAutocompletePlugin, {
-      apiKey: 'AIzaSyA2jQ6h9LFcb7VMwDAiCAyCRKez0ucwwwI',
-      version: '3.42',
-      // optional API version
-      language: 'en' // optional language
-    }).mount(el);
+    }).use(plugin).mount(el);
   }
 });
 

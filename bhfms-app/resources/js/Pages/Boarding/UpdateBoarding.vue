@@ -14,13 +14,11 @@ const props = defineProps({
     currFacilities: Object,
     currManager: Object,
     currImages: Object,
-    sharedBathroom: Boolean,
     types: Object,
     facilities: Object,
     managers: Object,
     locations: Object,
     images: Array,
-    images_max: Number,
 });
 
 // const currBoarding = ref("");
@@ -30,6 +28,7 @@ const selectedManager = ref(props.currManager);
 const address = ref("");
 const previewImage = ref([]);
 const images = ref([]);
+const max_img = ref(props.currImages.length);
 
 let form = useForm({
     currID: props.currBoarding.id,
@@ -41,11 +40,11 @@ let form = useForm({
     price: props.currBoarding.price,
     description: props.currBoarding.boarding_desc,
     images: images,
-    sharedBathroom: props.sharedBathroom,
+    sharedBathroom: props.currBoarding.sharedBathroom,
     manager: selectedManager,
     lat: ref(props.currBoarding.latitude),
     lng: ref(props.currBoarding.longitude),
-    max_image: ref(props.currImages.length),
+    max_image: ref(max_img),
 });
 
 onMounted(() => {
@@ -84,6 +83,8 @@ const deleteFileUploaded = (idx) => {
 };
 
 const deleteFileDatabase = (idx) => {
+    // form.max_image.value = form.max_image.value - 1;
+    form.max_image = form.max_image - 1;
     form.put(`/boarding/image/delete/${idx}`, {});
     // form.post(`/image/delete/${idx}`, {
     // });
@@ -295,7 +296,6 @@ const submitUpdate = (this_id) => {
                                 type="checkbox"
                                 value=""
                                 id="sharedBathroom"
-                                checked
                             />
                             <label
                                 class="block text-gray-700 text-sm font-bold mb-2 ml-2"
@@ -308,7 +308,7 @@ const submitUpdate = (this_id) => {
                     <div class="mb-4">
                         <TextBoxInput
                             v-model="form.rooms"
-                            :input-type="'text'"
+                            :input-type="'number'"
                             :label-name="'Number of Rooms'"
                             :placeholder="'Number of Rooms'"
                             :error-message="form.errors.rooms"
@@ -317,7 +317,7 @@ const submitUpdate = (this_id) => {
                     <div class="mb-4">
                         <TextBoxInput
                             v-model="form.price"
-                            :input-type="'text'"
+                            :input-type="'number'"
                             :label-name="'Price per Month'"
                             :placeholder="'Price per Month'"
                             :error-message="form.errors.price"
@@ -377,7 +377,7 @@ const submitUpdate = (this_id) => {
                             <div class="float-left flex items-center">
                                 <img
                                     class="w-40 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    :src="`/storage/Boarding_House_Images/${img.image}`"
+                                    :src="`/storage/${img.image}`"
                                 />
                                 <div class="mt-4 ml-2">
                                     {{ img.image }}
@@ -386,6 +386,7 @@ const submitUpdate = (this_id) => {
                             <div class="float-right h-100">
                                 <div class="flex justify-center">
                                     <button
+                                        v-if="max_img > 1"
                                         class="bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-4 rounded items-center align-center"
                                         @click.prevent="
                                             deleteFileDatabase(img.id)

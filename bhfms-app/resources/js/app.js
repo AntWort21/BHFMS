@@ -6,11 +6,6 @@ createInertiaApp({
   setup({ el, App, props, plugin }) {
     createApp({ render: () => h(App, props) })
       .use(plugin)
-      .use(GoogleAutocompletePlugin, {
-        apiKey: 'AIzaSyA2jQ6h9LFcb7VMwDAiCAyCRKez0ucwwwI',
-        version: '3.42', // optional API version
-        language: 'en', // optional language
-      })
       .mount(el)
   },
 })

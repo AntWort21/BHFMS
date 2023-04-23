@@ -14,15 +14,14 @@ const props = defineProps({
     currManager: Object,
     currImages: Object,
     currType: Object,
-    sharedBathroom: Boolean,
-    // facilities: Object,
     images: Array,
 });
 
 const selectedFacility = ref(props.currFacilities);
 const allFacility = ref(props.currFacilities);
-const selectedManager =
-    props.currManager.user_name + " " + props.currManager.email;
+const selectedManager = props.currManager
+    ? props.currManager.user_name + " " + props.currManager.email
+    : "None";
 const images = ref([]);
 
 let form = useForm({
@@ -34,7 +33,7 @@ let form = useForm({
     price: props.currBoarding.price,
     description: props.currBoarding.boarding_desc,
     images: images,
-    sharedBathroom: props.sharedBathroom,
+    sharedBathroom: props.currBoarding.sharedBathroom,
     manager: selectedManager,
     lat: props.currBoarding.latitude,
     lng: props.currBoarding.longitude,
@@ -211,8 +210,8 @@ let form = useForm({
                             :read-only="true"
                             v-model="form.manager"
                             :input-type="'text'"
-                            :label-name="'Boarding House Type'"
-                            :placeholder="'Boarding House Type'"
+                            :label-name="'Boarding House Manager'"
+                            :placeholder="'None'"
                         />
                     </div>
 
@@ -231,7 +230,7 @@ let form = useForm({
                             <div class="float-left flex items-center">
                                 <img
                                     class="w-40 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    :src="`/storage/Boarding_House_Images/${img.image}`"
+                                    :src="`/storage/${img.image}`"
                                 />
                                 <div class="mt-4 ml-2">
                                     {{ img.image }}
