@@ -1,28 +1,59 @@
 <script setup>
-import { ref } from "vue";
-import { useForm, Link } from "@inertiajs/inertia-vue3";
+import { ref, onMounted } from "vue";
+import { useForm } from "@inertiajs/inertia-vue3";
 import VueMultiselect from "vue-multiselect";
 import Multiselect from "vue-multiselect";
 import VueGoogleAutocomplete from "vue-google-autocomplete";
 import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
 import TextBoxInput from "../../Shared/BoardingShared/TextBoxInput.vue";
+import { Link } from "@inertiajs/inertia-vue3";
 
-defineProps({
+const props = defineProps({
+    currBoarding: Object,
+    currFacilities: Object,
+    currManager: Object,
+    currImages: Object,
     types: Object,
     facilities: Object,
     managers: Object,
     locations: Object,
     images: Array,
 });
-const selectedType = ref("");
-const selectedFacility = ref("");
-const selectedManager = ref("");
+
+// const currBoarding = ref("");
+const selectedType = ref(props.currBoarding.type_id);
+const selectedFacility = ref(props.currFacilities);
+const selectedManager = ref(props.currManager);
 const address = ref("");
-const images = ref([]);
 const previewImage = ref([]);
+const images = ref([]);
+const max_img = ref(props.currImages.length);
+
+let form = useForm({
+    currID: props.currBoarding.id,
+    name: props.currBoarding.boarding_name,
+    address: props.currBoarding.address,
+    type: selectedType,
+    facility: selectedFacility,
+    rooms: props.currBoarding.rooms,
+    price: props.currBoarding.price,
+    description: props.currBoarding.boarding_desc,
+    images: images,
+    sharedBathroom: props.currBoarding.sharedBathroom,
+    manager: selectedManager,
+    lat: ref(props.currBoarding.latitude),
+    lng: ref(props.currBoarding.longitude),
+    max_image: ref(max_img),
+});
+
+onMounted(() => {
+    address.value.update(props.currBoarding.address);
+    // form.images_max.value = props.currImages.length;
+});
 
 const getAddressData = (addressData, placeResultData) => {
+    form.address = placeResultData.formatted_address;
     address.value = placeResultData.formatted_address;
     form.lat = addressData.latitude;
     form.lng = addressData.longitude;
@@ -51,44 +82,51 @@ const deleteFileUploaded = (idx) => {
     images.value.splice(idx, 1);
 };
 
+const deleteFileDatabase = (idx) => {
+    // form.max_image.value = form.max_image.value - 1;
+    form.max_image = form.max_image - 1;
+    form.put(`/boarding/image/delete/${idx}`, {});
+    // form.post(`/image/delete/${idx}`, {
+    // });
+};
+
 const customLabelManager = ({ user_name, email }) =>
     `${user_name} - (${email})`;
 
-const form = useForm({
-    name: "",
-    address: address,
-    type: selectedType,
-    facility: selectedFacility,
-    rooms: 0,
-    price: 0,
-    description: "",
-    images: images,
-    sharedBathroom: false,
-    manager: selectedManager,
-    lat: 0,
-    lng: 0,
-});
+const resetImages = () => {
+    form.images = [];
+    images = [];
+};
 
-const submit = () => {
-    form.post("/boarding/create", {
-        preserveScroll: true,
-        preserveState: true,
-        // onSuccess: () => form.reset("password"),
+const clearManagerInput = () => {
+    form.manager = "";
+};
+
+const submitUpdate = (this_id) => {
+    form.post(`/boarding/update/${this_id}`, {
+        // onError: () => form.images.reset(),
+        // onError: () => resetImages(),
+        // onSuccess: () => form.images.reset(),
     });
 };
 </script>
+
 <template>
     <Header />
-    <!-- Check Current User -->
-    <!-- <h1 v-if="$page.props.user">
+    <!-- Set ID of current User -->
+    <!-- 
+    <h1 v-if="$page.props.user">
         You are logged in as: {{ $page.props.user.user_name }}, with id =
         {{ $page.props.user.id }}
     </h1>
     <h1 v-else>Oh no 😢</h1> -->
+
     <div class="overflow-x-auto">
         <div
             class="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center bg-gray font-sans overflow-hidden"
         >
+            <!-- {{ props.currBoarding.id }} -->
+            <!-- {{ currBoarding.boarding_name }} -->
             <div class="w-11/12 mt-5">
                 <!-- to Admin Boarding Page -->
                 <Link
@@ -107,12 +145,12 @@ const submit = () => {
                     Back
                 </Link>
                 <form
-                    @submit.prevent="submit"
+                    @submit.prevent="submitUpdate(props.currBoarding.id)"
                     enctype="multipart/form-data"
                     class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
                 >
                     <h1 class="text-blue-600 font-bold text-2xl mb-8">
-                        Add New Boarding House
+                        Update Boarding House
                     </h1>
                     <div class="mb-4">
                         <TextBoxInput
@@ -132,12 +170,13 @@ const submit = () => {
                         </label>
                         <vue-google-autocomplete
                             id="address"
+                            type="text"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             classname="form-control"
                             placeholder="Select Address"
                             v-on:placechanged="getAddressData"
-                            types="address"
                             v-model="form.address"
+                            ref="address"
                         >
                         </vue-google-autocomplete>
                         <div
@@ -212,12 +251,9 @@ const submit = () => {
                         </label>
                         <multiselect
                             v-model="selectedFacility"
-                            :options="facilities.map((facility) => facility.id)"
-                            :custom-label="
-                                (opt) =>
-                                    facilities.find((x) => x.id == opt)
-                                        .facility_detail_name
-                            "
+                            :options="facilities"
+                            label="facility_detail_name"
+                            track-by="facility_detail_name"
                             :multiple="true"
                             :close-on-select="false"
                             :clear-on-select="false"
@@ -243,6 +279,18 @@ const submit = () => {
 
                         <div class="flex float-right">
                             <input
+                                v-if="
+                                    props.currBoarding.shared_bathroom == true
+                                "
+                                v-model="form.sharedBathroom"
+                                class="mb-2"
+                                type="checkbox"
+                                value=""
+                                id="sharedBathroom"
+                                checked
+                            />
+                            <input
+                                v-else
                                 v-model="form.sharedBathroom"
                                 class="mb-2"
                                 type="checkbox"
@@ -260,7 +308,7 @@ const submit = () => {
                     <div class="mb-4">
                         <TextBoxInput
                             v-model="form.rooms"
-                            :input-type="'text'"
+                            :input-type="'number'"
                             :label-name="'Number of Rooms'"
                             :placeholder="'Number of Rooms'"
                             :error-message="form.errors.rooms"
@@ -269,7 +317,7 @@ const submit = () => {
                     <div class="mb-4">
                         <TextBoxInput
                             v-model="form.price"
-                            :input-type="'text'"
+                            :input-type="'number'"
                             :label-name="'Price per Month'"
                             :placeholder="'Price per Month'"
                             :error-message="form.errors.price"
@@ -286,12 +334,20 @@ const submit = () => {
                     </div>
 
                     <div class="mb-4">
-                        <label
-                            class="block text-gray-700 text-sm font-bold mb-2"
-                            for="manager"
-                        >
-                            Select Manager (Optional)
-                        </label>
+                        <div class="flow-root">
+                            <label
+                                class="float-left block text-gray-700 text-sm font-bold mb-2"
+                                for="manager"
+                            >
+                                Select Manager (Optional)
+                            </label>
+                            <button
+                                class="text-xs float-right bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 rounded focus:outline-none focus:shadow-outline"
+                                @click.prevent="clearManagerInput()"
+                            >
+                                Remove Manager
+                            </button>
+                        </div>
                         <VueMultiselect
                             v-model="selectedManager"
                             :options="managers"
@@ -306,13 +362,55 @@ const submit = () => {
                         />
                     </div>
 
+                    <!-- Preview Image in Database -->
                     <div class="mb-4">
                         <label
                             class="block text-gray-700 text-sm font-bold mb-2"
                             for="images"
                         >
-                            Pictures
+                            Current Images
                         </label>
+                        <div
+                            class="flow-root mt-4 items-center align-center flex shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            v-for="img in currImages"
+                        >
+                            <div class="float-left flex items-center">
+                                <img
+                                    class="w-40 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    :src="`/storage/${img.image}`"
+                                />
+                                <div class="mt-4 ml-2">
+                                    {{ img.image }}
+                                </div>
+                            </div>
+                            <div class="float-right h-100">
+                                <div class="flex justify-center">
+                                    <button
+                                        v-if="max_img > 1"
+                                        class="bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-4 rounded items-center align-center"
+                                        @click.prevent="
+                                            deleteFileDatabase(img.id)
+                                        "
+                                    >
+                                        <span>Delete</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Input new Image -->
+                        <label
+                            class="block text-gray-700 text-sm font-bold mt-4"
+                            for="images"
+                        >
+                            Upload New Images (Max: 5 Files in total)
+                            <div>
+                                Current Boarding House Images:
+                                {{ currImages.length }}
+                            </div>
+                            <div>Uploaded Images: {{ images.length }}</div>
+                        </label>
+
                         <input
                             id="images"
                             type="file"

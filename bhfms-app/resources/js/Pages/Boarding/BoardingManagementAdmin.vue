@@ -97,13 +97,7 @@ watch(search, (value) => {
                             >
                                 <td class="py-3 px-6 text-left">
                                     <div class="flex items-center">
-                                        <div class="mr-2">
-                                            <img
-                                                class="w-6 h-6"
-                                                src="https://img.icons8.com/color/100/000000/vue-js.png"
-                                            />
-                                        </div>
-                                        <span class="font-medium"
+                                        <span class="mr-2 font-medium"
                                             >{{ boarding.boarding_name }}
                                         </span>
                                     </div>

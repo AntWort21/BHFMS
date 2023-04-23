@@ -9,7 +9,7 @@ class Boarding extends Model
 {
     use HasFactory;
     public function boardingType(){
-        return $this->belongsTo(BoardingType::class, 'boarding_types_id');
+        return $this->belongsTo(BoardingType::class, 'type_id');
     }
 
     public function facilities(){
@@ -18,6 +18,13 @@ class Boarding extends Model
 
     public function tenantBoardings(){
         return $this->belongsToMany(User::class, 'tenant_boardings', 'boarding_id', 'user_id');
+    }
+
+    public function ownerBoardings(){
+        return $this->belongsToMany(User::class, 'owner_boardings', 'boarding_id', 'user_id',);
+    }
+    public function managerBoardings(){
+        return $this->belongsToMany(User::class, 'manager_boardings', 'owner_boarding_id', 'manager_user_id',);
     }
 
     public function wishlists(){
@@ -35,6 +42,27 @@ class Boarding extends Model
     public function images(){
         return $this->hasMany(BoardingImage::class);
     }
+
+    public function images_limit_one(){
+        return $this->images()->limit(1);
+    }
+
+    // public function images_limit_one(){
+    //     return $this->hasOne(BoardingImage::class,'boarding_id','id');
+    //     // return $this->images()->limit(1);
+    // }
+
+    // protected $fillable = [
+    //     'boarding_name',
+    //     'gender',
+    //     'date_of_birth',
+    //     'user_role_id',
+    //     'phone',
+    //     'profile_picture',
+    //     'email',
+    //     'password',
+    //     'confirm_password',
+    // ];
 
     protected $guarded = [];
 }
