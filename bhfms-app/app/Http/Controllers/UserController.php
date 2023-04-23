@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -17,7 +18,6 @@ class UserController extends Controller
 
     public function updateProfile(Request $request)
     {
-
         $validation = $request->validate([
             'name' => ['required', 'max:50'],
             'email' => ['required', 'email'],
@@ -29,7 +29,7 @@ class UserController extends Controller
         if ($request->hasFile('profilePicture')) {
             $file = $request->file('profilePicture');
             $fileName = $file->getClientOriginalName();
-            $destinationPath = public_path().'/images';
+            $destinationPath = storage_path('app/public/images');
             $file->move($destinationPath, $fileName);
         }
 
@@ -38,7 +38,7 @@ class UserController extends Controller
             'email' => $validation['email'],
             'date_of_birth' => $validation['dateOfBirth'],
             'phone' => $validation['phoneNumber'],
-            'profile_picture' => '/images/'.$fileName ?? null
+            'profile_picture' => '/storage/images/'.$fileName ?? null
         ]);
 
         return redirect('/profile');

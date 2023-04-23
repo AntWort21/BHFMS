@@ -14,15 +14,35 @@ let selectedLogout = ref(false);
     >
         <div class="mx-3">
             <img
-                :src="'../storage/BHFMS_transparent.png'"
+                :src="'/storage/BHFMS_transparent.png'"
                 alt="No Image"
                 class="w-16 h-auto"
             />
         </div>
-        <div class="space-x-9">
-            <Link href="">Boarding House Management</Link>
-            <Link href="">Facilities Management</Link>
-
+        <div class="space-x-9 flex">
+            <div v-if="$page.props.user">
+                <Link
+                    v-if="$page.props.user.role_id == '1'"
+                    href="/boardingAdmin"
+                    >Boarding House Management</Link
+                >
+                <Link
+                    v-if="$page.props.user.role_id == '3'"
+                    href="/boardingOwner"
+                    >Boarding House Management</Link
+                >
+                <Link
+                    v-if="$page.props.user.role_id == '4'"
+                    href="/boardingManager"
+                    >Boarding House Management</Link
+                >
+                <Link href="" v-if="$page.props.user.role_id == '1'"
+                    >Facilities Management</Link
+                >
+                <Link href="" v-if="$page.props.user.role_id == '1'"
+                    >User Management</Link
+                >
+            </div>
             <Link href="">Homepage</Link>
 
             <!-- <Link href="">Boarding House List</Link>
@@ -43,19 +63,25 @@ let selectedLogout = ref(false);
             <div
                 @mouseover="hover = true"
                 @mouseleave="hover = false"
-                class="h-10"
+                class="h-10 w-full items-center text-center"
             >
                 <div
                     v-if="hover == false"
                     class="px-6 py-2 bg-white rounded-2xl text-black"
                 >
-                    User
+                    <div v-if="$page.props.user">
+                        {{ $page.props.user.user_name }}
+                    </div>
+                    <div v-else>User</div>
                 </div>
                 <div
                     v-if="hover == true"
                     class="border-solid border-b-4 border-indigo-900 px-6 py-2 bg-white rounded-2xl text-black"
                 >
-                    User
+                    <div v-if="$page.props.user">
+                        {{ $page.props.user.user_name }}
+                    </div>
+                    <div v-else>User</div>
                 </div>
                 <div
                     class="rounded-lg bg-white text-black"
