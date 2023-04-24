@@ -66,6 +66,29 @@ const deleteBoarding = (idx) => {
                     </Link>
                 </div>
 
+                <!-- Accept or Decline Req -->
+                <div
+                    v-if="boarding.status == 'pending'"
+                    class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
+                >
+                    <Link :href="''">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    </Link>
+                </div>
+
                 <!-- Delete -->
                 <div
                     v-if="boarding.status != 'banned'"
@@ -86,33 +109,6 @@ const deleteBoarding = (idx) => {
                             <circle cx="12" cy="12" r="10"></circle>
                             <line x1="15" y1="9" x2="9" y2="15"></line>
                             <line x1="9" y1="9" x2="15" y2="15"></line>
-                        </svg>
-                    </Link>
-                </div>
-
-                <!-- Accept or Decline Req -->
-                <div
-                    v-if="boarding.status == 'pending'"
-                    class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
-                >
-                    <Link :href="''">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
-                            ></path>
-                            <circle cx="8.5" cy="7" r="4"></circle>
-                            <polyline points="17 11 19 13 23 9"></polyline>
                         </svg>
                     </Link>
                 </div>

@@ -50,7 +50,6 @@ class BoardingController extends Controller
             ->when($request->search, function($query, $search){
             if($search=='all'){
                 $query;
-                
             }else{
                 $query->where('status','=',$search);
             }
@@ -270,7 +269,8 @@ class BoardingController extends Controller
         $currImages = $currBoarding->images()->get();
         // dd(count($currImages));
 
-        // dd($currBoarding);
+        $shared_bathroom = $currBoarding['shared_bathroom'] == 1 ? true: false;
+        // dd($shared_bathroom);
         
         return Inertia::render('Boarding/UpdateBoarding', [
             'currImages' => $currImages,
@@ -280,6 +280,7 @@ class BoardingController extends Controller
             'facilities' => FacilityDetail::get(),
             'types' => BoardingType::get(),
             'managers' => $Manager_data,
+            'shared_bathroom_bool' => $shared_bathroom,
         ]);
     }
 

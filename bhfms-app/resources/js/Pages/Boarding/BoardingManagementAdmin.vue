@@ -94,11 +94,13 @@ watch(search, (value) => {
                                 <th class="py-3 px-6 text-center">Actions</th>
                             </tr>
                         </thead>
+
+                        <!-- v-for="(list, index) in board.lists" and provide :key=index``` -->
                         <tbody class="text-gray-600 text-sm font-light">
                             <tr
-                                v-for="boarding in boardings.data"
+                                v-for="(boarding, idx) in boardings.data"
                                 class="border-b border-gray-200 bg-gray-50 hover:bg-gray-100"
-                                :key="boarding.id"
+                                :key="idx"
                             >
                                 <td class="py-3 px-6 text-left">
                                     <div class="flex items-center">

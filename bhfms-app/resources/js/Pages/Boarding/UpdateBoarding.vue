@@ -14,6 +14,7 @@ const props = defineProps({
     currFacilities: Object,
     currManager: Object,
     currImages: Object,
+    shared_bathroom_bool: Boolean,
     types: Object,
     facilities: Object,
     managers: Object,
@@ -36,11 +37,11 @@ let form = useForm({
     address: props.currBoarding.address,
     type: selectedType,
     facility: selectedFacility,
-    rooms: props.currBoarding.rooms,
-    price: props.currBoarding.price,
+    rooms: String(props.currBoarding.rooms),
+    price: String(props.currBoarding.price),
     description: props.currBoarding.boarding_desc,
     images: images,
-    sharedBathroom: props.currBoarding.sharedBathroom,
+    sharedBathroom: props.shared_bathroom_bool,
     manager: selectedManager,
     lat: ref(props.currBoarding.latitude),
     lng: ref(props.currBoarding.longitude),
@@ -49,6 +50,7 @@ let form = useForm({
 
 onMounted(() => {
     address.value.update(props.currBoarding.address);
+    // form.sharedBathroom = props.currBoarding.sharedBathroom;
     // form.images_max.value = props.currImages.length;
 });
 
@@ -130,7 +132,7 @@ const submitUpdate = (this_id) => {
             <div class="w-11/12 mt-5">
                 <!-- to Admin Boarding Page -->
                 <Link
-                    v-if="$page.props.user.role_id == 0"
+                    v-if="$page.props.user.role_id == 1"
                     class="my-2 mx-2 text-m float-right bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 rounded focus:outline-none focus:shadow-outline"
                     :href="'/boardingAdmin'"
                 >
@@ -279,24 +281,20 @@ const submitUpdate = (this_id) => {
 
                         <div class="flex float-right">
                             <input
-                                v-if="
-                                    props.currBoarding.shared_bathroom == true
-                                "
                                 v-model="form.sharedBathroom"
+                                :checked="props.currBoarding.sharedBathroom"
                                 class="mb-2"
                                 type="checkbox"
-                                value=""
                                 id="sharedBathroom"
-                                checked
                             />
-                            <input
+                            <!-- <input
                                 v-else
                                 v-model="form.sharedBathroom"
                                 class="mb-2"
                                 type="checkbox"
-                                value=""
+                                value="false"
                                 id="sharedBathroom"
-                            />
+                            /> -->
                             <label
                                 class="block text-gray-700 text-sm font-bold mb-2 ml-2"
                                 for="sharedBathroom"
@@ -308,7 +306,7 @@ const submitUpdate = (this_id) => {
                     <div class="mb-4">
                         <TextBoxInput
                             v-model="form.rooms"
-                            :input-type="'number'"
+                            :input-type="'text'"
                             :label-name="'Number of Rooms'"
                             :placeholder="'Number of Rooms'"
                             :error-message="form.errors.rooms"
@@ -317,7 +315,7 @@ const submitUpdate = (this_id) => {
                     <div class="mb-4">
                         <TextBoxInput
                             v-model="form.price"
-                            :input-type="'number'"
+                            :input-type="'text'"
                             :label-name="'Price per Month'"
                             :placeholder="'Price per Month'"
                             :error-message="form.errors.price"
