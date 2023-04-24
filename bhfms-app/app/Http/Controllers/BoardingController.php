@@ -120,7 +120,10 @@ class BoardingController extends Controller
         $boardingHouseImages = BoardingImage::where('boarding_id', $request->id)->get()->pluck('image');
 
         $ownerId = OwnerBoarding::where('boarding_id', $request->id)->first()->user_id;
-        $ownerName = User::where('id', $ownerId)->first()->user_name;
+
+        $owner = User::where('id', $ownerId)->first();
+        $ownerName = $owner->user_name;
+        $ownerPicture = $owner->profile_picture;
 
         $facilityList = Facility::where('boarding_id', $request->id)->get();
         foreach ($facilityList as $key => $facility) {
@@ -131,6 +134,7 @@ class BoardingController extends Controller
             'boardingHouseDetail' => $selectedBoardingHouseDetail,
             'images' => $boardingHouseImages,
             'ownerName' => $ownerName,
+            'ownerPicture' => $ownerPicture,
             'facilityList' => $facilityList->pluck('facility_detail_name')
         ]);
     }

@@ -98,7 +98,7 @@ onBeforeUnmount(() => {
 
 <template>
     <div class="flex items-center justify-center">
-        <div class="relative w-full h-[90vh] overflow-hidden object-cover">
+        <div class="relative w-1/2 h-[60vh] overflow-hidden object-cover rounded-md">
             <carousel-indicators
                 v-if="props.indicators"
                 :total="props.slides.length"
