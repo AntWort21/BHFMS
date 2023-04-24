@@ -122,8 +122,6 @@ class BoardingController extends Controller
         $ownerId = OwnerBoarding::where('boarding_id', $request->id)->first()->user_id;
 
         $owner = User::where('id', $ownerId)->first();
-        $ownerName = $owner->user_name;
-        $ownerPicture = $owner->profile_picture;
 
         $facilityList = Facility::where('boarding_id', $request->id)->get();
         foreach ($facilityList as $key => $facility) {
@@ -133,8 +131,8 @@ class BoardingController extends Controller
         return Inertia::render('Boarding/SelectedBoardingHouse', [
             'boardingHouseDetail' => $selectedBoardingHouseDetail,
             'images' => $boardingHouseImages,
-            'ownerName' => $ownerName,
-            'ownerPicture' => $ownerPicture,
+            'ownerName' => $owner->user_name,
+            'ownerPicture' => $owner->profile_picture,
             'facilityList' => $facilityList->pluck('facility_detail_name')
         ]);
     }
