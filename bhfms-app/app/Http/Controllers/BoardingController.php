@@ -42,12 +42,11 @@ class BoardingController extends Controller
         ]);
     }
 
-    public function indexManager(Request $request)
+    public function indexAdmin(Request $request)
     {
-        $Boarding_data = Boarding::join('manager_boardings','manager_boardings.boarding_id','=','boardings.id')
-            ->join('owner_boardings','manager_boardings.owner_boarding_id',"=",'owner_boardings.id')
-            ->join('users','users.id',"=","owner_boardings.user_id")
-            ->where('manager_boardings.manager_boarding_id','=',auth()->id())
+
+        $Boarding_data = Boarding::join('owner_boardings','boardings.id','=','owner_boardings.boarding_id')
+            ->join('users','users.id','=','owner_boardings.user_id')
             ->when($request->search, function($query, $search){
             if($search=='all'){
                 $query;
@@ -58,17 +57,54 @@ class BoardingController extends Controller
             
         })->paginate(5)->withQueryString();
 
-        $all_boarding_count = ManagerBoarding::where('manager_boardings.manager_boarding_id','=',auth()->id())->get();
+        $all_boarding_count = Boarding::join('owner_boardings','boardings.id',"=",'owner_boardings.boarding_id')->get();
         $all = $all_boarding_count->count();
         $apv = $all_boarding_count->where('status','=','approved')->count();
         $dcl = $all_boarding_count->where('status','=','declined')->count();
         $pending = $all_boarding_count->where('status','=','pending')->count();
+        $ban = $all_boarding_count->where('status','=','banned')->count();
+
+        return Inertia::render('Boarding/BoardingManagementAdmin', [
+            'all_count' => $all,
+            'approved' => $apv,
+            'pending' => $pending,
+            'declined' => $dcl,
+            'banned' => $ban,
+            'boardings' => $Boarding_data,
+        ]);
+    }
+
+    public function indexManager(Request $request)
+    {
+        $Boarding_data = Boarding::join('manager_boardings','manager_boardings.boarding_id','=','boardings.id')
+            ->join('owner_boardings','boardings.id',"=",'owner_boardings.boarding_id')
+            ->join('users','users.id',"=","owner_boardings.user_id")
+            ->where('manager_boardings.manager_user_id','=',auth()->id())
+            ->when($request->search, function($query, $search){
+            if($search=='all'){
+                $query;
+                
+            }else{
+                $query->where('status','=',$search);
+            }
+            
+        })->paginate(5)->withQueryString();
+
+        $all_boarding_count = ManagerBoarding::join('boardings','boardings.id','manager_boardings.boarding_id')
+        ->join('owner_boardings','boardings.id',"=",'owner_boardings.boarding_id')
+        ->where('manager_boardings.manager_user_id','=',auth()->id())->get();
+        $all = $all_boarding_count->count();
+        $apv = $all_boarding_count->where('status','=','approved')->count();
+        $dcl = $all_boarding_count->where('status','=','declined')->count();
+        $pending = $all_boarding_count->where('status','=','pending')->count();
+        $ban = $all_boarding_count->where('status','=','banned')->count();
 
         return Inertia::render('Boarding/BoardingManagementManager', [
             'all_count' => $all,
             'approved' => $apv,
             'pending' => $pending,
             'declined' => $dcl,
+            'banned' => $ban,
             'boardings' => $Boarding_data,
         ]);
     }
@@ -95,6 +131,7 @@ class BoardingController extends Controller
         $apv = $all_boarding_count->where('status','=','approved')->count();
         $dcl = $all_boarding_count->where('status','=','declined')->count();
         $pending = $all_boarding_count->where('status','=','pending')->count();
+        $ban = $all_boarding_count->where('status','=','banned')->count();
 
         // dd($Boarding_data[0]->images_limit_one['image']);
         // dd($Boarding_data);
@@ -104,6 +141,7 @@ class BoardingController extends Controller
             'approved' => $apv,
             'pending' => $pending,
             'declined' => $dcl,
+            'banned' => $ban,
             'boardings' => $Boarding_data,
         ]);
     }
@@ -173,7 +211,7 @@ class BoardingController extends Controller
 
         if(isset($request['manager']) && $request['manager']!== null){
             $ManagerBoardingNow = ManagerBoarding::create([
-                'owner_boarding_id' =>$OwnerBoardingNow->id,
+                // 'owner_boarding_id' =>$OwnerBoardingNow->id,
                 'manager_user_id'=>$request['manager']['id'],
                 'boarding_id'=>$BoardingNow->id,
             ]);
@@ -295,7 +333,7 @@ class BoardingController extends Controller
 
         $currOwner = OwnerBoarding::where('boarding_id','=',$request->id)->get()->first();
 
-        $currManager = ManagerBoarding::where([['owner_boarding_id','=',$currOwner['boarding_id']],['boarding_id','=',$request->id]])->get()->first();
+        $currManager = ManagerBoarding::where([['boarding_id','=',$request->id]])->get()->first();
 
 
         if(isset($request['manager']) && $request['manager']!== null){
@@ -349,16 +387,22 @@ class BoardingController extends Controller
     }
     public function deleteBoarding(Request $request)
     {
-        $currBoarding = Boarding::where('id','=',$request->id)->get()->first();
-        $currImages = $currBoarding->images()->get();
-        // $images = [];
-        foreach($currImages as $img) {
-            // array_push($images,$img['image']);
-            Storage::delete('public/'.$img['image']);
-            $img -> delete();
-        }
+        // $currBoarding = Boarding::where('id','=',$request->id)->get()->first();
+        // $currImages = $currBoarding->images()->get();
+        // // $images = [];
+        // foreach($currImages as $img) {
+        //     // array_push($images,$img['image']);
+        //     Storage::delete('public/'.$img['image']);
+        //     $img -> delete();
+        // }
 
-        Boarding::findOrFail($request->id)->delete();
+        // Boarding::findOrFail($request->id)->update([
+        //     'status'=>'banned',
+        // ]);
+
+        OwnerBoarding::where('boarding_id','=',$request->id)->first()->update([
+            'status'=>'banned',
+        ]);
 
         if(Auth::user()->user_role_id==1){
             return redirect('/boardingAdmin')->with('message', 'Success Deleting Boarding House');

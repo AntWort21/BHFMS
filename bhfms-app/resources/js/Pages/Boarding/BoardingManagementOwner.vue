@@ -4,12 +4,14 @@ import { ref, watch } from "vue";
 import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
 import TableIconLinks from "../../Shared/BoardingShared/TableIconLinks.vue";
+import StatusIcon from "../../Shared/BoardingShared/StatusIcon.vue";
 import Pagination from "../../Shared/Pagination.vue";
 defineProps({
     all_count: Number,
     approved: Number,
     declined: Number,
     pending: Number,
+    banned: Number,
     boardings: Object,
 });
 
@@ -86,6 +88,9 @@ watch(search, (value) => {
                             <option value="declined">
                                 Declined ({{ declined }})
                             </option>
+                            <option value="banned">
+                                Banned ({{ banned }})
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -118,30 +123,13 @@ watch(search, (value) => {
                                         </span>
                                     </div>
                                 </td>
-                                <td class="py-3 px-6 text-left">
-                                    <span
-                                        v-if="boarding.status == 'approved'"
-                                        class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs"
-                                    >
-                                        Approved
-                                    </span>
 
-                                    <span
-                                        v-else-if="boarding.status == 'pending'"
-                                        class="bg-yellow-200 text-yellow-600 py-1 px-3 rounded-full text-xs"
-                                        >Pending</span
-                                    >
-
-                                    <span
-                                        v-else
-                                        class="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs"
-                                        >Declined</span
-                                    >
-                                </td>
+                                <StatusIcon :boarding="boarding" />
 
                                 <td class="py-3 px-6 text-center">
                                     <a href="#">{{ boarding.user_name }}</a>
                                 </td>
+
                                 <!-- Icon List -->
                                 <TableIconLinks
                                     :currentID="boarding.boarding_id"

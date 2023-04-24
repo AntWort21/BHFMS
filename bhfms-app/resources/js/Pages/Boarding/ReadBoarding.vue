@@ -20,7 +20,7 @@ const props = defineProps({
 const selectedFacility = ref(props.currFacilities);
 const allFacility = ref(props.currFacilities);
 const selectedManager = props.currManager
-    ? props.currManager.user_name + " " + props.currManager.email
+    ? props.currManager.user_name + " (" + props.currManager.email + ")"
     : "None";
 const images = ref([]);
 
@@ -52,7 +52,7 @@ let form = useForm({
             <div class="w-11/12 mt-5">
                 <!-- to Admin Boarding Page -->
                 <Link
-                    v-if="$page.props.user.role_id == 0"
+                    v-if="$page.props.user.role_id == 1"
                     class="my-2 mx-2 text-m float-right bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 rounded focus:outline-none focus:shadow-outline"
                     :href="'/boardingAdmin'"
                 >
@@ -63,6 +63,14 @@ let form = useForm({
                     v-if="$page.props.user.role_id == 3"
                     class="my-2 mx-2 text-m float-right bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 rounded focus:outline-none focus:shadow-outline"
                     :href="'/boardingOwner'"
+                >
+                    Back
+                </Link>
+                <!--  to  Manager Boarding Page -->
+                <Link
+                    v-if="$page.props.user.role_id == 4"
+                    class="my-2 mx-2 text-m float-right bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 rounded focus:outline-none focus:shadow-outline"
+                    :href="'/boardingManager'"
                 >
                     Back
                 </Link>

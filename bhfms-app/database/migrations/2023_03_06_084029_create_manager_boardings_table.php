@@ -16,10 +16,6 @@ class CreateManagerBoardingsTable extends Migration
         Schema::create('manager_boardings', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('owner_boarding_id');
-            $table->foreign('owner_boarding_id')->references('id')
-            ->on('owner_boardings')->cascadeOnUpdate()->cascadeOnDelete();
-
             $table->unsignedBigInteger('manager_user_id');
             $table->foreign('manager_user_id')->references('id')
             ->on('users')->cascadeOnUpdate()->cascadeOnDelete();

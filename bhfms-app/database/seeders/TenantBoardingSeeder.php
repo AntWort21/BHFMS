@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\TenantBoarding;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class TenantBoardingSeeder extends Seeder
 {
@@ -22,7 +23,9 @@ class TenantBoardingSeeder extends Seeder
                     "start_date" => Carbon::today(),
                     "end_date" => Carbon::today(),
                     "status"=>3,
-                    "declined_reason"=>"Too young"
+                    "declined_reason"=>"Too young",
+                    "start_date"=>Carbon::create(2022, 1, 1),
+                    "end_date"=>Carbon::create(2022, 4, 1)
                 ]);
                 TenantBoarding::create([
                     "user_id"=>2,
@@ -30,7 +33,9 @@ class TenantBoardingSeeder extends Seeder
                     "start_date" => Carbon::today(),
                     "end_date" => Carbon::today(),
                     "status"=>3,
-                    "declined_reason"=>"Too old"
+                    "declined_reason"=>"Too old",
+                    "start_date"=>Carbon::create(2022, 1, 1),
+                    "end_date"=>Carbon::create(2022, 4, 1)
                 ]);
                 TenantBoarding::create([
                     "user_id"=>1,
@@ -38,7 +43,9 @@ class TenantBoardingSeeder extends Seeder
                     "start_date" => Carbon::today(),
                     "end_date" => Carbon::today(),
                     "status"=>3,
-                    "declined_reason"=>"Will give you Up"
+                    "declined_reason"=>"Will give you Up",
+                    "start_date"=>Carbon::create(2022, 1, 1),
+                    "end_date"=>Carbon::create(2022, 4, 1)
                 ]);
 
                 //Accepted
@@ -48,6 +55,8 @@ class TenantBoardingSeeder extends Seeder
                     "start_date"=>Carbon::today(),
                     "end_date"=>Carbon::create(2023,5,5),
                     "status"=>2,
+                    "start_date"=>Carbon::create(2022, 1, 1),
+                    "end_date"=>Carbon::create(2022, 6, 1)
                 ]);
                 TenantBoarding::create([
                     "user_id"=>2,
@@ -55,6 +64,8 @@ class TenantBoardingSeeder extends Seeder
                     "start_date"=>Carbon::today(),
                     "end_date"=>Carbon::create(2023,5,5),
                     "status"=>2,
+                    "start_date"=>Carbon::create(2022, 7, 1),
+                    "end_date"=>Carbon::create(2022, 9, 1)
                 ]);
                 TenantBoarding::create([
                     "user_id"=>1,
@@ -62,6 +73,8 @@ class TenantBoardingSeeder extends Seeder
                     "start_date"=>Carbon::today(),
                     "end_date"=>Carbon::create(2023,5,5),
                     "status"=>2,
+                    "start_date"=>Carbon::create(2022, 3, 1),
+                    "end_date"=>Carbon::create(2022, 8, 1)
                 ]);
                 TenantBoarding::create([
                     "user_id"=>3,
@@ -69,6 +82,8 @@ class TenantBoardingSeeder extends Seeder
                     "start_date"=>Carbon::today(),
                     "end_date"=>Carbon::create(2023,5,5),
                     "status"=>2,
+                    "start_date"=>Carbon::create(2022, 9, 1),
+                    "end_date"=>Carbon::create(2022, 12, 1)
                 ]);
                 TenantBoarding::create([
                     "user_id"=>3,
@@ -76,6 +91,8 @@ class TenantBoardingSeeder extends Seeder
                     "start_date"=>Carbon::today(),
                     "end_date"=>Carbon::create(2023,5,5),
                     "status"=>2,
+                    "start_date"=>Carbon::create(2022, 10, 1),
+                    "end_date"=>Carbon::create(2023, 4, 1)
                 ]);
                 TenantBoarding::create([
                     "user_id"=>3,
@@ -83,6 +100,8 @@ class TenantBoardingSeeder extends Seeder
                     "start_date"=>Carbon::today(),
                     "end_date"=>Carbon::create(2023,5,5),
                     "status"=>2,
+                    "start_date"=>Carbon::create(2022, 1, 1),
+                    "end_date"=>Carbon::create(2022, 7, 1)
                 ]);
                 TenantBoarding::create([
                     "user_id"=>3,
@@ -90,6 +109,8 @@ class TenantBoardingSeeder extends Seeder
                     "start_date"=>Carbon::today(),
                     "end_date"=>Carbon::create(2023,5,5),
                     "status"=>2,
+                    "start_date"=>Carbon::create(2022, 1, 1),
+                    "end_date"=>Carbon::create(2022, 4, 1)
                 ]);
 
                 //Pending
@@ -99,6 +120,8 @@ class TenantBoardingSeeder extends Seeder
                     "start_date"=>Carbon::today(),
                     "end_date"=>Carbon::create(2023,5,5),
                     "status"=>3,
+                    "start_date"=>Carbon::create(2022, 1, 1),
+                    "end_date"=>Carbon::create(2022, 4, 1)
                 ]);
                 TenantBoarding::create([
                     "user_id"=>3,
@@ -106,6 +129,8 @@ class TenantBoardingSeeder extends Seeder
                     "start_date"=>Carbon::today(),
                     "end_date"=>Carbon::create(2023,5,5),
                     "status"=>3,
+                    "start_date"=>Carbon::create(2022, 1, 1),
+                    "end_date"=>Carbon::create(2022, 4, 1)
                 ]);
                 TenantBoarding::create([
                     "user_id"=>4,
@@ -113,6 +138,8 @@ class TenantBoardingSeeder extends Seeder
                     "start_date"=>Carbon::today(),
                     "end_date"=>Carbon::create(2023,5,5),
                     "status"=>3,
+                    "start_date"=>Carbon::create(2022, 1, 1),
+                    "end_date"=>Carbon::create(2022, 4, 1)
                 ]);
                 TenantBoarding::create([
                     "user_id"=>4,
@@ -120,6 +147,8 @@ class TenantBoardingSeeder extends Seeder
                     "start_date"=>Carbon::today(),
                     "end_date"=>Carbon::create(2023,5,5),
                     "status"=>3,
+                    "start_date"=>Carbon::create(2022, 1, 1),
+                    "end_date"=>Carbon::create(2022, 4, 1)
                 ]);
                 TenantBoarding::create([
                     "user_id"=>10,
@@ -127,6 +156,8 @@ class TenantBoardingSeeder extends Seeder
                     "start_date"=>Carbon::today(),
                     "end_date"=>Carbon::create(2023,5,5),
                     "status"=>2,
+                    "start_date"=>Carbon::create(2022, 1, 1),
+                    "end_date"=>Carbon::create(2022, 4, 1)
                 ]);
     }
 }
