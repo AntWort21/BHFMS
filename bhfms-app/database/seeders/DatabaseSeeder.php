@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             TenantBoardingSeeder::class,
             PaymentTypesSeeder::class,
             RentTransactionSeeder::class,
+            ComplainTypeSeeder::class,
         ]);
 
     }

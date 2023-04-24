@@ -58,6 +58,8 @@ entity "tenant_boardings" as tb {
   --
   *user_id : Integer <<FK>>
   *boarding_id : Integer <<FK>>
+  *start_date: Date
+  *end_date: Date
   *status : Boolean
   *declined_reason : Varchar
 }
@@ -209,7 +211,7 @@ tb ||..o{ rt
 pymnt ||..o{ rt
 
 usr ||..o{ lobh
-bh ||..o{ lobh
+lobh ||..o{ bh
 
 usr ||..|| mabh
 lobh ||..|| mabh
