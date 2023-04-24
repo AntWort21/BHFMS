@@ -82,19 +82,13 @@ class ComplainController extends Controller
 
     public function getOwnerComplainPage()
     {
-        //manager belum bisa liat complain list untuk boarding house yang dia manage !!!!
         if (Auth::user()->user_role_id == 4) {
-            $allBoardingHouse = OwnerBoarding::where('boarding_id', ManagerBoarding::where('user_id', Auth::user()->id)->first()->boarding_id)->where('status', 'approved')->get();
+            $boardingHouseIDs = OwnerBoarding::where('boarding_id', ManagerBoarding::where('user_id', Auth::user()->id)->first()->boarding_id)->where('status', 'approved')->get()->pluck('boarding_id');
         } else if (Auth::user()->user_role_id == 3) {
-            $allBoardingHouse = OwnerBoarding::where('user_id', Auth::user()->id)->where('status', 'approved')->get();
+            $boardingHouseIDs= OwnerBoarding::where('user_id', Auth::user()->id)->where('status', 'approved')->get()->pluck('boarding_id');
         }
 
-        $boardingHouseIDs = $allBoardingHouse->pluck('boarding_id');
-
-        $boardingHouse = [];
-        foreach ($boardingHouseIDs as $id) {
-            array_push($boardingHouse, Boarding::where('id', $id)->first());
-        }
+        $boardingHouse = Boarding::whereIn('id', $boardingHouseIDs)->get();
 
         return Inertia::render('Complain/Owner/BoardingHouseList', ['boardingHouseList' => $boardingHouse]);
     }
