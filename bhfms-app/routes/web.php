@@ -49,6 +49,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/complain/house', [ComplainController::class, 'getSelectedBoardingHouseComplainList']);
 
     Route::get('/review', [ReviewController::class, 'getAllReviewPage']);
+    Route::get('/review/create', [ReviewController::class, 'getCreateReviewOrViewReviewPage']);
+    Route::post('/review/create', [ReviewController::class, 'createReview']);
+    Route::post('/review/update', [ReviewController::class, 'updateReview']);
 });
 
 // Route::resource('boarding', BoardingController::class);

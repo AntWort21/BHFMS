@@ -16,7 +16,7 @@ defineProps({
                 <div class="semibold text-2xl text-indigo-700">COMPLAIN</div>
             </div>
             <Link
-                href="/complain/house"
+                href="/review/create"
                 :data="{ id: boardingHouse.id }"
                 v-for="(boardingHouse, key) in boardingHouseList"
                 :key="key"
@@ -29,16 +29,6 @@ defineProps({
                     <div>
                         {{ boardingHouse.address }}
                     </div>
-                </div>
-                <div>
-                    <!-- <div
-                        :class="{
-                            'w-6 h-6 bg-red-700 rounded-full':
-                                complain.complain_status == 'pending',
-                            'w-6 h-6 bg-green-700 rounded-full':
-                                complain.complain_status == 'finished',
-                        }"
-                    /> -->
                 </div>
             </Link>
         </div>
