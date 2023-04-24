@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BoardingController;
 use App\Http\Controllers\ComplainController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,6 +42,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/complain/create', [ComplainController::class, 'getCreateComplainPage']);
     Route::post('/complain/create', [ComplainController::class, 'createComplain']);
     Route::get('/complain/detail', [ComplainController::class, 'getComplainDetail']);
+
+    Route::get('/review', [ReviewController::class, 'getAllReviewPage']);
 });
 
 // Route::resource('boarding', BoardingController::class);
