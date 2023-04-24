@@ -41,6 +41,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/complain/create', [ComplainController::class, 'getCreateComplainPage']);
     Route::post('/complain/create', [ComplainController::class, 'createComplain']);
     Route::get('/complain/detail', [ComplainController::class, 'getComplainDetail']);
+    Route::post('/complain/status', [ComplainController::class, 'setComplainStatus']);
+
+    Route::get('/complain/owner', [ComplainController::class, 'getOwnerComplainPage']);
+    Route::get('/complain/house', [ComplainController::class, 'getSelectedBoardingHouseComplainList']);
 });
 
 // Route::resource('boarding', BoardingController::class);
