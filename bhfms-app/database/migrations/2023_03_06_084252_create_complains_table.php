@@ -30,7 +30,7 @@ class CreateComplainsTable extends Migration
 
             $table->string('complain_desc');
             $table->string('complain_image_url');
-            $table->enum('complain_status',['pending','finished'])->default('pending');
+            $table->enum('complain_status',['pending','finished','on progress'])->default('pending');
 
 
             $table->timestamps();

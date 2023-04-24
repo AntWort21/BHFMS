@@ -43,6 +43,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/complain/create', [ComplainController::class, 'createComplain']);
     Route::get('/complain/detail', [ComplainController::class, 'getComplainDetail']);
 
+    Route::post('/complain/status', [ComplainController::class, 'setComplainStatus']);
+
+    Route::get('/complain/owner', [ComplainController::class, 'getOwnerComplainPage']);
+    Route::get('/complain/house', [ComplainController::class, 'getSelectedBoardingHouseComplainList']);
+
     Route::get('/review', [ReviewController::class, 'getAllReviewPage']);
 });
 
