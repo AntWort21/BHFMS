@@ -45,6 +45,7 @@ let setStatus = (id, status) => {
                     class="w-1/6 flex justify-between"
                 >
                     <button
+                        v-if="complain.complain_status != 'finished'"
                         class="w-[6rem] text-white rounded-md"
                         :class="{
                             'bg-slate-700 hover:cursor-not-allowed':
@@ -58,6 +59,7 @@ let setStatus = (id, status) => {
                         Pending
                     </button>
                     <button
+                        v-if="complain.complain_status != 'finished'"
                         class="w-[6rem] text-black rounded-md"
                         :class="{
                             'bg-yellow-700 hover:cursor-not-allowed':
@@ -71,11 +73,11 @@ let setStatus = (id, status) => {
                         On Progress
                     </button>
                     <button
-                        class="w-[6rem] text-black rounded-md"
+                        class="w-[6rem] text-black rounded-md "
                         :class="{
-                            'bg-green-700 hover:cursor-not-allowed disabled':
+                            'bg-green-500 hover:cursor-not-allowed disabled':
                                 complain.complain_status == 'finished',
-                            'bg-green-500':
+                            'bg-green-400':
                                 complain.complain_status != 'finished',
                         }"
                         :disabled="complain.complain_status == 'finished'"
