@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Boarding;
+use App\Models\PaymentType;
 use App\Models\RentTransaction;
 use App\Models\User;
 use App\Models\TenantBoarding;
+use App\Models\TransactionType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,12 +15,12 @@ use Inertia\Inertia;
 
 class PaymentAddController extends Controller
 {
-    public function getAddPayment()
+    public function getPaymentPageManager()
     {
-        return Inertia::render('Payment/PaymentAdd', [
+        return Inertia::render('Payment/PaymentPageManager', [
             'listTenants' => $this->getAllTenants(1),
             'boardingHouseName' => $this->getBoardingHouseName(1),
-            'boardingId' => 1
+            'transactionTypes' => $this->getTransactionType()
         ]);
     }
 
@@ -26,6 +28,10 @@ class PaymentAddController extends Controller
         return Boarding::select('boarding_name')
         ->where('id',$boardingId)
         ->first();
+    }
+
+    private function getTransactionType(){
+        return TransactionType::pluck('transaction_type_name');
     }
 
     public function getAllTenants(int $boardingId)
@@ -48,7 +54,7 @@ class PaymentAddController extends Controller
         ->first();
     }
 
-    public function addPayment(Request $request)
+    public function addPaymentManager(Request $request)
     {
         
         $validation = $request->validate([
@@ -61,7 +67,7 @@ class PaymentAddController extends Controller
             'tenant_boarding_id'=>$this->getTenantIdByEmail($validation['tenantEmail'])->id,
             'invoice_id' => $this->generateInvoice($validation['paymentDate']),
             'amount' => $validation['paymentAmount'],
-            'start_date' => $validation['paymentDate'],
+            'payment_date' => $validation['paymentDate'],
             'repeat_payment'=> $validation['paymentRepeat'],
         ]);   
     }
@@ -79,7 +85,7 @@ class PaymentAddController extends Controller
 
     private function getListPaymentByUser(int $userId){
         
-        $a = RentTransaction::select('rent_transactions.id','payment_status','start_date','boarding_name','invoice_id')
+        $a = RentTransaction::select('rent_transactions.id','payment_status','payment_date','boarding_name','invoice_id')
         ->join('tenant_boardings','tenant_boardings.id','=','tenant_boarding_id')
         ->join('boardings','boardings.id','=','boarding_id')
         ->whereIn('tenant_boarding_id',function($query) use ($userId){
@@ -93,9 +99,9 @@ class PaymentAddController extends Controller
     }
 
     private function generateInvoice(String $date){
-        $invoice_id = (Carbon::createFromDate($date)->format('y') * 1000000) +  (Carbon::createFromDate($date)->format('m') * 100000) + (Carbon::createFromDate($date)->format('d') * 10000) + rand(0,100000);
+        $invoice_id = (Carbon::createFromDate($date)->format('y') * 1000000) +  (Carbon::createFromDate($date)->format('m') * 100000) + (Carbon::createFromDate($date)->format('d') * 10000) + rand(0,1000);
         while(RentTransaction::where("invoice_id",$invoice_id)->first()){
-            $invoice_id = (Carbon::createFromDate($date)->format('y') * 1000000) +  (Carbon::createFromDate($date)->format('m') * 100000) + (Carbon::createFromDate($date)->format('d') * 10000) + rand(0,100000);
+            $invoice_id = (Carbon::createFromDate($date)->format('y') * 1000000) +  (Carbon::createFromDate($date)->format('m') * 100000) + (Carbon::createFromDate($date)->format('d') * 10000) + rand(0,1000);
         }
         return $invoice_id;
     }
@@ -104,8 +110,22 @@ class PaymentAddController extends Controller
         $transactionDetail = RentTransaction::join('tenant_boardings','tenant_boardings.id','=','tenant_boarding_id')
         ->join('boardings','boardings.id','=','tenant_boardings.boarding_id')
         ->join('users','users.id','=','tenant_boardings.user_id')
+        ->join('transaction_types','transaction_type_id','=','transaction_types.id')
         ->where("invoice_id",json_decode($request->getContent())->invoice_id)->first();
         return [number_format($transactionDetail->amount,0,',','.'),$transactionDetail];
+    }
+
+    public function getPaymentPageTenant(){
+        $paymentDetail = RentTransaction::join('tenant_boardings','tenant_boardings.id','=','tenant_boarding_id')
+        ->join('boardings','boardings.id','=','tenant_boardings.boarding_id')
+        ->where("invoice_id",$_GET['order'])->first();
+        if(!$paymentDetail){//No data
+            return;
+        }
+        return Inertia::render('Payment/PaymentPageTenant', [
+            'listPaymentType' => PaymentType::where("status","available")->pluck('payment_type_name'),
+            'paymentDetail' => $paymentDetail,
+        ]);
     }
 }
 

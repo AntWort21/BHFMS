@@ -15,7 +15,16 @@ class PaymentTypesSeeder extends Seeder
     public function run()
     {
         PaymentType::create([
-            "payment_type_name"=>"QRIS"
+            "payment_type_name"=>"QRIS",
+            "status" =>"disable"
+        ]);
+        PaymentType::create([
+            "payment_type_name"=>"BCA",
+            "status" =>"available"
+        ]);
+        PaymentType::create([
+            "payment_type_name"=>"Mandiri",
+            "status" =>"available"
         ]);
     }
 }

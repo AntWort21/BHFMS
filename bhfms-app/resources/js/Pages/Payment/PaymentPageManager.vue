@@ -6,10 +6,13 @@ import Footer from '../../Shared/Footer.vue';
 import FormTextBoxInputReadOnly from '../../Shared/Payment/FormTextBoxInputReadOnly.vue';
 import FormErrorMessage from '../../Shared/AccountFormInput/FormErrorMessage.vue';
 import FormTextBoxInput from '../../Shared/AccountFormInput/FormTextBoxInput.vue';
+import FormSelectInputTransactionType from '../../Shared/Payment/FormSelectInputTransactionType.vue';
+
 
 defineProps({
     listTenants: Array,
     boardingHouseName: String,
+    transactionTypes: Array
 });
 
 let form = useForm({
@@ -17,16 +20,17 @@ let form = useForm({
     paymentAmount: "",
     tenantEmail: "",
     paymentRepeat: "",
+    transactionType: "",
 });
 
 let submit = () => {
-    form.post("/addPayment");
+    form.post("/addPaymentManager");
 };
 </script>
 <template>
     <Header />
     <div class="m-5">
-        <h3>Add Payment</h3>
+        <h3>Payment Page</h3>
         <form @submit.prevent="submit">
             <div>
             <FormTextBoxInputReadOnly
@@ -34,6 +38,18 @@ let submit = () => {
                     :input-type="'text'"
                     :label-name="'Boarding House Name'"
                     :value="boardingHouseName.boarding_name"/>
+            </div>
+            <div>
+                <FormSelectInputTransactionType
+                    v-model="form.transactionType"
+                    :option-list="transactionTypes"
+                    :label-desc="'Transaction Type'"
+                    :label-name="'Transaction Type'"
+                    :default-text="'Select Transaction Type'"
+                />
+                <FormErrorMessage
+                    :error-message="form.errors.transactionType"
+                />
             </div>
             <div>
                 <FormTextBoxInput

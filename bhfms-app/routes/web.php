@@ -77,9 +77,10 @@ Route::get('/boardingManager', [BoardingController::class, 'indexManager']);
 Route::get('/boarding/test', [BoardingController::class, 'testCarousel']);
 Route::get('/boarding/all', [BoardingController::class, 'getAllBoardingHouse']);
 
-Route::get('/addPayment',[PaymentAddController::class,'getAddPayment']);
+Route::get('/addPaymentManager',[PaymentAddController::class,'getPaymentPageManager']);
 
-Route::post('/addPayment',[PaymentAddController::class,'addPayment']);
+Route::post('/addPaymentManager',[PaymentAddController::class,'addPaymentManager']);
+Route::get('/pay',[PaymentAddController::class,'getPaymentPageTenant']);
+Route::post('/pay',[PaymentAddController::class,'addPaymentTenant']);
 Route::get('/paymentHistory',[PaymentAddController::class,'getAllPayment']);
-
 Route::post('/getInvoiceData',[PaymentAddController::class,'getInvoiceDetail']);

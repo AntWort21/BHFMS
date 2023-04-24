@@ -18,5 +18,7 @@ class RentTransaction extends Model
     public function paymentType(){
         return $this->belongsTo(PaymentType::class,'payment_types_id');
     }
-
+    public function TransactionType(){
+        return $this->belongsTo(TransactionType::class,'transaction_types_id');
+    }
 }
