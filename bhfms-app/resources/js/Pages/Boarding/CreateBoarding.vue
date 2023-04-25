@@ -59,14 +59,14 @@ const form = useForm({
     address: address,
     type: selectedType,
     facility: selectedFacility,
-    rooms: 0,
-    price: 0,
+    rooms: "",
+    price: "",
     description: "",
     images: images,
     sharedBathroom: false,
     manager: selectedManager,
-    lat: 0,
-    lng: 0,
+    lat: "",
+    lng: "",
 });
 
 const submit = () => {
