@@ -47,8 +47,6 @@ let form = useForm({
         <div
             class="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center bg-gray font-sans overflow-hidden"
         >
-            <!-- {{ props.currBoarding.id }} -->
-            <!-- {{ currBoarding.boarding_name }} -->
             <div class="w-11/12 mt-5">
                 <!-- to Admin Boarding Page -->
                 <Link

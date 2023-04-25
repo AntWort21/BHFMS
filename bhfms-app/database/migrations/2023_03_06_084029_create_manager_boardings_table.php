@@ -16,15 +16,15 @@ class CreateManagerBoardingsTable extends Migration
         Schema::create('manager_boardings', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('manager_user_id');
-            $table->foreign('manager_user_id')->references('id')
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')
             ->on('users')->cascadeOnUpdate()->cascadeOnDelete();
 
             $table->unsignedBigInteger('boarding_id');
             $table->foreign('boarding_id')->references('id')
             ->on('boardings')->cascadeOnUpdate()->cascadeOnDelete();
             
-            $table->unique(['boarding_id', 'manager_user_id']);
+            $table->unique(['boarding_id', 'user_id']);
             $table->timestamps();
         });
     }

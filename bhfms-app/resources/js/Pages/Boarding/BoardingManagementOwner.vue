@@ -29,7 +29,6 @@ watch(search, (value) => {
 
 <template>
     <Header />
-    <!-- {{ $page.props.user.id }} -->
     <!-- component -->
     <div class="overflow-x-auto">
         <div
@@ -117,7 +116,6 @@ watch(search, (value) => {
                             >
                                 <td class="py-3 px-6 text-left">
                                     <div class="flex items-center">
-                                        <!-- <div class="mr-2"></div> -->
                                         <span class="mr-2 font-medium"
                                             >{{ boarding.boarding_name }}
                                         </span>

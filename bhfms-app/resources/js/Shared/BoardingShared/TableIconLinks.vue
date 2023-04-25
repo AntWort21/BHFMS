@@ -1,6 +1,5 @@
 <script setup>
 import { Link } from "@inertiajs/inertia-vue3";
-// import { Inertia } from "@inertiajs/inertia";
 defineProps({
     currentID: Number,
     boarding: Object,

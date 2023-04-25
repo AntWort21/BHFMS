@@ -12,9 +12,5 @@ class ManagerBoarding extends Model
         return $this->hasMany(User::class);
     }
 
-    public function ownerBoarding(){
-        return $this->hasMany(OwnerBoarding::class);
-    }
-
     protected $guarded = [];
 }

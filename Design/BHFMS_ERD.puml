@@ -128,8 +128,8 @@ entity "owner_boardings" as lobh {
 entity "manager_boardings" as mabh {
   *id : Integer <<PK>>
   --
-  *owner_boarding_id : Integer <<FK>>
   *boarding_id : Integer <<FK>>
+  *user_id : Integer <<FK>>
   *created_at : Date
   *updated_at : Date
 }

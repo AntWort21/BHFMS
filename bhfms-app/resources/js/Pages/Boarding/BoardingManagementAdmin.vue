@@ -3,7 +3,6 @@ import { Inertia } from "@inertiajs/inertia";
 import { ref, watch } from "vue";
 import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
-// import { TailwindPagination } from "laravel-vue-pagination";
 import Pagination from "../../Shared/Pagination.vue";
 import TableIconLinks from "../../Shared/BoardingShared/TableIconLinks.vue";
 import StatusIcon from "../../Shared/BoardingShared/StatusIcon.vue";
@@ -95,7 +94,6 @@ watch(search, (value) => {
                             </tr>
                         </thead>
 
-                        <!-- v-for="(list, index) in board.lists" and provide :key=index``` -->
                         <tbody class="text-gray-600 text-sm font-light">
                             <tr
                                 v-for="(boarding, idx) in boardings.data"

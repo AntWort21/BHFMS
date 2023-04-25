@@ -1,13 +1,7 @@
 <script setup>
-import { Link } from "@inertiajs/inertia-vue3";
-// import { Inertia } from "@inertiajs/inertia";
 defineProps({
     boarding: Object,
 });
-
-const deleteBoarding = (idx) => {
-    $inertia.put(`/boarding/delete/${idx}`);
-};
 </script>
 
 <template>

@@ -24,7 +24,7 @@ class Boarding extends Model
         return $this->belongsToMany(User::class, 'owner_boardings', 'boarding_id', 'user_id',);
     }
     public function managerBoardings(){
-        return $this->belongsToMany(User::class, 'manager_boardings', 'boarding_id', 'manager_user_id',);
+        return $this->belongsToMany(User::class, 'manager_boardings', 'boarding_id', 'user_id',);
     }
 
     public function wishlists(){
@@ -46,23 +46,6 @@ class Boarding extends Model
     public function images_limit_one(){
         return $this->images()->limit(1);
     }
-
-    // public function images_limit_one(){
-    //     return $this->hasOne(BoardingImage::class,'boarding_id','id');
-    //     // return $this->images()->limit(1);
-    // }
-
-    // protected $fillable = [
-    //     'boarding_name',
-    //     'gender',
-    //     'date_of_birth',
-    //     'user_role_id',
-    //     'phone',
-    //     'profile_picture',
-    //     'email',
-    //     'password',
-    //     'confirm_password',
-    // ];
 
     protected $guarded = [];
 }

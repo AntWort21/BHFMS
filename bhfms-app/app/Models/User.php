@@ -35,7 +35,7 @@ class User extends Authenticatable
 
 
     public function managerBoardings(){
-        return $this->belongsToMany(Boarding::class, 'manager_boardings', 'manager_user_id', 'owner_boarding_id');
+        return $this->belongsToMany(Boarding::class, 'manager_boardings', 'user_id', 'boarding_id');
     }
 
 

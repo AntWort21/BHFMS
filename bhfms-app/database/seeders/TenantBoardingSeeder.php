@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\TenantBoarding;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
-use Carbon\Carbon;
 
 class TenantBoardingSeeder extends Seeder
 {

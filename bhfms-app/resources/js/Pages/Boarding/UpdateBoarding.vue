@@ -22,7 +22,6 @@ const props = defineProps({
     images: Array,
 });
 
-// const currBoarding = ref("");
 const selectedType = ref(props.currBoarding.type_id);
 const selectedFacility = ref(props.currFacilities);
 const selectedManager = ref(props.currManager);
@@ -50,8 +49,6 @@ let form = useForm({
 
 onMounted(() => {
     address.value.update(props.currBoarding.address);
-    // form.sharedBathroom = props.currBoarding.sharedBathroom;
-    // form.images_max.value = props.currImages.length;
 });
 
 const getAddressData = (addressData, placeResultData) => {
@@ -72,9 +69,7 @@ const onFileChange = (e) => {
         let reader = new FileReader();
         reader.readAsDataURL(images.value[i]);
         reader.onload = (e) => {
-            // images.value[i].src = reader.result;
             previewImage.value[i] = e.target.result;
-            // images.value[i].src = e.target.result;
         };
     }
 };
@@ -85,11 +80,8 @@ const deleteFileUploaded = (idx) => {
 };
 
 const deleteFileDatabase = (idx) => {
-    // form.max_image.value = form.max_image.value - 1;
     form.max_image = form.max_image - 1;
     form.put(`/boarding/image/delete/${idx}`, {});
-    // form.post(`/image/delete/${idx}`, {
-    // });
 };
 
 const customLabelManager = ({ user_name, email }) =>
@@ -105,30 +97,17 @@ const clearManagerInput = () => {
 };
 
 const submitUpdate = (this_id) => {
-    form.post(`/boarding/update/${this_id}`, {
-        // onError: () => form.images.reset(),
-        // onError: () => resetImages(),
-        // onSuccess: () => form.images.reset(),
-    });
+    form.post(`/boarding/update/${this_id}`, {});
 };
 </script>
 
 <template>
     <Header />
-    <!-- Set ID of current User -->
-    <!-- 
-    <h1 v-if="$page.props.user">
-        You are logged in as: {{ $page.props.user.user_name }}, with id =
-        {{ $page.props.user.id }}
-    </h1>
-    <h1 v-else>Oh no 😢</h1> -->
 
     <div class="overflow-x-auto">
         <div
             class="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center bg-gray font-sans overflow-hidden"
         >
-            <!-- {{ props.currBoarding.id }} -->
-            <!-- {{ currBoarding.boarding_name }} -->
             <div class="w-11/12 mt-5">
                 <!-- to Admin Boarding Page -->
                 <Link
@@ -287,14 +266,6 @@ const submitUpdate = (this_id) => {
                                 type="checkbox"
                                 id="sharedBathroom"
                             />
-                            <!-- <input
-                                v-else
-                                v-model="form.sharedBathroom"
-                                class="mb-2"
-                                type="checkbox"
-                                value="false"
-                                id="sharedBathroom"
-                            /> -->
                             <label
                                 class="block text-gray-700 text-sm font-bold mb-2 ml-2"
                                 for="sharedBathroom"
