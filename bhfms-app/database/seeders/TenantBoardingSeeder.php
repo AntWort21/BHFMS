@@ -158,5 +158,78 @@ class TenantBoardingSeeder extends Seeder
             "start_date" => Carbon::create(2022, 1, 1),
             "end_date" => Carbon::create(2022, 4, 1)
         ]);
+        TenantBoarding::create([
+            "user_id" => 10,
+            "boarding_id" => 2,
+            "start_date" => Carbon::today(),
+            "end_date" => Carbon::create(2023, 5, 5),
+            "status" => 4,
+            "start_date" => Carbon::create(2022, 1, 1),
+            "end_date" => Carbon::create(2022, 4, 1)
+        ]);
+        TenantBoarding::create([
+            "user_id" => 10,
+            "boarding_id" => 3,
+            "start_date" => Carbon::today(),
+            "end_date" => Carbon::create(2023, 5, 5),
+            "status" => 4,
+            "start_date" => Carbon::create(2022, 1, 1),
+            "end_date" => Carbon::create(2022, 4, 1)
+        ]);
+        TenantBoarding::create([
+            "user_id" => 10,
+            "boarding_id" => 4,
+            "start_date" => Carbon::today(),
+            "end_date" => Carbon::create(2023, 5, 5),
+            "status" => 2,
+            "start_date" => Carbon::create(2022, 1, 1),
+            "end_date" => Carbon::create(2022, 4, 1)
+        ]);
+        TenantBoarding::create([
+            "user_id" => 10,
+            "boarding_id" => 5,
+            "start_date" => Carbon::today(),
+            "end_date" => Carbon::create(2023, 5, 5),
+            "status" => 2,
+            "start_date" => Carbon::create(2022, 1, 1),
+            "end_date" => Carbon::create(2022, 4, 1)
+        ]);
+        TenantBoarding::create([
+            "user_id" => 10,
+            "boarding_id" => 6,
+            "start_date" => Carbon::today(),
+            "end_date" => Carbon::create(2023, 5, 5),
+            "status" => 2,
+            "start_date" => Carbon::create(2022, 1, 1),
+            "end_date" => Carbon::create(2022, 4, 1)
+        ]);
+        TenantBoarding::create([
+            "user_id" => 10,
+            "boarding_id" => 7,
+            "start_date" => Carbon::today(),
+            "end_date" => Carbon::create(2023, 5, 5),
+            "status" => 2,
+            "start_date" => Carbon::create(2022, 1, 1),
+            "end_date" => Carbon::create(2022, 4, 1)
+        ]);
+        TenantBoarding::create([
+            "user_id" => 10,
+            "boarding_id" => 8,
+            "start_date" => Carbon::today(),
+            "end_date" => Carbon::create(2023, 5, 5),
+            "status" => 2,
+            "start_date" => Carbon::create(2022, 1, 1),
+            "end_date" => Carbon::create(2022, 4, 1)
+        ]);
+        TenantBoarding::create([
+            "user_id" => 10,
+            "boarding_id" => 9,
+            "start_date" => Carbon::today(),
+            "end_date" => Carbon::create(2023, 5, 5),
+            "status" => 2,
+            "start_date" => Carbon::create(2022, 1, 1),
+            "end_date" => Carbon::create(2022, 4, 1)
+        ]);
+
     }
 }

@@ -6,7 +6,7 @@ import Header from "../../Shared/Header.vue";
 
 const props = defineProps({
     boardingHouseId: {
-        type: Number,
+        type: String,
         default: null,
     },
     review: {
@@ -39,7 +39,7 @@ let submitUpdate = () => {
 
 <template>
     <Header />
-    <section class="h-[75vh] p-10">
+    <section class="min-h-[75vh] p-10">
         <form
             @submit.prevent="props.review == null ? submit() : submitUpdate()"
             class="border border-slate-200 space-y-2 px-4 py-6"
