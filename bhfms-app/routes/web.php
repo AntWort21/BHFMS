@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BoardingController;
 use App\Http\Controllers\ComplainController;
+use App\Http\Controllers\BoardingImageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,9 +48,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/complain/house', [ComplainController::class, 'getSelectedBoardingHouseComplainList']);
 });
 
-// Route::resource('boarding', BoardingController::class);
-Route::get('/boarding', [BoardingController::class, 'index']);
-Route::get('/boarding/create', [BoardingController::class, 'create']);
+Route::get('/boardingAdmin', [BoardingController::class, 'indexAdmin']);
+Route::get('/boardingOwner', [BoardingController::class, 'indexOwner']);
+
+
+Route::get('/boarding/create', [BoardingController::class, 'getCreateOwnerBoarding']);
+Route::post('/boarding/create', [BoardingController::class, 'createOwnerBoarding']);
+Route::get('/boarding/update/{id}', [BoardingController::class, 'getUpdateBoarding']);
+Route::get('/boarding/read/{id}', [BoardingController::class, 'getReadBoarding']);
+Route::post('/boarding/update/{id}', [BoardingController::class, 'updateBoarding']);
+Route::get('/boarding/delete/{id}', [BoardingController::class, 'deleteBoarding']);
+
+Route::put('/boarding/image/delete/{id}', [BoardingImageController::class, 'deleteImage']);
+
+Route::get('/boardingManager', [BoardingController::class, 'indexManager']);
 
 Route::get('/boarding/test', [BoardingController::class, 'testCarousel']);
 Route::get('/boarding/all', [BoardingController::class, 'getAllBoardingHouse']);

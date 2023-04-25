@@ -9,10 +9,5 @@ class OwnerBoarding extends Model
 {
     use HasFactory;
 
-    //one to one relationship with middle table
-    public function managerBoarding(){
-        return $this->belongsTo(managerBoarding::class,'users_id');
-    }
-
     protected $guarded = [];
 }

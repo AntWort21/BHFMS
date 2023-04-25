@@ -22,27 +22,37 @@ let selectedLogout = ref(false);
         <div class="space-x-9 flex">
             <div v-if="$page.props.user">
                 <Link
+                    class="mx-3"
                     v-if="$page.props.user.role_id == '1'"
                     href="/boardingAdmin"
                     >Boarding House Management</Link
                 >
                 <Link
+                    class="mx-3"
                     v-if="$page.props.user.role_id == '3'"
                     href="/boardingOwner"
                     >Boarding House Management</Link
                 >
                 <Link
+                    class="mx-3"
                     v-if="$page.props.user.role_id == '4'"
                     href="/boardingManager"
                     >Boarding House Management</Link
                 >
-                <Link href="" v-if="$page.props.user.role_id == '1'"
+                <Link
+                    class="mx-3"
+                    href=""
+                    v-if="$page.props.user.role_id == '1'"
                     >Facilities Management</Link
                 >
-                <Link href="" v-if="$page.props.user.role_id == '1'"
+                <Link
+                    class="mx-3"
+                    href=""
+                    v-if="$page.props.user.role_id == '1'"
                     >User Management</Link
                 >
             </div>
+
             <Link href="">Homepage</Link>
 
             <!-- <Link href="">Boarding House List</Link>
