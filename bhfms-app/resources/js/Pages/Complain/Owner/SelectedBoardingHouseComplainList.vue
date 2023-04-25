@@ -1,7 +1,7 @@
 <script setup>
-import Footer from "../../Shared/Footer.vue";
-import Header from "../../Shared/Header.vue";
 import { Link } from "@inertiajs/inertia-vue3";
+import Footer from "../../../Shared/Footer.vue";
+import Header from "../../../Shared/Header.vue";
 
 defineProps({
     complainList: Object,
@@ -14,12 +14,6 @@ defineProps({
         <div class="border border-slate-200 space-y-2 px-4 py-6">
             <div class="flex justify-between">
                 <div class="semibold text-2xl text-indigo-700">COMPLAIN</div>
-                <Link
-                    href="/complain/create"
-                    class="w-8 h-8 bg-blue-600 flex justify-center items-center text-center text-2xl text-white"
-                >
-                    +
-                </Link>
             </div>
             <Link
                 href="/complain/detail"
@@ -29,17 +23,17 @@ defineProps({
                 class="border border-slate-200 flex justify-between items-center px-4 hover:bg-slate-50"
             >
                 <div>
-                    <div>
-                        {{ complain.boarding_house_name }}
-                    </div>
-                    <div>
+                    <div class="text-lg font-semibold">
                         {{ complain.complain_type_name }}
+                    </div>
+                    <div class="text-sm">
+                        Tenant: {{ complain.user_name }}
                     </div>
                 </div>
                 <div>
                     <div class="w-6 h-6 rounded-full"
                         :class="{
-                            'bg-yellow-500':
+                            'bg-slate-500':
                                 complain.complain_status == 'pending',
                             'bg-yellow-500':
                                 complain.complain_status == 'on progress',
