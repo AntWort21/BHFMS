@@ -107,6 +107,14 @@ class UserSeeder extends Seeder
         User::create([
             "user_name" =>'Manager 1',
             "gender"=>'1',
+            "email" =>'Manager1@gmail.com',
+            "date_of_birth" =>'1/1/2000',
+            "phone" =>rand(1000000,5000000),
+            "user_role_id" =>'4',
+            "password" =>bcrypt('Manager1'),
+        ]);
+        User::create([
+            "user_name" =>'Manager  4',
             "email" =>'manager1@gmail.com',
             "date_of_birth" =>'1/1/2000',
             "phone" =>rand(1000000,5000000),
@@ -120,8 +128,9 @@ class UserSeeder extends Seeder
             "date_of_birth" =>'1/1/2000',
             "phone" =>rand(1000000,5000000),
             "user_role_id" =>'4',
-            "password" =>bcrypt('manager4'),
+            "password" =>bcrypt('Manager4'),
         ]);
+
         User::create([
             "user_name" =>'Manager  2',
             "gender"=>'1',

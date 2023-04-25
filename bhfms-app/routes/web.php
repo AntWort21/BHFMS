@@ -48,10 +48,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/complain/house', [ComplainController::class, 'getSelectedBoardingHouseComplainList']);
 });
 
+// Route::resource('boarding', BoardingController::class);
+Route::get('/boarding', [BoardingController::class, 'index']);
+Route::get('/boarding/create', [BoardingController::class, 'create']);
+Route::get('/boarding/detail', [BoardingController::class, 'getBoardingHouseDetail']);
+
 Route::get('/boardingAdmin', [BoardingController::class, 'indexAdmin']);
 Route::get('/boardingOwner', [BoardingController::class, 'indexOwner']);
-
-
 Route::get('/boarding/create', [BoardingController::class, 'getCreateOwnerBoarding']);
 Route::post('/boarding/create', [BoardingController::class, 'createOwnerBoarding']);
 Route::get('/boarding/update/{id}', [BoardingController::class, 'getUpdateBoarding']);

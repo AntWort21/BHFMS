@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Models\Boarding;
 use App\Models\BoardingImage;
 use App\Models\BoardingType;
+use App\Models\Facility;
 use App\Models\FacilityDetail;
 use App\Models\ManagerBoarding;
 use App\Models\OwnerBoarding;
@@ -19,28 +20,11 @@ use Inertia\Inertia;
 
 class BoardingController extends Controller
 {
-    //Display a listing of the resource.
-    public function index()
-    {
-        return Inertia::render('Boarding/ListBoarding', [
-            'boardings' => Boarding::get(),
-        ]);
-    }
-
-    public function testCarousel()
-    {
-        $slides = [
-            "https://picsum.photos/id/1032/900/400",
-            "https://picsum.photos/id/1033/900/400",
-            "https://picsum.photos/id/1037/900/400",
-            "https://picsum.photos/id/1035/900/400",
-            "https://picsum.photos/id/1036/900/400",
-        ];
-
-        return Inertia::render('Boarding/CarouselTry', [
-            'slides' => $slides
-        ]);
-    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
 
     public function indexAdmin(Request $request)
     {
@@ -53,7 +37,7 @@ class BoardingController extends Controller
             }else{
                 $query->where('status','=',$search);
             }
-            
+
         })->paginate(5)->withQueryString();
 
         $all_boarding_count = Boarding::join('owner_boardings','boardings.id',"=",'owner_boardings.boarding_id')->get();
@@ -82,11 +66,11 @@ class BoardingController extends Controller
             ->when($request->search, function($query, $search){
             if($search=='all'){
                 $query;
-                
+
             }else{
                 $query->where('status','=',$search);
             }
-            
+
         })->paginate(5)->withQueryString();
 
         $all_boarding_count = ManagerBoarding::join('boardings','boardings.id','manager_boardings.boarding_id')
@@ -110,20 +94,20 @@ class BoardingController extends Controller
 
     public function indexOwner(Request $request)
     {
-        
+
         $Boarding_data = Boarding::join('owner_boardings','boardings.id','=','owner_boardings.boarding_id')
             ->join('users','users.id','=','owner_boardings.user_id')
             ->where('owner_boardings.user_id','=',auth()->id())
             ->when($request->search, function($query, $search){
             if($search=='all'){
                 $query;
-                
+
             }else{
                 $query->where('status','=',$search);
             }
-            
-        })->paginate(5)->withQueryString(); 
-        
+
+        })->paginate(5)->withQueryString();
+
 
         $all_boarding_count = OwnerBoarding::where('user_id','=',auth()->id())->get();
         $all = $all_boarding_count->count();
@@ -144,7 +128,7 @@ class BoardingController extends Controller
 
     public function getAllBoardingHouse()
     {
-        $allBoardingHouse = Boarding::all();
+        $allBoardingHouse = Boarding::paginate(18);
 
         foreach ($allBoardingHouse as $key => $boardingHouse) {
             $allBoardingHouse[$key]->imageUrl = BoardingImage::where('boarding_id', $boardingHouse->id)->first()->image;
@@ -153,6 +137,30 @@ class BoardingController extends Controller
         return Inertia::render('Boarding/AllBoardingHouse', ['allBoardingHouse' => $allBoardingHouse]);
     }
 
+    public function getBoardingHouseDetail(Request $request)
+    {
+        $selectedBoardingHouseDetail = Boarding::where('id', $request->id)->first();
+        $boardingHouseImages = BoardingImage::where('boarding_id', $request->id)->get()->pluck('image');
+
+        $ownerId = OwnerBoarding::where('boarding_id', $request->id)->first()->user_id;
+
+        $owner = User::where('id', $ownerId)->first();
+
+        $facilityList = Facility::where('boarding_id', $request->id)->get();
+        foreach ($facilityList as $key => $facility) {
+            $facilityList[$key]->facility_detail_name = FacilityDetail::where('id', $facility->facility_id)->first()->facility_detail_name;
+        }
+
+        return Inertia::render('Boarding/SelectedBoardingHouse', [
+            'boardingHouseDetail' => $selectedBoardingHouseDetail,
+            'images' => $boardingHouseImages,
+            'ownerName' => $owner->user_name,
+            'ownerPicture' => $owner->profile_picture,
+            'facilityList' => $facilityList->pluck('facility_detail_name')
+        ]);
+    }
+
+    //Show the form for creating a new resource.
     public function getCreateOwnerBoarding()
     {
         $Manager_data = User::where('user_role_id','=','4')->get();
@@ -163,12 +171,11 @@ class BoardingController extends Controller
         ]);
     }
 
-
     public function createOwnerBoarding(Request $request)
-    {   
+    {
         $custom_messages = [
             'images.min' => 'Need at least 1 image !',
-            'images.max' => 'Maximum 5 images !'     
+            'images.max' => 'Maximum 5 images !'
           ];
 
         $validation = $request->validate([
@@ -181,7 +188,7 @@ class BoardingController extends Controller
             'description' => ['required', 'max:200','min:5'],
             'images' => ['min:1','max:5'],
         ], $custom_messages);
-        
+
 
         $BoardingNow = Boarding::create([
             'boarding_name' => $request['name'],
@@ -209,12 +216,12 @@ class BoardingController extends Controller
                 'user_id'=>$request['manager']['id'],
                 'boarding_id'=>$BoardingNow->id,
             ]);
-        }   
-        
+        }
+
         //FILES
         if(($request->file('images') !== null)){
             foreach($request->file('images') as $image){
-                
+
                 $path = $image->getClientOriginalName();
                 $path = str_replace(" ", "-", $path);
                 $path = time() . '-' . $path;
@@ -260,7 +267,7 @@ class BoardingController extends Controller
         $currImages = $currBoarding->images()->get();
 
         $shared_bathroom = $currBoarding['shared_bathroom'] == 1 ? true: false;
-        
+
         return Inertia::render('Boarding/UpdateBoarding', [
             'currImages' => $currImages,
             'currBoarding' => $currBoarding,
@@ -278,7 +285,7 @@ class BoardingController extends Controller
         $max_pic = 5 - (int)$request['max_image'];
         $total_pic = (int)$request['max_image'] + (int)count($request['images']);
         $custom_messages = [
-            'images.max' => 'Maximum number of image is 5, you have '.$total_pic.' image in this Boarding House, Please Upload Again !',     
+            'images.max' => 'Maximum number of image is 5, you have '.$total_pic.' image in this Boarding House, Please Upload Again !',
           ];
 
         $validation = $request->validate([
@@ -292,14 +299,14 @@ class BoardingController extends Controller
             'images' => ['max:'.$max_pic],
         ], $custom_messages);
 
-        
+
 
         //Change from model into array of facility
         $facility_id = [];
         foreach($request['facility'] as $fac) {
             array_push($facility_id,$fac['id']);
         }
-        
+
 
         Boarding::findOrFail($request->id)->update([
             'boarding_name' => $request['name'],
@@ -343,7 +350,7 @@ class BoardingController extends Controller
         //FILES
         if(($request->file('images') !== null)){
             foreach($request->file('images') as $image){
-            
+
                 $path = $image->getClientOriginalName();
                 $path = str_replace(" ", "-", $path);
                 $path = time() . '-' . $path;
@@ -364,7 +371,7 @@ class BoardingController extends Controller
         }else if (Auth::user()->user_role_id==3){
             return redirect('/boardingOwner')->with('message', 'Success Updating Boarding House');
         }
-        
+
     }
     public function deleteBoarding(Request $request)
     {

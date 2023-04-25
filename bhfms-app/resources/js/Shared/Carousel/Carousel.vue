@@ -39,26 +39,36 @@ const data = reactive({
 
 const setCurrentSlide = (index) => {
     data.currentSlide = index;
-}
+};
 
 const prev = (step = -1) => {
-    const index = data.currentSlide > 0 ? data.currentSlide + step : props.slides.length - 1;
+    const index =
+        data.currentSlide > 0
+            ? data.currentSlide + step
+            : props.slides.length - 1;
     setCurrentSlide(index);
     data.direction = "left";
     startSlideTimer();
-}
+};
+
 const _next = (step = 1) => {
-    const index = data.currentSlide < props.slides.length - 1 ? data.currentSlide + step : 0;
+    const index =
+        data.currentSlide < props.slides.length - 1
+            ? data.currentSlide + step
+            : 0;
     setCurrentSlide(index);
     data.direction = "right";
-}
+};
+
 const next = (step = 1) => {
     _next(step);
     startSlideTimer();
-}
+};
+
 const stopSlideTimer = () => {
     clearInterval(data.slideInterval);
-}
+};
+
 const startSlideTimer = () => {
     stopSlideTimer();
     if (props.interval) {
@@ -66,7 +76,8 @@ const startSlideTimer = () => {
             _next();
         }, props.interval_val);
     }
-}
+};
+
 const switchSlide = (index) => {
     const step = index - data.currentSlide;
     if (step > 0) {
@@ -74,7 +85,7 @@ const switchSlide = (index) => {
     } else {
         prev(step);
     }
-}
+};
 
 onMounted(() => {
     startSlideTimer();
@@ -86,8 +97,8 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <div class="carousel">
-        <div class="carousel-inner">
+    <div class="flex items-center justify-center">
+        <div class="relative w-1/2 h-[60vh] overflow-hidden object-cover rounded-md">
             <carousel-indicators
                 v-if="props.indicators"
                 :total="props.slides.length"
@@ -112,13 +123,3 @@ onBeforeUnmount(() => {
         </div>
     </div>
 </template>
-
-<style scoped>
-.carousel {
-    @apply flex items-center w-[v-bind("props.size+'px'")] h-[v-bind("size*0.5+'px'")] w-full justify-center;
-}
-.carousel-inner {
-    @apply relative w-[v-bind("props.size+'px'")] h-[v-bind("props.size*0.5+'px'")] overflow-hidden;
-    /* width: 100%; */
-}
-</style>
