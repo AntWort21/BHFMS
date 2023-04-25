@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BoardingController;
 use App\Http\Controllers\ComplainController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\BoardingImageController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,10 +43,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/complain/create', [ComplainController::class, 'getCreateComplainPage']);
     Route::post('/complain/create', [ComplainController::class, 'createComplain']);
     Route::get('/complain/detail', [ComplainController::class, 'getComplainDetail']);
+
     Route::post('/complain/status', [ComplainController::class, 'setComplainStatus']);
 
     Route::get('/complain/owner', [ComplainController::class, 'getOwnerComplainPage']);
     Route::get('/complain/house', [ComplainController::class, 'getSelectedBoardingHouseComplainList']);
+
+    Route::get('/review', [ReviewController::class, 'getAllReviewPage']);
+    Route::get('/review/create', [ReviewController::class, 'getCreateReviewOrViewReviewPage']);
+    Route::post('/review/create', [ReviewController::class, 'createReview']);
+    Route::post('/review/update', [ReviewController::class, 'updateReview']);
 });
 
 // Route::resource('boarding', BoardingController::class);
