@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             RentTransactionSeeder::class,
             ComplainTypeSeeder::class,
             ComplainSeeder::class,
+            ReviewSeeder::class,
         ]);
 
     }
