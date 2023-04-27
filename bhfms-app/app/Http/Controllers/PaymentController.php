@@ -5,13 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Boarding;
 use App\Models\PaymentMethod;
 use App\Models\RentTransaction;
-use App\Models\User;
 use App\Models\TenantBoarding;
 use App\Models\TransactionType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class PaymentController extends Controller
@@ -94,8 +92,6 @@ class PaymentController extends Controller
             ->first();
     }
 
-   
-
     public function getAllPayment()
     {
         $userRole = Auth::user()->user_role_id;
@@ -126,8 +122,9 @@ class PaymentController extends Controller
                 ->from('tenant_boardings')
                 ->where('user_id', $userId);
         })
-        ->get();
+        ->paginate(5);
     }
+
     private function getListPaymentByBoardingId(int $boardingId){
         $subquery = TenantBoarding::select('id','user_id','boarding_id')
         ->where('boarding_id',$boardingId);
@@ -136,7 +133,7 @@ class PaymentController extends Controller
             $join->on('tenant_boardings.id', '=', 'tenant_boarding_id');
         })
         ->join('users', 'users.id', '=', 'tenant_boardings.user_id')
-        ->get();
+        ->paginate(5);
     }
 
     private function generateInvoice(String $date){

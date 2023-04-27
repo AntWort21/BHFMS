@@ -1,4 +1,9 @@
 {
-    "/js/app.js": "/js/app.js?id=9782002ce371777530b9dbb0c8b632a7",
-    "/css/app.css": "/css/app.css?id=9d13438d8a4efbd75cd28e145da773eb"
+<<<<<<< HEAD
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css"
+=======
+    "/js/app.js": "/js/app.js?id=396a733e6ce32819b6aad247116e82f7",
+    "/css/app.css": "/css/app.css?id=754bca762bb00e6b7c6aecd1e3c84339"
+>>>>>>> c5f4a81 (Add Pagination)
 }

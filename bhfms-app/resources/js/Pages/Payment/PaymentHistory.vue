@@ -1,12 +1,13 @@
 <script setup>
 import { ref } from 'vue';
+import { Link } from '@inertiajs/inertia-vue3'
 import PaymentHistoryTab from '../../Shared/Payment/PaymentHistoryTab.vue';
 import Header from '../../Shared/Header.vue';
 import Footer from '../../Shared/Footer.vue';
 import DetailBoxTenant from '../../Shared/Payment/DetailBoxTenant.vue';
 defineProps({
   userRole: Number,
-  paymentList: Array,
+  paymentList: Object,
 })
 
 const csrfToken = document.getElementsByName("csrf-token")[0].content; 
@@ -46,7 +47,6 @@ let convertAmount = (amount) => {
 
 <template>
     <Header />
-    {{ price }}
     <div class="z-10 my-4" >
         <section class="flex text-center align-middle mx-10">
             <div class="font-bold self-center">
@@ -73,13 +73,27 @@ let convertAmount = (amount) => {
             </div>
         </section>
         <section class="mx-2 my-3">
-            <div v-for="(payment) in paymentList" class="flex justify-around text-center py-1">
+            <div v-for="(payment) in paymentList.data" class="flex justify-around text-center py-1">
                 <PaymentHistoryTab
                 :payment=payment
                 :userRole="userRole"
                 @showDetail="showDetail" />
             </div>
         </section>
+      <div class="my-4 flex justify-center">
+        <Link
+          :href="paymentList.prev_page_url"
+          v-if="paymentList.prev_page_url"
+          class="px-2 py-1 bg-gray-300 rounded mr-2">
+            Previous
+        </Link>
+        <Link
+            :href="paymentList.next_page_url"
+            v-if="paymentList.next_page_url"
+            class="px-2 py-1 bg-gray-300 rounded ml-2">
+            Next
+        </Link>
+      </div>
     </div>
     <DetailBoxTenant v-if="detailBox"
     :invoiceDetail=this.detailInvoice

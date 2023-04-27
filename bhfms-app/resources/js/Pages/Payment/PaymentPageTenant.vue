@@ -1,5 +1,5 @@
 <script setup>
-import { useForm, emit } from '@inertiajs/inertia-vue3';
+import { useForm } from '@inertiajs/inertia-vue3';
 
 import Header from '../../Shared/Header.vue';
 import Footer from '../../Shared/Footer.vue';

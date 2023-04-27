@@ -20735,22 +20735,206 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+<<<<<<< HEAD
 /* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
 /* harmony import */ var _Shared_PaymentHistoryTab_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Shared/PaymentHistoryTab.vue */ "./resources/js/Shared/PaymentHistoryTab.vue");
+=======
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
+/* harmony import */ var _Shared_Payment_PaymentHistoryTab_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Shared/Payment/PaymentHistoryTab.vue */ "./resources/js/Shared/Payment/PaymentHistoryTab.vue");
+/* harmony import */ var _Shared_Header_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Shared/Header.vue */ "./resources/js/Shared/Header.vue");
+/* harmony import */ var _Shared_Footer_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Shared/Footer.vue */ "./resources/js/Shared/Footer.vue");
+/* harmony import */ var _Shared_Payment_DetailBoxTenant_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../Shared/Payment/DetailBoxTenant.vue */ "./resources/js/Shared/Payment/DetailBoxTenant.vue");
+
+
+
+
+>>>>>>> c5f4a81 (Add Pagination)
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'PaymentHistory',
   props: {
+<<<<<<< HEAD
     type: String,
     listPayments: Array
+=======
+    userRole: Number,
+    paymentList: Object
+>>>>>>> c5f4a81 (Add Pagination)
   },
   setup: function setup(__props, _ref) {
     var expose = _ref.expose;
     expose();
     var __returned__ = {
+<<<<<<< HEAD
       Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Link,
       PaymentHistoryTab: _Shared_PaymentHistoryTab_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+=======
+      csrfToken: csrfToken,
+      detailBox: detailBox,
+      detailInvoice: detailInvoice,
+      price: price,
+      showDetail: showDetail,
+      closeDetail: closeDetail,
+      convertAmount: convertAmount,
+      ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
+      Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.Link,
+      PaymentHistoryTab: _Shared_Payment_PaymentHistoryTab_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+      Header: _Shared_Header_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+      Footer: _Shared_Footer_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+      DetailBoxTenant: _Shared_Payment_DetailBoxTenant_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+    };
+    Object.defineProperty(__returned__, '__isScriptSetup', {
+      enumerable: false,
+      value: true
+    });
+    return __returned__;
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Payment/PaymentPageManager.vue?vue&type=script&setup=true&lang=js":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Payment/PaymentPageManager.vue?vue&type=script&setup=true&lang=js ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
+/* harmony import */ var _Shared_Payment_FormSelectInputTenant_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Shared/Payment/FormSelectInputTenant.vue */ "./resources/js/Shared/Payment/FormSelectInputTenant.vue");
+/* harmony import */ var _Shared_Header_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Shared/Header.vue */ "./resources/js/Shared/Header.vue");
+/* harmony import */ var _Shared_Footer_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Shared/Footer.vue */ "./resources/js/Shared/Footer.vue");
+/* harmony import */ var _Shared_Payment_FormTextBoxInputReadOnly_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Shared/Payment/FormTextBoxInputReadOnly.vue */ "./resources/js/Shared/Payment/FormTextBoxInputReadOnly.vue");
+/* harmony import */ var _Shared_AccountFormInput_FormErrorMessage_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../Shared/AccountFormInput/FormErrorMessage.vue */ "./resources/js/Shared/AccountFormInput/FormErrorMessage.vue");
+/* harmony import */ var _Shared_Payment_FormSelectInputTransactionType_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../Shared/Payment/FormSelectInputTransactionType.vue */ "./resources/js/Shared/Payment/FormSelectInputTransactionType.vue");
+/* harmony import */ var _Shared_Payment_FormRadioInput_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../Shared/Payment/FormRadioInput.vue */ "./resources/js/Shared/Payment/FormRadioInput.vue");
+/* harmony import */ var _Shared_Payment_FormTextBoxInputPayment_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../Shared/Payment/FormTextBoxInputPayment.vue */ "./resources/js/Shared/Payment/FormTextBoxInputPayment.vue");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
+
+
+
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'PaymentPageManager',
+  props: {
+    listTenants: Array,
+    boardingHouseName: String,
+    transactionTypes: Array
+  },
+  setup: function setup(__props, _ref) {
+    var expose = _ref.expose;
+    expose();
+    var form = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.useForm)(_defineProperty({
+      paymentDate: "",
+      paymentAmount: "",
+      transactionType: "",
+      tenantEmail: "",
+      paymentRepeat: ""
+    }, "transactionType", ""));
+    var submit = function submit() {
+      form.post("/addPaymentManager");
+    };
+    var today = new Date();
+    today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+    var minToday = today.toISOString().split('T')[0];
+    var __returned__ = {
+      form: form,
+      submit: submit,
+      today: today,
+      minToday: minToday,
+      useForm: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.useForm,
+      FormSelectInputTenant: _Shared_Payment_FormSelectInputTenant_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+      Header: _Shared_Header_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+      Footer: _Shared_Footer_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+      FormTextBoxInputReadOnly: _Shared_Payment_FormTextBoxInputReadOnly_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+      FormErrorMessage: _Shared_AccountFormInput_FormErrorMessage_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+      FormSelectInputTransactionType: _Shared_Payment_FormSelectInputTransactionType_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+      FormRadioInput: _Shared_Payment_FormRadioInput_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
+      FormTextBoxInputPayment: _Shared_Payment_FormTextBoxInputPayment_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
+    };
+    Object.defineProperty(__returned__, '__isScriptSetup', {
+      enumerable: false,
+      value: true
+    });
+    return __returned__;
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Payment/PaymentPageTenant.vue?vue&type=script&setup=true&lang=js":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Payment/PaymentPageTenant.vue?vue&type=script&setup=true&lang=js ***!
+  \*************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
+/* harmony import */ var _Shared_Header_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Shared/Header.vue */ "./resources/js/Shared/Header.vue");
+/* harmony import */ var _Shared_Footer_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Shared/Footer.vue */ "./resources/js/Shared/Footer.vue");
+/* harmony import */ var _Shared_Payment_FormTextBoxInputReadOnly_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Shared/Payment/FormTextBoxInputReadOnly.vue */ "./resources/js/Shared/Payment/FormTextBoxInputReadOnly.vue");
+/* harmony import */ var _Shared_AccountFormInput_FormErrorMessage_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Shared/AccountFormInput/FormErrorMessage.vue */ "./resources/js/Shared/AccountFormInput/FormErrorMessage.vue");
+/* harmony import */ var _Shared_Payment_FormSelectInputPaymentType_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../Shared/Payment/FormSelectInputPaymentType.vue */ "./resources/js/Shared/Payment/FormSelectInputPaymentType.vue");
+
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'PaymentPageTenant',
+  props: {
+    listPaymentMethod: Array,
+    paymentDetail: Object
+  },
+  setup: function setup(__props, _ref) {
+    var expose = _ref.expose;
+    expose();
+    var form = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.useForm)({
+      paymentMethod: "",
+      proofOfPayment: ""
+    });
+    var query = new URLSearchParams(window.location.search);
+    var submit = function submit() {
+      form.post("/pay?order=" + query.get('order'));
+    };
+    var updateValue = function updateValue(value) {
+      form.paymentMethod = value;
+    };
+    var convertAmount = function convertAmount(amount) {
+      return new Number(amount).toLocaleString("id-ID");
+    };
+    var __returned__ = {
+      form: form,
+      query: query,
+      submit: submit,
+      updateValue: updateValue,
+      convertAmount: convertAmount,
+      useForm: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.useForm,
+      Header: _Shared_Header_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+      Footer: _Shared_Footer_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+      FormTextBoxInputReadOnly: _Shared_Payment_FormTextBoxInputReadOnly_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+      FormErrorMessage: _Shared_AccountFormInput_FormErrorMessage_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+      FormSelectInputPaymentType: _Shared_Payment_FormSelectInputPaymentType_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+>>>>>>> c5f4a81 (Add Pagination)
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -24063,12 +24247,228 @@ var _hoisted_11 = {
 var _hoisted_12 = {
   "class": "flex justify-around text-center py-1"
 };
+var _hoisted_14 = {
+  "class": "my-4 flex justify-center"
+};
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Previous ");
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Next ");
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+<<<<<<< HEAD
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [$props.type == 'Tenant' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h4", _hoisted_7, "Tenant Name")) : $props.type == 'Manager' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h4", _hoisted_8, "Boarding House")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h4", _hoisted_9, "Boarding House"))]), _hoisted_10])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("\r\n// 0 = late\r\n// 1 = pending\r\n// 2 = accept\r\n// 3 = canceled\r\n "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.listPayments, function (payment) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["PaymentHistoryTab"], {
       payment: "payment"
     })]);
   }), 256 /* UNKEYED_FRAGMENT */))])], 64 /* STABLE_FRAGMENT */);
+=======
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Header"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [$props.userRole == 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h4", _hoisted_8, "Tenant Name")) : $props.userRole == 2 || 3 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h4", _hoisted_9, "Boarding House")) : (0)]), _hoisted_11])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_12, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.paymentList.data, function (payment) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["PaymentHistoryTab"], {
+      payment: payment,
+      userRole: $props.userRole,
+      onShowDetail: $setup.showDetail
+    }, null, 8 /* PROPS */, ["payment", "userRole", "onShowDetail"])]);
+  }), 256 /* UNKEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [$props.paymentList.prev_page_url ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["Link"], {
+    key: 0,
+    href: $props.paymentList.prev_page_url,
+    "class": "px-2 py-1 bg-gray-300 rounded mr-2"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_15];
+    }),
+    _: 1 /* STABLE */
+  }, 8 /* PROPS */, ["href"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $props.paymentList.next_page_url ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["Link"], {
+    key: 1,
+    href: $props.paymentList.next_page_url,
+    "class": "px-2 py-1 bg-gray-300 rounded ml-2"
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_16];
+    }),
+    _: 1 /* STABLE */
+  }, 8 /* PROPS */, ["href"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), $setup.detailBox ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["DetailBoxTenant"], {
+    key: 0,
+    invoiceDetail: this.detailInvoice,
+    price: this.price,
+    "user-role": this.userRole,
+    onCloseDetail: $setup.closeDetail
+  }, null, 8 /* PROPS */, ["invoiceDetail", "price", "user-role", "onCloseDetail"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Footer"])], 64 /* STABLE_FRAGMENT */);
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Payment/PaymentPageManager.vue?vue&type=template&id=d2db6a2c":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Payment/PaymentPageManager.vue?vue&type=template&id=d2db6a2c ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  "class": "m-5"
+};
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, "Payment Page", -1 /* HOISTED */);
+var _hoisted_3 = {
+  clas: ""
+};
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  "class": "px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900"
+}, " Add Payment ", -1 /* HOISTED */);
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Header"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+    onSubmit: _cache[6] || (_cache[6] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+      return $setup.submit && $setup.submit.apply($setup, arguments);
+    }, ["prevent"]))
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormTextBoxInputReadOnly"], {
+    modelValue: $setup.form.boardingHouseName,
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+      return $setup.form.boardingHouseName = $event;
+    }),
+    "input-type": 'text',
+    "label-name": 'Boarding House Name',
+    value: $props.boardingHouseName.boarding_name
+  }, null, 8 /* PROPS */, ["modelValue", "value"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormSelectInputTransactionType"], {
+    modelValue: $setup.form.transactionType,
+    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+      return $setup.form.transactionType = $event;
+    }),
+    "option-list": $props.transactionTypes,
+    "label-desc": 'Transaction Type',
+    "label-name": 'Transaction Type',
+    "default-text": 'Select Transaction Type'
+  }, null, 8 /* PROPS */, ["modelValue", "option-list"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormErrorMessage"], {
+    "error-message": $setup.form.errors.transactionType
+  }, null, 8 /* PROPS */, ["error-message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormTextBoxInputPayment"], {
+    modelValue: $setup.form.paymentDate,
+    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+      return $setup.form.paymentDate = $event;
+    }),
+    "input-type": 'date',
+    "label-name": 'Date',
+    "min-value": $setup.minToday
+  }, null, 8 /* PROPS */, ["modelValue", "min-value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormErrorMessage"], {
+    "error-message": $setup.form.errors.paymentDate
+  }, null, 8 /* PROPS */, ["error-message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormTextBoxInputPayment"], {
+    modelValue: $setup.form.paymentAmount,
+    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+      return $setup.form.paymentAmount = $event;
+    }),
+    "input-type": 'number',
+    "label-name": 'Amount',
+    "min-value": '10000'
+  }, null, 8 /* PROPS */, ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormErrorMessage"], {
+    "error-message": $setup.form.errors.paymentAmount
+  }, null, 8 /* PROPS */, ["error-message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormSelectInputTenant"], {
+    modelValue: $setup.form.tenantEmail,
+    "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
+      return $setup.form.tenantEmail = $event;
+    }),
+    "option-list": $props.listTenants,
+    "label-desc": 'Select Tenant',
+    "label-name": 'Tenant'
+  }, null, 8 /* PROPS */, ["modelValue", "option-list"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormErrorMessage"], {
+    "error-message": $setup.form.errors.tenantEmail
+  }, null, 8 /* PROPS */, ["error-message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormRadioInput"], {
+    modelValue: $setup.form.paymentRepeat,
+    "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
+      return $setup.form.paymentRepeat = $event;
+    }),
+    "label-name": 'Repeat Payment'
+  }, null, 8 /* PROPS */, ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormErrorMessage"], {
+    "error-message": $setup.form.errors.paymentRepeat
+  }, null, 8 /* PROPS */, ["error-message"])]), _hoisted_4], 32 /* HYDRATE_EVENTS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Footer"])], 64 /* STABLE_FRAGMENT */);
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Payment/PaymentPageTenant.vue?vue&type=template&id=4223167d":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Payment/PaymentPageTenant.vue?vue&type=template&id=4223167d ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  "class": "m-5"
+};
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+  "class": "mb-3"
+}, "Make Payment", -1 /* HOISTED */);
+var _hoisted_3 = {
+  "class": "w-[450px]"
+};
+var _hoisted_4 = {
+  "class": "w-[450px]"
+};
+var _hoisted_5 = {
+  "class": "w-[450px]"
+};
+var _hoisted_6 = {
+  "class": "w-[450px]"
+};
+var _hoisted_7 = {
+  "class": "w-[450px]"
+};
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "block"
+}, "Upload Proof of Payment", -1 /* HOISTED */);
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  "class": "px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900"
+}, " Make Payment ", -1 /* HOISTED */);
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Header"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+    onSubmit: _cache[2] || (_cache[2] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+      return $setup.submit && $setup.submit.apply($setup, arguments);
+    }, ["prevent"]))
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormTextBoxInputReadOnly"], {
+    "input-type": 'text',
+    "label-name": 'Boarding House Name',
+    value: $props.paymentDetail.boarding_name
+  }, null, 8 /* PROPS */, ["value"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormTextBoxInputReadOnly"], {
+    "input-type": 'date',
+    "label-name": 'Month',
+    value: $props.paymentDetail.payment_date
+  }, null, 8 /* PROPS */, ["value"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormSelectInputPaymentType"], {
+    modelValue: $setup.form.paymentMethod,
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+      return $setup.form.paymentMethod = $event;
+    }),
+    "option-list": $props.listPaymentMethod,
+    "label-desc": 'Payment Type',
+    "label-name": 'Payment Type',
+    "default-text": 'Select Payment Type',
+    "onUpdate:value": $setup.updateValue
+  }, null, 8 /* PROPS */, ["modelValue", "option-list"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormErrorMessage"], {
+    "error-message": $setup.form.errors.paymentMethod
+  }, null, 8 /* PROPS */, ["error-message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormTextBoxInputReadOnly"], {
+    "input-type": 'text',
+    "label-name": 'Amount',
+    value: $setup.convertAmount($props.paymentDetail.amount)
+  }, null, 8 /* PROPS */, ["value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormErrorMessage"], {
+    "error-message": $setup.form.errors.paymentAmount
+  }, null, 8 /* PROPS */, ["error-message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "file",
+    onInput: _cache[1] || (_cache[1] = function ($event) {
+      return $setup.form.proofOfPayment = $event.target.files[0];
+    }),
+    accept: "image/x-png,image/jpeg",
+    "class": "w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+  }, null, 32 /* HYDRATE_EVENTS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormErrorMessage"], {
+    "error-message": $setup.form.errors.proofOfPayment
+  }, null, 8 /* PROPS */, ["error-message"]), _hoisted_9], 32 /* HYDRATE_EVENTS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Footer"])], 64 /* STABLE_FRAGMENT */);
+>>>>>>> c5f4a81 (Add Pagination)
 }
 
 /***/ }),
