@@ -1,7 +1,7 @@
 <script setup>
 import { Link } from "@inertiajs/inertia-vue3";
-import Footer from "../../../Shared/Footer.vue";
-import Header from "../../../Shared/Header.vue";
+import Footer from "../../Shared/Footer.vue";
+import Header from "../../Shared/Header.vue";
 
 defineProps({
     boardingHouseList: Array,
@@ -10,10 +10,10 @@ defineProps({
 
 <template>
     <Header />
-    <section class="h-[75vh] p-10">
+    <section class="min-h-[75vh] p-10">
         <div class="border border-slate-200 space-y-2 px-4 py-6">
             <div class="flex justify-between">
-                <div class="semibold text-2xl text-indigo-700">COMPLAIN</div>
+                <div class="semibold text-2xl text-indigo-700">REVIEW BOARDING HOUSE</div>
             </div>
             <Link
                 href="/review/create"
