@@ -1,5 +1,5 @@
 <script setup>
-import { ref, Link } from 'vue';
+import { ref } from 'vue';
 import PaymentHistoryTab from '../../Shared/Payment/PaymentHistoryTab.vue';
 import Header from '../../Shared/Header.vue';
 import Footer from '../../Shared/Footer.vue';
@@ -23,11 +23,12 @@ let showDetail = (invoice_id) => {
     body: JSON.stringify({
       invoice_id: invoice_id,
     })
-  }).then((response) => response.json())
-    .then((data) => {
-      detailInvoice.value = data[1];
-      price.value = data[0];
-    })
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    price.value = convertAmount(data[0]);
+    detailInvoice.value = data[1];
+  });
   detailBox.value = true;
 }
 
@@ -36,10 +37,16 @@ let closeDetail = () => {
   detailInvoice.value = [];
   price.value = '';
 }
+
+let convertAmount = (amount) => {
+    return new Number(amount).toLocaleString("id-ID");
+}
+
 </script>
 
 <template>
     <Header />
+    {{ price }}
     <div class="z-10 my-4" >
         <section class="flex text-center align-middle mx-10">
             <div class="font-bold self-center">
@@ -76,7 +83,7 @@ let closeDetail = () => {
     </div>
     <DetailBoxTenant v-if="detailBox"
     :invoiceDetail=this.detailInvoice
-    :price = this.price
+    :price=this.price
     :user-role=this.userRole
     @closeDetail = "closeDetail" />
     <Footer />

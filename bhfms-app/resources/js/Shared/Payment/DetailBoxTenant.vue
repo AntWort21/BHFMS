@@ -6,7 +6,9 @@ defineProps({
 });
 
 const emit = defineEmits(['closeDetail']);
-let query = new URLSearchParams(window.location.search);
+
+const query = new URLSearchParams(window.location.search);
+
 let closeDetail = () => {
     emit('closeDetail');
 }
@@ -19,22 +21,8 @@ let redirect = (url) => {
     window.location.href = url;
 }
 
-let getFileName = (payment_date, invoice_id) => {
-    // const dateParts = payment_date.split('-');
-    // console.log(new Date(payment_date).toISOString());
-    console.log(payment_date);
-//     const year = date.getUTCFullYear();
-// const month = date.getUTCMonth();
-// const day = date.getUTCDate();
-//     const year = dateParts[0];
-//     const month = dateParts[1] - 1; // month is 0-based in JS
-//     const day = dateParts[2];
-// console.log(new Date().toISOString())
-    // console.log(new Date(Date.UTC(year, month, day)).toISOString());
-    return new Date(payment_date).toISOString().slice(0,10).replace(/-/g,"")
-  + invoice_id + '.png';
-    // +invoice_id+'.png';
-
+const getFileName = (paymentDate, invoiceId) => {
+  return new Date(paymentDate).toISOString().slice(0,10).replace(/-/g,"") + invoiceId + '.png';
 }
 </script>
 
@@ -107,7 +95,7 @@ let getFileName = (payment_date, invoice_id) => {
                                     <p>:</p>
                                 </div>
                                 <img 
-                                class="px-5 w-7/12 appearance-none"
+                                class="px-5 w-7/12 h-[150px] appearance-none"
                                 v-if="invoiceDetail.payment_date"
                                 :src="`/storage/proofOfPayment/`+getFileName(invoiceDetail.payment_date, invoiceDetail.invoice_id)"
                                 alt="Proof Of Payment">

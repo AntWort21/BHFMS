@@ -1,5 +1,5 @@
 <script setup>
-import { Link, useForm } from '@inertiajs/inertia-vue3';
+import { useForm } from '@inertiajs/inertia-vue3';
 import FormSelectInputTenant from '../../Shared/Payment/FormSelectInputTenant.vue';
 import Header from '../../Shared/Header.vue';
 import Footer from '../../Shared/Footer.vue';
@@ -8,7 +8,6 @@ import FormErrorMessage from '../../Shared/AccountFormInput/FormErrorMessage.vue
 import FormSelectInputTransactionType from '../../Shared/Payment/FormSelectInputTransactionType.vue';
 import FormRadioInput from '../../Shared/Payment/FormRadioInput.vue';
 import FormTextBoxInputPayment from '../../Shared/Payment/FormTextBoxInputPayment.vue';
-
 
 defineProps({
     listTenants: Array,

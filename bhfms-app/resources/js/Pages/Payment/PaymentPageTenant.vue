@@ -16,13 +16,15 @@ let form = useForm({
     paymentMethod: "",
     proofOfPayment: "",
 });
+
 let query = new URLSearchParams(window.location.search);
+
 let submit = () => {
     form.post("/pay?order="+query.get('order'));
 };
+
 const updateValue = (value) => {
-    console.log(value);
-  form.paymentMethod = value
+    form.paymentMethod = value
 }
 let convertAmount = (amount) => {
     return new Number(amount).toLocaleString("id-ID");

@@ -7,8 +7,10 @@ const props = defineProps({
     optionList: Array,
     defaultText: String,
 });
+
 const emit = defineEmits(['update:value']);
 const valuePayment = ref('');
+
 const updateValuePayment = () => {
     emit('update:value', valuePayment.value);
 };
