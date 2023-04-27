@@ -5,8 +5,9 @@ import Header from '../../Shared/Header.vue';
 import Footer from '../../Shared/Footer.vue';
 import FormTextBoxInputReadOnly from '../../Shared/Payment/FormTextBoxInputReadOnly.vue';
 import FormErrorMessage from '../../Shared/AccountFormInput/FormErrorMessage.vue';
-import FormTextBoxInput from '../../Shared/AccountFormInput/FormTextBoxInput.vue';
 import FormSelectInputTransactionType from '../../Shared/Payment/FormSelectInputTransactionType.vue';
+import FormRadioInput from '../../Shared/Payment/FormRadioInput.vue';
+import FormTextBoxInputPayment from '../../Shared/Payment/FormTextBoxInputPayment.vue';
 
 
 defineProps({
@@ -18,6 +19,7 @@ defineProps({
 let form = useForm({
     paymentDate: "",
     paymentAmount: "",
+    transactionType: "",
     tenantEmail: "",
     paymentRepeat: "",
     transactionType: "",
@@ -26,6 +28,11 @@ let form = useForm({
 let submit = () => {
     form.post("/addPaymentManager");
 };
+
+const today = new Date();
+today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+const minToday = today.toISOString().split('T')[0];
+
 </script>
 <template>
     <Header />
@@ -52,19 +59,21 @@ let submit = () => {
                 />
             </div>
             <div>
-                <FormTextBoxInput
+                <FormTextBoxInputPayment
                     v-model="form.paymentDate"
                         :input-type="'date'"
-                        :label-name="'Month'"/>
+                        :label-name="'Date'"
+                        :min-value="minToday"/>
                 <FormErrorMessage
                     :error-message="form.errors.paymentDate"
                 />
             </div>
             <div>
-                <FormTextBoxInput
+                <FormTextBoxInputPayment
                     v-model="form.paymentAmount"
                         :input-type="'number'"
-                        :label-name="'Amount'"/>
+                        :label-name="'Amount'"
+                        :min-value="'10000'"/>
                 <FormErrorMessage
                    :error-message="form.errors.paymentAmount"
                 />
@@ -73,17 +82,16 @@ let submit = () => {
                 <FormSelectInputTenant
                     v-model="form.tenantEmail"
                     :option-list="listTenants"
-                    :label-desc="'Tenant'"
+                    :label-desc="'Select Tenant'"
                     :label-name="'Tenant'"
                 />
                 <FormErrorMessage
                     :error-message="form.errors.tenantEmail"
                 />
             </div>
-            <div>
-                <FormTextBoxInput
+            <div clas>
+                <FormRadioInput
                     v-model="form.paymentRepeat"
-                        :input-type="'radio'"
                         :label-name="'Repeat Payment'"
                 />
                 <FormErrorMessage

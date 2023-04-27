@@ -9,7 +9,7 @@ defineEmits(['update:modelValue'])
 </script>
 
 <template>
-    <label class="block">{{ labelName }}</label>
+    <label class="block  mt-2">{{ labelName }}</label>
     <select
         @change="$event"
         @input="$emit('update:modelValue', $event.target.value)"

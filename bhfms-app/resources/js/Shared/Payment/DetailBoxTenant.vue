@@ -2,16 +2,39 @@
 defineProps({
     invoiceDetail: Object,
     price: String,
+    userRole: Number,
 });
 
 const emit = defineEmits(['closeDetail']);
-
+let query = new URLSearchParams(window.location.search);
 let closeDetail = () => {
     emit('closeDetail');
 }
 
 let convertTime = (date) =>{
-    return new Date(date).toLocaleDateString()
+    return new Date(date).toLocaleDateString();
+}
+
+let redirect = (url) => {
+    window.location.href = url;
+}
+
+let getFileName = (payment_date, invoice_id) => {
+    // const dateParts = payment_date.split('-');
+    // console.log(new Date(payment_date).toISOString());
+    console.log(payment_date);
+//     const year = date.getUTCFullYear();
+// const month = date.getUTCMonth();
+// const day = date.getUTCDate();
+//     const year = dateParts[0];
+//     const month = dateParts[1] - 1; // month is 0-based in JS
+//     const day = dateParts[2];
+// console.log(new Date().toISOString())
+    // console.log(new Date(Date.UTC(year, month, day)).toISOString());
+    return new Date(payment_date).toISOString().slice(0,10).replace(/-/g,"")
+  + invoice_id + '.png';
+    // +invoice_id+'.png';
+
 }
 </script>
 
@@ -77,6 +100,18 @@ let convertTime = (date) =>{
                                 </div>
                                 <p class="px-5 w-7/12">{{ invoiceDetail.payment_status }}</p>
                             </div>
+                            <div class="flex flex-row"
+                            v-if="invoiceDetail.payment_status=='Processing'||invoiceDetail.payment_status=='Approved'">
+                                <div class="flex flex-row w-5/12 justify-between">
+                                    <p>Proof Of Payment</p>
+                                    <p>:</p>
+                                </div>
+                                <img 
+                                class="px-5 w-7/12 appearance-none"
+                                v-if="invoiceDetail.payment_date"
+                                :src="`/storage/proofOfPayment/`+getFileName(invoiceDetail.payment_date, invoiceDetail.invoice_id)"
+                                alt="Proof Of Payment">
+                            </div>
                         </div>
                         <div class="flex flex-row justify-between my-10">
                             <p>Total Price</p>
@@ -84,11 +119,14 @@ let convertTime = (date) =>{
                         </div>
                     </div>
                     <div class="flex flex-col border w-2/6 px-3 items-center">
-                        <button class="mt-4 mb-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-if="invoiceDetail.payment_status=='pending'" href="pay?order=">Pay</button>
-                        <button class="mt-4 mb-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-else href="">Review</button>
+                        <button class="mt-4 mb-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-if="invoiceDetail.payment_status=='Pending' && userRole==2" @click="redirect('/pay?order='+invoiceDetail.invoice_id)">Pay</button>
+                        <button class="mt-4 mb-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-else-if="invoiceDetail.payment_status=='Approved' && userRole==2" href="">Review</button>
                         
                         <button class="my-2 bg-blue-500 py-1 w-24 text-white rounded-full">Chat</button>
-                        <button class="my-2 bg-blue-500 py-1 w-24 text-white rounded-full">Complain</button>
+                        
+                        <button class="my-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-if="userRole==2">Complain</button>
+                        <button class="my-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-else-if="userRole==1||userRole==3" @click="redirect('/cancelPayment?order='+invoiceDetail.invoice_id+'&boarding='+query.get('boarding'))">Cancel</button>
+
                     </div>
                 </div>
             </div>

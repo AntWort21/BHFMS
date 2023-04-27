@@ -96,7 +96,7 @@ entity "rent_transaction" as rt {
   --
   *tenant_boarding_id : Integer <<FK>>
   *transaction_header_id : Integer <<FK>> 
-  *payment_type_id : Integer <<FK>>
+  *payment_method_id : Integer <<FK>>
   *start_date : Date
   *end_date : Date
   *payment_status : Boolean
@@ -172,10 +172,10 @@ entity "wishlists" as fr {
   *updated_at : Date
 }
 
-entity "payment_types" as pymnt {
+entity "payment_methods" as pymnt {
   *id: Integer<<PK>>
   --
-  *payment_type_name: Varchar
+  *payment_method_name: Varchar
   *created_at : Date
   *updated_at : Date
 }

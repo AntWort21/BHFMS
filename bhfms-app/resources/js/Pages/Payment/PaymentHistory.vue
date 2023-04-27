@@ -25,7 +25,6 @@ let showDetail = (invoice_id) => {
     })
   }).then((response) => response.json())
     .then((data) => {
-      console.log(data)
       detailInvoice.value = data[1];
       price.value = data[0];
     })
@@ -70,6 +69,7 @@ let closeDetail = () => {
             <div v-for="(payment) in paymentList" class="flex justify-around text-center py-1">
                 <PaymentHistoryTab
                 :payment=payment
+                :userRole="userRole"
                 @showDetail="showDetail" />
             </div>
         </section>
@@ -77,6 +77,7 @@ let closeDetail = () => {
     <DetailBoxTenant v-if="detailBox"
     :invoiceDetail=this.detailInvoice
     :price = this.price
+    :user-role=this.userRole
     @closeDetail = "closeDetail" />
     <Footer />
 </template>

@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\PaymentType;
+use App\Models\PaymentMethod;
 use Illuminate\Database\Seeder;
 
-class PaymentTypesSeeder extends Seeder
+class PaymentMethodsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,16 +14,16 @@ class PaymentTypesSeeder extends Seeder
      */
     public function run()
     {
-        PaymentType::create([
-            "payment_type_name"=>"QRIS",
+        PaymentMethod::create([
+            "payment_method_name"=>"QRIS",
             "status" =>"disable"
         ]);
-        PaymentType::create([
-            "payment_type_name"=>"BCA",
+        PaymentMethod::create([
+            "payment_method_name"=>"BCA",
             "status" =>"available"
         ]);
-        PaymentType::create([
-            "payment_type_name"=>"Mandiri",
+        PaymentMethod::create([
+            "payment_method_name"=>"Mandiri",
             "status" =>"available"
         ]);
     }

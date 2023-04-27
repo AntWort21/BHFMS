@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             BoardingImageSeeder::class,
             OwnerBoardingSeeder::class,
             TenantBoardingSeeder::class,
-            PaymentTypesSeeder::class,
+            PaymentMethodsSeeder::class,
             TransactionTypesSeeder::class,
             RentTransactionSeeder::class,
             ComplainTypeSeeder::class,
