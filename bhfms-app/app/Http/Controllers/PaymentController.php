@@ -7,6 +7,7 @@ use App\Models\PaymentMethod;
 use App\Models\RentTransaction;
 use App\Models\TenantBoarding;
 use App\Models\TransactionType;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -153,13 +154,15 @@ class PaymentController extends Controller
 
     public function getInvoiceDetail(Request $request)
     {
-        $transactionDetail = RentTransaction::join('tenant_boardings','tenant_boardings.id','=','tenant_boarding_id')
-        ->join('boardings','boardings.id','=','tenant_boardings.boarding_id')
-        ->join('users','users.id','=','tenant_boardings.user_id')
-        ->join('transaction_types','transaction_type_id','=','transaction_types.id')
-        ->where("invoice_id",json_decode($request->getContent())->invoice_id)
+        $invoice_id = json_decode($request->getContent())->invoice_id;
+        
+        $transactionDetail = RentTransaction::join('transaction_types','transaction_type_id','=','transaction_types.id')
+        ->where("invoice_id",$invoice_id)
         ->first();
-        return [$transactionDetail->amount,$transactionDetail];
+        $tenant_boarding = TenantBoarding::where('id',$transactionDetail->tenant_boarding_id)->first();
+        $username = User::where('id',$tenant_boarding->user_id)->value('user_name');
+        $boradingName = Boarding::where('id',$tenant_boarding->boarding_id)->value('boarding_name');
+        return [$transactionDetail->amount,$transactionDetail,$username,$boradingName];
     }
 
     public function getPaymentPageTenant()

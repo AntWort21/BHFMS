@@ -3,6 +3,8 @@ defineProps({
     invoiceDetail: Object,
     price: String,
     userRole: Number,
+    username: String,
+    boardingName: String
 });
 
 const emit = defineEmits(['closeDetail']);
@@ -28,7 +30,6 @@ const getFileName = (paymentDate, invoiceId) => {
 
 <template>
    <div @scroll.prevent class="fixed flex w-full h-full bg-black/70  top-0 left-0 right-0 bottom-0 overflow-hidden items-center align-middle justify-center z-10 pointer-events-auto cursor-pointer" v-on:click="closeDetail">
-        
    </div>
    <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
             <div class="relative flex flex-col bg-white/100 opacity-100">
@@ -58,14 +59,14 @@ const getFileName = (paymentDate, invoiceId) => {
                                     <p>Tennant</p>
                                     <p>:</p>
                                 </div>
-                                <p class="px-5 w-7/12">{{ invoiceDetail.user_name }}</p>
+                                <p class="px-5 w-7/12">{{ username }}</p>
                             </div>
                             <div class="flex flex-row">
                                 <div class="flex flex-row w-5/12 justify-between">
                                     <p>Boarding House</p>
                                     <p>:</p>
                                 </div>
-                                <p class="px-5 w-7/12">{{ invoiceDetail.boarding_name }}</p>
+                                <p class="px-5 w-7/12">{{ boardingName }}</p>
                             </div>
                             <div class="flex flex-row">
                                 <div class="flex flex-row w-5/12 justify-between">

@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, defineExpose  } from 'vue';
 import { Link } from '@inertiajs/inertia-vue3'
 import PaymentHistoryTab from '../../Shared/Payment/PaymentHistoryTab.vue';
 import Header from '../../Shared/Header.vue';
@@ -10,10 +10,18 @@ defineProps({
   paymentList: Object,
 })
 
+defineExpose({
+  detailInvoice
+});
+
 const csrfToken = document.getElementsByName("csrf-token")[0].content; 
 const detailBox = ref(false);
-const detailInvoice = ref([]);
-const price = ref('');
+const detailInvoice = ref({
+  invoice: [],
+  price: 0,
+  username: '',
+  boardingName: ''
+});
 
 let showDetail = (invoice_id) => {
   fetch('getInvoiceData', {
@@ -27,16 +35,22 @@ let showDetail = (invoice_id) => {
   })
   .then((response) => response.json())
   .then((data) => {
-    price.value = convertAmount(data[0]);
-    detailInvoice.value = data[1];
+    console.log(data[1])
+    detailInvoice.value.price = convertAmount(data[0]);
+    detailInvoice.value.invoice = data[1];
+    detailInvoice.value.username = data[2];
+    detailInvoice.value.boardingName = data[3];
   });
+
   detailBox.value = true;
 }
 
 let closeDetail = () => {
   detailBox.value = false;
-  detailInvoice.value = [];
-  price.value = '';
+  detailInvoice.value.price = 0;
+    detailInvoice.value.invoice = [];
+    detailInvoice.value.username = '';
+    detailInvoice.value.boardingName = '';
 }
 
 let convertAmount = (amount) => {
@@ -95,10 +109,12 @@ let convertAmount = (amount) => {
         </Link>
       </div>
     </div>
-    <DetailBoxTenant v-if="detailBox"
-    :invoiceDetail=this.detailInvoice
-    :price=this.price
-    :user-role=this.userRole
+    <DetailBoxTenant v-if = "detailBox"
+    :invoiceDetail = detailInvoice.invoice
+    :price = detailInvoice.price
+    :username = detailInvoice.username
+    :boarding-name= detailInvoice.boardingName
+    :user-role = this.userRole
     @closeDetail = "closeDetail" />
     <Footer />
 </template>
