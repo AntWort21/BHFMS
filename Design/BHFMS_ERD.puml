@@ -95,12 +95,16 @@ entity "rent_transaction" as rt {
   *id : Integer <<PK>>
   --
   *tenant_boarding_id : Integer <<FK>>
-  *transaction_header_id : Integer <<FK>> 
+  *transaction_type_id : Integer <<FK>> 
   *payment_method_id : Integer <<FK>>
+  *invoice_id : Integer
+  *amount : Integer
   *start_date : Date
   *end_date : Date
-  *payment_status : Boolean
+  *payment_status : Enum
   *declined_reason : Varchar
+  *payment_transferred_status : Enum
+  *repeat_payment : Boolean
   *created_at : Date
   *updated_at : Date
 }
@@ -199,6 +203,14 @@ entity "chatrooms" as chtrm {
   *updated_at : Date
 }
 
+entity "transaction_tpyes" as tt {
+  *id : Integer <<PK>>
+  --
+  *transaction_tpye_name : Varchar
+  *created_at : Date
+  *updated_at : Date
+}
+
 usrl ||..o{usr
 bh ||..o{ bhi
 bh ||..o{ f
@@ -209,6 +221,7 @@ bh ||..o{ tb
 
 tb ||..o{ rt
 pymnt ||..o{ rt
+tt ||..o{rt
 
 usr ||..o{ lobh
 lobh ||..o{ bh
