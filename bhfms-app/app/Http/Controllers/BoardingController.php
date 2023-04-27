@@ -11,6 +11,7 @@ use App\Models\Facility;
 use App\Models\FacilityDetail;
 use App\Models\ManagerBoarding;
 use App\Models\OwnerBoarding;
+use App\Models\TenantBoarding;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -151,16 +152,21 @@ class BoardingController extends Controller
             $facilityList[$key]->facility_detail_name = FacilityDetail::where('id', $facility->facility_id)->first()->facility_detail_name;
         }
 
+        $currVacancy = $selectedBoardingHouseDetail->rooms - (TenantBoarding::where([['boarding_id', $request->id],['status','approved']])->count());
+        // if($currVacancy > 0)
+        $currVacancy > 0 ? $isAvailable = true : $isAvailable = false;
+
         return Inertia::render('Boarding/SelectedBoardingHouse', [
             'boardingHouseDetail' => $selectedBoardingHouseDetail,
             'images' => $boardingHouseImages,
             'ownerName' => $owner->user_name,
             'ownerPicture' => $owner->profile_picture,
-            'facilityList' => $facilityList->pluck('facility_detail_name')
+            'facilityList' => $facilityList->pluck('facility_detail_name'),
+            'currVacancy' => $currVacancy,
+            'isAvailable' =>$isAvailable,
         ]);
     }
 
-    //Show the form for creating a new resource.
     public function getCreateOwnerBoarding()
     {
         $Manager_data = User::where('user_role_id','=','4')->get();
@@ -226,11 +232,10 @@ class BoardingController extends Controller
                 $path = str_replace(" ", "-", $path);
                 $path = time() . '-' . $path;
                 $path = 'Boarding_House_Images/' . $path;
-
                 $img = new BoardingImage();
 
                 Storage::putFileAs('public/',$image, $path);
-                $img->image = $path;
+                $img->image = '/storage/' . $path;
                 $img->boarding_id = $BoardingNow->id;
                 $img->save();
             }
@@ -355,17 +360,15 @@ class BoardingController extends Controller
                 $path = str_replace(" ", "-", $path);
                 $path = time() . '-' . $path;
                 $path = 'Boarding_House_Images/' . $path;
-
                 $img = new BoardingImage();
 
                 Storage::putFileAs('public/',$image, $path);
-                $img->image = $path;
+                $img->image = '/storage/' . $path;
                 $img->boarding_id = $request->id;
                 $img->save();
             }
         }
 
-        // return redirect();
         if(Auth::user()->user_role_id==1){
             return redirect('/boardingAdmin')->with('message', 'Success Updating Boarding House');
         }else if (Auth::user()->user_role_id==3){

@@ -53,7 +53,7 @@ let selectedLogout = ref(false);
                 >
             </div>
 
-            <Link href="">Homepage</Link>
+            <Link href="/">Homepage</Link>
 
             <!-- <Link href="">Boarding House List</Link>
 

@@ -4,7 +4,7 @@ import Footer from "../../Shared/Footer.vue";
 import Carousel from "../../Shared/Carousel/Carousel.vue";
 import FormTextBoxInput from "../../Shared/AccountFormInput/FormTextBoxInput.vue";
 import { useForm } from "@inertiajs/inertia-vue3";
-import { ref } from "vue";
+import { computed, ref, onMounted } from "vue";
 
 defineProps({
     boardingHouseDetail: Object,
@@ -12,6 +12,8 @@ defineProps({
     images: Array,
     ownerName: String,
     ownerPicture: String,
+    currVacancy: Number,
+    isAvailable: Boolean,
 });
 
 let totalPrice = ref(null);
@@ -29,6 +31,16 @@ let submit = () => {
 <template>
     <Header />
     <Carousel :slides="images" controls indicators interval class="my-8" />
+    <!-- Trial only -->
+    <!-- <div
+        class="flow-root mt-4 items-center align-center flex shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        v-for="img in images"
+    >
+        {{ img }}
+    </div>
+
+    {{ currVacancy }} -->
+    <!-- End Trial Only -->
     <section class="mb-10 flex justify-center items-center">
         <div class="w-1/2">
             <div class="space-y-6">
@@ -72,6 +84,15 @@ let submit = () => {
                         <div
                             class="w-full flex flex-col items-center justify-center"
                         >
+                            <div
+                                v-if="isAvailable"
+                                class="text-black font-semibold"
+                            >
+                                Capacity : {{ currVacancy }}
+                            </div>
+                            <div v-else class="text-red-500 font-semibold">
+                                Capacity : {{ currVacancy }}
+                            </div>
                             <div class="flex items-center">
                                 <p class="text-xl font-semibold">
                                     IDR {{ boardingHouseDetail.price }}
@@ -87,7 +108,8 @@ let submit = () => {
                             </div>
                             <div class="w-1/2 flex justify-end mt-5">
                                 <button
-                                    class="w-36 h-10 bg-indigo-900 flex justify-center items-center text-white rounded-md"
+                                    class="w-36 h-10 bg-indigo-900 flex justify-center items-center text-white rounded-md disabled:opacity-50"
+                                    :disabled="!isAvailable"
                                 >
                                     Rent
                                 </button>
