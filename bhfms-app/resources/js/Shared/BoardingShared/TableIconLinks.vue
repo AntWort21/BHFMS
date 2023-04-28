@@ -14,7 +14,6 @@ const deleteBoarding = (idx) => {
     <td class="py-3 px-6 text-center">
         <div class="flex item-center justify-center">
             <!-- See details (Admin, Owner, Manager) -->
-
             <div
                 class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
             >

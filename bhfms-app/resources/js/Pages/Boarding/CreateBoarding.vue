@@ -79,12 +79,6 @@ const submit = () => {
 </script>
 <template>
     <Header />
-    <!-- Check Current User -->
-    <!-- <h1 v-if="$page.props.user">
-        You are logged in as: {{ $page.props.user.user_name }}, with id =
-        {{ $page.props.user.id }}
-    </h1>
-    <h1 v-else>Oh no 😢</h1> -->
     <div class="overflow-x-auto">
         <div
             class="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center bg-gray font-sans overflow-hidden"
