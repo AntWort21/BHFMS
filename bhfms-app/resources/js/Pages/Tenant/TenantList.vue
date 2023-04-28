@@ -30,6 +30,7 @@ watch(search, (value) => {
 <template>
     <Header />
     <!-- component -->
+    <!-- {{ $page.props.user.id }} -->
     <div class="overflow-x-auto">
         <div
             class="top-0 bg-gray-100 flex justify-center bg-gray font-sans overflow-hidden mt-2"
@@ -72,7 +73,9 @@ watch(search, (value) => {
                             <option value="declined">
                                 Declined ({{ declined }})
                             </option>
-                            <option value="done">Done ({{ done }})</option>
+                            <option value="checkout">
+                                Checkout ({{ done }})
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -95,13 +98,11 @@ watch(search, (value) => {
                                 class="border-b border-gray-200 bg-gray-50 hover:bg-gray-100"
                                 :key="idx"
                             >
-                                {{
-                                    user.id
-                                }}
                                 <td class="py-3 px-6 text-left">
                                     <div class="flex items-center">
                                         <span class="mr-2 font-medium"
-                                            >{{ user.user_name }}
+                                            >{{ user.user_name }} --
+                                            {{ user.id }}
                                         </span>
                                     </div>
                                 </td>
@@ -113,7 +114,7 @@ watch(search, (value) => {
                                 <StatusIcon :user="user" />
                                 <!-- Icon List -->
                                 <TableIconLinks
-                                    :currentID="user.boarding_id"
+                                    :currentID="user.id"
                                     :user="user"
                                 />
                             </tr>

@@ -27,24 +27,14 @@ let form = useForm({
     endDate: "",
 });
 
-let submit = () => {
-    form.post("/rent");
+let submit = (idx) => {
+    form.post(`/boarding/detail/rent/${idx}`, {});
 };
 </script>
 
 <template>
     <Header />
     <Carousel :slides="images" controls indicators interval class="my-8" />
-    <!-- Trial only -->
-    <!-- <div
-        class="flow-root mt-4 items-center align-center flex shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        v-for="img in images"
-    >
-        {{ img }}
-    </div>
-
-    {{ currVacancy }} -->
-    <!-- End Trial Only -->
     <section class="mb-10 flex justify-center items-center">
         <div class="w-1/2">
             <div class="space-y-6">
@@ -83,7 +73,7 @@ let submit = () => {
                     </div>
                     <form
                         class="w-1/3 flex justify-start items-center shadow-lg p-2"
-                        @submit.prevent="submit"
+                        @submit.prevent="submit(boardingHouseDetail.id)"
                     >
                         <div
                             class="w-full flex flex-col items-center justify-center"
@@ -110,6 +100,11 @@ let submit = () => {
                                     :label-name="'Start Date'"
                                 />
                             </div>
+                            <div
+                                v-if="form.errors.startDate"
+                                v-text="form.errors.startDate"
+                                class="text-red-500 text-xs mt-1"
+                            />
                             <div class="w-1/2 flex justify-end mt-5">
                                 <button
                                     class="w-36 h-10 bg-indigo-900 flex justify-center items-center text-white rounded-md disabled:opacity-50"

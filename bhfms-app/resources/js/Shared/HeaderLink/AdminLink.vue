@@ -10,43 +10,38 @@ defineProps({
     <div
         @mouseover="hover_admin = true"
         @mouseleave="hover_admin = false"
-        class="h-10 w-full items-center text-center"
+        class="px-10 h-10 w-full items-center text-center border-solid border-white z-50"
     >
-        <div v-if="hover_admin == false" class="py-2">
+        <div v-if="hover_admin == false" class="p-2 px-10 whitespace-nowrap">
             Management
-            <!-- <Link href="/boardingAdmin"> Boarding Admin </Link> -->
         </div>
         <div
             v-if="hover_admin == true"
-            class="border-solid border-b-4 border-indigo-900 py-2 bg-indigo-900 hover:bg-indigo-600"
+            class="whitespace-nowrap py-2 bg-indigo-900 z-50 px-10"
         >
             Management
-            <!-- <Link href="/boardingAdmin"> Boarding Admin </Link> -->
         </div>
         <div
-            class="p-2 bg-indigo-900 whitespace-nowrap"
+            class="bg-indigo-900 whitespace-nowrap z-50"
             v-if="hover_admin == true"
         >
             <ul>
-                <li class="hover:bg-indigo-600">
-                    <Link href="/profile">Boarding Management</Link>
+                <li class="z-50 py-2 bg-indigo-900 hover:opacity-75">
+                    <Link href="/boardingAdmin">Boarding Management</Link>
                 </li>
-                <li class="hover:bg-indigo-600">
-                    <Link href="/profile">Facility Management</Link>
+                <li class="z-50 py-2 bg-indigo-900 hover:opacity-75">
+                    <Link href="/tenantAdmin">Facility Management</Link>
                 </li>
-                <li class="hover:bg-indigo-600">
-                    <Link href="/logout">User Management</Link>
+                <li class="z-50 py-2 bg-indigo-900 hover:opacity-75">
+                    <Link href="/userAdmin">User Management</Link>
                 </li>
             </ul>
         </div>
     </div>
 
-    <Link class="h-10 w-full text-center py-2 whitespace-nowrap">
-        Complain Management</Link
-    >
-    <Link class="h-10 w-full text-center py-2 whitespace-nowrap">
-        Payment Management</Link
-    >
-    <!-- <Link class="h-10 w-full items-center text-center px-6 py-2"> ???</Link> -->
-    <!-- <Link class="h-10 w-full items-center text-center px-6 py-2"> ???</Link> -->
+    <Link
+        href="#"
+        class="h-10 w-full text-center p-2 whitespace-nowrap z-50 bg-indigo-900 hover:opacity-75"
+        >Payment History
+    </Link>
 </template>

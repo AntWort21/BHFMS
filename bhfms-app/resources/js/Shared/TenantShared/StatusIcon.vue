@@ -7,28 +7,28 @@ defineProps({
 <template>
     <td class="py-3 px-6 text-left">
         <span
-            v-if="user.status == 'approved'"
+            v-if="user.tenant_status == 'approved'"
             class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs"
         >
             Approved
         </span>
 
         <span
-            v-else-if="user.status == 'pending'"
+            v-else-if="user.tenant_status == 'pending'"
             class="bg-yellow-200 text-yellow-600 py-1 px-3 rounded-full text-xs"
             >Pending</span
         >
 
         <span
-            v-else-if="user.status == 'declined'"
+            v-else-if="user.tenant_status == 'declined'"
             class="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs"
             >Declined</span
         >
 
         <span
-            v-else
+            v-else-if="user.tenant_status == 'checkout'"
             class="bg-slate-200 text-slate-600 py-1 px-3 rounded-full text-xs"
-            >Done</span
+            >Checkout</span
         >
     </td>
 </template>

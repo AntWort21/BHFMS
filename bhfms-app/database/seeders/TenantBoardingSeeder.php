@@ -231,5 +231,34 @@ class TenantBoardingSeeder extends Seeder
             "end_date" => Carbon::create(2022, 4, 1)
         ]);
 
+
+        TenantBoarding::create([
+            "user_id" => 1,
+            "boarding_id" => 4,
+            "start_date" => Carbon::today(),
+            "end_date" => Carbon::create(2023, 5, 5),
+            "tenant_status" => 1,
+            "start_date" => Carbon::create(2022, 1, 1),
+            "end_date" => Carbon::create(2022, 4, 1)
+        ]);
+        TenantBoarding::create([
+            "user_id" => 2,
+            "boarding_id" => 2,
+            "start_date" => Carbon::today(),
+            "end_date" => Carbon::create(2023, 5, 5),
+            "tenant_status" => 1,
+            "start_date" => Carbon::create(2022, 1, 1),
+            "end_date" => Carbon::create(2022, 4, 1)
+        ]);
+        TenantBoarding::create([
+            "user_id" => 3,
+            "boarding_id" => 2,
+            "start_date" => Carbon::today(),
+            "end_date" => Carbon::create(2023, 5, 5),
+            "tenant_status" => 1,
+            "start_date" => Carbon::create(2022, 1, 1),
+            "end_date" => Carbon::create(2022, 4, 1)
+        ]);
+
     }
 }
