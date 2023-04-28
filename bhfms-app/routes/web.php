@@ -6,6 +6,7 @@ use App\Http\Controllers\BoardingController;
 use App\Http\Controllers\ComplainController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\BoardingImageController;
+use App\Http\Controllers\TenantController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -72,6 +73,7 @@ Route::get('/boarding/delete/{id}', [BoardingController::class, 'deleteBoarding'
 Route::put('/boarding/image/delete/{id}', [BoardingImageController::class, 'deleteImage']);
 
 Route::get('/boardingManager', [BoardingController::class, 'indexManager']);
+Route::get('/tenantBoarding', [TenantController::class, 'getAllTenantBoarding']);
 
 Route::get('/boarding/test', [BoardingController::class, 'testCarousel']);
 Route::get('/boarding/all', [BoardingController::class, 'getAllBoardingHouse']);

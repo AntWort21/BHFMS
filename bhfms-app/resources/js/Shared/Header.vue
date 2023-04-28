@@ -1,11 +1,18 @@
-d
 <script setup>
 import { Link } from "@inertiajs/inertia-vue3";
 import { ref } from "vue";
 
-let hover = ref(false);
+import AdminLink from "./HeaderLink/AdminLink.vue";
+import OwnerLink from "./HeaderLink/OwnerLink.vue";
+import TenantLink from "./HeaderLink/TenantLink.vue";
+
+let hover_profile = ref(false);
 let selectedProfile = ref(false);
 let selectedLogout = ref(false);
+
+let hover_admin = ref(false);
+let hover_tenant = ref(false);
+let hover_owner = ref(false);
 </script>
 
 <template>
@@ -20,49 +27,10 @@ let selectedLogout = ref(false);
             />
         </div>
         <div class="space-x-9 flex">
-            <div v-if="$page.props.user">
-                <Link
-                    class="mx-3"
-                    v-if="$page.props.user.role_id == '1'"
-                    href="/boardingAdmin"
-                    >Boarding House Management</Link
-                >
-                <Link
-                    class="mx-3"
-                    v-if="$page.props.user.role_id == '3'"
-                    href="/boardingOwner"
-                    >Boarding House Management</Link
-                >
-                <Link
-                    class="mx-3"
-                    v-if="$page.props.user.role_id == '4'"
-                    href="/boardingManager"
-                    >Boarding House Management</Link
-                >
-                <Link
-                    class="mx-3"
-                    href=""
-                    v-if="$page.props.user.role_id == '1'"
-                    >Facilities Management</Link
-                >
-                <Link
-                    class="mx-3"
-                    href=""
-                    v-if="$page.props.user.role_id == '1'"
-                    >User Management</Link
-                >
-            </div>
-
-            <Link href="/">Homepage</Link>
-
-            <!-- <Link href="">Boarding House List</Link>
-
-            <Link href="">Make Complains</Link>
-            <Link href="">Payments</Link>
-
-            <Link href="">My Boarding House</Link>
-            <Link href="">My Complains</Link>
-            <Link href="">My Payments</Link> -->
+            <!-- <Link href="/">Homepage</Link> -->
+            <!-- <AdminLink :hover_admin="hover_admin" /> -->
+            <OwnerLink :hover_owner="hover_owner" />
+            <TenantLink />
         </div>
         <div class="flex space-x-3">
             <input
@@ -71,12 +39,12 @@ let selectedLogout = ref(false);
                 placeholder="Search"
             />
             <div
-                @mouseover="hover = true"
-                @mouseleave="hover = false"
+                @mouseover="hover_profile = true"
+                @mouseleave="hover_profile = false"
                 class="h-10 w-full items-center text-center"
             >
                 <div
-                    v-if="hover == false"
+                    v-if="hover_profile == false"
                     class="px-6 py-2 bg-white rounded-2xl text-black"
                 >
                     <div v-if="$page.props.user">
@@ -85,7 +53,7 @@ let selectedLogout = ref(false);
                     <div v-else>User</div>
                 </div>
                 <div
-                    v-if="hover == true"
+                    v-if="hover_profile == true"
                     class="border-solid border-b-4 border-indigo-900 px-6 py-2 bg-white rounded-2xl text-black"
                 >
                     <div v-if="$page.props.user">
@@ -95,7 +63,7 @@ let selectedLogout = ref(false);
                 </div>
                 <div
                     class="rounded-lg bg-white text-black"
-                    v-if="hover == true"
+                    v-if="hover_profile == true"
                 >
                     <ul>
                         <li class="p-2 hover:bg-gray-200 hover:rounded-lg">
