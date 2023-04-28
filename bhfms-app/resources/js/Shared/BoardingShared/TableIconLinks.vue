@@ -45,7 +45,7 @@ const deleteBoarding = (idx) => {
             <div v-if="$page.props.user.role_id == 1" class="flex">
                 <!-- Edit -->
                 <div
-                    v-if="boarding.status != 'banned'"
+                    v-if="boarding.owner_status != 'banned'"
                     class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                 >
                     <Link :href="`boarding/update/${currentID}`">
@@ -67,7 +67,7 @@ const deleteBoarding = (idx) => {
 
                 <!-- Accept or Decline Req -->
                 <div
-                    v-if="boarding.status == 'pending'"
+                    v-if="boarding.owner_status == 'pending'"
                     class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                 >
                     <Link :href="''">
@@ -90,7 +90,7 @@ const deleteBoarding = (idx) => {
 
                 <!-- Delete -->
                 <div
-                    v-if="boarding.status != 'banned'"
+                    v-if="boarding.owner_status != 'banned'"
                     class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                 >
                     <Link :href="`boarding/delete/${currentID}`">
@@ -117,7 +117,7 @@ const deleteBoarding = (idx) => {
             <div v-if="$page.props.user.role_id == 3" class="flex">
                 <!-- Edit -->
                 <div
-                    v-if="boarding.status != 'banned'"
+                    v-if="boarding.owner_status != 'banned'"
                     class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                 >
                     <Link :href="`boarding/update/${currentID}`">
@@ -139,7 +139,7 @@ const deleteBoarding = (idx) => {
 
                 <!-- Delete -->
                 <div
-                    v-if="boarding.status != 'banned'"
+                    v-if="boarding.owner_status != 'banned'"
                     class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                 >
                     <Link :href="`boarding/delete/${currentID}`">
@@ -161,7 +161,7 @@ const deleteBoarding = (idx) => {
 
                 <!-- Reapprove (Owner Only) -->
                 <div
-                    v-if="boarding.status == 'declined'"
+                    v-if="boarding.owner_status == 'declined'"
                     class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110 mt-0.5"
                 >
                     <Link :href="''">
