@@ -5,6 +5,7 @@ defineProps({
     labelDesc: String,
     defaultText: String,
 });
+
 defineEmits(['update:modelValue'])
 </script>
 

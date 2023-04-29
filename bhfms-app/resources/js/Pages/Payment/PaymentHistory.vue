@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineExpose  } from 'vue';
+import { ref } from 'vue';
 import { Link } from '@inertiajs/inertia-vue3'
 import PaymentHistoryTab from '../../Shared/Payment/PaymentHistoryTab.vue';
 import Header from '../../Shared/Header.vue';
@@ -35,7 +35,6 @@ let showDetail = (invoice_id) => {
   })
   .then((response) => response.json())
   .then((data) => {
-    console.log(data[1])
     detailInvoice.value.price = convertAmount(data[0]);
     detailInvoice.value.invoice = data[1];
     detailInvoice.value.username = data[2];
