@@ -6,6 +6,7 @@ use App\Http\Controllers\BoardingController;
 use App\Http\Controllers\ComplainController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\BoardingImageController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,6 +54,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/review/create', [ReviewController::class, 'getCreateReviewOrViewReviewPage']);
     Route::post('/review/create', [ReviewController::class, 'createReview']);
     Route::post('/review/update', [ReviewController::class, 'updateReview']);
+
+    Route::get('/wishlist', [WishlistController::class, 'showWishlist']);
+    Route::post('/wishlist/add', [WishlistController::class, 'addWishlist']);
+    Route::post('/wishlist/remove', [WishlistController::class, 'removeWishlist']);
 });
 
 // Route::resource('boarding', BoardingController::class);
