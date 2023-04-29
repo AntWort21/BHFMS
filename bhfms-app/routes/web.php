@@ -6,6 +6,7 @@ use App\Http\Controllers\BoardingController;
 use App\Http\Controllers\ComplainController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\BoardingImageController;
+use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\TenantController;
 use Illuminate\Support\Facades\Route;
 
@@ -85,3 +86,12 @@ Route::post('/tenantBoarding/request/{id}', [TenantController::class, 'RequestTe
 
 Route::get('/boarding/test', [BoardingController::class, 'testCarousel']);
 Route::get('/boarding/all', [BoardingController::class, 'getAllBoardingHouse']);
+
+
+Route::get('/facilityAll',[FacilityController::class, 'getAllFacilityPage']);
+Route::get('/facility/create',[FacilityController::class, 'getFacilityCreate']);
+Route::post('/facility/create',[FacilityController::class, 'FacilityCreate']);
+Route::get('/facility/update/{id}',[FacilityController::class, 'getFacilityUpdate']);
+Route::post('/facility/update/{id}',[FacilityController::class, 'FacilityUpdate']);
+Route::get('/facility/read/{id}',[FacilityController::class, 'getFacilityDetail']);
+Route::get('/facility/delete/{id}',[FacilityController::class, 'FacilityDelete']);

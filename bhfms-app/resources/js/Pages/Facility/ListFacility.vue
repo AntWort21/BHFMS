@@ -1,59 +1,95 @@
 <script setup>
+// import { Link } from "@inertiajs/inertia";
+import { Link } from "@inertiajs/inertia-vue3";
+// import { Link, watch } from "vue";
+import Header from "../../Shared/Header.vue";
+import Footer from "../../Shared/Footer.vue";
+import Pagination from "../../Shared/Pagination.vue";
 defineProps({
     facilities: Object,
 });
 </script>
 
 <template>
-    <!-- component -->
+    <Header />
     <div class="overflow-x-auto">
         <div
-            class="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center bg-gray font-sans overflow-hidden"
+            class="px-6 top-0 bg-gray-100 flex justify-center bg-gray font-sans overflow-hidden mt-2"
         >
-            <div class="w-full lg:w-5/6">
+            <div class="flow-root w-11/12">
+                <div
+                    v-if="$page.props.flash.message"
+                    class="flex items-center bg-blue-500 text-white text-sm font-bold px-4 py-3"
+                    role="alert"
+                >
+                    <svg
+                        class="fill-current w-4 h-4 mr-2"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                    >
+                        <path
+                            d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z"
+                        />
+                    </svg>
+                    <p>{{ $page.props.flash.message }}</p>
+                </div>
+                <div class="flex">
+                    <div class="mt-2 float-left">
+                        <a href="/facility/create">
+                            <div
+                                class="rounded border block bg-white border-gray-400 text-gray-700 py-2 px-4 flex"
+                            >
+                                <button
+                                    class="flex w-6 h-6 mr-5 text-base bg-blue-400 items-center font-bold justify-center text-white rounded-xl font-mono"
+                                >
+                                    +
+                                </button>
+
+                                <h3 class="self-center">Add New Facility</h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
                 <div class="bg-white shadow-md rounded my-6">
                     <table class="min-w-max w-full table-auto">
                         <thead>
                             <tr class="uppercase text-sm leading-normal">
-                                <th class="py-3 px-6 text-left">
-                                    Facility Name
+                                <th
+                                    class="py-3 px-6 text-left whitespace-nowrap"
+                                >
+                                    Facility Icon
                                 </th>
-                                <th class="py-3 px-6 text-left">Status</th>
-                                <th class="py-3 px-6 text-center">
-                                    See Details
+                                <th
+                                    class="py-3 px-6 text-center whitespace-nowrap"
+                                >
+                                    Facility Name
                                 </th>
                                 <th class="py-3 px-6 text-center">Actions</th>
                             </tr>
                         </thead>
+
                         <tbody class="text-gray-600 text-sm font-light">
                             <tr
-                                v-for="facility in facilities"
+                                v-for="(facility, idx) in facilities.data"
                                 class="border-b border-gray-200 bg-gray-50 hover:bg-gray-100"
+                                :key="idx"
                             >
-                                <td class="py-3 px-6 text-left">
+                                <td class="py-3 px-6 text-left w-10">
                                     <div class="flex items-center">
-                                        <span class="font-medium"
-                                            >{{ facility.name }}
-                                        </span>
+                                        <img
+                                            class="mx-auto block"
+                                            :src="facility.facility_img_path"
+                                            alt="No img"
+                                        />
                                     </div>
-                                </td>
-                                <td class="py-3 px-6 text-left">
-                                    <span
-                                        class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs"
-                                    >
-                                        Completed
-                                    </span>
-
-                                    <span
-                                        class="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs"
-                                        >Pending</span
-                                    >
                                 </td>
 
                                 <td class="py-3 px-6 text-center">
-                                    <a href="#">see details</a>
+                                    {{ facility.facility_detail_name }}
                                 </td>
 
+                                <!-- Icon List -->
                                 <td class="py-3 px-6 text-center">
                                     <div
                                         class="flex item-center justify-center"
@@ -61,32 +97,9 @@ defineProps({
                                         <div
                                             class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                                         >
-                                            <a href="http://">
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    stroke="currentColor"
-                                                >
-                                                    <path
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                                                    />
-                                                    <path
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                                                    />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                        <div
-                                            class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
-                                        >
-                                            <a href="http://">
+                                            <Link
+                                                :href="`facility/update/${facility.id}`"
+                                            >
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     fill="none"
@@ -100,34 +113,59 @@ defineProps({
                                                         d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
                                                     />
                                                 </svg>
-                                            </a>
+                                            </Link>
                                         </div>
+
                                         <div
                                             class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                                         >
-                                            <a href="http://">
+                                            <Link
+                                                :href="`facility/delete/${facility.id}`"
+                                            >
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none"
+                                                    width="16"
+                                                    height="16"
                                                     viewBox="0 0 24 24"
+                                                    fill="none"
                                                     stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
                                                 >
-                                                    <path
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                                                    />
+                                                    <circle
+                                                        cx="12"
+                                                        cy="12"
+                                                        r="10"
+                                                    ></circle>
+                                                    <line
+                                                        x1="15"
+                                                        y1="9"
+                                                        x2="9"
+                                                        y2="15"
+                                                    ></line>
+                                                    <line
+                                                        x1="9"
+                                                        y1="9"
+                                                        x2="15"
+                                                        y2="15"
+                                                    ></line>
                                                 </svg>
-                                            </a>
+                                            </Link>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+
+                    <Pagination
+                        class="my-4 pb-4 flex justify-center"
+                        :links="facilities.links"
+                    />
                 </div>
             </div>
         </div>
     </div>
+    <Footer />
 </template>
