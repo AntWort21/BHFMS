@@ -101,8 +101,7 @@ watch(search, (value) => {
                                 <td class="py-3 px-6 text-left">
                                     <div class="flex items-center">
                                         <span class="mr-2 font-medium"
-                                            >{{ user.user_name }} --
-                                            {{ user.id }}
+                                            >{{ user.user_name }}
                                         </span>
                                     </div>
                                 </td>

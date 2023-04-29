@@ -38,10 +38,4 @@ defineProps({
             </ul>
         </div>
     </div>
-
-    <Link
-        href="#"
-        class="h-10 w-full text-center p-2 whitespace-nowrap z-50 bg-indigo-900 hover:opacity-75"
-        >Payment History
-    </Link>
 </template>

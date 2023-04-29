@@ -159,7 +159,6 @@ class BoardingController extends Controller
             $starRating[$reviews[$key]->rating - 1]++;
         }
 
-        // dd($reviews);
         $avg_review = $reviews->count() == 0 ? 0:number_format($totalRating / count($reviews), 2);
 
         return Inertia::render('Boarding/SelectedBoardingHouse', [

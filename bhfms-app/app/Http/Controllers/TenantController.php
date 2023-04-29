@@ -12,23 +12,47 @@ use Inertia\Inertia;
 class TenantController extends Controller
 {
     public function getAllTenantBoarding(Request $request){
-        $Tenant_data = TenantBoarding::
-            join('users', 'users.id', '=', 'tenant_boardings.user_id')
-            ->join('boardings', 'boardings.id', '=', 'tenant_boardings.boarding_id')
-            ->join('owner_boardings', 'boardings.id', '=', 'owner_boardings.boarding_id')
-            ->select('users.user_name','boardings.boarding_name','tenant_boardings.id','tenant_boardings.tenant_status')
-            ->where('owner_boardings.user_id','=',auth()->id())
-            ->when($request->search, function ($query, $search) {
-                if ($search == 'all') {
-                    $query;
-                } else {
-                    $query->where('tenant_status', '=', $search);
-                }
-            })->paginate(5)->withQueryString();
+        // if Owner
+        if(Auth::user()->user_role_id==3){
+            $Tenant_data = TenantBoarding::
+                join('users', 'users.id', '=', 'tenant_boardings.user_id')
+                ->join('boardings', 'boardings.id', '=', 'tenant_boardings.boarding_id')
+                ->join('owner_boardings', 'boardings.id', '=', 'owner_boardings.boarding_id')
+                ->select('users.user_name','boardings.boarding_name','tenant_boardings.id','tenant_boardings.tenant_status')
+                ->where('owner_boardings.user_id','=',auth()->id())
+                ->when($request->search, function ($query, $search) {
+                    if ($search == 'all') {
+                        $query;
+                    } else {
+                        $query->where('tenant_status', '=', $search);
+                    }
+                })->paginate(5)->withQueryString();
+            
+            $all_boarding_count = TenantBoarding::join('boardings', 'boardings.id', "=", 'tenant_boardings.boarding_id')
+            ->join('owner_boardings','owner_boardings.boarding_id',"=",'boardings.id')
+            ->where('owner_boardings.user_id','=',auth()->id())->get();
+        }
+        // if Manager
+        else if(Auth::user()->user_role_id==4){
+            $Tenant_data = TenantBoarding::
+                join('users', 'users.id', '=', 'tenant_boardings.user_id')
+                ->join('boardings', 'boardings.id', '=', 'tenant_boardings.boarding_id')
+                ->join('manager_boardings', 'boardings.id', '=', 'manager_boardings.boarding_id')
+                ->select('users.user_name','boardings.boarding_name','tenant_boardings.id','tenant_boardings.tenant_status')
+                ->where('manager_boardings.user_id','=',auth()->id())
+                ->when($request->search, function ($query, $search) {
+                    if ($search == 'all') {
+                        $query;
+                    } else {
+                        $query->where('tenant_status', '=', $search);
+                    }
+                })->paginate(5)->withQueryString();
+            
+            $all_boarding_count = TenantBoarding::join('boardings', 'boardings.id', "=", 'tenant_boardings.boarding_id')
+            ->join('manager_boardings','manager_boardings.boarding_id',"=",'boardings.id')
+            ->where('manager_boardings.user_id','=',auth()->id())->get();
+        }
 
-        $all_boarding_count = TenantBoarding::join('boardings', 'boardings.id', "=", 'tenant_boardings.boarding_id')
-        ->join('owner_boardings','owner_boardings.boarding_id',"=",'boardings.id')
-        ->where('owner_boardings.user_id','=',auth()->id())->get();
 
         $all = $all_boarding_count->count();
         $apv = $all_boarding_count->where('tenant_status', '=', 'approved')->count();

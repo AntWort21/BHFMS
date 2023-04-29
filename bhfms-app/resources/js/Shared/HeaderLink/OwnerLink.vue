@@ -39,9 +39,21 @@ defineProps({
     </div>
 
     <Link
+        v-if="$page.props.user.role_id == 3"
         href="/boardingOwner"
         class="h-10 w-full text-center p-2 whitespace-nowrap z-50 bg-indigo-900 hover:opacity-75"
         >Boarding Management
+    </Link>
+    <Link
+        v-if="$page.props.user.role_id == 4"
+        href="/boardingManager"
+        class="h-10 w-full text-center p-2 whitespace-nowrap z-50 bg-indigo-900 hover:opacity-75"
+        >Boarding Management
+    </Link>
+    <Link
+        href="#"
+        class="h-10 w-full text-center p-2 whitespace-nowrap z-50 bg-indigo-900 hover:opacity-75"
+        >Complain Management
     </Link>
     <Link
         href="#"
