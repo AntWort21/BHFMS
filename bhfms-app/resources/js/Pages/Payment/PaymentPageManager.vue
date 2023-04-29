@@ -6,8 +6,8 @@ import Footer from '../../Shared/Footer.vue';
 import FormTextBoxInputReadOnly from '../../Shared/Payment/FormTextBoxInputReadOnly.vue';
 import FormErrorMessage from '../../Shared/AccountFormInput/FormErrorMessage.vue';
 import FormSelectInputTransactionType from '../../Shared/Payment/FormSelectInputTransactionType.vue';
-import FormRadioInput from '../../Shared/Payment/FormRadioInput.vue';
 import FormTextBoxInputPayment from '../../Shared/Payment/FormTextBoxInputPayment.vue';
+import FormCheckboxInput from '../../Shared/Payment/FormCheckboxInput.vue';
 
 defineProps({
     listTenants: Array,
@@ -89,7 +89,7 @@ const minToday = today.toISOString().split('T')[0];
                 />
             </div>
             <div clas>
-                <FormRadioInput
+                <FormCheckboxInput
                     v-model="form.paymentRepeat"
                         :label-name="'Repeat Payment'"
                 />

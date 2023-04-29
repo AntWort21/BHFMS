@@ -9,7 +9,7 @@ defineProps({
 <div class="flex flex-row my-2">
     <input
         @input="$emit('update:modelValue', $event.target.value)"
-        type="radio"
+        type="checkbox"
         class="mr-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
         value="true"
     />

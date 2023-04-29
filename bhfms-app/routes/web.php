@@ -82,7 +82,6 @@ Route::get('/addPaymentManager',[PaymentController::class,'getPaymentPageManager
 Route::post('/addPaymentManager',[PaymentController::class,'addPaymentManager']);
 Route::get('/pay',[PaymentController::class,'getPaymentPageTenant']);
 Route::post('/pay',[PaymentController::class,'addPaymentTenant']);
-Route::post('/testPayment',[PaymentController::class,'addPaymentTenant']);
 Route::get('/paymentHistory',[PaymentController::class,'getAllPayment']);
 Route::post('/getInvoiceData',[PaymentController::class,'getInvoiceDetail']);
 Route::get('/cancelPayment',[PaymentController::class,'cancelPayment']);

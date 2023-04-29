@@ -20837,8 +20837,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Shared_Payment_FormTextBoxInputReadOnly_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Shared/Payment/FormTextBoxInputReadOnly.vue */ "./resources/js/Shared/Payment/FormTextBoxInputReadOnly.vue");
 /* harmony import */ var _Shared_AccountFormInput_FormErrorMessage_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../Shared/AccountFormInput/FormErrorMessage.vue */ "./resources/js/Shared/AccountFormInput/FormErrorMessage.vue");
 /* harmony import */ var _Shared_Payment_FormSelectInputTransactionType_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../Shared/Payment/FormSelectInputTransactionType.vue */ "./resources/js/Shared/Payment/FormSelectInputTransactionType.vue");
-/* harmony import */ var _Shared_Payment_FormRadioInput_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../Shared/Payment/FormRadioInput.vue */ "./resources/js/Shared/Payment/FormRadioInput.vue");
-/* harmony import */ var _Shared_Payment_FormTextBoxInputPayment_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../Shared/Payment/FormTextBoxInputPayment.vue */ "./resources/js/Shared/Payment/FormTextBoxInputPayment.vue");
+/* harmony import */ var _Shared_Payment_FormTextBoxInputPayment_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../Shared/Payment/FormTextBoxInputPayment.vue */ "./resources/js/Shared/Payment/FormTextBoxInputPayment.vue");
+/* harmony import */ var _Shared_Payment_FormCheckboxInput_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../Shared/Payment/FormCheckboxInput.vue */ "./resources/js/Shared/Payment/FormCheckboxInput.vue");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
@@ -20887,8 +20887,8 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
       FormTextBoxInputReadOnly: _Shared_Payment_FormTextBoxInputReadOnly_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
       FormErrorMessage: _Shared_AccountFormInput_FormErrorMessage_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
       FormSelectInputTransactionType: _Shared_Payment_FormSelectInputTransactionType_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
-      FormRadioInput: _Shared_Payment_FormRadioInput_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
-      FormTextBoxInputPayment: _Shared_Payment_FormTextBoxInputPayment_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
+      FormTextBoxInputPayment: _Shared_Payment_FormTextBoxInputPayment_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
+      FormCheckboxInput: _Shared_Payment_FormCheckboxInput_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -21709,10 +21709,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Shared/Payment/FormRadioInput.vue?vue&type=script&setup=true&lang=js":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Shared/Payment/FormRadioInput.vue?vue&type=script&setup=true&lang=js ***!
-  \***********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Shared/Payment/FormCheckboxInput.vue?vue&type=script&setup=true&lang=js":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Shared/Payment/FormCheckboxInput.vue?vue&type=script&setup=true&lang=js ***!
+  \**************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -21721,7 +21721,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'FormRadioInput',
+  name: 'FormCheckboxInput',
   props: {
     labelName: String
   },
@@ -24719,7 +24719,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "label-name": 'Tenant'
   }, null, 8 /* PROPS */, ["modelValue", "option-list"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormErrorMessage"], {
     "error-message": $setup.form.errors.tenantEmail
-  }, null, 8 /* PROPS */, ["error-message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormRadioInput"], {
+  }, null, 8 /* PROPS */, ["error-message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormCheckboxInput"], {
     modelValue: $setup.form.paymentRepeat,
     "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
       return $setup.form.paymentRepeat = $event;
@@ -25974,10 +25974,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Shared/Payment/FormRadioInput.vue?vue&type=template&id=77fc5fd0":
-/*!****************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Shared/Payment/FormRadioInput.vue?vue&type=template&id=77fc5fd0 ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Shared/Payment/FormCheckboxInput.vue?vue&type=template&id=029d1ece":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Shared/Payment/FormCheckboxInput.vue?vue&type=template&id=029d1ece ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -25998,7 +25998,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onInput: _cache[0] || (_cache[0] = function ($event) {
       return _ctx.$emit('update:modelValue', $event.target.value);
     }),
-    type: "radio",
+    type: "checkbox",
     "class": "mr-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600",
     value: "true"
   }, null, 32 /* HYDRATE_EVENTS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.labelName), 1 /* TEXT */)]);
@@ -34612,10 +34612,10 @@ if (false) {}
 
 /***/ }),
 
-/***/ "./resources/js/Shared/Payment/FormRadioInput.vue":
-/*!********************************************************!*\
-  !*** ./resources/js/Shared/Payment/FormRadioInput.vue ***!
-  \********************************************************/
+/***/ "./resources/js/Shared/Payment/FormCheckboxInput.vue":
+/*!***********************************************************!*\
+  !*** ./resources/js/Shared/Payment/FormCheckboxInput.vue ***!
+  \***********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -34623,15 +34623,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _FormRadioInput_vue_vue_type_template_id_77fc5fd0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormRadioInput.vue?vue&type=template&id=77fc5fd0 */ "./resources/js/Shared/Payment/FormRadioInput.vue?vue&type=template&id=77fc5fd0");
-/* harmony import */ var _FormRadioInput_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FormRadioInput.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Shared/Payment/FormRadioInput.vue?vue&type=script&setup=true&lang=js");
+/* harmony import */ var _FormCheckboxInput_vue_vue_type_template_id_029d1ece__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormCheckboxInput.vue?vue&type=template&id=029d1ece */ "./resources/js/Shared/Payment/FormCheckboxInput.vue?vue&type=template&id=029d1ece");
+/* harmony import */ var _FormCheckboxInput_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FormCheckboxInput.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Shared/Payment/FormCheckboxInput.vue?vue&type=script&setup=true&lang=js");
 /* harmony import */ var F_BHFMS_bhfms_app_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,F_BHFMS_bhfms_app_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_FormRadioInput_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_FormRadioInput_vue_vue_type_template_id_77fc5fd0__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Shared/Payment/FormRadioInput.vue"]])
+const __exports__ = /*#__PURE__*/(0,F_BHFMS_bhfms_app_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_FormCheckboxInput_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_FormCheckboxInput_vue_vue_type_template_id_029d1ece__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Shared/Payment/FormCheckboxInput.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -35476,18 +35476,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/Shared/Payment/FormRadioInput.vue?vue&type=script&setup=true&lang=js":
-/*!*******************************************************************************************!*\
-  !*** ./resources/js/Shared/Payment/FormRadioInput.vue?vue&type=script&setup=true&lang=js ***!
-  \*******************************************************************************************/
+/***/ "./resources/js/Shared/Payment/FormCheckboxInput.vue?vue&type=script&setup=true&lang=js":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/Shared/Payment/FormCheckboxInput.vue?vue&type=script&setup=true&lang=js ***!
+  \**********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_FormRadioInput_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_FormCheckboxInput_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_FormRadioInput_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./FormRadioInput.vue?vue&type=script&setup=true&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Shared/Payment/FormRadioInput.vue?vue&type=script&setup=true&lang=js");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_FormCheckboxInput_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./FormCheckboxInput.vue?vue&type=script&setup=true&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Shared/Payment/FormCheckboxInput.vue?vue&type=script&setup=true&lang=js");
  
 
 /***/ }),
@@ -36244,18 +36244,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/Shared/Payment/FormRadioInput.vue?vue&type=template&id=77fc5fd0":
-/*!**************************************************************************************!*\
-  !*** ./resources/js/Shared/Payment/FormRadioInput.vue?vue&type=template&id=77fc5fd0 ***!
-  \**************************************************************************************/
+/***/ "./resources/js/Shared/Payment/FormCheckboxInput.vue?vue&type=template&id=029d1ece":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/Shared/Payment/FormCheckboxInput.vue?vue&type=template&id=029d1ece ***!
+  \*****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_FormRadioInput_vue_vue_type_template_id_77fc5fd0__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_FormCheckboxInput_vue_vue_type_template_id_029d1ece__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_FormRadioInput_vue_vue_type_template_id_77fc5fd0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./FormRadioInput.vue?vue&type=template&id=77fc5fd0 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Shared/Payment/FormRadioInput.vue?vue&type=template&id=77fc5fd0");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_FormCheckboxInput_vue_vue_type_template_id_029d1ece__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./FormCheckboxInput.vue?vue&type=template&id=029d1ece */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Shared/Payment/FormCheckboxInput.vue?vue&type=template&id=029d1ece");
 
 
 /***/ }),

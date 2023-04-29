@@ -15,14 +15,6 @@ use Inertia\Inertia;
 
 class PaymentController extends Controller
 {
-    public function getPaymentPageManager()
-    {
-        return Inertia::render('Payment/PaymentPageManager', [
-            'listTenants' => $this->getAllTenants(1),
-            'boardingHouseName' => $this->getBoardingHouseName(1),
-            'transactionTypes' => $this->getTransactionTypeName()
-        ]);
-    }
 
     public function addPaymentTenant(Request $request)
     {
@@ -34,7 +26,6 @@ class PaymentController extends Controller
         ]);
         
         $fileName = date('Ymd', strtotime($transaction->payment_date)) . $_GET['order'] . '.png';
-        dd($fileName);
         $validation['proofOfPayment']->move(storage_path('app/public/proofOfPayment'), $fileName);
         
         $transaction->payment_method_id = PaymentMethod::where('payment_method_name',$validation['paymentMethod'])->first()->id;
@@ -63,6 +54,15 @@ class PaymentController extends Controller
 
     }
 
+    public function getPaymentPageManager()
+    {
+        return Inertia::render('Payment/PaymentPageManager', [
+            'listTenants' => $this->getAllTenants(1),
+            'boardingHouseName' => $this->getBoardingHouseName(1),
+            'transactionTypes' => $this->getTransactionTypeName(),
+        ]);
+    }
+
     private function getBoardingHouseName(int $boardingId)
     {
         return Boarding::select('boarding_name')
@@ -80,7 +80,7 @@ class PaymentController extends Controller
         return TenantBoarding::select('users.user_name','users.email')
         ->join('users','users.id','=','tenant_boardings.user_id')
         ->where('boarding_id',$boardingId)
-        ->where('status','approved')
+        ->where('tenant_status','approved')
         ->get();
     }
 
