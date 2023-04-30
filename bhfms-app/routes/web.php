@@ -95,3 +95,9 @@ Route::get('/facility/update/{id}',[FacilityController::class, 'getFacilityUpdat
 Route::post('/facility/update/{id}',[FacilityController::class, 'FacilityUpdate']);
 Route::get('/facility/read/{id}',[FacilityController::class, 'getFacilityDetail']);
 Route::get('/facility/delete/{id}',[FacilityController::class, 'FacilityDelete']);
+
+Route::get('/userAll',[UserController::class, 'getAllUserPage']);
+Route::get('/user/update/{id}',[UserController::class, 'getUserUpdate']);
+Route::post('/user/update/{id}',[UserController::class, 'UserUpdate']);
+Route::get('/user/read/{id}',[UserController::class, 'getUserDetail']);
+Route::get('/user/delete/{id}',[UserController::class, 'UserDelete']);
