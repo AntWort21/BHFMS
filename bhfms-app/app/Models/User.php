@@ -12,27 +12,17 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-
-    public function tenantBoardings(){
-        return $this->belongsToMany(Boarding::class, 'tenant_boardings', 'user_id','boarding_id');
-    }
-
-    public function wishlists(){
-        return $this->belongsToMany(Boarding::class, 'wishlists', 'user_id','boarding_id', );
-    }
-
-    public function reviews(){
-        return $this->belongsToMany(Boarding::class, 'reviews','user_id', 'boarding_id');
+    public function rentTransactionHeaders(){
+        return $this->hasMany(RentTransactionHeader::class);
     }
 
     public function ownerBoardings(){
-        return $this->belongsToMany(Boarding::class, 'owner_boardings', 'user_id', 'boarding_id',);
+        return $this->hasMany(OwnerBoarding::class);
     }
 
     public function complains(){
-        return $this->belongsToMany(Boarding::class, 'complains', 'user_id', 'boarding_id');
+        return $this->hasMany(Complain::class);
     }
-
 
     public function managerBoardings(){
         return $this->belongsToMany(Boarding::class, 'manager_boardings', 'user_id', 'boarding_id');
