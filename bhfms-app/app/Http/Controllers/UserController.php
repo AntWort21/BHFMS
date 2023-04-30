@@ -22,7 +22,7 @@ class UserController extends Controller
     {
         $validation = $request->validate([
             'name' => ['required', 'max:50'],
-            'email' => ['required', 'email'],
+            'email' => ['required', 'email','unique:users,email,' . Auth::user()->id],
             'dateOfBirth' => ['required'],
             'phoneNumber' => ['required', 'max:50'],
             'profilePicture' => ['mimes:jpeg,png,jpg,gif,svg']
@@ -88,7 +88,7 @@ class UserController extends Controller
             'gender'=>['required'],
             'status'=>['required'],
             'user_role'=>['required'],
-            'email'=>['required', 'email'],
+            'email'=>['required', 'email','unique:users,email,' . $request->id],
             'dob'=>['required'],
             'phone' => ['required'],
             'images' => ['max:1'],
