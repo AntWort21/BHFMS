@@ -100,3 +100,16 @@ Route::post('/pay',[PaymentController::class,'addPaymentTenant']);
 Route::get('/paymentHistory',[PaymentController::class,'getAllPayment']);
 Route::post('/getInvoiceData',[PaymentController::class,'getInvoiceDetail']);
 Route::get('/cancelPayment',[PaymentController::class,'cancelPayment']);
+Route::get('/facilityAll',[FacilityController::class, 'getAllFacilityPage']);
+Route::get('/facility/create',[FacilityController::class, 'getFacilityCreate']);
+Route::post('/facility/create',[FacilityController::class, 'FacilityCreate']);
+Route::get('/facility/update/{id}',[FacilityController::class, 'getFacilityUpdate']);
+Route::post('/facility/update/{id}',[FacilityController::class, 'FacilityUpdate']);
+Route::get('/facility/read/{id}',[FacilityController::class, 'getFacilityDetail']);
+Route::get('/facility/delete/{id}',[FacilityController::class, 'FacilityDelete']);
+
+Route::get('/userAll',[UserController::class, 'getAllUserPage']);
+Route::get('/user/update/{id}',[UserController::class, 'getUserUpdate']);
+Route::post('/user/update/{id}',[UserController::class, 'UserUpdate']);
+Route::get('/user/read/{id}',[UserController::class, 'getUserDetail']);
+Route::get('/user/delete/{id}',[UserController::class, 'UserDelete']);

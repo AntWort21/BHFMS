@@ -28,6 +28,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Boarding::class, 'manager_boardings', 'user_id', 'boarding_id');
     }
 
+    public function role() {
+        return $this->belongsTo(UserRole::class,'user_role_id');
+    }
+
 
     /**
      * The attributes that are mass assignable.
