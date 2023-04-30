@@ -60,6 +60,7 @@ let genderList = ["Male", "Female"];
                             v-model="form.gender"
                             :label-name="'Gender'"
                             :option-list="genderList"
+                            :default-text="'Select your Gender'"
                         />
                         <FormErrorMessage :error-message="form.errors.gender" />
                     </div>
