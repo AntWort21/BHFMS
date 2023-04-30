@@ -34,9 +34,8 @@ class FacilityController extends Controller
             'images.max' => 'Maximum number of image is 1 !',
             'images.min' => 'Minimum number of image is 1 !',
         ];
-
         $validation = $request->validate([
-            'name' => ['required', 'max:200', 'min:3'],
+            'name' => ['required', 'max:200', 'min:3','unique:facility_details,facility_detail_name,'],
             'images' => ['max:1','min:1'],
         ], $custom_messages);
 
@@ -78,7 +77,7 @@ class FacilityController extends Controller
         ];
 
         $validation = $request->validate([
-            'name' => ['required', 'max:200', 'min:3'],
+            'name' => ['required', 'max:200', 'min:3','unique:facility_details,facility_detail_name,' . $request->id],
             'images' => ['max:1'],
         ], $custom_messages);
 
