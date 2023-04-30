@@ -83,5 +83,7 @@ Route::get('/tenantBoarding/read/{id}', [TenantController::class, 'getDetailTena
 Route::get('/tenantBoarding/request/{id}', [TenantController::class, 'getRequestTenant']);
 Route::post('/tenantBoarding/request/{id}', [TenantController::class, 'RequestTenant']);
 
+Route::get('/boardingTenant', [BoardingController::class, 'indexTenant']);
+
 Route::get('/boarding/test', [BoardingController::class, 'testCarousel']);
 Route::get('/boarding/all', [BoardingController::class, 'getAllBoardingHouse']);

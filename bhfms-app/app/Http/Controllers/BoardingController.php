@@ -123,6 +123,39 @@ class BoardingController extends Controller
         ]);
     }
 
+    public function indexTenant(Request $request)
+    {
+
+        $Boarding_data = Boarding::join('owner_boardings', 'boardings.id', '=', 'owner_boardings.boarding_id')
+            ->join('users', 'users.id', '=', 'owner_boardings.user_id')
+            ->join('tenant_boardings','tenant_boardings.boarding_id','=','boardings.id')
+            ->where('tenant_boardings.user_id', '=', auth()->id())
+            ->when($request->search, function ($query, $search) {
+                if ($search == 'all') {
+                    $query;
+                } else {
+                    $query->where('tenant_status', '=', $search);
+                }
+            })->paginate(5)->withQueryString();
+
+
+        $all_boarding_count = TenantBoarding::where('user_id', '=', auth()->id())->get();
+        $all = $all_boarding_count->count();
+        $apv = $all_boarding_count->where('tenant_status', '=', 'approved')->count();
+        $dcl = $all_boarding_count->where('tenant_status', '=', 'declined')->count();
+        $pending = $all_boarding_count->where('tenant_status', '=', 'pending')->count();
+        $checkout = $all_boarding_count->where('tenant_status', '=', 'checkout')->count();
+
+        return Inertia::render('Boarding/BoardingManagementTenant', [
+            'all_count' => $all,
+            'approved' => $apv,
+            'pending' => $pending,
+            'declined' => $dcl,
+            'checkout' => $checkout,
+            'boardings' => $Boarding_data,
+        ]);
+    }
+
     public function getAllBoardingHouse()
     {
         $allBoardingHouse = Boarding::paginate(18);
