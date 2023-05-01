@@ -57,6 +57,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/chat', [ChatController::class, 'getChatPage']);
     Route::post('/chat', [ChatController::class, 'storeChatMessage']);
+
+    Route::get('/chat/get', [ChatController::class, 'getChatMessage']);
 });
 
 // Route::resource('boarding', BoardingController::class);
