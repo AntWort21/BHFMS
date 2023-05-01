@@ -13,6 +13,7 @@ use App\Models\ManagerBoarding;
 use App\Models\OwnerBoarding;
 use App\Models\Review;
 use App\Models\User;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -156,6 +157,8 @@ class BoardingController extends Controller
             $starRating[$reviews[$key]->rating - 1]++;
         }
 
+        $onWishlist = Wishlist::where('user_id', Auth::user()->id)->where('boarding_id', $request->id)->first() ?? null;
+
         return Inertia::render('Boarding/SelectedBoardingHouse', [
             'boardingHouseDetail' => $selectedBoardingHouseDetail,
             'images' => $boardingHouseImages,
@@ -163,9 +166,10 @@ class BoardingController extends Controller
             'ownerPicture' => $owner->profile_picture,
             'facilityList' => $facilityList->pluck('facility_detail_name'),
             'reviews' => $reviews,
-            'averageRating' => number_format($totalRating / count($reviews), 2),
+            'averageRating' => count($reviews) == 0 ? count($reviews) : number_format($totalRating / count($reviews), 2),
             'totalReviewCount' => count($reviews),
-            'ratingStar' => $starRating
+            'ratingStar' => $starRating,
+            'isWishlisted' => $onWishlist != null ? true : false,
         ]);
     }
 

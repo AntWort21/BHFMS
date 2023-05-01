@@ -7,6 +7,8 @@ use App\Http\Controllers\ComplainController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\BoardingImageController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -59,6 +61,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/chat', [ChatController::class, 'storeChatMessage']);
 
     Route::get('/chat/get', [ChatController::class, 'getChatMessage']);
+    Route::get('/wishlist', [WishlistController::class, 'showWishlist']);
+    Route::post('/wishlist/add', [WishlistController::class, 'addWishlist']);
+    Route::post('/wishlist/remove', [WishlistController::class, 'removeWishlist']);
 });
 
 // Route::resource('boarding', BoardingController::class);
@@ -81,3 +86,12 @@ Route::get('/boardingManager', [BoardingController::class, 'indexManager']);
 
 Route::get('/boarding/test', [BoardingController::class, 'testCarousel']);
 Route::get('/boarding/all', [BoardingController::class, 'getAllBoardingHouse']);
+
+Route::get('/addPaymentManager',[PaymentController::class,'getPaymentPageManager']);
+
+Route::post('/addPaymentManager',[PaymentController::class,'addPaymentManager']);
+Route::get('/pay',[PaymentController::class,'getPaymentPageTenant']);
+Route::post('/pay',[PaymentController::class,'addPaymentTenant']);
+Route::get('/paymentHistory',[PaymentController::class,'getAllPayment']);
+Route::post('/getInvoiceData',[PaymentController::class,'getInvoiceDetail']);
+Route::get('/cancelPayment',[PaymentController::class,'cancelPayment']);
