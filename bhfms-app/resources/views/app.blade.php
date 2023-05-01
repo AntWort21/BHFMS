@@ -8,7 +8,7 @@
 
     <link href="{{ asset('/css/vue-multiselect.css') }}" rel="stylesheet">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2jQ6h9LFcb7VMwDAiCAyCRKez0ucwwwI&libraries=places&callback=Function.prototype"></script>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @inertiaHead
   </head>
   <body>

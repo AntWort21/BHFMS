@@ -2,18 +2,21 @@
 defineProps({
     labelName: String,
     optionList: Array,
-    defaultText: String,
+    labelDesc: String,
+    event: Event,
 });
+defineEmits(['update:modelValue'])
 </script>
 
 <template>
-    <label class="block">{{ labelName }}</label>
+    <label class="block  mt-2">{{ labelName }}</label>
     <select
+        @change="$event"
         @input="$emit('update:modelValue', $event.target.value)"
         :placeholder="labelName"
         class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
     >
-        <option value="" disabled selected>Select your {{ labelName }}</option>
-        <option v-for="option in optionList" :value="option">{{ option }}</option>
+        <option value="" disabled selected hidden>{{ labelDesc }}</option>
+        <option v-for="option in optionList" :value="option.email">{{ option.user_name }}</option>
     </select>
 </template>
