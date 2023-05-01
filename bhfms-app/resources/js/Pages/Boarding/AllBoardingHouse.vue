@@ -43,14 +43,14 @@ defineProps({
                         alt="No Image"
                     />
                     <div class="h-2/3 space-y-1 p-2">
-                        <div class="text-xs text-gray-600">
+                        <div class="font-semibold">
+                            {{ boardingHouse.boarding_name }}
+                        </div>
+                        <div class="text-xs text-gray-600 truncate">
                             {{ boardingHouse.address }}
                         </div>
-                        <div class="font-semibold">
-                            {{ boardingHouse.name }}
-                        </div>
                         <div class="text-sm box-content truncate">
-                            {{ boardingHouse.description }}
+                            {{ boardingHouse.boarding_desc }}
                         </div>
                         <Link
                             href="/boarding/detail"

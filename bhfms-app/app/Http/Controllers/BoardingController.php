@@ -14,6 +14,7 @@ use App\Models\OwnerBoarding;
 use App\Models\TenantBoarding;
 use App\Models\Review;
 use App\Models\User;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -159,7 +160,7 @@ class BoardingController extends Controller
             $starRating[$reviews[$key]->rating - 1]++;
         }
 
-        $avg_review = $reviews->count() == 0 ? 0:number_format($totalRating / count($reviews), 2);
+        $onWishlist = Wishlist::where('user_id', Auth::user()->id)->where('boarding_id', $request->id)->first() ?? null;
 
         return Inertia::render('Boarding/SelectedBoardingHouse', [
             'boardingHouseDetail' => $selectedBoardingHouseDetail,
@@ -170,9 +171,10 @@ class BoardingController extends Controller
             'currVacancy' => $currVacancy,
             'isAvailable' =>$isAvailable,
             'reviews' => $reviews,
-            'averageRating' => $avg_review,
+            'averageRating' => count($reviews) == 0 ? count($reviews) : number_format($totalRating / count($reviews), 2),
             'totalReviewCount' => count($reviews),
-            'ratingStar' => $starRating
+            'ratingStar' => $starRating,
+            'isWishlisted' => $onWishlist != null ? true : false,
         ]);
     }
 

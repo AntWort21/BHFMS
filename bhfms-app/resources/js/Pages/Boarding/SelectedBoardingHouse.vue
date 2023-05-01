@@ -5,8 +5,9 @@ import Carousel from "../../Shared/Carousel/Carousel.vue";
 import FormTextBoxInput from "../../Shared/AccountFormInput/FormTextBoxInput.vue";
 import { useForm } from "@inertiajs/inertia-vue3";
 import { computed, ref, onMounted } from "vue";
+import { Inertia } from "@inertiajs/inertia";
 
-defineProps({
+let props = defineProps({
     boardingHouseDetail: Object,
     facilityList: Object,
     images: Array,
@@ -18,9 +19,19 @@ defineProps({
     averageRating: String,
     totalReviewCount: Number,
     ratingStar: Array,
+    isWishlisted: Boolean,
 });
 
 let totalPrice = ref(null);
+let mouseover = ref(false);
+
+let strokeColor = () => {
+    return mouseover.value == false ? "#000000" : "#9b9b9b";
+};
+
+let checkWishlisted = () => {
+    return props.isWishlisted ? "full" : "none";
+};
 
 let form = useForm({
     startDate: "",
@@ -30,19 +41,74 @@ let form = useForm({
 let submit = (idx) => {
     form.post(`/boarding/detail/rent/${idx}`, {});
 };
+
+let addToWishlist = () => {
+    Inertia.post(
+        "/wishlist/add",
+        {
+            id: props.boardingHouseDetail.id,
+        },
+        { preserveScroll: true }
+    );
+};
+
+let removeFromWishlist = () => {
+    Inertia.post(
+        "/wishlist/remove",
+        {
+            id: props.boardingHouseDetail.id,
+        },
+        { preserveScroll: true }
+    );
+};
 </script>
 
 <template>
     <Header />
-    <Carousel :slides="images" controls indicators interval class="my-8" />
+    <Carousel
+        :slides="props.images"
+        controls
+        indicators
+        interval
+        class="my-8"
+    />
     <section class="mb-10 flex justify-center items-center">
         <div class="w-1/2">
             <div class="space-y-6">
                 <div class="text-5xl font-semibold my-5 text-slate-800">
-                    {{ boardingHouseDetail.boarding_name }}
+                    {{ props.boardingHouseDetail.boarding_name }}
                 </div>
-                <div class="my-10 text-lg font-semibold flex justify-end">
-                    Save +
+                <div
+                    class="my-10 text-lg font-semibold flex justify-end items-center"
+                >
+                    <div
+                        class="p-2 flex justify-center items-center space-x-1 hover:cursor-pointer hover:text-[#9b9b9b]"
+                        @mouseover="mouseover = true"
+                        @mouseleave="mouseover = false"
+                        @click="
+                            props.isWishlisted
+                                ? removeFromWishlist()
+                                : addToWishlist()
+                        "
+                        scroll-region
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            :fill="checkWishlisted()"
+                            :stroke="strokeColor()"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path
+                                d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"
+                            ></path>
+                        </svg>
+                        <div>Save</div>
+                    </div>
                 </div>
                 <hr class="w-full h-0.5 bg-slate-100 border-0" />
                 <div class="flex">
@@ -62,12 +128,12 @@ let submit = (idx) => {
                             d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z"
                         />
                     </svg>
-                    {{ boardingHouseDetail.address }}
+                    {{ props.boardingHouseDetail.address }}
                 </div>
                 <div class="flex justify-between">
                     <div class="w-2/3">
                         <div class="font-semibold">Facilities</div>
-                        <div v-for="facility in facilityList">
+                        <div v-for="facility in props.facilityList">
                             {{ facility }}
                         </div>
                     </div>
@@ -89,7 +155,7 @@ let submit = (idx) => {
                             </div>
                             <div class="flex items-center">
                                 <p class="text-xl font-semibold">
-                                    IDR {{ boardingHouseDetail.price }}
+                                    IDR {{ props.boardingHouseDetail.price }}
                                 </p>
                                 <p>/month</p>
                             </div>
@@ -121,10 +187,10 @@ let submit = (idx) => {
                         class="w-1/2 flex justify-between border-t-2 border-b-2 border-slate-100"
                     >
                         <div class="font-semibold">
-                            Maintained By {{ ownerName }}
+                            Maintained By {{ props.ownerName }}
                         </div>
                         <img
-                            :src="ownerPicture"
+                            :src="props.ownerPicture"
                             alt="no image"
                             class="w-[5rem] h-[5rem] rounded-full object-scale-down"
                         />
@@ -151,8 +217,12 @@ let submit = (idx) => {
                                         d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
                                     ></path>
                                 </svg>
-                                {{ averageRating ? averageRating : 0 }}
-                                ({{ reviews.length }} review)
+                                {{
+                                    props.averageRating
+                                        ? props.averageRating
+                                        : 0
+                                }}
+                                ({{ props.reviews.length }} review)
                             </div>
                         </div>
                         <div class="mt-2">
@@ -169,10 +239,16 @@ let submit = (idx) => {
                                         :style="{
                                             width:
                                                 (
-                                                    (ratingStar[4] /
-                                                        totalReviewCount) *
+                                                    (props.ratingStar[4] /
+                                                        props.totalReviewCount) *
                                                     100
-                                                ).toFixed(2) + '%',
+                                                ).toFixed(2) == 'NaN'
+                                                    ? 0
+                                                    : (
+                                                          (props.ratingStar[4] /
+                                                              totalReviewCount) *
+                                                          100
+                                                      ).toFixed(2) + '%',
                                         }"
                                     ></div>
                                 </div>
@@ -180,9 +256,16 @@ let submit = (idx) => {
                                     class="text-sm font-medium text-slate-600 dark:text-slate-500"
                                     >{{
                                         (
-                                            (ratingStar[4] / totalReviewCount) *
+                                            (props.ratingStar[4] /
+                                                totalReviewCount) *
                                             100
-                                        ).toFixed(2)
+                                        ).toFixed(2) == "NaN"
+                                            ? 0
+                                            : (
+                                                  (props.ratingStar[4] /
+                                                      totalReviewCount) *
+                                                  100
+                                              ).toFixed(2)
                                     }}%</span
                                 >
                             </div>
@@ -199,10 +282,16 @@ let submit = (idx) => {
                                         :style="{
                                             width:
                                                 (
-                                                    (ratingStar[3] /
+                                                    (props.ratingStar[3] /
                                                         totalReviewCount) *
                                                     100
-                                                ).toFixed(2) + '%',
+                                                ).toFixed(2) == 'NaN'
+                                                    ? 0
+                                                    : (
+                                                          (props.ratingStar[3] /
+                                                              totalReviewCount) *
+                                                          100
+                                                      ).toFixed(2) + '%',
                                         }"
                                     ></div>
                                 </div>
@@ -210,9 +299,16 @@ let submit = (idx) => {
                                     class="text-sm font-medium text-slate-600 dark:text-slate-500"
                                     >{{
                                         (
-                                            (ratingStar[3] / totalReviewCount) *
+                                            (props.ratingStar[3] /
+                                                totalReviewCount) *
                                             100
-                                        ).toFixed(2)
+                                        ).toFixed(2) == "NaN"
+                                            ? 0
+                                            : (
+                                                  (props.ratingStar[3] /
+                                                      totalReviewCount) *
+                                                  100
+                                              ).toFixed(2)
                                     }}%</span
                                 >
                             </div>
@@ -229,10 +325,16 @@ let submit = (idx) => {
                                         :style="{
                                             width:
                                                 (
-                                                    (ratingStar[2] /
+                                                    (props.ratingStar[2] /
                                                         totalReviewCount) *
                                                     100
-                                                ).toFixed(2) + '%',
+                                                ).toFixed(2) == 'NaN'
+                                                    ? 0
+                                                    : (
+                                                          (props.ratingStar[2] /
+                                                              totalReviewCount) *
+                                                          100
+                                                      ).toFixed(2) + '%',
                                         }"
                                     ></div>
                                 </div>
@@ -240,9 +342,16 @@ let submit = (idx) => {
                                     class="text-sm font-medium text-slate-600 dark:text-slate-500"
                                     >{{
                                         (
-                                            (ratingStar[2] / totalReviewCount) *
+                                            (props.ratingStar[2] /
+                                                totalReviewCount) *
                                             100
-                                        ).toFixed(2)
+                                        ).toFixed(2) == "NaN"
+                                            ? 0
+                                            : (
+                                                  (props.ratingStar[2] /
+                                                      totalReviewCount) *
+                                                  100
+                                              ).toFixed(2)
                                     }}%</span
                                 >
                             </div>
@@ -259,10 +368,16 @@ let submit = (idx) => {
                                         :style="{
                                             width:
                                                 (
-                                                    (ratingStar[1] /
+                                                    (props.ratingStar[1] /
                                                         totalReviewCount) *
                                                     100
-                                                ).toFixed(2) + '%',
+                                                ).toFixed(2) == 'NaN'
+                                                    ? 0
+                                                    : (
+                                                          (props.ratingStar[1] /
+                                                              totalReviewCount) *
+                                                          100
+                                                      ).toFixed(2) + '%',
                                         }"
                                     ></div>
                                 </div>
@@ -270,9 +385,16 @@ let submit = (idx) => {
                                     class="text-sm font-medium text-slate-600 dark:text-slate-500"
                                     >{{
                                         (
-                                            (ratingStar[1] / totalReviewCount) *
+                                            (props.ratingStar[1] /
+                                                totalReviewCount) *
                                             100
-                                        ).toFixed(2)
+                                        ).toFixed(2) == "NaN"
+                                            ? 0
+                                            : (
+                                                  (props.ratingStar[1] /
+                                                      totalReviewCount) *
+                                                  100
+                                              ).toFixed(2)
                                     }}%</span
                                 >
                             </div>
@@ -289,10 +411,16 @@ let submit = (idx) => {
                                         :style="{
                                             width:
                                                 (
-                                                    (ratingStar[0] /
+                                                    (props.ratingStar[0] /
                                                         totalReviewCount) *
                                                     100
-                                                ).toFixed(2) + '%',
+                                                ).toFixed(1) == 'NaN'
+                                                    ? 0
+                                                    : (
+                                                          (props.ratingStar[0] /
+                                                              totalReviewCount) *
+                                                          100
+                                                      ).toFixed(1) + '%',
                                         }"
                                     ></div>
                                 </div>
@@ -300,9 +428,16 @@ let submit = (idx) => {
                                     class="text-sm font-medium text-slate-600 dark:text-slate-500"
                                     >{{
                                         (
-                                            (ratingStar[0] / totalReviewCount) *
+                                            (props.ratingStar[0] /
+                                                totalReviewCount) *
                                             100
-                                        ).toFixed(2)
+                                        ).toFixed(2) == "NaN"
+                                            ? 0
+                                            : (
+                                                  (props.ratingStar[0] /
+                                                      totalReviewCount) *
+                                                  100
+                                              ).toFixed(2)
                                     }}%</span
                                 >
                             </div>
@@ -311,7 +446,7 @@ let submit = (idx) => {
                     <div>
                         <div
                             class="flex justify-start space-x-2 items-start"
-                            v-for="(review, key) in reviews"
+                            v-for="(review, key) in props.reviews"
                             :key="key"
                         >
                             <img
