@@ -3,22 +3,22 @@ import { Inertia } from "@inertiajs/inertia";
 import { ref, watch } from "vue";
 import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
-import TableIconLinks from "../../Shared/BoardingShared/TableIconLinks.vue";
-import StatusIcon from "../../Shared/BoardingShared/StatusIcon.vue";
 import Pagination from "../../Shared/Pagination.vue";
+import TableIconLinks from "../../Shared/TenantShared/TableIconLinks.vue";
+import StatusIcon from "../../Shared/TenantShared/StatusIcon.vue";
 defineProps({
     all_count: Number,
     approved: Number,
     declined: Number,
     pending: Number,
-    banned: Number,
-    boardings: Object,
+    done: Number,
+    users: Object,
 });
 
 let search = ref("");
 watch(search, (value) => {
     Inertia.get(
-        "/boardingOwner",
+        "/tenantBoarding",
         { search: value },
         {
             preserveState: true,
@@ -29,10 +29,13 @@ watch(search, (value) => {
 
 <template>
     <Header />
+    <!-- component -->
+    <!-- {{ $page.props.user.id }} -->
     <div class="overflow-x-auto">
         <div
             class="top-0 bg-gray-100 flex justify-center bg-gray font-sans overflow-hidden mt-2"
         >
+            <!-- Filtering -->
             <div class="flow-root">
                 <div
                     v-if="$page.props.flash.message"
@@ -52,21 +55,6 @@ watch(search, (value) => {
                 </div>
 
                 <div class="flow-root">
-                    <div class="mt-2 float-left">
-                        <a href="/boarding/create">
-                            <div
-                                class="rounded border block bg-white border-gray-400 text-gray-700 py-2 px-4 flex"
-                            >
-                                <button
-                                    class="flex w-6 h-6 mr-5 text-base bg-blue-400 items-center font-bold justify-center text-white rounded-xl font-mono"
-                                >
-                                    +
-                                </button>
-
-                                <h3 class="self-center">Add New Boarding</h3>
-                            </div>
-                        </a>
-                    </div>
                     <div class="mt-2 float-right">
                         <select
                             class="rounded border block bg-white border-gray-400 text-gray-700 py-2 px-4"
@@ -85,8 +73,8 @@ watch(search, (value) => {
                             <option value="declined">
                                 Declined ({{ declined }})
                             </option>
-                            <option value="banned">
-                                Banned ({{ banned }})
+                            <option value="checkout">
+                                Checkout ({{ done }})
                             </option>
                         </select>
                     </div>
@@ -96,47 +84,44 @@ watch(search, (value) => {
                     <table class="min-w-max w-full table-auto">
                         <thead>
                             <tr class="uppercase text-sm leading-normal">
-                                <th class="py-3 px-6 text-left">
-                                    Boarding House Name
+                                <th class="py-3 px-6 text-left">User name</th>
+                                <th class="py-3 px-6 text-center">
+                                    Boarding House name
                                 </th>
                                 <th class="py-3 px-6 text-left">Status</th>
-                                <th class="py-3 px-6 text-center">
-                                    Boarding Owner Name
-                                </th>
                                 <th class="py-3 px-6 text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="text-gray-600 text-sm font-light">
                             <tr
-                                v-for="(boarding, idx) in boardings.data"
+                                v-for="(user, idx) in users.data"
                                 class="border-b border-gray-200 bg-gray-50 hover:bg-gray-100"
                                 :key="idx"
                             >
                                 <td class="py-3 px-6 text-left">
                                     <div class="flex items-center">
                                         <span class="mr-2 font-medium"
-                                            >{{ boarding.boarding_name }}
+                                            >{{ user.user_name }}
                                         </span>
                                     </div>
                                 </td>
 
-                                <StatusIcon :boarding="boarding" />
-
                                 <td class="py-3 px-6 text-center">
-                                    <a href="#">{{ boarding.user_name }}</a>
+                                    <a href="#">{{ user.boarding_name }}</a>
                                 </td>
 
+                                <StatusIcon :user="user" />
                                 <!-- Icon List -->
                                 <TableIconLinks
-                                    :currentID="boarding.boarding_id"
-                                    :boarding="boarding"
+                                    :currentID="user.id"
+                                    :user="user"
                                 />
                             </tr>
                         </tbody>
                     </table>
                     <Pagination
                         class="my-4 pb-4 flex justify-center"
-                        :links="boardings.links"
+                        :links="users.links"
                     />
                 </div>
             </div>

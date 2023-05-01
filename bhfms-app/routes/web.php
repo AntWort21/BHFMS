@@ -6,6 +6,7 @@ use App\Http\Controllers\BoardingController;
 use App\Http\Controllers\ComplainController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\BoardingImageController;
+use App\Http\Controllers\TenantController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
@@ -65,8 +66,11 @@ Route::middleware('auth')->group(function () {
 Route::get('/boarding', [BoardingController::class, 'index']);
 Route::get('/boarding/create', [BoardingController::class, 'create']);
 Route::get('/boarding/detail', [BoardingController::class, 'getBoardingHouseDetail']);
+Route::post('/boarding/detail/rent/{id}', [BoardingController::class, 'boardingRent']);
 
 Route::get('/boardingAdmin', [BoardingController::class, 'indexAdmin']);
+Route::get('/boardingAdmin/request/{id}', [BoardingController::class, 'getAdminApproveBoarding']);
+Route::post('/boardingAdmin/request/{id}', [BoardingController::class, 'AdminApproveBoarding']);
 Route::get('/boardingOwner', [BoardingController::class, 'indexOwner']);
 Route::get('/boarding/create', [BoardingController::class, 'getCreateOwnerBoarding']);
 Route::post('/boarding/create', [BoardingController::class, 'createOwnerBoarding']);
@@ -74,10 +78,16 @@ Route::get('/boarding/update/{id}', [BoardingController::class, 'getUpdateBoardi
 Route::get('/boarding/read/{id}', [BoardingController::class, 'getReadBoarding']);
 Route::post('/boarding/update/{id}', [BoardingController::class, 'updateBoarding']);
 Route::get('/boarding/delete/{id}', [BoardingController::class, 'deleteBoarding']);
+Route::get('/boarding/reapprove/{id}', [BoardingController::class, 'getReapproveBoarding']);
+Route::post('/boarding/reapprove/{id}', [BoardingController::class, 'ReapproveBoarding']);
 
 Route::put('/boarding/image/delete/{id}', [BoardingImageController::class, 'deleteImage']);
 
 Route::get('/boardingManager', [BoardingController::class, 'indexManager']);
+Route::get('/tenantBoarding', [TenantController::class, 'getAllTenantBoarding']);
+Route::get('/tenantBoarding/read/{id}', [TenantController::class, 'getDetailTenantBoarding']);
+Route::get('/tenantBoarding/request/{id}', [TenantController::class, 'getRequestTenant']);
+Route::post('/tenantBoarding/request/{id}', [TenantController::class, 'RequestTenant']);
 
 Route::get('/boarding/test', [BoardingController::class, 'testCarousel']);
 Route::get('/boarding/all', [BoardingController::class, 'getAllBoardingHouse']);

@@ -4,7 +4,7 @@ import Footer from "../../Shared/Footer.vue";
 import Carousel from "../../Shared/Carousel/Carousel.vue";
 import FormTextBoxInput from "../../Shared/AccountFormInput/FormTextBoxInput.vue";
 import { useForm } from "@inertiajs/inertia-vue3";
-import { ref } from "vue";
+import { computed, ref, onMounted } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 
 let props = defineProps({
@@ -13,6 +13,8 @@ let props = defineProps({
     images: Array,
     ownerName: String,
     ownerPicture: String,
+    currVacancy: Number,
+    isAvailable: Boolean,
     reviews: Array,
     averageRating: String,
     totalReviewCount: Number,
@@ -36,8 +38,8 @@ let form = useForm({
     endDate: "",
 });
 
-let submit = () => {
-    form.post("/rent");
+let submit = (idx) => {
+    form.post(`/boarding/detail/rent/${idx}`, {});
 };
 
 let addToWishlist = () => {
@@ -137,11 +139,20 @@ let removeFromWishlist = () => {
                     </div>
                     <form
                         class="w-1/3 flex justify-start items-center shadow-lg p-2"
-                        @submit.prevent="submit"
+                        @submit.prevent="submit(boardingHouseDetail.id)"
                     >
                         <div
                             class="w-full flex flex-col items-center justify-center"
                         >
+                            <div
+                                v-if="isAvailable"
+                                class="text-black font-semibold"
+                            >
+                                Capacity : {{ currVacancy }}
+                            </div>
+                            <div v-else class="text-red-500 font-semibold">
+                                Capacity : {{ currVacancy }}
+                            </div>
                             <div class="flex items-center">
                                 <p class="text-xl font-semibold">
                                     IDR {{ props.boardingHouseDetail.price }}
@@ -155,9 +166,15 @@ let removeFromWishlist = () => {
                                     :label-name="'Start Date'"
                                 />
                             </div>
+                            <div
+                                v-if="form.errors.startDate"
+                                v-text="form.errors.startDate"
+                                class="text-red-500 text-xs mt-1"
+                            />
                             <div class="w-1/2 flex justify-end mt-5">
                                 <button
-                                    class="w-36 h-10 bg-indigo-900 flex justify-center items-center text-white rounded-md"
+                                    class="w-36 h-10 bg-indigo-900 flex justify-center items-center text-white rounded-md disabled:opacity-50"
+                                    :disabled="!isAvailable"
                                 >
                                     Rent
                                 </button>

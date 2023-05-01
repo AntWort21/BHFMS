@@ -98,7 +98,9 @@ onBeforeUnmount(() => {
 
 <template>
     <div class="flex items-center justify-center">
-        <div class="relative w-1/2 h-[60vh] overflow-hidden object-cover rounded-md">
+        <div
+            class="relative w-1/2 h-[60vh] overflow-hidden object-cover rounded-md"
+        >
             <carousel-indicators
                 v-if="props.indicators"
                 :total="props.slides.length"
@@ -114,7 +116,9 @@ onBeforeUnmount(() => {
                 :direction="data.direction"
                 @mouseenter="stopSlideTimer()"
                 @mouseout="startSlideTimer()"
-            ></carousel-item>
+            >
+                {{ slide }}
+            </carousel-item>
             <carousel-controls
                 v-if="props.controls"
                 @prev="prev"

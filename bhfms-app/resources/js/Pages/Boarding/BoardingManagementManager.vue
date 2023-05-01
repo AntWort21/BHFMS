@@ -29,12 +29,10 @@ watch(search, (value) => {
 
 <template>
     <Header />
-    <!-- component -->
     <div class="overflow-x-auto">
         <div
             class="top-0 bg-gray-100 flex justify-center bg-gray font-sans overflow-hidden mt-2"
         >
-            <!-- Filtering -->
             <div class="flow-root">
                 <div
                     v-if="$page.props.flash.message"

@@ -12,6 +12,7 @@ const props = defineProps({
     currBoarding: Object,
     currFacilities: Object,
     currManager: Object,
+    currOwner: Object,
     currImages: Object,
     currType: Object,
     images: Array,
@@ -26,6 +27,7 @@ const images = ref([]);
 
 let form = useForm({
     currID: props.currBoarding.id,
+    owner: props.currOwner.user_name,
     name: props.currBoarding.boarding_name,
     address: props.currBoarding.address,
     facility: selectedFacility,
@@ -37,7 +39,24 @@ let form = useForm({
     manager: selectedManager,
     lat: props.currBoarding.latitude,
     lng: props.currBoarding.longitude,
+    reason: "",
+    decision: "",
 });
+
+const denyRequestBan = (this_id) => {
+    form.decision = "ban";
+    form.post(`/boardingAdmin/request/${this_id}`, {});
+};
+
+const denyRequestDecline = (this_id) => {
+    form.decision = "decline";
+    form.post(`/boardingAdmin/request/${this_id}`, {});
+};
+
+const acceptRequest = (this_id) => {
+    form.decision = "accept";
+    form.post(`/boardingAdmin/request/${this_id}`, {});
+};
 </script>
 
 <template>
@@ -214,6 +233,16 @@ let form = useForm({
                     <div class="mb-4">
                         <TextBoxInput
                             :read-only="true"
+                            v-model="form.owner"
+                            :input-type="'text'"
+                            :label-name="'Boarding House Owner'"
+                            :placeholder="'None'"
+                        />
+                    </div>
+
+                    <div class="mb-4">
+                        <TextBoxInput
+                            :read-only="true"
                             v-model="form.manager"
                             :input-type="'text'"
                             :label-name="'Boarding House Manager'"
@@ -242,6 +271,45 @@ let form = useForm({
                                     {{ img.image.split("/")[3] }}
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label
+                            class="block text-gray-700 text-sm font-bold mb-2"
+                        >
+                            Accept or Decline Reason (Optional)
+                        </label>
+                        <textarea
+                            v-model="form.reason"
+                            class="w-full h-[20vh] p-2.5 border border-gray-300 rounded-lg"
+                            placeholder="Fill in your reason for declining or accepting the request"
+                        ></textarea>
+                    </div>
+
+                    <div class="flow-root">
+                        <div class="mt-2 float-left">
+                            <button
+                                class="mt-4 bg-slate-700 hover:bg-slate-900 text-white font-bold py-4 px-12 rounded"
+                                @click.prevent="denyRequestBan(form.currID)"
+                            >
+                                <span>Decline (Cannot Reapprove)</span>
+                            </button>
+
+                            <button
+                                class="ml-4 mt-4 bg-red-700 hover:bg-red-900 text-white font-bold py-4 px-12 rounded"
+                                @click.prevent="denyRequestDecline(form.currID)"
+                            >
+                                <span>Decline (Can Reapprove)</span>
+                            </button>
+                        </div>
+                        <div class="mt-2 float-right">
+                            <button
+                                class="mt-4 bg-green-700 hover:bg-green-900 text-white font-bold py-4 px-12 rounded"
+                                @click.prevent="acceptRequest(form.currID)"
+                            >
+                                <span>Accept</span>
+                            </button>
                         </div>
                     </div>
                 </form>

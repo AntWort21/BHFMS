@@ -10,6 +10,7 @@ import TextBoxInput from "../../Shared/BoardingShared/TextBoxInput.vue";
 import { Link } from "@inertiajs/inertia-vue3";
 
 const props = defineProps({
+    reason: Object,
     currBoarding: Object,
     currFacilities: Object,
     currManager: Object,
@@ -97,7 +98,7 @@ const clearManagerInput = () => {
 };
 
 const submitUpdate = (this_id) => {
-    form.post(`/boarding/update/${this_id}`, {});
+    form.post(`/boarding/reapprove/${this_id}`, {});
 };
 </script>
 
@@ -133,6 +134,19 @@ const submitUpdate = (this_id) => {
                     <h1 class="text-blue-600 font-bold text-2xl mb-8">
                         Update Boarding House
                     </h1>
+                    <div class="mb-4">
+                        <label
+                            class="block text-gray-700 text-sm font-bold mb-2"
+                        >
+                            Declined Reason (By Admin)
+                        </label>
+                        <textarea
+                            v-model="props.reason"
+                            disabled
+                            class="w-full h-[20vh] p-2.5 border border-gray-300 rounded-lg"
+                            placeholder="None"
+                        ></textarea>
+                    </div>
                     <div class="mb-4">
                         <TextBoxInput
                             v-model="form.name"
@@ -425,7 +439,7 @@ const submitUpdate = (this_id) => {
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                             type="submit"
                         >
-                            Submit
+                            Request Reapprove Boarding House
                         </button>
                     </div>
                 </form>
