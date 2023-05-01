@@ -42,13 +42,39 @@ class BoardingController extends Controller
                 }
             })->paginate(5)->withQueryString();
 
-        $all_boarding_count = Boarding::join('owner_boardings', 'boardings.id', "=", 'owner_boardings.boarding_id')->get();
-        $all = $all_boarding_count->count();
-        $apv = $all_boarding_count->where('owner_status', '=', 'approved')->count();
-        $dcl = $all_boarding_count->where('owner_status', '=', 'declined')->count();
-        $pending = $all_boarding_count->where('owner_status', '=', 'pending')->count();
-        $ban = $all_boarding_count->where('owner_status', '=', 'banned')->count();
+        $all_boarding_count = Boarding::join('owner_boardings', 'boardings.id', "=", 'owner_boardings.boarding_id')
+        ->select('owner_status', DB::raw('count(*) as total'))
+        ->groupBy('owner_status')
+        ->get()->toArray();
 
+        $all = 0;
+        $apv = 0;
+        $dcl = 0;
+        $pending = 0;
+        $ban = 0;
+
+        foreach($all_boarding_count as $count => $collection) {
+            if($all_boarding_count[$count]["owner_status"] == "pending"){
+                $all+= $all_boarding_count[$count]["total"]; 
+                $pending = $all_boarding_count[$count]["total"];
+            } 
+                
+            elseif($all_boarding_count[$count]["owner_status"] == "approved"){
+                $all+= $all_boarding_count[$count]["total"]; 
+                $apv = $all_boarding_count[$count]["total"];
+
+            }
+
+            elseif($all_boarding_count[$count]["owner_status"] == "declined"){
+                $all+= $all_boarding_count[$count]["total"]; 
+                $dcl = $all_boarding_count[$count]["total"];
+            }
+
+            elseif($all_boarding_count[$count]["owner_status"] == "banned"){
+                $all+= $all_boarding_count[$count]["total"]; 
+                $ban = $all_boarding_count[$count]["total"];
+            }
+        }
         return Inertia::render('Boarding/BoardingManagementAdmin', [
             'all_count' => $all,
             'approved' => $apv,
@@ -75,12 +101,38 @@ class BoardingController extends Controller
 
         $all_boarding_count = ManagerBoarding::join('boardings', 'boardings.id', 'manager_boardings.boarding_id')
             ->join('owner_boardings', 'boardings.id', "=", 'owner_boardings.boarding_id')
-            ->where('manager_boardings.user_id', '=', auth()->id())->get();
-        $all = $all_boarding_count->count();
-        $apv = $all_boarding_count->where('owner_status', '=', 'approved')->count();
-        $dcl = $all_boarding_count->where('owner_status', '=', 'declined')->count();
-        $pending = $all_boarding_count->where('owner_status', '=', 'pending')->count();
-        $ban = $all_boarding_count->where('owner_status', '=', 'banned')->count();
+            ->select('owner_status', DB::raw('count(*) as total'))
+            ->groupBy('owner_status')
+            ->where('manager_boardings.user_id', '=', auth()->id())->get()->toArray();
+        
+        $all = 0;
+        $apv = 0;
+        $dcl = 0;
+        $pending = 0;
+        $ban = 0;
+
+        foreach($all_boarding_count as $count => $collection) {
+            if($all_boarding_count[$count]["owner_status"] == "pending"){
+                $all+= $all_boarding_count[$count]["total"]; 
+                $pending = $all_boarding_count[$count]["total"];
+            } 
+                
+            elseif($all_boarding_count[$count]["owner_status"] == "approved"){
+                $all+= $all_boarding_count[$count]["total"]; 
+                $apv = $all_boarding_count[$count]["total"];
+
+            }
+
+            elseif($all_boarding_count[$count]["owner_status"] == "declined"){
+                $all+= $all_boarding_count[$count]["total"]; 
+                $dcl = $all_boarding_count[$count]["total"];
+            }
+
+            elseif($all_boarding_count[$count]["owner_status"] == "banned"){
+                $all+= $all_boarding_count[$count]["total"]; 
+                $ban = $all_boarding_count[$count]["total"];
+            }
+        }
 
         return Inertia::render('Boarding/BoardingManagementManager', [
             'all_count' => $all,
@@ -107,12 +159,37 @@ class BoardingController extends Controller
             })->paginate(5)->withQueryString();
 
 
-        $all_boarding_count = OwnerBoarding::where('user_id', '=', auth()->id())->get();
-        $all = $all_boarding_count->count();
-        $apv = $all_boarding_count->where('owner_status', '=', 'approved')->count();
-        $dcl = $all_boarding_count->where('owner_status', '=', 'declined')->count();
-        $pending = $all_boarding_count->where('owner_status', '=', 'pending')->count();
-        $ban = $all_boarding_count->where('owner_status', '=', 'banned')->count();
+        $all_boarding_count = OwnerBoarding::select('owner_status', DB::raw('count(*) as total'))
+        ->groupBy('owner_status')->where('user_id', '=', auth()->id())->get()->toArray();
+
+        $all = 0;
+        $apv = 0;
+        $dcl = 0;
+        $pending = 0;
+        $ban = 0;
+
+        foreach($all_boarding_count as $count => $collection) {
+            if($all_boarding_count[$count]["owner_status"] == "pending"){
+                $all+= $all_boarding_count[$count]["total"]; 
+                $pending = $all_boarding_count[$count]["total"];
+            } 
+                
+            elseif($all_boarding_count[$count]["owner_status"] == "approved"){
+                $all+= $all_boarding_count[$count]["total"]; 
+                $apv = $all_boarding_count[$count]["total"];
+
+            }
+
+            elseif($all_boarding_count[$count]["owner_status"] == "declined"){
+                $all+= $all_boarding_count[$count]["total"]; 
+                $dcl = $all_boarding_count[$count]["total"];
+            }
+
+            elseif($all_boarding_count[$count]["owner_status"] == "banned"){
+                $all+= $all_boarding_count[$count]["total"]; 
+                $ban = $all_boarding_count[$count]["total"];
+            }
+        }
 
         return Inertia::render('Boarding/BoardingManagementOwner', [
             'all_count' => $all,
@@ -487,7 +564,6 @@ class BoardingController extends Controller
 
     public function ReapproveBoarding(Request $request)
     {
-        // dd($request);
         $max_pic = 5 - (int)$request['max_image'];
         $total_pic = (int)$request['max_image'] + (int)count($request['images']);
         $custom_messages = [

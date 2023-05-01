@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Boarding;
 use App\Models\OwnerBoarding;
 use App\Models\TenantBoarding;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class TenantController extends Controller
@@ -30,13 +32,15 @@ class TenantController extends Controller
             
             $all_boarding_count = TenantBoarding::join('boardings', 'boardings.id', "=", 'tenant_boardings.boarding_id')
             ->join('owner_boardings','owner_boardings.boarding_id',"=",'boardings.id')
-            ->where('owner_boardings.user_id','=',auth()->id())->get();
+            ->select('tenant_status', DB::raw('count(*) as total'))
+            ->groupBy('tenant_status')
+            ->where('owner_boardings.user_id','=',auth()->id())->get()->toArray();
         }
         // if Manager
         else if(Auth::user()->user_role_id==4){
             $Tenant_data = TenantBoarding::
-                join('users', 'users.id', '=', 'tenant_boardings.user_id')
-                ->join('boardings', 'boardings.id', '=', 'tenant_boardings.boarding_id')
+            join('users', 'users.id', '=', 'tenant_boardings.user_id')
+            ->join('boardings', 'boardings.id', '=', 'tenant_boardings.boarding_id')
                 ->join('manager_boardings', 'boardings.id', '=', 'manager_boardings.boarding_id')
                 ->select('users.user_name','boardings.boarding_name','tenant_boardings.id','tenant_boardings.tenant_status')
                 ->where('manager_boardings.user_id','=',auth()->id())
@@ -50,15 +54,39 @@ class TenantController extends Controller
             
             $all_boarding_count = TenantBoarding::join('boardings', 'boardings.id', "=", 'tenant_boardings.boarding_id')
             ->join('manager_boardings','manager_boardings.boarding_id',"=",'boardings.id')
-            ->where('manager_boardings.user_id','=',auth()->id())->get();
+            ->select('tenant_status', DB::raw('count(*) as total'))
+            ->groupBy('tenant_status')
+            ->where('manager_boardings.user_id','=',auth()->id())->get()->toArray();
         }
 
+        $all = 0;
+        $apv = 0;
+        $dcl = 0;
+        $pending = 0;
+        $done = 0;
 
-        $all = $all_boarding_count->count();
-        $apv = $all_boarding_count->where('tenant_status', '=', 'approved')->count();
-        $dcl = $all_boarding_count->where('tenant_status', '=', 'declined')->count();
-        $pending = $all_boarding_count->where('tenant_status', '=', 'pending')->count();
-        $done = $all_boarding_count->where('tenant_status', '=', 'checkout')->count();
+        foreach($all_boarding_count as $count => $collection) {
+            if($all_boarding_count[$count]["tenant_status"] == "pending"){
+                $all+= $all_boarding_count[$count]["total"]; 
+                $pending = $all_boarding_count[$count]["total"];
+            } 
+                
+            elseif($all_boarding_count[$count]["tenant_status"] == "approved"){
+                $all+= $all_boarding_count[$count]["total"]; 
+                $apv = $all_boarding_count[$count]["total"];
+
+            }
+
+            elseif($all_boarding_count[$count]["tenant_status"] == "declined"){
+                $all+= $all_boarding_count[$count]["total"]; 
+                $dcl = $all_boarding_count[$count]["total"];
+            }
+
+            elseif($all_boarding_count[$count]["tenant_status"] == "checkout"){
+                $all+= $all_boarding_count[$count]["total"]; 
+                $done = $all_boarding_count[$count]["total"];
+            }
+        }
 
         return Inertia::render('Tenant/TenantList', [
             'all_count' => $all,
