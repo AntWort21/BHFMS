@@ -90,3 +90,5 @@ Route::post('/pay',[PaymentController::class,'addPaymentTenant']);
 Route::get('/paymentHistory',[PaymentController::class,'getAllPayment']);
 Route::post('/getInvoiceData',[PaymentController::class,'getInvoiceDetail']);
 Route::get('/cancelPayment',[PaymentController::class,'cancelPayment']);
+
+Route::post('/search', [BoardingController::class, 'searchBoardingByLocation']);

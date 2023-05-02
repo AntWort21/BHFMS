@@ -1,11 +1,27 @@
-d
 <script setup>
-import { Link } from "@inertiajs/inertia-vue3";
+import { Link, useForm } from "@inertiajs/inertia-vue3";
 import { ref } from "vue";
+import VueGoogleAutocomplete from "vue-google-autocomplete";
 
 let hover = ref(false);
 let selectedProfile = ref(false);
 let selectedLogout = ref(false);
+
+const onPlaceChangedHeader = (addressData, placeResultData) => {
+    form.address = placeResultData.formatted_address;
+    form.latitude = addressData.latitude;
+    form.longitude = addressData.longitude;
+};
+
+const form = useForm({
+    address: "",
+    latitude: 0,
+    longitude: 0,
+});
+
+const submitHeader = () => {
+    form.post("/search");
+};
 </script>
 
 <template>
@@ -64,12 +80,39 @@ let selectedLogout = ref(false);
             <Link href="">My Complains</Link>
             <Link href="">My Payments</Link> -->
         </div>
-        <div class="flex space-x-3">
-            <input
-                type="text"
-                class="bg-white rounded-lg text-black text-sm w-full p-2.5"
-                placeholder="Search"
-            />
+        <div class="flex items-center space-x-3">
+            <form @submit.prevent="submitHeader" class="w-full h-10 flex items-center justify-between border border-gray-500 bg-white rounded-3xl items-center p-3">
+                <vue-google-autocomplete
+                    id="autocomplete"
+                    class="h-full rounded-3xl items-center p-3 text-black"
+                    placeholder="Search Here"
+                    v-model="address"
+                    v-on:placechanged="onPlaceChangedHeader"
+                />
+                <div
+                    class="flex items-baseline justify-end items-center space-x-10"
+                >
+                    <button
+                        class="text-white w-[3rem] h-[3rem] rounded-full flex items-center justify-center"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="28"
+                            height="28"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="#000000"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+
             <div
                 @mouseover="hover = true"
                 @mouseleave="hover = false"
