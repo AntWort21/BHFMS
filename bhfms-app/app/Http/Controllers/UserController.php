@@ -77,8 +77,6 @@ class UserController extends Controller
     }
 
     public function UserUpdate(Request $request){
-        // dd($request);
-
         $custom_messages = [
             'images.max' => 'Maximum number of image is 1 !',
         ];
