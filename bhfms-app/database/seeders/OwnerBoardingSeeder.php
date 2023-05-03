@@ -16,7 +16,7 @@ class OwnerBoardingSeeder extends Seeder
     {
         //Declined
         OwnerBoarding::create([
-            "user_id"=>1,
+            "user_id"=>2,
             "boarding_id"=>1,
             "owner_status"=>3,
             "declined_reason"=>"Too many Cats"
@@ -28,7 +28,7 @@ class OwnerBoardingSeeder extends Seeder
             "declined_reason"=>"Too many Mouse"
         ]);
         OwnerBoarding::create([
-            "user_id"=>1,
+            "user_id"=>2,
             "boarding_id"=>3,
             "owner_status"=>3,
             "declined_reason"=>"Will give you Up"
@@ -45,11 +45,13 @@ class OwnerBoardingSeeder extends Seeder
             "boarding_id"=>5,
             "owner_status"=>2,
         ]);
+        
         OwnerBoarding::create([
-            "user_id"=>1,
+            "user_id"=>3,
             "boarding_id"=>6,
             "owner_status"=>2,
         ]);
+
         OwnerBoarding::create([
             "user_id"=>3,
             "boarding_id"=>7,

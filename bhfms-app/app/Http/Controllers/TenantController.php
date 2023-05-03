@@ -123,6 +123,12 @@ class TenantController extends Controller
                 'tenant_status' => 2,
                 'declined_reason' => $request['reason'],
             ]);
+
+            $accFirst = TenantBoarding::where('id','=',$request->currID)->first()->user_id;
+            $update = TenantBoarding::where('user_id','=',$accFirst)->where('tenant_status','=','pending')->update([
+                'tenant_status' => 'declined',
+                'declined_reason' => 'Alrady Accepted in another Boarding House !',
+            ]);
             return redirect('/tenantBoarding')->with('message', 'Success Accepting new Tenant');
         }else{
             TenantBoarding::where('id','=',$request->currID)->update([
