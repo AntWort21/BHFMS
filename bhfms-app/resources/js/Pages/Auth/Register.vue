@@ -11,9 +11,11 @@ let form = useForm({
     lastName: "",
     gender: "",
     dateOfBirth: "",
+    phoneNumber: "",
     email: "",
     password: "",
     confirmPassword: "",
+    userRole: "",
 });
 
 let submit = () => {
@@ -21,6 +23,7 @@ let submit = () => {
 };
 
 let genderList = ["Male", "Female"];
+let roleList = ["Tenant", "Owner", "Manager"]
 </script>
 
 <template>
@@ -76,6 +79,14 @@ let genderList = ["Male", "Female"];
                     </div>
                     <div class="mt-4 mx-2">
                         <FormTextBoxInput
+                            v-model="form.phoneNumber"
+                            :input-type="'text'"
+                            :label-name="'Phone Number'"
+                        />
+                        <FormErrorMessage :error-message="form.errors.phoneNumber" />
+                    </div>
+                    <div class="mt-4 mx-2">
+                        <FormTextBoxInput
                             v-model="form.email"
                             :input-type="'email'"
                             :label-name="'Email'"
@@ -101,6 +112,15 @@ let genderList = ["Male", "Female"];
                         <FormErrorMessage
                             :error-message="form.errors.confirmPassword"
                         />
+                    </div>
+                    <div class="mt-4 mx-2">
+                        <FormSelectInput
+                            v-model="form.userRole"
+                            :label-name="'Role'"
+                            :option-list="roleList"
+                            :default-text="'Role'"
+                        />
+                        <FormErrorMessage :error-message="form.errors.userRole" />
                     </div>
                     <div
                         class="flex items-baseline justify-betweens space-x-6 mt-4"

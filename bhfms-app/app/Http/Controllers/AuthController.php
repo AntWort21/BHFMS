@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,7 +28,9 @@ class AuthController extends Controller
             'dateOfBirth' => ['required'],
             'email' => ['required', 'email'],
             'password' => ['required', 'alpha_num', 'min:6'],
-            'confirmPassword' => ['required', 'same:password']
+            'confirmPassword' => ['required', 'same:password'],
+            'phoneNumber' => ['required'],
+            'userRole' => ['required', 'in:Manager,Owner,Tenant']
         ]);
 
         User::create([
@@ -35,10 +38,11 @@ class AuthController extends Controller
             'gender' => $validation['gender'],
             'email' => $validation['email'],
             'date_of_birth' => $validation['dateOfBirth'],
-            'phone' => null,
+            'phone' => $validation['phoneNumber'],
             'user_role_id' => isset($validation['userRoleId']) ? $validation['userRoleId'] : 2,
             'profile_picture' => $validation['profilePicture'] ?? null,
             'password' => bcrypt($validation['password']),
+            'user_role_id' => UserRole::where('user_role_name', $validation['userRole'])->first()->id
         ]);
 
         return redirect('/login');
