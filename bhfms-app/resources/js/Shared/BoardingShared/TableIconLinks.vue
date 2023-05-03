@@ -14,7 +14,6 @@ const deleteBoarding = (idx) => {
     <td class="py-3 px-6 text-center">
         <div class="flex item-center justify-center">
             <!-- See details (Admin, Owner, Manager) -->
-
             <div
                 class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
             >
@@ -70,7 +69,7 @@ const deleteBoarding = (idx) => {
                     v-if="boarding.owner_status == 'pending'"
                     class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                 >
-                    <Link :href="''">
+                    <Link :href="`/boardingAdmin/request/${currentID}`">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -164,7 +163,7 @@ const deleteBoarding = (idx) => {
                     v-if="boarding.owner_status == 'declined'"
                     class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110 mt-0.5"
                 >
-                    <Link :href="''">
+                    <Link :href="`/boarding/reapprove/${currentID}`">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
