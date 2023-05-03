@@ -28,7 +28,6 @@ const getSelectedChat = (id) => {
         .then((response) => response.json())
         .then((incomingData) => {
             data.messages = incomingData.messages;
-            console.log(incomingData.receiverDetails);
             data.receiverDetails = incomingData.receiverDetails;
         });
 };
@@ -76,7 +75,7 @@ onMounted(() => {
                     </div>
                 </div>
             </div>
-            <div v-if="data.messages.length > 1" class="w-4/5 p-[1rem]">
+            <div v-if="data.messages.length >= 1" class="w-4/5 p-[1rem]">
                 <div class="h-1/6 flex items-center space-x-3">
                     <img
                         :src="data.receiverDetails.profile_picture"
