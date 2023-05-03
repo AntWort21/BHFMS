@@ -15,6 +15,7 @@ const data = reactive({
     pusher: null,
     channel: null,
     receiverDetails: null,
+    showChat: false,
 });
 
 const sendMessage = () => {
@@ -24,6 +25,7 @@ const sendMessage = () => {
 
 const getSelectedChat = (id) => {
     data.messages = [];
+    data.showChat = true;
     fetch(`/chat/get?id=${id}`)
         .then((response) => response.json())
         .then((incomingData) => {
@@ -64,7 +66,7 @@ onMounted(() => {
                     >
                         <div>
                             <img
-                                :src="contact.profile_picture"
+                                :src="contact.profile_picture ? contact.profile_picture : '/storage/images/CJ-GTASA.png'"
                                 alt="no image"
                                 class="w-[3rem] h-[3rem] bg-white rounded-full object-scale-down"
                             />
@@ -75,10 +77,10 @@ onMounted(() => {
                     </div>
                 </div>
             </div>
-            <div v-if="data.messages.length >= 1" class="w-4/5 p-[1rem]">
+            <div v-if="data.showChat == true" class="w-4/5 p-[1rem]">
                 <div class="h-1/6 flex items-center space-x-3">
                     <img
-                        :src="data.receiverDetails.profile_picture"
+                        :src="data.receiverDetails.profile_picture ? data.receiverDetails.profile_picture : '/storage/images/CJ-GTASA.png'"
                         alt="no image"
                         class="w-[3rem] h-[3rem] bg-white rounded-full object-scale-down"
                     />
@@ -87,6 +89,7 @@ onMounted(() => {
                     </p>
                 </div>
                 <div
+                    v-if="data.messages.length >= 1"
                     class="h-4/6 overflow-auto scroll-auto space-y-2 flex flex-col-reverse"
                 >
                     <div class="grow"></div>
@@ -98,7 +101,7 @@ onMounted(() => {
                             'justify-end':
                                 message.sender_id == $page.props.user.id,
                             'justify-start':
-                                message.sender_id != $page.props.user.id
+                                message.sender_id != $page.props.user.id,
                         }"
                     >
                         <div
@@ -114,6 +117,7 @@ onMounted(() => {
                         </div>
                     </div>
                 </div>
+                <div v-else class="h-4/6"></div>
                 <div class="h-1/6 flex space-x-2 justify-center items-center">
                     <input
                         @keyup.enter="sendMessage()"
