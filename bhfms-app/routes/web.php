@@ -6,6 +6,7 @@ use App\Http\Controllers\BoardingController;
 use App\Http\Controllers\ComplainController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\BoardingImageController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\PaymentController;
@@ -57,6 +58,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/review/create', [ReviewController::class, 'createReview']);
     Route::post('/review/update', [ReviewController::class, 'updateReview']);
 
+    Route::get('/chat', [ChatController::class, 'getChatPage']);
+    Route::post('/chat', [ChatController::class, 'storeChatMessage']);
+
+    Route::get('/chat/get', [ChatController::class, 'getChatMessage']);
     Route::get('/wishlist', [WishlistController::class, 'showWishlist']);
     Route::post('/wishlist/add', [WishlistController::class, 'addWishlist']);
     Route::post('/wishlist/remove', [WishlistController::class, 'removeWishlist']);
