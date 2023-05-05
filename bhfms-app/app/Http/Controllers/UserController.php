@@ -36,7 +36,7 @@ class UserController extends Controller
             $fileName = Auth::user()->id . $fileName;
             $fileName = 'images/' . $fileName;
             Storage::putFileAs('public/',$file, $fileName);
-            $path_in_db = '/storage/' . $fileName;
+            $path_db = '/storage/' . $fileName;
         }
 
         User::findOrFail(Auth::user()->id)->update([
@@ -44,7 +44,7 @@ class UserController extends Controller
             'email' => $validation['email'],
             'date_of_birth' => $validation['dateOfBirth'],
             'phone' => $validation['phoneNumber'],
-            'profile_picture' => $path_in_db ?? null
+            'profile_picture' => $path_db ?? null
         ]);
 
         return redirect('/profile');
@@ -70,11 +70,11 @@ class UserController extends Controller
     public function getUserUpdate(Request $request){
         $currUser = User::find($request->id);
         $currRole = $currUser->user_role_id;
-        $all_role = UserRole::get();
+        $allRole = UserRole::get();
         $currDOB = Carbon::parse($currUser->date_of_birth)->format('Y-m-d');
         return inertia('User/UpdateUser', [
             'user' => $currUser,
-            'all_role'=>$all_role,
+            'all_role'=>$allRole,
             'currRole'=>$currRole,
             'currDOB'=>$currDOB,
         ]);
@@ -98,23 +98,23 @@ class UserController extends Controller
 
         if (($request->file('images') !== null)) {
             $currImage = User::where('id','=',$request->id)->first()->profile_picture;
-            $currImage_path = explode('/storage/', $currImage);
+            $currImagePath = explode('/storage/', $currImage);
 
             if($currImage){
-                Storage::delete('public/'.$currImage_path[1]);
+                Storage::delete('public/'.$currImagePath[1]);
             }
-            $user_id = User::where('id','=',$request->id)->get()->id;
+            $currUserId = User::where('id','=',$request->id)->get()->id;
 
             foreach ($request->file('images') as $image) {
 
                 $path = $image->getClientOriginalName();
                 $path = str_replace(" ", "-", $path);
                 $path = time() . '-' . $path;
-                $path = $user_id . $path;
+                $path = $currUserId . $path;
                 $path = 'images/' . $path;
 
                 Storage::putFileAs('public/',$image, $path);
-                $path_in_db = '/storage/' . $path;
+                $pathDB = '/storage/' . $path;
 
             }
             User::where('id','=',$request->id)->update([
@@ -125,7 +125,7 @@ class UserController extends Controller
                 'email'=>$validation['email'],
                 'date_of_birth'=>$validation['dob'],
                 'phone' => $validation['phone'],
-                'profile_picture' => $path_in_db,
+                'profile_picture' => $pathDB,
             ]);
 
         }else{
