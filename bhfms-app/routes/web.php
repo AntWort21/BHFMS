@@ -6,6 +6,9 @@ use App\Http\Controllers\BoardingController;
 use App\Http\Controllers\ComplainController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\BoardingImageController;
+use App\Http\Controllers\FacilityController;
+use App\Http\Controllers\ChatController;
+use App\Http\Controllers\TenantController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
@@ -56,6 +59,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/review/create', [ReviewController::class, 'createReview']);
     Route::post('/review/update', [ReviewController::class, 'updateReview']);
 
+    Route::get('/chat', [ChatController::class, 'getChatPage']);
+    Route::post('/chat', [ChatController::class, 'storeChatMessage']);
+
+    Route::get('/chat/get', [ChatController::class, 'getChatMessage']);
     Route::get('/wishlist', [WishlistController::class, 'showWishlist']);
     Route::post('/wishlist/add', [WishlistController::class, 'addWishlist']);
     Route::post('/wishlist/remove', [WishlistController::class, 'removeWishlist']);
@@ -65,8 +72,11 @@ Route::middleware('auth')->group(function () {
 Route::get('/boarding', [BoardingController::class, 'index']);
 Route::get('/boarding/create', [BoardingController::class, 'create']);
 Route::get('/boarding/detail', [BoardingController::class, 'getBoardingHouseDetail']);
+Route::post('/boarding/detail/rent/{id}', [BoardingController::class, 'boardingRent']);
 
 Route::get('/boardingAdmin', [BoardingController::class, 'indexAdmin']);
+Route::get('/boardingAdmin/request/{id}', [BoardingController::class, 'getAdminApproveBoarding']);
+Route::post('/boardingAdmin/request/{id}', [BoardingController::class, 'AdminApproveBoarding']);
 Route::get('/boardingOwner', [BoardingController::class, 'indexOwner']);
 Route::get('/boarding/create', [BoardingController::class, 'getCreateOwnerBoarding']);
 Route::post('/boarding/create', [BoardingController::class, 'createOwnerBoarding']);
@@ -74,10 +84,18 @@ Route::get('/boarding/update/{id}', [BoardingController::class, 'getUpdateBoardi
 Route::get('/boarding/read/{id}', [BoardingController::class, 'getReadBoarding']);
 Route::post('/boarding/update/{id}', [BoardingController::class, 'updateBoarding']);
 Route::get('/boarding/delete/{id}', [BoardingController::class, 'deleteBoarding']);
+Route::get('/boarding/reapprove/{id}', [BoardingController::class, 'getReapproveBoarding']);
+Route::post('/boarding/reapprove/{id}', [BoardingController::class, 'ReapproveBoarding']);
 
 Route::put('/boarding/image/delete/{id}', [BoardingImageController::class, 'deleteImage']);
 
 Route::get('/boardingManager', [BoardingController::class, 'indexManager']);
+Route::get('/tenantBoarding', [TenantController::class, 'getAllTenantBoarding']);
+Route::get('/tenantBoarding/read/{id}', [TenantController::class, 'getDetailTenantBoarding']);
+Route::get('/tenantBoarding/request/{id}', [TenantController::class, 'getRequestTenant']);
+Route::post('/tenantBoarding/request/{id}', [TenantController::class, 'RequestTenant']);
+
+Route::get('/boardingTenant', [BoardingController::class, 'indexTenant']);
 
 Route::get('/boarding/test', [BoardingController::class, 'testCarousel']);
 Route::get('/boarding/all', [BoardingController::class, 'getAllBoardingHouse']);
@@ -92,3 +110,16 @@ Route::post('/getInvoiceData',[PaymentController::class,'getInvoiceDetail']);
 Route::get('/cancelPayment',[PaymentController::class,'cancelPayment']);
 
 Route::post('/search', [BoardingController::class, 'searchBoardingByLocation']);
+Route::get('/facilityAll',[FacilityController::class, 'getAllFacilityPage']);
+Route::get('/facility/create',[FacilityController::class, 'getFacilityCreate']);
+Route::post('/facility/create',[FacilityController::class, 'FacilityCreate']);
+Route::get('/facility/update/{id}',[FacilityController::class, 'getFacilityUpdate']);
+Route::post('/facility/update/{id}',[FacilityController::class, 'FacilityUpdate']);
+Route::get('/facility/read/{id}',[FacilityController::class, 'getFacilityDetail']);
+Route::get('/facility/delete/{id}',[FacilityController::class, 'FacilityDelete']);
+
+Route::get('/userAll',[UserController::class, 'getAllUserPage']);
+Route::get('/user/update/{id}',[UserController::class, 'getUserUpdate']);
+Route::post('/user/update/{id}',[UserController::class, 'UserUpdate']);
+Route::get('/user/read/{id}',[UserController::class, 'getUserDetail']);
+Route::get('/user/delete/{id}',[UserController::class, 'UserDelete']);

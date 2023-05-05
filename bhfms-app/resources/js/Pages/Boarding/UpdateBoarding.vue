@@ -346,10 +346,10 @@ const submitUpdate = (this_id) => {
                             <div class="float-left flex items-center">
                                 <img
                                     class="w-40 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    :src="`/storage/${img.image}`"
+                                    :src="`${img.image}`"
                                 />
                                 <div class="mt-4 ml-2">
-                                    {{ img.image.split("/")[1] }}
+                                    {{ img.image.split("/")[3] }}
                                 </div>
                             </div>
                             <div class="float-right h-100">
