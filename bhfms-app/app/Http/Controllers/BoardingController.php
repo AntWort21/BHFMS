@@ -55,23 +55,23 @@ class BoardingController extends Controller
 
         foreach($all_boarding_count as $count => $collection) {
             if($all_boarding_count[$count]["owner_status"] == "pending"){
-                $all+= $all_boarding_count[$count]["total"]; 
+                $all+= $all_boarding_count[$count]["total"];
                 $pending = $all_boarding_count[$count]["total"];
-            } 
-                
+            }
+
             elseif($all_boarding_count[$count]["owner_status"] == "approved"){
-                $all+= $all_boarding_count[$count]["total"]; 
+                $all+= $all_boarding_count[$count]["total"];
                 $apv = $all_boarding_count[$count]["total"];
 
             }
 
             elseif($all_boarding_count[$count]["owner_status"] == "declined"){
-                $all+= $all_boarding_count[$count]["total"]; 
+                $all+= $all_boarding_count[$count]["total"];
                 $dcl = $all_boarding_count[$count]["total"];
             }
 
             elseif($all_boarding_count[$count]["owner_status"] == "banned"){
-                $all+= $all_boarding_count[$count]["total"]; 
+                $all+= $all_boarding_count[$count]["total"];
                 $ban = $all_boarding_count[$count]["total"];
             }
         }
@@ -104,7 +104,7 @@ class BoardingController extends Controller
             ->select('owner_status', DB::raw('count(*) as total'))
             ->groupBy('owner_status')
             ->where('manager_boardings.user_id', '=', auth()->id())->get()->toArray();
-        
+
         $all = 0;
         $apv = 0;
         $dcl = 0;
@@ -113,23 +113,23 @@ class BoardingController extends Controller
 
         foreach($all_boarding_count as $count => $collection) {
             if($all_boarding_count[$count]["owner_status"] == "pending"){
-                $all+= $all_boarding_count[$count]["total"]; 
+                $all+= $all_boarding_count[$count]["total"];
                 $pending = $all_boarding_count[$count]["total"];
-            } 
-                
+            }
+
             elseif($all_boarding_count[$count]["owner_status"] == "approved"){
-                $all+= $all_boarding_count[$count]["total"]; 
+                $all+= $all_boarding_count[$count]["total"];
                 $apv = $all_boarding_count[$count]["total"];
 
             }
 
             elseif($all_boarding_count[$count]["owner_status"] == "declined"){
-                $all+= $all_boarding_count[$count]["total"]; 
+                $all+= $all_boarding_count[$count]["total"];
                 $dcl = $all_boarding_count[$count]["total"];
             }
 
             elseif($all_boarding_count[$count]["owner_status"] == "banned"){
-                $all+= $all_boarding_count[$count]["total"]; 
+                $all+= $all_boarding_count[$count]["total"];
                 $ban = $all_boarding_count[$count]["total"];
             }
         }
@@ -170,23 +170,23 @@ class BoardingController extends Controller
 
         foreach($all_boarding_count as $count => $collection) {
             if($all_boarding_count[$count]["owner_status"] == "pending"){
-                $all+= $all_boarding_count[$count]["total"]; 
+                $all+= $all_boarding_count[$count]["total"];
                 $pending = $all_boarding_count[$count]["total"];
-            } 
-                
+            }
+
             elseif($all_boarding_count[$count]["owner_status"] == "approved"){
-                $all+= $all_boarding_count[$count]["total"]; 
+                $all+= $all_boarding_count[$count]["total"];
                 $apv = $all_boarding_count[$count]["total"];
 
             }
 
             elseif($all_boarding_count[$count]["owner_status"] == "declined"){
-                $all+= $all_boarding_count[$count]["total"]; 
+                $all+= $all_boarding_count[$count]["total"];
                 $dcl = $all_boarding_count[$count]["total"];
             }
 
             elseif($all_boarding_count[$count]["owner_status"] == "banned"){
-                $all+= $all_boarding_count[$count]["total"]; 
+                $all+= $all_boarding_count[$count]["total"];
                 $ban = $all_boarding_count[$count]["total"];
             }
         }
@@ -216,9 +216,9 @@ class BoardingController extends Controller
                 }
             })->paginate(5)->withQueryString();
 
-        
+
         $all_boarding_count = TenantBoarding::select('tenant_status', DB::raw('count(*) as total'))
-        ->where('user_id', '=', auth()->id())->get()->toArray(); 
+        ->where('user_id', '=', auth()->id())->get()->toArray();
         $all = 0;
         $apv = 0;
         $dcl = 0;
@@ -227,27 +227,27 @@ class BoardingController extends Controller
 
         foreach($all_boarding_count as $count => $collection) {
             if($all_boarding_count[$count]["tenant_status"] == "pending"){
-                $all+= $all_boarding_count[$count]["total"]; 
+                $all+= $all_boarding_count[$count]["total"];
                 $pending = $all_boarding_count[$count]["total"];
-            } 
-                
+            }
+
             elseif($all_boarding_count[$count]["tenant_status"] == "approved"){
-                $all+= $all_boarding_count[$count]["total"]; 
+                $all+= $all_boarding_count[$count]["total"];
                 $apv = $all_boarding_count[$count]["total"];
 
             }
 
             elseif($all_boarding_count[$count]["tenant_status"] == "declined"){
-                $all+= $all_boarding_count[$count]["total"]; 
+                $all+= $all_boarding_count[$count]["total"];
                 $dcl = $all_boarding_count[$count]["total"];
             }
 
             elseif($all_boarding_count[$count]["tenant_status"] == "checkout"){
-                $all+= $all_boarding_count[$count]["total"]; 
+                $all+= $all_boarding_count[$count]["total"];
                 $checkout = $all_boarding_count[$count]["total"];
             }
         }
-        
+
 
         return Inertia::render('Boarding/BoardingManagementTenant', [
             'all_count' => $all,
@@ -295,7 +295,11 @@ class BoardingController extends Controller
             $starRating[$reviews[$key]->rating - 1]++;
         }
 
-        $onWishlist = Wishlist::where('user_id', Auth::user()->id)->where('boarding_id', $request->id)->first() ?? null;
+        if(isset(Auth::user()->id)){
+            $onWishlist = Wishlist::where('user_id', Auth::user()->id)->where('boarding_id', $request->id)->first() ?? null;
+        } else {
+            $onWishlist = null;
+        }
 
         return Inertia::render('Boarding/SelectedBoardingHouse', [
             'boardingHouseDetail' => $selectedBoardingHouseDetail,
@@ -313,6 +317,29 @@ class BoardingController extends Controller
         ]);
     }
 
+    public function searchBoardingByLocation(Request $request)
+    {
+        $radius = 25; //radius in km
+
+        $boardingSearchResults = Boarding::select(
+            'id',
+            'boarding_name',
+            'address',
+            'latitude',
+            'longitude',
+            DB::raw("SQRT(
+            POW(69.1 * (latitude - $request->latitude), 2) +
+            POW(69.1 * ($request->longitude - longitude) * COS(latitude / 57.3), 2)) AS distance")
+        )->having('distance', '<', $radius)->get();
+
+        foreach ($boardingSearchResults as $key => $boardingHouse) {
+            $boardingSearchResults[$key]->imageUrl = BoardingImage::where('boarding_id', $boardingHouse->id)->first()->image;
+        }
+
+        return Inertia::render('Boarding/SearchBoardingResult', ['searchResults' => $boardingSearchResults]);
+    }
+
+    //Show the form for creating a new resource.
     public function getCreateOwnerBoarding()
     {
         $Manager_data = User::where('user_role_id', '=', '4')->get();

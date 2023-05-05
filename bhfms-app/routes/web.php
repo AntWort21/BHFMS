@@ -109,6 +109,7 @@ Route::get('/paymentHistory',[PaymentController::class,'getAllPayment']);
 Route::post('/getInvoiceData',[PaymentController::class,'getInvoiceDetail']);
 Route::get('/cancelPayment',[PaymentController::class,'cancelPayment']);
 
+Route::post('/search', [BoardingController::class, 'searchBoardingByLocation']);
 Route::get('/facilityAll',[FacilityController::class, 'getAllFacilityPage']);
 Route::get('/facility/create',[FacilityController::class, 'getFacilityCreate']);
 Route::post('/facility/create',[FacilityController::class, 'FacilityCreate']);
