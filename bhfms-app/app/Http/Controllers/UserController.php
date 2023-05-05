@@ -59,24 +59,24 @@ class UserController extends Controller
     }
 
     public function getUserDetail(Request $request){
-        $curr_user = User::find($request->id);
-        $curr_role = $curr_user->role()->first()->user_role_name;
+        $currUser = User::find($request->id);
+        $currRole = $currUser->role()->first()->user_role_name;
         return inertia('User/ReadUser', [
-            'user' => $curr_user,
-            'currRole'=>$curr_role,
+            'user' => $currUser,
+            'currRole'=>$currRole,
         ]);
     }
 
     public function getUserUpdate(Request $request){
-        $curr_user = User::find($request->id);
-        $curr_role = $curr_user->user_role_id;
+        $currUser = User::find($request->id);
+        $currRole = $currUser->user_role_id;
         $all_role = UserRole::get();
-        $curr_DOB = Carbon::parse($curr_user->date_of_birth)->format('Y-m-d');
+        $currDOB = Carbon::parse($currUser->date_of_birth)->format('Y-m-d');
         return inertia('User/UpdateUser', [
-            'user' => $curr_user,
+            'user' => $currUser,
             'all_role'=>$all_role,
-            'currRole'=>$curr_role,
-            'currDOB'=>$curr_DOB,
+            'currRole'=>$currRole,
+            'currDOB'=>$currDOB,
         ]);
     }
 
@@ -97,11 +97,11 @@ class UserController extends Controller
         ], $custom_messages);
 
         if (($request->file('images') !== null)) {
-            $curr_image = User::where('id','=',$request->id)->first()->profile_picture;
-            $curr_image_path = explode('/storage/', $curr_image);
+            $currImage = User::where('id','=',$request->id)->first()->profile_picture;
+            $currImage_path = explode('/storage/', $currImage);
 
-            if($curr_image){
-                Storage::delete('public/'.$curr_image_path[1]);
+            if($currImage){
+                Storage::delete('public/'.$currImage_path[1]);
             }
             $user_id = User::where('id','=',$request->id)->get()->id;
 
@@ -144,11 +144,11 @@ class UserController extends Controller
     }
 
     public function UserDelete(Request $request){
-        $curr_image = User::where('id','=',$request->id)->first();
-        $curr_image->profile_picture == null ? null :$curr_image_path = explode('/storage/', $curr_image->profile_picture);
+        $currImage = User::where('id','=',$request->id)->first();
+        $currImage->profile_picture == null ? null :$currImage_path = explode('/storage/', $currImage->profile_picture);
 
-        if($curr_image->profile_picture != null){
-            Storage::delete('public/'.$curr_image_path[1]);
+        if($currImage->profile_picture != null){
+            Storage::delete('public/'.$currImage_path[1]);
         }
 
         User::where('id','=',$request->id)->update([
