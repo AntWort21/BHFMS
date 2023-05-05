@@ -30,13 +30,13 @@ class UserController extends Controller
 
         if ($request->hasFile('profilePicture')) {
             $file = $request->file('profilePicture');
-            $file_name = $file->getClientOriginalName();
-            $file_name = str_replace(" ", "-", $file_name);
-            $file_name = time() . '-' . $file_name;
-            $file_name = Auth::user()->id . $file_name;
-            $file_name = 'images/' . $file_name;
-            Storage::putFileAs('public/',$file, $file_name);
-            $path_in_db = '/storage/' . $file_name;
+            $fileName = $file->getClientOriginalName();
+            $fileName = str_replace(" ", "-", $fileName);
+            $fileName = time() . '-' . $fileName;
+            $fileName = Auth::user()->id . $fileName;
+            $fileName = 'images/' . $fileName;
+            Storage::putFileAs('public/',$file, $fileName);
+            $path_in_db = '/storage/' . $fileName;
         }
 
         User::findOrFail(Auth::user()->id)->update([
