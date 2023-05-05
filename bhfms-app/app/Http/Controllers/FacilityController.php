@@ -10,17 +10,9 @@ use Illuminate\Support\Facades\Storage;
 class FacilityController extends Controller
 {
     public function getAllFacilityPage(){
-        $facility = FacilityDetail::paginate(5)->withQueryString();;
-
-        // dd($facility);
+        $facilities = FacilityDetail::paginate(5)->withQueryString();;
         return inertia('Facility/ListFacility', [
-            'facilities' => $facility
-        ]);
-    }
-
-    public function getFacilityDetail(){
-        
-        return inertia('Facility/ReadFacility', [
+            'facilities' => $facilities
         ]);
     }
 
