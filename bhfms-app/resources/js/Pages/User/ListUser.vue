@@ -1,7 +1,7 @@
 <script setup>
-// import { Link } from "@inertiajs/inertia";
 import { Link } from "@inertiajs/inertia-vue3";
-// import { Link, watch } from "vue";
+import { Inertia } from "@inertiajs/inertia";
+import { ref, reactive } from "vue";
 import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
 import Pagination from "../../Shared/Pagination.vue";
@@ -10,6 +10,23 @@ import RoleIcon from "../../Shared/AccountFormInput/RoleIcon.vue";
 defineProps({
     users: Object,
 });
+let mouseover = ref(false);
+
+let popup = reactive({
+    show: false,
+    user_id: 0,
+    user_name: "",
+});
+
+let enableDisablePopup = (id, name) => {
+    popup.show = !popup.show;
+    popup.user_id = id;
+    popup.user_name = name;
+};
+
+const deleteUser = (idx) => {
+    Inertia.post(`/user/delete/${idx}`);
+};
 </script>
 
 <template>
@@ -159,40 +176,44 @@ defineProps({
                                         <!-- Delete/ Banned -->
                                         <div
                                             class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
+                                            @mouseover="mouseover = true"
+                                            @mouseleave="mouseover = false"
+                                            @click="
+                                                enableDisablePopup(
+                                                    user.id,
+                                                    user.user_name
+                                                )
+                                            "
                                         >
-                                            <Link
-                                                :href="`user/delete/${user.id}`"
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="16"
+                                                height="16"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
                                             >
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width="16"
-                                                    height="16"
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    stroke-width="2"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                >
-                                                    <circle
-                                                        cx="12"
-                                                        cy="12"
-                                                        r="10"
-                                                    ></circle>
-                                                    <line
-                                                        x1="15"
-                                                        y1="9"
-                                                        x2="9"
-                                                        y2="15"
-                                                    ></line>
-                                                    <line
-                                                        x1="9"
-                                                        y1="9"
-                                                        x2="15"
-                                                        y2="15"
-                                                    ></line>
-                                                </svg>
-                                            </Link>
+                                                <circle
+                                                    cx="12"
+                                                    cy="12"
+                                                    r="10"
+                                                ></circle>
+                                                <line
+                                                    x1="15"
+                                                    y1="9"
+                                                    x2="9"
+                                                    y2="15"
+                                                ></line>
+                                                <line
+                                                    x1="9"
+                                                    y1="9"
+                                                    x2="15"
+                                                    y2="15"
+                                                ></line>
+                                            </svg>
                                         </div>
                                     </div>
                                 </td>
@@ -208,5 +229,32 @@ defineProps({
             </div>
         </div>
     </div>
+
+    <div
+        v-if="popup.show"
+        class="fixed inset-0 grid place-items-center"
+        style="background: rgba(0, 0, 0, 0.4)"
+        @click="popup.show = false"
+    >
+        <div class="bg-white w-5/12 rounded">
+            <header class="text-xl m-3">Confirmation</header>
+            <div class="mx-3">Delete/Ban {{ popup.user_name }} ?</div>
+            <button
+                class="bg-blue-500 hover:bg-blue-600 rounded p-2 ml-3 my-3 text-white"
+                type="button"
+                @click="deleteUser(popup.user_id)"
+            >
+                Confirm
+            </button>
+            <button
+                class="bg-red-500 hover:bg-red-600 rounded p-2 m-3 text-white"
+                type="button"
+                @click="popup.show = false"
+            >
+                Back
+            </button>
+        </div>
+    </div>
+
     <Footer />
 </template>
