@@ -68,7 +68,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/wishlist/remove', [WishlistController::class, 'removeWishlist']);
 });
 
-// Route::resource('boarding', BoardingController::class);
 Route::get('/boarding', [BoardingController::class, 'index']);
 Route::get('/boarding/create', [BoardingController::class, 'create']);
 Route::get('/boarding/detail', [BoardingController::class, 'getBoardingHouseDetail']);

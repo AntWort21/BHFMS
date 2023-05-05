@@ -103,17 +103,15 @@ watch(search, (value) => {
                                 <td class="py-3 px-6 text-left">
                                     <div class="flex items-center">
                                         <span class="mr-2 font-medium"
-                                            >{{ boarding.boarding_name }}
+                                            >{{ boarding.boarding_name }} -- (
+                                            ID: {{ boarding.boarding_id }} )
                                         </span>
                                     </div>
                                 </td>
                                 <StatusIcon :boarding="boarding" />
 
                                 <td class="py-3 px-6 text-center">
-                                    <a href="#"
-                                        >{{ boarding.user_name }} -- ( ID:
-                                        {{ boarding.boarding_id }} )</a
-                                    >
+                                    <a href="#">{{ boarding.user_name }} </a>
                                 </td>
 
                                 <!-- Icon List -->
