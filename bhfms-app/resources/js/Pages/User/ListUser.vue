@@ -5,8 +5,10 @@ import { Link } from "@inertiajs/inertia-vue3";
 import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
 import Pagination from "../../Shared/Pagination.vue";
+import StatusIcon from "../../Shared/AccountFormInput/StatusIcon.vue";
+import RoleIcon from "../../Shared/AccountFormInput/RoleIcon.vue";
 defineProps({
-    facilities: Object,
+    users: Object,
 });
 </script>
 
@@ -33,37 +35,37 @@ defineProps({
                     </svg>
                     <p>{{ $page.props.flash.message }}</p>
                 </div>
-                <div class="flex">
-                    <div class="mt-2 float-left">
-                        <a href="/facility/create">
-                            <div
-                                class="rounded border block bg-white border-gray-400 text-gray-700 py-2 px-4 flex"
-                            >
-                                <button
-                                    class="flex w-6 h-6 mr-5 text-base bg-blue-400 items-center font-bold justify-center text-white rounded-xl font-mono"
-                                >
-                                    +
-                                </button>
-
-                                <h3 class="self-center">Add New Facility</h3>
-                            </div>
-                        </a>
-                    </div>
-                </div>
 
                 <div class="bg-white shadow-md rounded my-6">
-                    <table class="min-w-max w-full table-auto">
+                    <table
+                        class="min-w-max w-full table-auto justify-center items-center"
+                    >
                         <thead>
                             <tr class="uppercase text-sm leading-normal">
                                 <th
                                     class="py-3 px-6 text-left whitespace-nowrap"
                                 >
-                                    Facility Icon
+                                    User Profile Picture
                                 </th>
                                 <th
                                     class="py-3 px-6 text-center whitespace-nowrap"
                                 >
-                                    Facility Name
+                                    User Role
+                                </th>
+                                <th
+                                    class="py-3 px-6 text-center whitespace-nowrap"
+                                >
+                                    Username
+                                </th>
+                                <th
+                                    class="py-3 px-6 text-center whitespace-nowrap"
+                                >
+                                    Email
+                                </th>
+                                <th
+                                    class="py-3 px-6 text-center whitespace-nowrap"
+                                >
+                                    Status
                                 </th>
                                 <th class="py-3 px-6 text-center">Actions</th>
                             </tr>
@@ -71,34 +73,73 @@ defineProps({
 
                         <tbody class="text-gray-600 text-sm font-light">
                             <tr
-                                v-for="(facility, idx) in facilities.data"
+                                v-for="(user, idx) in users.data"
                                 class="border-b border-gray-200 bg-gray-50 hover:bg-gray-100"
                                 :key="idx"
                             >
-                                <td class="py-3 px-6 text-left w-10">
-                                    <div class="flex items-center">
-                                        <img
-                                            class="mx-auto block"
-                                            :src="facility.facility_img_path"
-                                            alt="No img"
-                                        />
-                                    </div>
+                                <td>
+                                    <h1 class="py-3 px-6 text-center flex">
+                                        <div class="flex w-20 items-center">
+                                            <img
+                                                class="mx-auto items-center text-center"
+                                                :src="user.profile_picture"
+                                                alt="No img"
+                                            />
+                                        </div>
+                                    </h1>
+                                </td>
+
+                                <RoleIcon :user="user" />
+
+                                <td class="py-3 px-6 text-center">
+                                    {{ user.user_name }}
                                 </td>
 
                                 <td class="py-3 px-6 text-center">
-                                    {{ facility.facility_detail_name }}
+                                    {{ user.email }}
                                 </td>
+
+                                <StatusIcon :user="user" />
 
                                 <!-- Icon List -->
                                 <td class="py-3 px-6 text-center">
                                     <div
                                         class="flex item-center justify-center"
                                     >
+                                        <!-- Read Detail -->
                                         <div
                                             class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                                         >
                                             <Link
-                                                :href="`facility/update/${facility.id}`"
+                                                :href="`/user/read/${user.id}`"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor"
+                                                >
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                                    />
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                                                    />
+                                                </svg>
+                                            </Link>
+                                        </div>
+                                        <!-- Update -->
+                                        <div
+                                            class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
+                                        >
+                                            <Link
+                                                :href="`user/update/${user.id}`"
                                             >
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -115,12 +156,12 @@ defineProps({
                                                 </svg>
                                             </Link>
                                         </div>
-
+                                        <!-- Delete/ Banned -->
                                         <div
                                             class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                                         >
                                             <Link
-                                                :href="`facility/delete/${facility.id}`"
+                                                :href="`user/delete/${user.id}`"
                                             >
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -161,7 +202,7 @@ defineProps({
 
                     <Pagination
                         class="my-4 pb-4 flex justify-center"
-                        :links="facilities.links"
+                        :links="users.links"
                     />
                 </div>
             </div>

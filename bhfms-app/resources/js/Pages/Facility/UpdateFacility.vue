@@ -5,7 +5,7 @@ import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
 import TextBoxInput from "../../Shared/BoardingShared/TextBoxInput.vue";
 
-defineProps({
+const prop = defineProps({
     facility: Object,
     images: Array,
 });
@@ -37,12 +37,12 @@ const deleteFileUploaded = (idx) => {
 };
 
 const form = useForm({
-    name: "",
+    name: prop.facility.facility_detail_name,
     images: images,
 });
 
 const submit = () => {
-    form.post("/facility/create", {
+    form.post(`/facility/update/${prop.facility.id}`, {
         preserveScroll: true,
         preserveState: true,
     });
@@ -68,7 +68,7 @@ const submit = () => {
                     class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
                 >
                     <h1 class="text-blue-600 font-bold text-2xl mb-8">
-                        Add new Facility
+                        Update Facility
                     </h1>
                     <div class="mb-4">
                         <TextBoxInput
@@ -85,7 +85,23 @@ const submit = () => {
                             class="block text-gray-700 text-sm font-bold mb-2"
                             for="images"
                         >
-                            Image
+                            Current Image
+                        </label>
+
+                        <div class="items-center">
+                            <img
+                                class="w-40 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                :src="prop.facility.facility_img_path"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label
+                            class="block text-gray-700 text-sm font-bold mb-2"
+                            for="images"
+                        >
+                            Update Image
                         </label>
                         <input
                             id="images"

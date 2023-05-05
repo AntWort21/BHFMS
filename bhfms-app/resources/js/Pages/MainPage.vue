@@ -1,8 +1,27 @@
 <script setup>
-import { Link } from "@inertiajs/inertia-vue3";
+import { Link, useForm } from "@inertiajs/inertia-vue3";
 import Footer from "../Shared/Footer.vue";
-import FormTextBoxInput from "../Shared/AccountFormInput/FormTextBoxInput.vue";
+import VueGoogleAutocomplete from "vue-google-autocomplete";
 import Header from "../Shared/Header.vue";
+import { ref } from "vue";
+
+const address = ref("");
+
+const onPlaceChanged = (addressData, placeResultData) => {
+    form.address = placeResultData.formatted_address;
+    form.latitude = addressData.latitude
+    form.longitude = addressData.longitude
+}
+
+const form = useForm({
+    address: "",
+    latitude: 0,
+    longitude: 0
+})
+
+const submit = () => {
+    form.post('/search')
+}
 </script>
 
 <template>
@@ -13,30 +32,53 @@ import Header from "../Shared/Header.vue";
             style="background-image: url('../storage/sofa.png')"
         >
             <div
-                class="w-[45vh] px-8 py-6 mt-4 text-left shadow-lg ml-80 bg-white"
+                class="w-[45vh] px-8 py-6 mt-4 text-left ml-80 border-gray-500 rounded bg-white bg-opacity-60 rounded-3xl"
             >
                 <form @submit.prevent="submit">
                     <div class="mt-4 space-y-3">
-                        <FormTextBoxInput
-                            :input-type="'text'"
-                            :label-name="'Location'"
-                        />
-                        <FormTextBoxInput
-                            :input-type="'text'"
-                            :label-name="'Rental Period'"
-                        />
-                        <FormTextBoxInput
-                            :input-type="'text'"
-                            :label-name="'Number of Tenants'"
-                        />
+                        <p class="text-3xl text-gray-900 font-semibold">
+                            Have a location in mind?
+                        </p>
+                        <p class="text-lg text-gray-900 font-semibold">
+                            Find your ideal place to stay
+                        </p>
                         <div
-                            class="flex items-baseline justify-end items-center space-x-10"
+                            class="flex w-full h-[3rem] justify-between border border-gray-500 bg-white rounded-3xl items-center p-3"
                         >
-                            <button
-                                class="px-6 py-2 mt-4 text-white bg-indigo-900 rounded-lg hover:bg-blue-900"
+                            <vue-google-autocomplete
+                                id="autocomplete"
+                                class="w-full h-[2rem] rounded-3xl items-center p-3"
+                                placeholder="Search Here"
+                                v-model="address"
+                                v-on:placechanged="onPlaceChanged"
+                            />
+                            <div
+                                class="flex items-baseline justify-end items-center space-x-10"
                             >
-                                Search
-                            </button>
+                                <button
+                                    class="text-white w-[3rem] h-[3rem] rounded-full flex items-center justify-center"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="28"
+                                        height="28"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="#000000"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <line
+                                            x1="21"
+                                            y1="21"
+                                            x2="16.65"
+                                            y2="16.65"
+                                        ></line>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </form>
