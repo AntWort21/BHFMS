@@ -72,6 +72,15 @@ let form = useForm({
                 >
                     Back
                 </Link>
+
+                <!--  to  Tenant Boarding Page -->
+                <Link
+                    v-if="$page.props.user.role_id == 2"
+                    class="my-2 mx-2 text-m float-right bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 rounded focus:outline-none focus:shadow-outline"
+                    :href="'/boardingTenant'"
+                >
+                    Back
+                </Link>
                 <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                     <h1 class="text-blue-600 font-bold text-2xl mb-8">
                         Boarding House Details

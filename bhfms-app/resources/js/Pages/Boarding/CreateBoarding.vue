@@ -86,7 +86,7 @@ const submit = () => {
             <div class="w-11/12 mt-5">
                 <!-- to Admin Boarding Page -->
                 <Link
-                    v-if="$page.props.user.role_id == 0"
+                    v-if="$page.props.user.role_id == 1"
                     class="my-2 mx-2 text-m float-right bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 rounded focus:outline-none focus:shadow-outline"
                     :href="'/boardingAdmin'"
                 >

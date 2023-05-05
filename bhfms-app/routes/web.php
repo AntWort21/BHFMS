@@ -6,6 +6,8 @@ use App\Http\Controllers\BoardingController;
 use App\Http\Controllers\ComplainController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\BoardingImageController;
+use App\Http\Controllers\FacilityController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\PaymentController;
@@ -57,6 +59,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/review/create', [ReviewController::class, 'createReview']);
     Route::post('/review/update', [ReviewController::class, 'updateReview']);
 
+    Route::get('/chat', [ChatController::class, 'getChatPage']);
+    Route::post('/chat', [ChatController::class, 'storeChatMessage']);
+
+    Route::get('/chat/get', [ChatController::class, 'getChatMessage']);
     Route::get('/wishlist', [WishlistController::class, 'showWishlist']);
     Route::post('/wishlist/add', [WishlistController::class, 'addWishlist']);
     Route::post('/wishlist/remove', [WishlistController::class, 'removeWishlist']);
@@ -89,6 +95,8 @@ Route::get('/tenantBoarding/read/{id}', [TenantController::class, 'getDetailTena
 Route::get('/tenantBoarding/request/{id}', [TenantController::class, 'getRequestTenant']);
 Route::post('/tenantBoarding/request/{id}', [TenantController::class, 'RequestTenant']);
 
+Route::get('/boardingTenant', [BoardingController::class, 'indexTenant']);
+
 Route::get('/boarding/test', [BoardingController::class, 'testCarousel']);
 Route::get('/boarding/all', [BoardingController::class, 'getAllBoardingHouse']);
 
@@ -100,6 +108,7 @@ Route::post('/pay',[PaymentController::class,'addPaymentTenant']);
 Route::get('/paymentHistory',[PaymentController::class,'getAllPayment']);
 Route::post('/getInvoiceData',[PaymentController::class,'getInvoiceDetail']);
 Route::get('/cancelPayment',[PaymentController::class,'cancelPayment']);
+
 Route::get('/facilityAll',[FacilityController::class, 'getAllFacilityPage']);
 Route::get('/facility/create',[FacilityController::class, 'getFacilityCreate']);
 Route::post('/facility/create',[FacilityController::class, 'FacilityCreate']);
