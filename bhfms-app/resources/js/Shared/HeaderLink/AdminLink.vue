@@ -30,10 +30,10 @@ defineProps({
                     <Link href="/boardingAdmin">Boarding Management</Link>
                 </li>
                 <li class="z-50 py-2 bg-indigo-900 hover:opacity-75">
-                    <Link href="/tenantAdmin">Facility Management</Link>
+                    <Link href="/facilityAll">Facility Management</Link>
                 </li>
                 <li class="z-50 py-2 bg-indigo-900 hover:opacity-75">
-                    <Link href="/userAdmin">User Management</Link>
+                    <Link href="/userAll">User Management</Link>
                 </li>
             </ul>
         </div>

@@ -2,83 +2,120 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Facility;
+use App\Models\FacilityDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FacilityController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public function getAllFacilityPage(){
+        $facilities = FacilityDetail::paginate(5)->withQueryString();;
+        return inertia('Facility/ListFacility', [
+            'facilities' => $facilities
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function getFacilityCreate(){
+        return inertia('Facility/CreateFacility', [
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function FacilityCreate(Request $request){
+        $custom_messages = [
+            'images.max' => 'Maximum number of image is 1 !',
+            'images.min' => 'Minimum number of image is 1 !',
+        ];
+        $validation = $request->validate([
+            'name' => ['required', 'max:200', 'min:3','unique:facility_details,facility_detail_name,'],
+            'images' => ['max:1','min:1'],
+        ], $custom_messages);
+
+        //FILE
+        if (($request->file('images') !== null)) {
+            foreach ($request->file('images') as $image) {
+
+                $path = $image->getClientOriginalName();
+                $path = str_replace(" ", "-", $path);
+                $path = time() . '-' . $path;
+                $path = 'Facility_Images/' . $path;
+
+                Storage::putFileAs('public/',$image, $path);
+                $path_in_db = '/storage/' . $path;
+
+            }
+        }
+
+        FacilityDetail::create([
+            'facility_detail_name' => $request->name,
+            'facility_img_path' => $path_in_db,
+        ]);
+
+        return redirect('/facilityAll')->with('message', 'Success Creating new Facility');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+    public function getFacilityUpdate(Request $request){
+        $currFacility = FacilityDetail::find($request->id);
+        return inertia('Facility/UpdateFacility', [
+            'facility' => $currFacility,
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+    public function FacilityUpdate(Request $request){
+
+        // dd($request->id);
+        $custom_messages = [
+            'images.max' => 'Maximum number of image is 1 !',
+        ];
+
+        $validation = $request->validate([
+            'name' => ['required', 'max:200', 'min:3','unique:facility_details,facility_detail_name,' . $request->id],
+            'images' => ['max:1'],
+        ], $custom_messages);
+
+        if (($request->file('images') !== null)) {
+            $currImage = FacilityDetail::where('id','=',$request->id)->first()->facility_img_path;
+            $currImage_path = explode('/storage/', $currImage);
+
+            if($currImage){
+                Storage::delete('public/'.$currImage_path[1]);
+            }
+
+            foreach ($request->file('images') as $image) {
+
+                $path = $image->getClientOriginalName();
+                $path = str_replace(" ", "-", $path);
+                $path = time() . '-' . $path;
+                $path = 'Facility_Images/' . $path;
+
+                Storage::putFileAs('public/',$image, $path);
+                $path_in_db = '/storage/' . $path;
+
+            }
+            FacilityDetail::where('id','=',$request->id)->update([
+                'facility_detail_name' => $request->name,
+                'facility_img_path' => $path_in_db,
+            ]);
+
+        }else{
+            FacilityDetail::where('id','=',$request->id)->update([
+                'facility_detail_name' => $request->name,
+            ]);
+        }
+
+        return redirect('/facilityAll')->with('message', 'Success Updating Facility');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    public function FacilityDelete(Request $request){
+        $currImage = FacilityDetail::where('id','=',$request->id)->first();
+        $currImage_path = explode('/storage/', $currImage->facility_img_path);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        if($currImage){
+            Storage::delete('public/'.$currImage_path[1]);
+        }
+
+        $currImage->delete();
+
+        return redirect('/facilityAll')->with('message', 'Success Deleting Facility');
     }
 }
