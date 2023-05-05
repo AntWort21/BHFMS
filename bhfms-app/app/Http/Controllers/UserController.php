@@ -51,10 +51,10 @@ class UserController extends Controller
     }
 
     public function getAllUserPage(){
-        $User = User::paginate(5)->withQueryString();;
+        $users = User::paginate(5)->withQueryString();;
 
         return inertia('User/ListUser', [
-            'users' => $User
+            'users' => $users
         ]);
     }
 
