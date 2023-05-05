@@ -188,6 +188,7 @@ const deleteBoarding = (idx) => {
             <div v-if="$page.props.user.role_id == 2" class="flex">
                 <!-- Payment -->
                 <div
+                    v-if="boarding.tenant_status == 'approved'"
                     class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                 >
                     <Link :href="`#`">
@@ -208,7 +209,7 @@ const deleteBoarding = (idx) => {
 
                 <!-- Complain -->
                 <div
-                    v-if="boarding.owner_status == 'approved'"
+                    v-if="boarding.tenant_status == 'approved'"
                     class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                 >
                     <Link :href="`#`">
@@ -290,7 +291,7 @@ const deleteBoarding = (idx) => {
             </div>
             <!-- Chat -->
             <div
-                v-if="boarding.owner_status == 'approved'"
+                v-if="boarding.tenant_status == 'approved'"
                 class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
             >
                 <Link :href="`#`">

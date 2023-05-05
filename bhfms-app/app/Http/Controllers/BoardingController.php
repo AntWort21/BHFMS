@@ -218,7 +218,7 @@ class BoardingController extends Controller
 
 
         $all_boarding_count = TenantBoarding::select('tenant_status', DB::raw('count(*) as total'))
-        ->where('user_id', '=', auth()->id())->get()->toArray();
+        ->groupBy('tenant_status')->where('user_id', '=', auth()->id())->get()->toArray(); 
         $all = 0;
         $apv = 0;
         $dcl = 0;
