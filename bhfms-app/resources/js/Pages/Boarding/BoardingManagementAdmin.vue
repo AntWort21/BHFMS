@@ -132,5 +132,6 @@ watch(search, (value) => {
             </div>
         </div>
     </div>
+
     <Footer />
 </template>

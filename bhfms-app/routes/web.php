@@ -87,7 +87,7 @@ Route::post('/boarding/create', [BoardingController::class, 'createOwnerBoarding
 Route::get('/boarding/update/{id}', [BoardingController::class, 'getUpdateBoarding']);
 Route::get('/boarding/read/{id}', [BoardingController::class, 'getReadBoarding']);
 Route::post('/boarding/update/{id}', [BoardingController::class, 'updateBoarding']);
-Route::get('/boarding/delete/{id}', [BoardingController::class, 'deleteBoarding']);
+Route::post('/boarding/delete/{id}', [BoardingController::class, 'deleteBoarding']);
 Route::get('/boarding/reapprove/{id}', [BoardingController::class, 'getReapproveBoarding']);
 Route::post('/boarding/reapprove/{id}', [BoardingController::class, 'ReapproveBoarding']);
 
@@ -120,12 +120,13 @@ Route::post('/facility/create',[FacilityController::class, 'FacilityCreate']);
 Route::get('/facility/update/{id}',[FacilityController::class, 'getFacilityUpdate']);
 Route::post('/facility/update/{id}',[FacilityController::class, 'FacilityUpdate']);
 Route::get('/facility/read/{id}',[FacilityController::class, 'getFacilityDetail']);
-Route::get('/facility/delete/{id}',[FacilityController::class, 'FacilityDelete']);
+Route::post('/facility/delete/{id}',[FacilityController::class, 'FacilityDelete']);
 
 Route::get('/userAll',[UserController::class, 'getAllUserPage']);
 Route::get('/user/update/{id}',[UserController::class, 'getUserUpdate']);
 Route::post('/user/update/{id}',[UserController::class, 'UserUpdate']);
 Route::get('/user/read/{id}',[UserController::class, 'getUserDetail']);
+<<<<<<< HEAD
 Route::get('/user/delete/{id}',[UserController::class, 'UserDelete']);
 
 //ComplainType
@@ -159,3 +160,6 @@ Route::post('/paymentMethod/create',[PaymentMethodController::class, 'PaymentMet
 Route::get('/paymentMethod/update/{id}',[PaymentMethodController::class, 'getPaymentMethodUpdate']);
 Route::post('/paymentMethod/update/{id}',[PaymentMethodController::class, 'PaymentMethodUpdate']);
 Route::get('/paymentMethod/delete/{id}',[PaymentMethodController::class, 'PaymentMethodDelete']);
+=======
+Route::post('/user/delete/{id}',[UserController::class, 'UserDelete']);
+>>>>>>> 00fadb7 (Confirmation Modal upon Delete Only)

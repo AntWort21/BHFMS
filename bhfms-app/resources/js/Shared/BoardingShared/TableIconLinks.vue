@@ -1,12 +1,27 @@
 <script setup>
 import { Link } from "@inertiajs/inertia-vue3";
+import { Inertia } from "@inertiajs/inertia";
+import { ref, reactive } from "vue";
 defineProps({
     currentID: Number,
     boarding: Object,
 });
 
+let mouseover = ref(false);
+let popup = reactive({
+    show: false,
+    boarding_id: 0,
+    boarding_name: "",
+});
+
+let enableDisablePopup = (id, name) => {
+    popup.show = !popup.show;
+    popup.boarding_id = id;
+    popup.boarding_name = name;
+};
+
 const deleteBoarding = (idx) => {
-    $inertia.put(`/boarding/delete/${idx}`);
+    Inertia.post(`/boarding/delete/${idx}`);
 };
 </script>
 
@@ -90,25 +105,31 @@ const deleteBoarding = (idx) => {
                 <!-- Delete -->
                 <div
                     v-if="boarding.owner_status != 'banned'"
+                    @mouseover="mouseover = true"
+                    @mouseleave="mouseover = false"
+                    @click="
+                        enableDisablePopup(
+                            boarding.boarding_id,
+                            boarding.boarding_name
+                        )
+                    "
                     class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                 >
-                    <Link :href="`boarding/delete/${currentID}`">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        >
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="15" y1="9" x2="9" y2="15"></line>
-                            <line x1="9" y1="9" x2="15" y2="15"></line>
-                        </svg>
-                    </Link>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="15" y1="9" x2="9" y2="15"></line>
+                        <line x1="9" y1="9" x2="15" y2="15"></line>
+                    </svg>
                 </div>
             </div>
 
@@ -131,28 +152,6 @@ const deleteBoarding = (idx) => {
                                 stroke-linejoin="round"
                                 stroke-width="2"
                                 d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                            />
-                        </svg>
-                    </Link>
-                </div>
-
-                <!-- Delete -->
-                <div
-                    v-if="boarding.owner_status != 'banned'"
-                    class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
-                >
-                    <Link :href="`boarding/delete/${currentID}`">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                             />
                         </svg>
                     </Link>
@@ -311,4 +310,30 @@ const deleteBoarding = (idx) => {
             </div>
         </div>
     </td>
+
+    <div
+        v-if="popup.show"
+        class="fixed inset-0 grid place-items-center"
+        style="background: rgba(0, 0, 0, 0.4)"
+        @click="popup.show = false"
+    >
+        <div class="bg-white w-5/12 rounded">
+            <header class="text-xl m-3">Confirmation</header>
+            <div class="mx-3">Delete/Ban {{ popup.boarding_name }} ?</div>
+            <button
+                class="bg-blue-500 hover:bg-blue-600 rounded p-2 ml-3 my-3 text-white"
+                type="button"
+                @click="deleteBoarding(popup.boarding_id)"
+            >
+                Confirm
+            </button>
+            <button
+                class="bg-red-500 hover:bg-red-600 rounded p-2 m-3 text-white"
+                type="button"
+                @click="popup.show = false"
+            >
+                Back
+            </button>
+        </div>
+    </div>
 </template>
