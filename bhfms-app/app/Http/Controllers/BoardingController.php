@@ -216,13 +216,38 @@ class BoardingController extends Controller
                 }
             })->paginate(5)->withQueryString();
 
+        
+        $all_boarding_count = TenantBoarding::select('tenant_status', DB::raw('count(*) as total'))
+        ->where('user_id', '=', auth()->id())->get()->toArray(); 
+        $all = 0;
+        $apv = 0;
+        $dcl = 0;
+        $pending = 0;
+        $checkout = 0;
 
-        $all_boarding_count = TenantBoarding::where('user_id', '=', auth()->id())->get();
-        $all = $all_boarding_count->count();
-        $apv = $all_boarding_count->where('tenant_status', '=', 'approved')->count();
-        $dcl = $all_boarding_count->where('tenant_status', '=', 'declined')->count();
-        $pending = $all_boarding_count->where('tenant_status', '=', 'pending')->count();
-        $checkout = $all_boarding_count->where('tenant_status', '=', 'checkout')->count();
+        foreach($all_boarding_count as $count => $collection) {
+            if($all_boarding_count[$count]["tenant_status"] == "pending"){
+                $all+= $all_boarding_count[$count]["total"]; 
+                $pending = $all_boarding_count[$count]["total"];
+            } 
+                
+            elseif($all_boarding_count[$count]["tenant_status"] == "approved"){
+                $all+= $all_boarding_count[$count]["total"]; 
+                $apv = $all_boarding_count[$count]["total"];
+
+            }
+
+            elseif($all_boarding_count[$count]["tenant_status"] == "declined"){
+                $all+= $all_boarding_count[$count]["total"]; 
+                $dcl = $all_boarding_count[$count]["total"];
+            }
+
+            elseif($all_boarding_count[$count]["tenant_status"] == "checkout"){
+                $all+= $all_boarding_count[$count]["total"]; 
+                $checkout = $all_boarding_count[$count]["total"];
+            }
+        }
+        
 
         return Inertia::render('Boarding/BoardingManagementTenant', [
             'all_count' => $all,
