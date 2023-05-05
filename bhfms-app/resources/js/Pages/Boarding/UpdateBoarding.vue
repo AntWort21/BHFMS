@@ -8,6 +8,7 @@ import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
 import TextBoxInput from "../../Shared/BoardingShared/TextBoxInput.vue";
 import { Link } from "@inertiajs/inertia-vue3";
+import Map from "../../Shared/Map.vue";
 
 const props = defineProps({
     currBoarding: Object,
@@ -99,6 +100,11 @@ const clearManagerInput = () => {
 const submitUpdate = (this_id) => {
     form.post(`/boarding/update/${this_id}`, {});
 };
+
+// const map = new google.maps.Map(this.$el, {
+//     center: { lat: 37.7749, lng: -122.4194 },
+//     zoom: 8,
+// });
 </script>
 
 <template>
@@ -199,6 +205,19 @@ const submitUpdate = (this_id) => {
                                 v-model="form.lng"
                             />
                         </div>
+                    </div>
+                    <div class="mb-4">
+                        <label
+                            class="block text-gray-700 text-sm font-bold mb-2"
+                            for="type_id"
+                        >
+                            Google Map Preview
+                        </label>
+                        <Map :lat="form.lat" :lng="form.lng" />
+                        <!-- <input
+                            style="width: 100%; height: 500px"
+                            v-model="map"
+                        /> -->
                     </div>
                     <div class="mb-4">
                         <label
