@@ -31,8 +31,12 @@ class UserController extends Controller
         if ($request->hasFile('profilePicture')) {
             $file = $request->file('profilePicture');
             $fileName = $file->getClientOriginalName();
-            $destinationPath = storage_path('app/public/images');
-            $file->move($destinationPath, $fileName);
+            $fileName = str_replace(" ", "-", $fileName);
+            $fileName = time() . '-' . $fileName;
+            $fileName = Auth::user()->id . $fileName;
+            $fileName = 'images/' . $fileName;
+            Storage::putFileAs('public/',$file, $fileName);
+            $path_in_db = '/storage/' . $fileName;
         }
 
         User::findOrFail(Auth::user()->id)->update([
@@ -40,7 +44,7 @@ class UserController extends Controller
             'email' => $validation['email'],
             'date_of_birth' => $validation['dateOfBirth'],
             'phone' => $validation['phoneNumber'],
-            'profile_picture' => '/storage/images/'.$fileName ?? null
+            'profile_picture' => $path_in_db ?? null
         ]);
 
         return redirect('/profile');
@@ -89,7 +93,7 @@ class UserController extends Controller
             'email'=>['required', 'email','unique:users,email,' . $request->id],
             'dob'=>['required'],
             'phone' => ['required'],
-            'images' => ['max:1'],
+            'images' => ['max:1','mimes:jpeg,png,jpg,gif,svg'],
         ], $custom_messages);
 
         if (($request->file('images') !== null)) {
@@ -99,12 +103,14 @@ class UserController extends Controller
             if($currImage){
                 Storage::delete('public/'.$currImage_path[1]);
             }
+            $user_id = User::where('id','=',$request->id)->get()->id;
 
             foreach ($request->file('images') as $image) {
 
                 $path = $image->getClientOriginalName();
                 $path = str_replace(" ", "-", $path);
                 $path = time() . '-' . $path;
+                $path = $user_id . $path;
                 $path = 'images/' . $path;
 
                 Storage::putFileAs('public/',$image, $path);
