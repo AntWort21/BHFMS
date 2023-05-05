@@ -36,9 +36,7 @@ const onFileChange = (e) => {
         let reader = new FileReader();
         reader.readAsDataURL(images.value[i]);
         reader.onload = (e) => {
-            // images.value[i].src = reader.result;
             previewImage.value[i] = e.target.result;
-            // images.value[i].src = e.target.result;
         };
     }
 };
