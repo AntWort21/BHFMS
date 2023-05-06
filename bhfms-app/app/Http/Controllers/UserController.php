@@ -100,7 +100,7 @@ class UserController extends Controller
         if (($request->file('images') !== null)) {
             $currImage = User::where('id','=',$request->id)->first()->profile_picture;
             $currImagePath = explode('/storage/', $currImage);
-
+            
             if($currImage){
                 Storage::delete('public/'.$currImagePath[1]);
             }

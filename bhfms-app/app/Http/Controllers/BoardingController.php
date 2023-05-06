@@ -565,12 +565,16 @@ class BoardingController extends Controller
         $validation = $request->validate([
             'startDate' => ['required','date','after_or_equal:today'],
         ]);
-        // dd($request->id);
+        
+        $currTenantBoarding = TenantBoarding::where([['user_id','=',Auth::user()->id],['tenant_status','=','approved']])->count();
+
+        if($currTenantBoarding > 0){
+            return back()->with('message', 'Cannot rent boarding house when you have an active one !');
+        }
         $BoardingNow = TenantBoarding::create([
             'user_id' => auth()->id(),
             'boarding_id' => $request->id,
             'start_date' => $request['startDate'],
-            'end_date' => $request['lng'],
             'tenant_status' => 1,
         ]);
         return redirect('/boarding/all')->with('message', 'Success Requesting rent to boarding house');

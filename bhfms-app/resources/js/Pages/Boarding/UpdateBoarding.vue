@@ -211,19 +211,6 @@ const submitUpdate = (this_id) => {
                             class="block text-gray-700 text-sm font-bold mb-2"
                             for="type_id"
                         >
-                            Google Map Preview
-                        </label>
-                        <Map :lat="form.lat" :lng="form.lng" />
-                        <!-- <input
-                            style="width: 100%; height: 500px"
-                            v-model="map"
-                        /> -->
-                    </div>
-                    <div class="mb-4">
-                        <label
-                            class="block text-gray-700 text-sm font-bold mb-2"
-                            for="type_id"
-                        >
                             Boarding House Type
                         </label>
                         <VueMultiselect
