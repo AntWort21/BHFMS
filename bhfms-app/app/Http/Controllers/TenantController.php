@@ -99,19 +99,19 @@ class TenantController extends Controller
     }
 
     public function getDetailTenantBoarding(Request $request){
-        $tenant_boarding = TenantBoarding::find($request->id);
-        $user_data = User::where("id",$tenant_boarding->user_id)->first();
-
+        $tenantBoarding = TenantBoarding::find($request->id);
+        $user_data = User::where("id",$tenantBoarding->user_id)->first();
         return Inertia::render('Tenant/ReadTenant', [
-            'reason' => $tenant_boarding->declined_reason,
+            'reason' => $tenantBoarding->declined_reason,
+            'tenantBoarding' => $tenantBoarding,
             'currUser' => $user_data,
         ]);
     }
 
     public function getRequestTenant(Request $request){
-        $tenant_boarding = TenantBoarding::find($request->id);
-        $user_data = User::where("id",$tenant_boarding->user_id)->first();
-
+        $tenantBoarding = TenantBoarding::find($request->id);
+        $user_data = User::where("id",$tenantBoarding->user_id)->first();
+        
         return Inertia::render('Tenant/RequestTenant', [
             'currID' => $request->id,
             'currUser' => $user_data,

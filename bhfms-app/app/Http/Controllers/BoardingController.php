@@ -460,8 +460,6 @@ class BoardingController extends Controller
     {
         
         $currTenant = TenantBoarding::where('id','=',$request->id)->first();
-
-        // dd($currTenant);
         $currBoarding = Boarding::where('id', '=', $currTenant->boarding_id)->first();
         $currFacilities = ($currBoarding->facilities()->exists()) ? $currBoarding->facilities()->get() : null;
         $currType = $currBoarding->boardingType()->get()->first();
@@ -469,7 +467,7 @@ class BoardingController extends Controller
         $currImages = $currBoarding->images()->get();
 
         return Inertia::render('Boarding/ReadBoarding', [
-            'currReason' => $currTenant->declined_reason,
+            'currTenant' => $currTenant,
             'currImages' => $currImages,
             'currBoarding' => $currBoarding,
             'currFacilities' => $currFacilities,

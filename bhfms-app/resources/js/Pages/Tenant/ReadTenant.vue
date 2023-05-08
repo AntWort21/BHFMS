@@ -8,6 +8,7 @@ import { Link } from "@inertiajs/inertia-vue3";
 
 const props = defineProps({
     reason: String,
+    tenantBoarding: Object,
     currUser: Object,
 });
 
@@ -46,9 +47,43 @@ let form = useForm({
                             :read-only="true"
                             v-model="props.reason"
                             :input-type="'textarea'"
-                            :label-name="'Declined Reason'"
-                            :placeholder="'User name'"
+                            :label-name="'Declined / Accepted Reason'"
+                            :placeholder="'Reasons'"
                         />
+                    </div>
+                    <div class="mb-4 flow-root">
+                        <div class="float-left w-5/12">
+                            <label
+                                class="block text-gray-700 text-sm font-bold mb-2"
+                                for="start"
+                            >
+                                Start Rent Date
+                            </label>
+                            <input
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="lat"
+                                type="text"
+                                placeholder="start"
+                                readonly
+                                v-model="props.tenantBoarding.start_date"
+                            />
+                        </div>
+                        <div class="float-right w-5/12">
+                            <label
+                                class="block text-gray-700 text-sm font-bold mb-2"
+                                for="end"
+                            >
+                                End Rent Date
+                            </label>
+                            <input
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="lng"
+                                type="text"
+                                placeholder="End Date not yet determined"
+                                readonly
+                                v-model="props.tenantBoarding.end_date"
+                            />
+                        </div>
                     </div>
                     <div class="mb-4">
                         <TextBoxInput
