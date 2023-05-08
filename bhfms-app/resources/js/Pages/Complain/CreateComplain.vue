@@ -22,7 +22,7 @@ let submit = () => {
 
 <template>
     <Header />
-    <section class="h-[75vh] p-10">
+    <section class="min-h-[75vh] p-10">
         <form @submit.prevent="submit" class="border border-slate-200 space-y-2 px-4 py-6">
             <div class="semibold text-2xl text-indigo-700">CREATE COMPLAIN</div>
             <div>

@@ -190,7 +190,7 @@ let removeFromWishlist = () => {
                             Maintained By {{ props.ownerName }}
                         </div>
                         <img
-                            :src="props.ownerPicture"
+                            :src="props.ownerPicture ? props.ownerPicture : '../storage/images/CJ-GTASA.png'"
                             alt="no image"
                             class="w-[5rem] h-[5rem] rounded-full object-scale-down"
                         />
@@ -450,7 +450,7 @@ let removeFromWishlist = () => {
                             :key="key"
                         >
                             <img
-                                :src="review.user.profile_picture"
+                                :src="review.user.profile_picture ? review.user.profile_picture : '../storage/images/CJ-GTASA.png'"
                                 alt="no image"
                                 class="w-6 h-6 rounded-xl"
                             />
