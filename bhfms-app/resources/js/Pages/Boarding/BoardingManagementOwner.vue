@@ -12,6 +12,7 @@ defineProps({
     declined: Number,
     pending: Number,
     banned: Number,
+    disabled: Number,
     boardings: Object,
 });
 
@@ -84,6 +85,9 @@ watch(search, (value) => {
                             </option>
                             <option value="declined">
                                 Declined ({{ declined }})
+                            </option>
+                            <option value="disabled">
+                                Disabled ({{ disabled }})
                             </option>
                             <option value="banned">
                                 Banned ({{ banned }})

@@ -9,6 +9,7 @@ import TextBoxInput from "../../Shared/BoardingShared/TextBoxInput.vue";
 import { Link } from "@inertiajs/inertia-vue3";
 
 const props = defineProps({
+    currReason: String,
     currBoarding: Object,
     currFacilities: Object,
     currManager: Object,
@@ -85,6 +86,17 @@ let form = useForm({
                     <h1 class="text-blue-600 font-bold text-2xl mb-8">
                         Boarding House Details
                     </h1>
+                    <div class="mb-4" v-if="$page.props.user.role_id == 2">
+                        <TextBoxInput
+                            :read-only="true"
+                            v-model="props.currReason"
+                            :input-type="'textarea'"
+                            :label-name="'Declined Reason'"
+                            :placeholder="'Boarding House Name'"
+                        />
+                        <hr class="h-px my-8 bg-gray-200 border-0" />
+                    </div>
+
                     <div class="mb-4">
                         <TextBoxInput
                             :read-only="true"

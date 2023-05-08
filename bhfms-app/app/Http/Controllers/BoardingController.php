@@ -52,6 +52,7 @@ class BoardingController extends Controller
         $dcl = 0;
         $pending = 0;
         $ban = 0;
+        $disabled = 0;
 
         foreach($all_boarding_count as $count => $collection) {
             if($all_boarding_count[$count]["owner_status"] == "pending"){
@@ -74,6 +75,11 @@ class BoardingController extends Controller
                 $all+= $all_boarding_count[$count]["total"];
                 $ban = $all_boarding_count[$count]["total"];
             }
+
+            elseif($all_boarding_count[$count]["owner_status"] == "disabled"){
+                $all+= $all_boarding_count[$count]["total"];
+                $disabled = $all_boarding_count[$count]["total"];
+            }
         }
         return Inertia::render('Boarding/BoardingManagementAdmin', [
             'all_count' => $all,
@@ -81,6 +87,7 @@ class BoardingController extends Controller
             'pending' => $pending,
             'declined' => $dcl,
             'banned' => $ban,
+            'disabled' => $disabled,
             'boardings' => $Boarding_data,
         ]);
     }
@@ -110,6 +117,7 @@ class BoardingController extends Controller
         $dcl = 0;
         $pending = 0;
         $ban = 0;
+        $disabled = 0;
 
         foreach($all_boarding_count as $count => $collection) {
             if($all_boarding_count[$count]["owner_status"] == "pending"){
@@ -132,6 +140,11 @@ class BoardingController extends Controller
                 $all+= $all_boarding_count[$count]["total"];
                 $ban = $all_boarding_count[$count]["total"];
             }
+
+            elseif($all_boarding_count[$count]["owner_status"] == "disabled"){
+                $all+= $all_boarding_count[$count]["total"];
+                $disabled = $all_boarding_count[$count]["total"];
+            }
         }
 
         return Inertia::render('Boarding/BoardingManagementManager', [
@@ -140,6 +153,7 @@ class BoardingController extends Controller
             'pending' => $pending,
             'declined' => $dcl,
             'banned' => $ban,
+            'disabled' => $disabled,
             'boardings' => $Boarding_data,
         ]);
     }
@@ -167,6 +181,7 @@ class BoardingController extends Controller
         $dcl = 0;
         $pending = 0;
         $ban = 0;
+        $disabled = 0;
 
         foreach($all_boarding_count as $count => $collection) {
             if($all_boarding_count[$count]["owner_status"] == "pending"){
@@ -189,6 +204,11 @@ class BoardingController extends Controller
                 $all+= $all_boarding_count[$count]["total"];
                 $ban = $all_boarding_count[$count]["total"];
             }
+
+            elseif($all_boarding_count[$count]["owner_status"] == "disabled"){
+                $all+= $all_boarding_count[$count]["total"];
+                $disabled = $all_boarding_count[$count]["total"];
+            }
         }
 
         return Inertia::render('Boarding/BoardingManagementOwner', [
@@ -197,6 +217,7 @@ class BoardingController extends Controller
             'pending' => $pending,
             'declined' => $dcl,
             'banned' => $ban,
+            'disabled' => $disabled,
             'boardings' => $Boarding_data,
         ]);
     }
@@ -207,6 +228,7 @@ class BoardingController extends Controller
         $Boarding_data = Boarding::join('owner_boardings', 'boardings.id', '=', 'owner_boardings.boarding_id')
             ->join('users', 'users.id', '=', 'owner_boardings.user_id')
             ->join('tenant_boardings','tenant_boardings.boarding_id','=','boardings.id')
+            ->select('boardings.boarding_name','tenant_boardings.tenant_status','users.user_name','boardings.id AS boarding_id','tenant_boardings.id AS tenant_id')
             ->where('tenant_boardings.user_id', '=', auth()->id())
             ->when($request->search, function ($query, $search) {
                 if ($search == 'all') {
@@ -426,6 +448,28 @@ class BoardingController extends Controller
         $currImages = $currBoarding->images()->get();
 
         return Inertia::render('Boarding/ReadBoarding', [
+            'currImages' => $currImages,
+            'currBoarding' => $currBoarding,
+            'currFacilities' => $currFacilities,
+            'currType' => $currType,
+            'currManager' => $currManager,
+        ]);
+    }
+
+    public function getReadBoardingTenant(Request $request)
+    {
+        
+        $currTenant = TenantBoarding::where('id','=',$request->id)->first();
+
+        // dd($currTenant);
+        $currBoarding = Boarding::where('id', '=', $currTenant->boarding_id)->first();
+        $currFacilities = ($currBoarding->facilities()->exists()) ? $currBoarding->facilities()->get() : null;
+        $currType = $currBoarding->boardingType()->get()->first();
+        $currManager = $currBoarding->managerBoardings()->get()->first();
+        $currImages = $currBoarding->images()->get();
+
+        return Inertia::render('Boarding/ReadBoarding', [
+            'currReason' => $currTenant->declined_reason,
             'currImages' => $currImages,
             'currBoarding' => $currBoarding,
             'currFacilities' => $currFacilities,
@@ -736,6 +780,20 @@ class BoardingController extends Controller
         }
 
         return redirect('/boardingOwner')->with('message', 'Success Asking for Reapproval');
+    }
+
+    public function disableBoardingOwner(Request $request){
+        OwnerBoarding::where('boarding_id','=',$request->id)->first()->update([
+            'owner_status' => 'disabled',
+        ]);
+        return redirect('/boardingOwner')->with('message', 'Success Disabling Boarding House');
+    }
+
+    public function enableBoardingOwner(Request $request){
+        OwnerBoarding::where('boarding_id','=',$request->id)->first()->update([
+            'owner_status' => 'approved',
+        ]);
+        return redirect('/boardingOwner')->with('message', 'Success Enabling Boarding House');
     }
 
 

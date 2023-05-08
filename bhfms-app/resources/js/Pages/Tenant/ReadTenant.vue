@@ -7,6 +7,7 @@ import TextBoxInput from "../../Shared/BoardingShared/TextBoxInput.vue";
 import { Link } from "@inertiajs/inertia-vue3";
 
 const props = defineProps({
+    reason: String,
     currUser: Object,
 });
 
@@ -40,6 +41,15 @@ let form = useForm({
                     <h1 class="text-blue-600 font-bold text-2xl mb-8">
                         Tenant Detail
                     </h1>
+                    <div class="mb-4">
+                        <TextBoxInput
+                            :read-only="true"
+                            v-model="props.reason"
+                            :input-type="'textarea'"
+                            :label-name="'Declined Reason'"
+                            :placeholder="'User name'"
+                        />
+                    </div>
                     <div class="mb-4">
                         <TextBoxInput
                             :read-only="true"
