@@ -201,7 +201,7 @@ let removeFromWishlist = () => {
                         />
                     </div>
                 </div>
-                <div>
+                <div v-if="props.boardingManagedBySameOwner">
                     <div class="font-semibold">Managed by Same Owner</div>
                     <div class="flex">
                         <div
