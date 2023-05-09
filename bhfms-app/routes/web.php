@@ -30,9 +30,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'getRegisterPage'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 
-Route::get('/', function() {
-    return inertia('MainPage');
-});
+Route::get('/', [BoardingController::class, 'getMainPage']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
