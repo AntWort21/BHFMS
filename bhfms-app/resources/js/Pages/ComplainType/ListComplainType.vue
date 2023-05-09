@@ -1,13 +1,30 @@
 <script setup>
-// import { Link } from "@inertiajs/inertia";
+import { Inertia } from "@inertiajs/inertia";
 import { Link } from "@inertiajs/inertia-vue3";
-// import { Link, watch } from "vue";
+import { ref, reactive } from "vue";
 import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
 import Pagination from "../../Shared/Pagination.vue";
 defineProps({
-    facilities: Object,
+    complainTypes: Object,
 });
+let mouseover = ref(false);
+
+let popup = reactive({
+    show: false,
+    complainType_id: 0,
+    complainType_detail_name: "",
+});
+
+let enableDisablePopup = (id, name) => {
+    popup.show = !popup.show;
+    popup.complainType_id = id;
+    popup.complainType_detail_name = name;
+};
+
+const deletecomplainType = (idx) => {
+    Inertia.post(`/complainType/delete/${idx}`);
+};
 </script>
 
 <template>
@@ -35,7 +52,7 @@ defineProps({
                 </div>
                 <div class="flex">
                     <div class="mt-2 float-left">
-                        <a href="/facility/create">
+                        <a href="/complainType/create">
                             <div
                                 class="rounded border block bg-white border-gray-400 text-gray-700 py-2 px-4 flex"
                             >
@@ -45,7 +62,9 @@ defineProps({
                                     +
                                 </button>
 
-                                <h3 class="self-center">Add New Facility</h3>
+                                <h3 class="self-center">
+                                    Add New Complain Type
+                                </h3>
                             </div>
                         </a>
                     </div>
@@ -56,14 +75,9 @@ defineProps({
                         <thead>
                             <tr class="uppercase text-sm leading-normal">
                                 <th
-                                    class="py-3 px-6 text-left whitespace-nowrap"
-                                >
-                                    Facility Icon
-                                </th>
-                                <th
                                     class="py-3 px-6 text-center whitespace-nowrap"
                                 >
-                                    Facility Name
+                                    Complain Type Name
                                 </th>
                                 <th class="py-3 px-6 text-center">Actions</th>
                             </tr>
@@ -71,22 +85,14 @@ defineProps({
 
                         <tbody class="text-gray-600 text-sm font-light">
                             <tr
-                                v-for="(facility, idx) in facilities.data"
+                                v-for="(
+                                    complainType, idx
+                                ) in complainTypes.data"
                                 class="border-b border-gray-200 bg-gray-50 hover:bg-gray-100"
                                 :key="idx"
                             >
-                                <td class="py-3 px-6 text-left w-10">
-                                    <div class="flex items-center">
-                                        <img
-                                            class="mx-auto block"
-                                            :src="facility.facility_img_path"
-                                            alt="No img"
-                                        />
-                                    </div>
-                                </td>
-
                                 <td class="py-3 px-6 text-center">
-                                    {{ facility.facility_detail_name }}
+                                    {{ complainType.complain_type_name }}
                                 </td>
 
                                 <!-- Icon List -->
@@ -98,7 +104,7 @@ defineProps({
                                             class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                                         >
                                             <Link
-                                                :href="`facility/update/${facility.id}`"
+                                                :href="`complainType/update/${complainType.id}`"
                                             >
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -118,40 +124,44 @@ defineProps({
 
                                         <div
                                             class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
+                                            @mouseover="mouseover = true"
+                                            @mouseleave="mouseover = false"
+                                            @click="
+                                                enableDisablePopup(
+                                                    complainType.id,
+                                                    complainType.complain_type_name
+                                                )
+                                            "
                                         >
-                                            <Link
-                                                :href="`facility/delete/${facility.id}`"
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="16"
+                                                height="16"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
                                             >
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width="16"
-                                                    height="16"
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    stroke-width="2"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                >
-                                                    <circle
-                                                        cx="12"
-                                                        cy="12"
-                                                        r="10"
-                                                    ></circle>
-                                                    <line
-                                                        x1="15"
-                                                        y1="9"
-                                                        x2="9"
-                                                        y2="15"
-                                                    ></line>
-                                                    <line
-                                                        x1="9"
-                                                        y1="9"
-                                                        x2="15"
-                                                        y2="15"
-                                                    ></line>
-                                                </svg>
-                                            </Link>
+                                                <circle
+                                                    cx="12"
+                                                    cy="12"
+                                                    r="10"
+                                                ></circle>
+                                                <line
+                                                    x1="15"
+                                                    y1="9"
+                                                    x2="9"
+                                                    y2="15"
+                                                ></line>
+                                                <line
+                                                    x1="9"
+                                                    y1="9"
+                                                    x2="15"
+                                                    y2="15"
+                                                ></line>
+                                            </svg>
                                         </div>
                                     </div>
                                 </td>
@@ -161,10 +171,37 @@ defineProps({
 
                     <Pagination
                         class="my-4 pb-4 flex justify-center"
-                        :links="facilities.links"
+                        :links="complainTypes.links"
                     />
                 </div>
             </div>
+        </div>
+    </div>
+    <div
+        v-if="popup.show"
+        class="fixed inset-0 grid place-items-center"
+        style="background: rgba(0, 0, 0, 0.4)"
+        @click="popup.show = false"
+    >
+        <div class="bg-white w-5/12 rounded">
+            <header class="text-xl m-3">Confirmation</header>
+            <div class="mx-3">
+                Delete {{ popup.complainType_detail_name }} from database ?
+            </div>
+            <button
+                class="bg-blue-500 hover:bg-blue-600 rounded p-2 ml-3 my-3 text-white"
+                type="button"
+                @click="deletecomplainType(popup.complainType_id)"
+            >
+                Confirm
+            </button>
+            <button
+                class="bg-red-500 hover:bg-red-600 rounded p-2 m-3 text-white"
+                type="button"
+                @click="popup.show = false"
+            >
+                Back
+            </button>
         </div>
     </div>
     <Footer />

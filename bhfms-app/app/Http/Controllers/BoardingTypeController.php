@@ -52,15 +52,10 @@ class BoardingTypeController extends Controller
     }
 
     public function BoardingTypeDelete(Request $request){
-        $currImage = BoardingType::where('id','=',$request->id)->first();
-        $currImage_path = explode('/storage/', $currImage->BoardingType_img_path);
+        $currBoardingType = BoardingType::where('id','=',$request->id)->first();
 
-        if($currImage){
-            Storage::delete('public/'.$currImage_path[1]);
-        }
+        $currBoardingType->delete();
 
-        $currImage->delete();
-
-        return redirect('/BoardingTypeAll')->with('message', 'Success Deleting BoardingType');
+        return redirect('/boardingTypeAll')->with('message', 'Success Deleting BoardingType');
     }
 }

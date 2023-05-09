@@ -5,16 +5,12 @@ import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
 import TextBoxInput from "../../Shared/BoardingShared/TextBoxInput.vue";
 
-const prop = defineProps({
-    complainType: Object,
-});
-
 const form = useForm({
-    name: prop.complainType.complain_type_name,
+    name: "",
 });
 
 const submit = () => {
-    form.post(`/complainType/update/${prop.complainType.id}`, {
+    form.post("/transactionType/create", {
         preserveScroll: true,
         preserveState: true,
     });
@@ -30,7 +26,7 @@ const submit = () => {
                 <!-- to Admin Boarding Page -->
                 <Link
                     class="my-2 mx-2 text-m float-right bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 rounded focus:outline-none focus:shadow-outline"
-                    :href="'/complainTypeAll'"
+                    :href="'/transactionTypeAll'"
                 >
                     Back
                 </Link>
@@ -40,14 +36,14 @@ const submit = () => {
                     class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
                 >
                     <h1 class="text-blue-600 font-bold text-2xl mb-8">
-                        Add new Complain Type
+                        Add new Transaction Type
                     </h1>
                     <div class="mb-4">
                         <TextBoxInput
                             v-model="form.name"
                             :input-type="'text'"
-                            :label-name="'Complain Type Name'"
-                            :placeholder="'Complain Type Name'"
+                            :label-name="'Transaction Type Name'"
+                            :placeholder="'Transaction Type Name'"
                             :error-message="form.errors.name"
                         />
                     </div>

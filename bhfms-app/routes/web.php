@@ -126,8 +126,7 @@ Route::get('/userAll',[UserController::class, 'getAllUserPage']);
 Route::get('/user/update/{id}',[UserController::class, 'getUserUpdate']);
 Route::post('/user/update/{id}',[UserController::class, 'UserUpdate']);
 Route::get('/user/read/{id}',[UserController::class, 'getUserDetail']);
-<<<<<<< HEAD
-Route::get('/user/delete/{id}',[UserController::class, 'UserDelete']);
+Route::post('/user/delete/{id}',[UserController::class, 'UserDelete']);
 
 //ComplainType
 Route::get('/complainTypeAll',[ComplainTypeController::class, 'getAllComplainTypePage']);
@@ -135,7 +134,7 @@ Route::get('/complainType/create',[ComplainTypeController::class, 'getComplainTy
 Route::post('/complainType/create',[ComplainTypeController::class, 'ComplainTypeCreate']);
 Route::get('/complainType/update/{id}',[ComplainTypeController::class, 'getComplainTypeUpdate']);
 Route::post('/complainType/update/{id}',[ComplainTypeController::class, 'ComplainTypeUpdate']);
-Route::get('/complainType/delete/{id}',[ComplainTypeController::class, 'ComplainTypeDelete']);
+Route::post('/complainType/delete/{id}',[ComplainTypeController::class, 'ComplainTypeDelete']);
 
 //BoardingType
 Route::get('/boardingTypeAll',[BoardingTypeController::class, 'getAllBoardingTypePage']);
@@ -143,7 +142,7 @@ Route::get('/boardingType/create',[BoardingTypeController::class, 'getBoardingTy
 Route::post('/boardingType/create',[BoardingTypeController::class, 'BoardingTypeCreate']);
 Route::get('/boardingType/update/{id}',[BoardingTypeController::class, 'getBoardingTypeUpdate']);
 Route::post('/boardingType/update/{id}',[BoardingTypeController::class, 'BoardingTypeUpdate']);
-Route::get('/boardingType/delete/{id}',[BoardingTypeController::class, 'BoardingTypeDelete']);
+Route::post('/boardingType/delete/{id}',[BoardingTypeController::class, 'BoardingTypeDelete']);
 
 //TransactionType
 Route::get('/transactionTypeAll',[TransactionTypeController::class, 'getAllTransactionTypePage']);
@@ -151,7 +150,7 @@ Route::get('/transactionType/create',[TransactionTypeController::class, 'getTran
 Route::post('/transactionType/create',[TransactionTypeController::class, 'TransactionTypeCreate']);
 Route::get('/transactionType/update/{id}',[TransactionTypeController::class, 'getTransactionTypeUpdate']);
 Route::post('/transactionType/update/{id}',[TransactionTypeController::class, 'TransactionTypeUpdate']);
-Route::get('/transactionType/delete/{id}',[TransactionTypeController::class, 'TransactionTypeDelete']);
+Route::post('/transactionType/delete/{id}',[TransactionTypeController::class, 'TransactionTypeDelete']);
 
 //PaymentMethod
 Route::get('/paymentMethodAll',[PaymentMethodController::class, 'getAllPaymentMethodPage']);
@@ -159,7 +158,4 @@ Route::get('/paymentMethod/create',[PaymentMethodController::class, 'getPaymentM
 Route::post('/paymentMethod/create',[PaymentMethodController::class, 'PaymentMethodCreate']);
 Route::get('/paymentMethod/update/{id}',[PaymentMethodController::class, 'getPaymentMethodUpdate']);
 Route::post('/paymentMethod/update/{id}',[PaymentMethodController::class, 'PaymentMethodUpdate']);
-Route::get('/paymentMethod/delete/{id}',[PaymentMethodController::class, 'PaymentMethodDelete']);
-=======
-Route::post('/user/delete/{id}',[UserController::class, 'UserDelete']);
->>>>>>> 00fadb7 (Confirmation Modal upon Delete Only)
+Route::post('/paymentMethod/delete/{id}',[PaymentMethodController::class, 'PaymentMethodDelete']);

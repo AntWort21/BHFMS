@@ -4,17 +4,16 @@ import { useForm, Link } from "@inertiajs/inertia-vue3";
 import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
 import TextBoxInput from "../../Shared/BoardingShared/TextBoxInput.vue";
-
-const prop = defineProps({
-    complainType: Object,
-});
-
+import VueMultiselect from "vue-multiselect";
 const form = useForm({
-    name: prop.complainType.complain_type_name,
+    name: "",
+    status: "",
 });
+
+const status_options = ["available", "disable"];
 
 const submit = () => {
-    form.post(`/complainType/update/${prop.complainType.id}`, {
+    form.post("/paymentMethod/create", {
         preserveScroll: true,
         preserveState: true,
     });
@@ -30,7 +29,7 @@ const submit = () => {
                 <!-- to Admin Boarding Page -->
                 <Link
                     class="my-2 mx-2 text-m float-right bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 rounded focus:outline-none focus:shadow-outline"
-                    :href="'/complainTypeAll'"
+                    :href="'/paymentMethodAll'"
                 >
                     Back
                 </Link>
@@ -40,15 +39,35 @@ const submit = () => {
                     class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
                 >
                     <h1 class="text-blue-600 font-bold text-2xl mb-8">
-                        Add new Complain Type
+                        Add new Payment Method
                     </h1>
                     <div class="mb-4">
                         <TextBoxInput
                             v-model="form.name"
                             :input-type="'text'"
-                            :label-name="'Complain Type Name'"
-                            :placeholder="'Complain Type Name'"
+                            :label-name="'Payment Method Name'"
+                            :placeholder="'Payment Method Name'"
                             :error-message="form.errors.name"
+                        />
+                    </div>
+
+                    <div class="mb-4">
+                        <label
+                            class="block text-gray-700 text-sm font-bold mb-2"
+                            for="status"
+                        >
+                            Status
+                        </label>
+                        <VueMultiselect
+                            v-model="form.status"
+                            :options="status_options"
+                            :close-on-select="true"
+                        >
+                        </VueMultiselect>
+                        <div
+                            v-if="form.errors.status"
+                            v-text="form.errors.status"
+                            class="text-red-500 text-xs mt-1"
                         />
                     </div>
 

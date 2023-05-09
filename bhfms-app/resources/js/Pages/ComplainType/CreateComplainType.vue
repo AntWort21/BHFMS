@@ -5,16 +5,12 @@ import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
 import TextBoxInput from "../../Shared/BoardingShared/TextBoxInput.vue";
 
-const prop = defineProps({
-    complainType: Object,
-});
-
 const form = useForm({
-    name: prop.complainType.complain_type_name,
+    name: "",
 });
 
 const submit = () => {
-    form.post(`/complainType/update/${prop.complainType.id}`, {
+    form.post("/complainType/create", {
         preserveScroll: true,
         preserveState: true,
     });

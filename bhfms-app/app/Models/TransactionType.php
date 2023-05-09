@@ -12,4 +12,6 @@ class TransactionType extends Model
     public function rentTransactions(){
         return $this->hasMany(RentTransaction::class);
     }
+
+    protected $guarded = [];
 }

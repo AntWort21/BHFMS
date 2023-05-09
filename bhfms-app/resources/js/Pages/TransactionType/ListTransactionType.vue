@@ -6,24 +6,24 @@ import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
 import Pagination from "../../Shared/Pagination.vue";
 defineProps({
-    boardingTypes: Object,
+    transactionTypes: Object,
 });
 let mouseover = ref(false);
 
 let popup = reactive({
     show: false,
-    boardingType_id: 0,
-    boardingType_detail_name: "",
+    transactionType_id: 0,
+    transactionType_detail_name: "",
 });
 
 let enableDisablePopup = (id, name) => {
     popup.show = !popup.show;
-    popup.boardingType_id = id;
-    popup.boardingType_detail_name = name;
+    popup.transactionType_id = id;
+    popup.transactionType_detail_name = name;
 };
 
-const deleteboardingType = (idx) => {
-    Inertia.post(`/boardingType/delete/${idx}`);
+const deletetransactionType = (idx) => {
+    Inertia.post(`/transactionType/delete/${idx}`);
 };
 </script>
 
@@ -52,7 +52,7 @@ const deleteboardingType = (idx) => {
                 </div>
                 <div class="flex">
                     <div class="mt-2 float-left">
-                        <a href="/boardingType/create">
+                        <a href="/transactionType/create">
                             <div
                                 class="rounded border block bg-white border-gray-400 text-gray-700 py-2 px-4 flex"
                             >
@@ -63,7 +63,7 @@ const deleteboardingType = (idx) => {
                                 </button>
 
                                 <h3 class="self-center">
-                                    Add New Boarding Type
+                                    Add New Transaction Type
                                 </h3>
                             </div>
                         </a>
@@ -77,7 +77,7 @@ const deleteboardingType = (idx) => {
                                 <th
                                     class="py-3 px-6 text-center whitespace-nowrap"
                                 >
-                                    Boarding Type Name
+                                    Transaction Type Name
                                 </th>
                                 <th class="py-3 px-6 text-center">Actions</th>
                             </tr>
@@ -86,13 +86,13 @@ const deleteboardingType = (idx) => {
                         <tbody class="text-gray-600 text-sm font-light">
                             <tr
                                 v-for="(
-                                    boardingType, idx
-                                ) in boardingTypes.data"
+                                    transactionType, idx
+                                ) in transactionTypes.data"
                                 class="border-b border-gray-200 bg-gray-50 hover:bg-gray-100"
                                 :key="idx"
                             >
                                 <td class="py-3 px-6 text-center">
-                                    {{ boardingType.boarding_type_name }}
+                                    {{ transactionType.transaction_type_name }}
                                 </td>
 
                                 <!-- Icon List -->
@@ -104,7 +104,7 @@ const deleteboardingType = (idx) => {
                                             class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                                         >
                                             <Link
-                                                :href="`boardingType/update/${boardingType.id}`"
+                                                :href="`transactionType/update/${transactionType.id}`"
                                             >
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -128,8 +128,8 @@ const deleteboardingType = (idx) => {
                                             @mouseleave="mouseover = false"
                                             @click="
                                                 enableDisablePopup(
-                                                    boardingType.id,
-                                                    boardingType.boarding_type_name
+                                                    transactionType.id,
+                                                    transactionType.transaction_type_name
                                                 )
                                             "
                                         >
@@ -171,7 +171,7 @@ const deleteboardingType = (idx) => {
 
                     <Pagination
                         class="my-4 pb-4 flex justify-center"
-                        :links="boardingTypes.links"
+                        :links="transactionTypes.links"
                     />
                 </div>
             </div>
@@ -186,12 +186,12 @@ const deleteboardingType = (idx) => {
         <div class="bg-white w-5/12 rounded">
             <header class="text-xl m-3">Confirmation</header>
             <div class="mx-3">
-                Delete {{ popup.boardingType_detail_name }} from database ?
+                Delete {{ popup.transactionType_detail_name }} from database ?
             </div>
             <button
                 class="bg-blue-500 hover:bg-blue-600 rounded p-2 ml-3 my-3 text-white"
                 type="button"
-                @click="deleteboardingType(popup.boardingType_id)"
+                @click="deletetransactionType(popup.transactionType_id)"
             >
                 Confirm
             </button>
