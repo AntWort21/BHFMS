@@ -16,7 +16,7 @@ defineProps({
                 <div class="semibold text-2xl text-indigo-700">COMPLAIN</div>
             </div>
             <Link
-                href="/review/create"
+                href="/complain/house"
                 :data="{ id: boardingHouse.id }"
                 v-for="(boardingHouse, key) in boardingHouseList"
                 :key="key"
