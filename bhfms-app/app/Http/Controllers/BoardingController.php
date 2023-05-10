@@ -422,7 +422,7 @@ class BoardingController extends Controller
         $currBoarding = Boarding::where('id', '=', $request->id)->get()->first();
         $currFacilities = ($currBoarding->facilities()->exists()) ? $currBoarding->facilities()->get() : null;
         $currType = $currBoarding->boardingType()->get()->first();
-        $currManager = $currBoarding->managerBoardings()->get()->first();
+        $currManager = ($currBoarding->managerBoardings()->exists()) ? $currBoarding->managerBoardings()->get()->first() : null;
         $currImages = $currBoarding->images()->get();
 
         return Inertia::render('Boarding/ReadBoarding', [
