@@ -319,7 +319,7 @@ class BoardingController extends Controller
 
     public function searchBoardingByLocation(Request $request)
     {
-        $radius = 25; //radius in km
+        $radius = 50; //radius in km
 
         $boardingSearchResults = Boarding::select(
             'id',
