@@ -158,6 +158,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/paymentHistory',[PaymentController::class,'getAllPayment']);
     Route::post('/getInvoiceData',[PaymentController::class,'getInvoiceDetail']);
     Route::get('/cancelPayment',[PaymentController::class,'cancelPayment']);
+    Route::get('/addPaymentManager',[PaymentController::class,'getPaymentPageManager']);
+    Route::get('/cancelPayment',[PaymentController::class,'cancelPayment']);
+    Route::post('/getPaymentInvoice',[PaymentController::class,'addPaymentTenant']);
+    Route::get('/checkInvoiceRequest',[PaymentController::class,'getCheckInvoiceRequest']);
+    Route::get('/schedulePayment',[PaymentController::class,'checkLatePayment']);
+    Route::post('/udpateInvoiceStatus',[PaymentController::class,'udpateInvoiceStatus']);
+    Route::get('/editPayment',[PaymentController::class,'getEditPayment']);
+
     //Belum Middleware
 });
 

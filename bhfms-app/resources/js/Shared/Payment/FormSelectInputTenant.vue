@@ -4,6 +4,8 @@ defineProps({
     optionList: Array,
     labelDesc: String,
     event: Event,
+    defaultUsername: String,
+    defaultEmail: String
 });
 defineEmits(['update:modelValue'])
 </script>

@@ -4,7 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-
+use App\Http\Controllers\PaymentController;
 class Kernel extends ConsoleKernel
 {
     /**
@@ -13,9 +13,18 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
+
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('rent:status')->daily();
+        
+        $schedule->call(function () {
+    
+            $paymentController = new PaymentController();
+            $paymentController->schedulePayment();
+            $paymentController->checkLatePayment();
+            
+        })->daily('01:00');
     }
 
     /**

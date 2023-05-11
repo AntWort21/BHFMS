@@ -1,6 +1,7 @@
 <script setup>
 defineProps({
     labelName: String,
+    defaultValue: value
 })
 
 </script>
@@ -12,7 +13,17 @@ defineProps({
         type="checkbox"
         class="mr-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
         value="true"
+        :checked="checked"
+        v-if="defaultValue!=null"
     />
+    <input
+        @input="$emit('update:modelValue', $event.target.value)"
+        type="checkbox"
+        class="mr-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+        value="true"
+        v-else
+    />
+
     <label class="block">{{ labelName }}</label>
 </div>
     
