@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 class TransactionTypeController extends Controller
 {
     public function getAllTransactionTypePage(){
-        $TransactionTypes = TransactionType::paginate(5)->withQueryString();
+        $transactionTypes = TransactionType::paginate(5)->withQueryString();
         return inertia('TransactionType/ListTransactionType', [
-            'transactionTypes' => $TransactionTypes
+            'transactionTypes' => $transactionTypes
         ]);
     }
 
