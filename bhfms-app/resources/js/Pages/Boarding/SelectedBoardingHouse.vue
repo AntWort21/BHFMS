@@ -212,7 +212,7 @@ let removeFromWishlist = () => {
                                 <img
                                     :src="boardingHouse.imageUrl"
                                     class="w-full h-80 object-cover"
-                                    alt="No Image"
+                                    alt="Boarding Image"
                                 />
                                 <div class="h-2/3 space-y-1 p-2">
                                     <div class="font-semibold">
