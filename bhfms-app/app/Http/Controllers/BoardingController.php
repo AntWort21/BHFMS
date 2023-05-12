@@ -276,8 +276,15 @@ class BoardingController extends Controller
         $boardingHouseImages = BoardingImage::where('boarding_id', $request->id)->get()->pluck('image');
 
         $ownerId = OwnerBoarding::where('boarding_id', $request->id)->first()->user_id;
-
         $owner = User::where('id', $ownerId)->first();
+
+        $boardingIdManagedBySameOwner = OwnerBoarding::where('user_id', $ownerId)->where('boarding_id', '!=', $request->id)->get()->pluck('boarding_id');
+        if($boardingIdManagedBySameOwner) {
+            $boardingListManagedBySameOwner = Boarding::whereIn('id', $boardingIdManagedBySameOwner)->get();
+            foreach ($boardingListManagedBySameOwner as $key => $boardingHouse) {
+                $boardingListManagedBySameOwner[$key]->imageUrl = BoardingImage::where('boarding_id', $boardingHouse->id)->first()->image;
+            }
+        }
 
         $facilityList = Facility::where('boarding_id', $request->id)->get();
         foreach ($facilityList as $key => $facility) {
@@ -314,6 +321,7 @@ class BoardingController extends Controller
             'totalReviewCount' => count($reviews),
             'ratingStar' => $starRating,
             'isWishlisted' => $onWishlist != null ? true : false,
+            'boardingManagedBySameOwner' => $boardingListManagedBySameOwner ?? null
         ]);
     }
 
