@@ -70,5 +70,6 @@ class Kernel extends HttpKernel
         'manager' => \App\Http\Middleware\ManagerRoleMiddleware::class,
         'complain.access' => \App\Http\Middleware\ComplainAccessMiddleware::class,
         'owner.complain.access' => \App\Http\Middleware\OwnerComplainAccessMiddleware::class,
+        'review.access' => \App\Http\Middleware\ReviewAccessMiddleware::class,
     ];
 }
