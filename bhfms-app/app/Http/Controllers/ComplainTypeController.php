@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 class ComplainTypeController extends Controller
 {
     public function getAllComplainTypePage(){
-        $ComplainTypes = ComplainType::paginate(5)->withQueryString();
+        $complainTypes = ComplainType::paginate(5)->withQueryString();
         return inertia('ComplainType/ListComplainType', [
-            'complainTypes' => $ComplainTypes
+            'complainTypes' => $complainTypes
         ]);
     }
 
