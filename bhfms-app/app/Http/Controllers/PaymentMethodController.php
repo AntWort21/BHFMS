@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 class PaymentMethodController extends Controller
 {
     public function getAllPaymentMethodPage(){
-        $PaymentMethods = PaymentMethod::paginate(5)->withQueryString();
+        $paymentMethods = PaymentMethod::paginate(5)->withQueryString();
         return inertia('PaymentMethod/ListPaymentMethod', [
-            'paymentMethods' => $PaymentMethods
+            'paymentMethods' => $paymentMethods
         ]);
     }
 
