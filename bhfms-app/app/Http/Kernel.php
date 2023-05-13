@@ -74,5 +74,6 @@ class Kernel extends HttpKernel
         'boarding.approve.access' => \App\Http\Middleware\BoardingAccessApproveMiddleware::class,
         'tenant.read.access' => \App\Http\Middleware\TenantAccessReadMiddleware::class,
         'tenant.approve.access' => \App\Http\Middleware\TenantAccessApproveMiddleware::class,
+        'owner.manager.access' => \App\Http\Middleware\OwnerManagerMiddleware::class,
     ];
 }
