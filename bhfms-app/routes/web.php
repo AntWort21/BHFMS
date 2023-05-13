@@ -88,7 +88,7 @@ Route::middleware('auth')->group(function () {
 
     
     Route::get('/boardingManager', [BoardingController::class, 'indexManager'])->middleware('manager');
-    Route::get('/tenantBoarding', [TenantController::class, 'getAllTenantBoarding'])->middleware('tenant.list.access'); //manager & Owner
+    Route::get('/tenantBoarding', [TenantController::class, 'getAllTenantBoarding'])->middleware('owner.manager.access'); //manager & Owner
     Route::get('/tenantBoarding/read/{id}', [TenantController::class, 'getDetailTenantBoarding'])->middleware('tenant.read.access');
     Route::get('/tenantBoarding/request/{id}', [TenantController::class, 'getRequestTenant'])->middleware('tenant.approve.access');
     Route::post('/tenantBoarding/request/{id}', [TenantController::class, 'RequestTenant'])->middleware('tenant.approve.access');
