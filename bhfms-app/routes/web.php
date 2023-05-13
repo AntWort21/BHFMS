@@ -44,15 +44,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [UserController::class, 'getProfilePage']);
     Route::post('/profile/update', [UserController::class, 'updateProfile']);
 
-    Route::get('/complain', [ComplainController::class, 'getComplainListPage']);
-    Route::get('/complain/create', [ComplainController::class, 'getCreateComplainPage']);
-    Route::post('/complain/create', [ComplainController::class, 'createComplain']);
-    Route::get('/complain/detail', [ComplainController::class, 'getComplainDetail']);
+    Route::get('/complain', [ComplainController::class, 'getComplainListPage'])->middleware('tenant');
+    Route::get('/complain/create', [ComplainController::class, 'getCreateComplainPage'])->middleware('tenant');
+    Route::post('/complain/create', [ComplainController::class, 'createComplain'])->middleware('tenant');
+    Route::get('/complain/detail', [ComplainController::class, 'getComplainDetail'])->middleware('complain.access');
 
-    Route::post('/complain/status', [ComplainController::class, 'setComplainStatus']);
-
-    Route::get('/complain/owner', [ComplainController::class, 'getOwnerComplainPage']);
-    Route::get('/complain/house', [ComplainController::class, 'getSelectedBoardingHouseComplainList']);
+    Route::post('/complain/status', [ComplainController::class, 'setComplainStatus'])->middleware('owner');
+    Route::get('/complain/owner', [ComplainController::class, 'getOwnerComplainPage'])->middleware('owner');
+    Route::get('/complain/house', [ComplainController::class, 'getSelectedBoardingHouseComplainList'])->middleware('owner.complain.access');
 
     Route::get('/review', [ReviewController::class, 'getAllReviewPage']);
     Route::get('/review/create', [ReviewController::class, 'getCreateReviewOrViewReviewPage']);
