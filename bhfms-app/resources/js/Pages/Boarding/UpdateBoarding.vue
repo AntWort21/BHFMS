@@ -8,6 +8,7 @@ import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
 import TextBoxInput from "../../Shared/BoardingShared/TextBoxInput.vue";
 import { Link } from "@inertiajs/inertia-vue3";
+import Map from "../../Shared/Map.vue";
 
 const props = defineProps({
     currBoarding: Object,
