@@ -1,29 +1,29 @@
 <script setup>
-import { Link } from "@inertiajs/inertia-vue3";
 import { Inertia } from "@inertiajs/inertia";
+import { Link } from "@inertiajs/inertia-vue3";
 import { ref, reactive } from "vue";
 import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
 import Pagination from "../../Shared/Pagination.vue";
 defineProps({
-    facilities: Object,
+    paymentMethods: Object,
 });
 let mouseover = ref(false);
 
 let popup = reactive({
     show: false,
-    facility_id: 0,
-    facility_detail_name: "",
+    paymentMethod_id: 0,
+    paymentMethod_detail_name: "",
 });
 
 let enableDisablePopup = (id, name) => {
     popup.show = !popup.show;
-    popup.facility_id = id;
-    popup.facility_detail_name = name;
+    popup.paymentMethod_id = id;
+    popup.paymentMethod_detail_name = name;
 };
 
-const deleteFacility = (idx) => {
-    Inertia.post(`/facility/delete/${idx}`);
+const deletepaymentMethod = (idx) => {
+    Inertia.post(`/paymentMethod/delete/${idx}`);
 };
 </script>
 
@@ -52,7 +52,7 @@ const deleteFacility = (idx) => {
                 </div>
                 <div class="flex">
                     <div class="mt-2 float-left">
-                        <a href="/facility/create">
+                        <a href="/paymentMethod/create">
                             <div
                                 class="rounded border block bg-white border-gray-400 text-gray-700 py-2 px-4 flex"
                             >
@@ -62,7 +62,9 @@ const deleteFacility = (idx) => {
                                     +
                                 </button>
 
-                                <h3 class="self-center">Add New Facility</h3>
+                                <h3 class="self-center">
+                                    Add New Payment Method
+                                </h3>
                             </div>
                         </a>
                     </div>
@@ -73,14 +75,9 @@ const deleteFacility = (idx) => {
                         <thead>
                             <tr class="uppercase text-sm leading-normal">
                                 <th
-                                    class="py-3 px-6 text-left whitespace-nowrap"
-                                >
-                                    Facility Icon
-                                </th>
-                                <th
                                     class="py-3 px-6 text-center whitespace-nowrap"
                                 >
-                                    Facility Name
+                                    Payment Method Name
                                 </th>
                                 <th class="py-3 px-6 text-center">Actions</th>
                             </tr>
@@ -88,22 +85,29 @@ const deleteFacility = (idx) => {
 
                         <tbody class="text-gray-600 text-sm font-light">
                             <tr
-                                v-for="(facility, idx) in facilities.data"
+                                v-for="(
+                                    paymentMethod, idx
+                                ) in paymentMethods.data"
                                 class="border-b border-gray-200 bg-gray-50 hover:bg-gray-100"
                                 :key="idx"
                             >
-                                <td class="py-3 px-6 text-left w-10">
-                                    <div class="flex items-center">
-                                        <img
-                                            class="mx-auto block"
-                                            :src="facility.facility_img_path"
-                                            alt="No img"
-                                        />
-                                    </div>
+                                <td class="py-3 px-6 text-center">
+                                    {{ paymentMethod.payment_method_name }}
                                 </td>
 
                                 <td class="py-3 px-6 text-center">
-                                    {{ facility.facility_detail_name }}
+                                    <span
+                                        v-if="paymentMethod.status == 'disable'"
+                                        class="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs"
+                                    >
+                                        Disabled
+                                    </span>
+                                    <span
+                                        v-else
+                                        class="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs"
+                                    >
+                                        Available
+                                    </span>
                                 </td>
 
                                 <!-- Icon List -->
@@ -115,7 +119,7 @@ const deleteFacility = (idx) => {
                                             class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                                         >
                                             <Link
-                                                :href="`facility/update/${facility.id}`"
+                                                :href="`paymentMethod/update/${paymentMethod.id}`"
                                             >
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -139,8 +143,8 @@ const deleteFacility = (idx) => {
                                             @mouseleave="mouseover = false"
                                             @click="
                                                 enableDisablePopup(
-                                                    facility.id,
-                                                    facility.facility_detail_name
+                                                    paymentMethod.id,
+                                                    paymentMethod.payment_method_name
                                                 )
                                             "
                                         >
@@ -182,13 +186,12 @@ const deleteFacility = (idx) => {
 
                     <Pagination
                         class="my-4 pb-4 flex justify-center"
-                        :links="facilities.links"
+                        :links="paymentMethods.links"
                     />
                 </div>
             </div>
         </div>
     </div>
-
     <div
         v-if="popup.show"
         class="fixed inset-0 grid place-items-center"
@@ -198,12 +201,12 @@ const deleteFacility = (idx) => {
         <div class="bg-white w-5/12 rounded">
             <header class="text-xl m-3">Confirmation</header>
             <div class="mx-3">
-                Delete {{ popup.facility_detail_name }} from database ?
+                Delete {{ popup.paymentMethod_detail_name }} from database ?
             </div>
             <button
                 class="bg-blue-500 hover:bg-blue-600 rounded p-2 ml-3 my-3 text-white"
                 type="button"
-                @click="deleteFacility(popup.facility_id)"
+                @click="deletepaymentMethod(popup.paymentMethod_id)"
             >
                 Confirm
             </button>

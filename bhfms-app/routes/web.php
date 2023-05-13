@@ -6,11 +6,15 @@ use App\Http\Controllers\BoardingController;
 use App\Http\Controllers\ComplainController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\BoardingImageController;
+use App\Http\Controllers\BoardingTypeController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ComplainTypeController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\TransactionTypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -180,3 +184,36 @@ Route::get('/user/update/{id}',[UserController::class, 'getUserUpdate']); //admi
 Route::post('/user/update/{id}',[UserController::class, 'UserUpdate']); //admin
 Route::get('/user/read/{id}',[UserController::class, 'getUserDetail']); //admin
 Route::get('/user/delete/{id}',[UserController::class, 'UserDelete']); //admin
+
+//ComplainType
+Route::get('/complainTypeAll',[ComplainTypeController::class, 'getAllComplainTypePage']);
+Route::get('/complainType/create',[ComplainTypeController::class, 'getComplainTypeCreate']);
+Route::post('/complainType/create',[ComplainTypeController::class, 'ComplainTypeCreate']);
+Route::get('/complainType/update/{id}',[ComplainTypeController::class, 'getComplainTypeUpdate']);
+Route::post('/complainType/update/{id}',[ComplainTypeController::class, 'ComplainTypeUpdate']);
+Route::post('/complainType/delete/{id}',[ComplainTypeController::class, 'ComplainTypeDelete']);
+
+//BoardingType
+Route::get('/boardingTypeAll',[BoardingTypeController::class, 'getAllBoardingTypePage']);
+Route::get('/boardingType/create',[BoardingTypeController::class, 'getBoardingTypeCreate']);
+Route::post('/boardingType/create',[BoardingTypeController::class, 'BoardingTypeCreate']);
+Route::get('/boardingType/update/{id}',[BoardingTypeController::class, 'getBoardingTypeUpdate']);
+Route::post('/boardingType/update/{id}',[BoardingTypeController::class, 'BoardingTypeUpdate']);
+Route::post('/boardingType/delete/{id}',[BoardingTypeController::class, 'BoardingTypeDelete']);
+
+//TransactionType
+Route::get('/transactionTypeAll',[TransactionTypeController::class, 'getAllTransactionTypePage']);
+Route::get('/transactionType/create',[TransactionTypeController::class, 'getTransactionTypeCreate']);
+Route::post('/transactionType/create',[TransactionTypeController::class, 'TransactionTypeCreate']);
+Route::get('/transactionType/update/{id}',[TransactionTypeController::class, 'getTransactionTypeUpdate']);
+Route::post('/transactionType/update/{id}',[TransactionTypeController::class, 'TransactionTypeUpdate']);
+Route::post('/transactionType/delete/{id}',[TransactionTypeController::class, 'TransactionTypeDelete']);
+
+//PaymentMethod
+Route::get('/paymentMethodAll',[PaymentMethodController::class, 'getAllPaymentMethodPage']);
+Route::get('/paymentMethod/create',[PaymentMethodController::class, 'getPaymentMethodCreate']);
+Route::post('/paymentMethod/create',[PaymentMethodController::class, 'PaymentMethodCreate']);
+Route::get('/paymentMethod/update/{id}',[PaymentMethodController::class, 'getPaymentMethodUpdate']);
+Route::post('/paymentMethod/update/{id}',[PaymentMethodController::class, 'PaymentMethodUpdate']);
+Route::post('/paymentMethod/delete/{id}',[PaymentMethodController::class, 'PaymentMethodDelete']);
+
