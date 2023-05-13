@@ -160,6 +160,15 @@ let removeFromWishlist = () => {
                                 </p>
                                 <p>/month</p>
                             </div>
+
+                            <div
+                                v-if="$page.props.flash.message"
+                                class="flex text-center text-red-500 text-sm font-bold px-4 py-3"
+                                role="alert"
+                            >
+                                <p>{{ $page.props.flash.message }}</p>
+                            </div>
+
                             <div class="border border-solid border-slate-300">
                                 <FormTextBoxInput
                                     v-model="form.startDate"

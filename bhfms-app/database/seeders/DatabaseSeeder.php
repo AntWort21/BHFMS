@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             TenantBoardingSeeder::class,
             PaymentMethodsSeeder::class,
             TransactionTypesSeeder::class,
-            RentTransactionSeeder::class,
+            // RentTransactionSeeder::class,
             ComplainTypeSeeder::class,
             ComplainSeeder::class,
             ReviewSeeder::class,

@@ -93,17 +93,18 @@ class UserController extends Controller
             'email'=>['required', 'email','unique:users,email,' . $request->id],
             'dob'=>['required'],
             'phone' => ['required'],
-            'images' => ['max:1','mimes:jpeg,png,jpg,gif,svg'],
+            'images'=> ['max:1'],
+            'images.*' => ['mimes:jpeg,png,jpg,gif,svg'],
         ], $custom_messages);
 
         if (($request->file('images') !== null)) {
             $currImage = User::where('id','=',$request->id)->first()->profile_picture;
             $currImagePath = explode('/storage/', $currImage);
-
+            
             if($currImage){
                 Storage::delete('public/'.$currImagePath[1]);
             }
-            $currUserId = User::where('id','=',$request->id)->get()->id;
+            $currUserId = User::where('id','=',$request->id)->first()->id;
 
             foreach ($request->file('images') as $image) {
 

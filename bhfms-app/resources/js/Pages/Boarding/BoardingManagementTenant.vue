@@ -112,6 +112,7 @@ watch(search, (value) => {
                                 <!-- Icon List -->
                                 <TableIconLinks
                                     :currentID="boarding.boarding_id"
+                                    :tenantID="boarding.tenant_id"
                                     :boarding="boarding"
                                 />
                             </tr>

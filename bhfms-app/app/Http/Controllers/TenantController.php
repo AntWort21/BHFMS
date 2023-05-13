@@ -99,18 +99,19 @@ class TenantController extends Controller
     }
 
     public function getDetailTenantBoarding(Request $request){
-        $tenant_boarding = TenantBoarding::find($request->id);
-        $user_data = User::where("id",$tenant_boarding->user_id)->first();
-
+        $tenantBoarding = TenantBoarding::find($request->id);
+        $user_data = User::where("id",$tenantBoarding->user_id)->first();
         return Inertia::render('Tenant/ReadTenant', [
+            'reason' => $tenantBoarding->declined_reason,
+            'tenantBoarding' => $tenantBoarding,
             'currUser' => $user_data,
         ]);
     }
 
     public function getRequestTenant(Request $request){
-        $tenant_boarding = TenantBoarding::find($request->id);
-        $user_data = User::where("id",$tenant_boarding->user_id)->first();
-
+        $tenantBoarding = TenantBoarding::find($request->id);
+        $user_data = User::where("id",$tenantBoarding->user_id)->first();
+        
         return Inertia::render('Tenant/RequestTenant', [
             'currID' => $request->id,
             'currUser' => $user_data,
@@ -118,11 +119,33 @@ class TenantController extends Controller
     }
 
     public function RequestTenant(Request $request){
+        $accFirst = TenantBoarding::where('id','=',$request->currID)->first();
+        $checkRoom = Boarding::where('id','=',$accFirst->boarding_id)->first()->rooms;
+        $checkTenant = TenantBoarding::where([['boarding_id','=',$accFirst->boarding_id],['tenant_status','=','approved']])->count();
+        if($checkRoom - $checkTenant <= 0 ){
+            return redirect('/tenantBoarding')->with('message', 'Cannot Accept new Tenant as room is full');
+        }
+
         if($request->accept){
             TenantBoarding::where('id','=',$request->currID)->update([
                 'tenant_status' => 2,
                 'declined_reason' => $request['reason'],
             ]);
+            
+            //Decline all Current User Accepted Tenant Boarding
+            $update = TenantBoarding::where('user_id','=',$accFirst->user_id)->where('tenant_status','=','pending')->update([
+                'tenant_status' => 'declined',
+                'declined_reason' => 'Already Accepted in another Boarding House.',
+            ]);
+
+            //Decline all other request if room is full
+            if($checkRoom - $checkTenant -1 <= 0 ){
+                $update = TenantBoarding::where('boarding_id','=',$accFirst->boarding_id)->where('tenant_status','=','pending')->update([
+                    'tenant_status' => 'declined',
+                    'declined_reason' => 'The Boarding House you requested is currently at maximum capacity as other tenants have been accepted first.',
+                ]);
+            }
+
             return redirect('/tenantBoarding')->with('message', 'Success Accepting new Tenant');
         }else{
             TenantBoarding::where('id','=',$request->currID)->update([

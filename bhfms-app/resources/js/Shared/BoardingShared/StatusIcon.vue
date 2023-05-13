@@ -26,6 +26,12 @@ defineProps({
         >
 
         <span
+            v-else-if="boarding.owner_status == 'disabled'"
+            class="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs"
+            >Disabled</span
+        >
+
+        <span
             v-else
             class="bg-slate-200 text-slate-600 py-1 px-3 rounded-full text-xs"
             >Banned</span
