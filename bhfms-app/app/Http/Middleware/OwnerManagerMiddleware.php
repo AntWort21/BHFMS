@@ -19,7 +19,6 @@ class OwnerManagerMiddleware
     {
         if (Auth::user()->user_role_id == 3 || Auth::user()->user_role_id == 4) {
             return $next($request);
-            
         }
         abort(404, 'Not Found');
     }
