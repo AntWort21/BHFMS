@@ -68,152 +68,97 @@ Route::middleware('auth')->group(function () {
     Route::post('/wishlist/add', [WishlistController::class, 'addWishlist']);
     Route::post('/wishlist/remove', [WishlistController::class, 'removeWishlist']);
     Route::post('/boarding/detail/rent/{id}', [BoardingController::class, 'boardingRent']);
-    Route::get('/boarding', [BoardingController::class, 'index']);
 
-    Route::get('/boarding/create', [BoardingController::class, 'create']);
+    Route::get('/boardingAdmin', [BoardingController::class, 'indexAdmin'])->middleware('admin');
+    Route::get('/boardingAdmin/request/{id}', [BoardingController::class, 'getAdminApproveBoarding'])->middleware('admin');
+    Route::post('/boardingAdmin/request/{id}', [BoardingController::class, 'AdminApproveBoarding'])->middleware('admin');
+    Route::get('/boardingOwner', [BoardingController::class, 'indexOwner'])->middleware('owner');
+    Route::get('/boarding/create', [BoardingController::class, 'getCreateOwnerBoarding'])->middleware('owner');
+    Route::post('/boarding/create', [BoardingController::class, 'createOwnerBoarding'])->middleware('owner');
+    Route::get('/boarding/update/{id}', [BoardingController::class, 'getUpdateBoarding'])->middleware('boarding.approve.access');
+    Route::get('/boarding/read/{id}', [BoardingController::class, 'getReadBoarding'])->middleware('boarding.read.access');
+    Route::post('/boarding/update/{id}', [BoardingController::class, 'updateBoarding'])->middleware('boarding.approve.access');
+    Route::get('/boarding/delete/{id}', [BoardingController::class, 'deleteBoarding'])->middleware('admin');
+    Route::get('/boarding/reapprove/{id}', [BoardingController::class, 'getReapproveBoarding'])->middleware('boarding.approve.access');
+    Route::post('/boarding/reapprove/{id}', [BoardingController::class, 'ReapproveBoarding'])->middleware('boarding.approve.access');
+    Route::get('/boarding/enable/{id}', [BoardingController::class, 'enableBoardingOwner'])->middleware('boarding.approve.access');
+    Route::get('/boarding/disable/{id}', [BoardingController::class, 'disableBoardingOwner'])->middleware('boarding.approve.access');
 
-    Route::get('/boardingAdmin', [BoardingController::class, 'indexAdmin']);
-    Route::get('/boardingAdmin/request/{id}', [BoardingController::class, 'getAdminApproveBoarding']);
-    Route::post('/boardingAdmin/request/{id}', [BoardingController::class, 'AdminApproveBoarding']);
-    Route::get('/boardingOwner', [BoardingController::class, 'indexOwner']);
-    Route::get('/boarding/create', [BoardingController::class, 'getCreateOwnerBoarding']);
-    Route::post('/boarding/create', [BoardingController::class, 'createOwnerBoarding']);
-    Route::get('/boarding/update/{id}', [BoardingController::class, 'getUpdateBoarding']);
-    Route::get('/boarding/read/{id}', [BoardingController::class, 'getReadBoarding']);
-    Route::post('/boarding/update/{id}', [BoardingController::class, 'updateBoarding']);
-    Route::get('/boarding/delete/{id}', [BoardingController::class, 'deleteBoarding']);
-    Route::get('/boarding/reapprove/{id}', [BoardingController::class, 'getReapproveBoarding']);
-    Route::post('/boarding/reapprove/{id}', [BoardingController::class, 'ReapproveBoarding']);
-    Route::get('/boarding/enable/{id}', [BoardingController::class, 'enableBoardingOwner']);
-    Route::get('/boarding/disable/{id}', [BoardingController::class, 'disableBoardingOwner']);
+    Route::put('/boarding/image/delete/{id}', [BoardingImageController::class, 'deleteImage'])->middleware('owner');
 
-    Route::put('/boarding/image/delete/{id}', [BoardingImageController::class, 'deleteImage']);
+    
+    Route::get('/boardingManager', [BoardingController::class, 'indexManager'])->middleware('manager');
+    Route::get('/tenantBoarding', [TenantController::class, 'getAllTenantBoarding'])->middleware('tenant.list.access'); //manager & Owner
+    Route::get('/tenantBoarding/read/{id}', [TenantController::class, 'getDetailTenantBoarding'])->middleware('tenant.read.access');
+    Route::get('/tenantBoarding/request/{id}', [TenantController::class, 'getRequestTenant'])->middleware('tenant.approve.access');
+    Route::post('/tenantBoarding/request/{id}', [TenantController::class, 'RequestTenant'])->middleware('tenant.approve.access');
 
-    Route::get('/boardingManager', [BoardingController::class, 'indexManager']);
-
-    //Owner or Manager View all tenant Request
-    Route::get('/tenantBoarding', [TenantController::class, 'getAllTenantBoarding']);
-    Route::get('/tenantBoarding/read/{id}', [TenantController::class, 'getDetailTenantBoarding']);
-    Route::get('/tenantBoarding/request/{id}', [TenantController::class, 'getRequestTenant']);
-    Route::post('/tenantBoarding/request/{id}', [TenantController::class, 'RequestTenant']);
 
 
     //Tenant View all their Boarding House
-    Route::get('/boardingTenant', [BoardingController::class, 'indexTenant']);
-    Route::get('/boardingTenant/detail/{id}', [BoardingController::class, 'getReadBoardingTenant']);
+    Route::get('/boardingTenant', [BoardingController::class, 'indexTenant'])->middleware('tenant');
+    Route::get('/boardingTenant/detail/{id}', [BoardingController::class, 'getReadBoardingTenant'])->middleware('tenant');
 
+
+    //Facility
+    Route::get('/facilityAll',[FacilityController::class, 'getAllFacilityPage'])->middleware('admin');
+    Route::get('/facility/create',[FacilityController::class, 'getFacilityCreate'])->middleware('admin');
+    Route::post('/facility/create',[FacilityController::class, 'FacilityCreate'])->middleware('admin');
+    Route::get('/facility/update/{id}',[FacilityController::class, 'getFacilityUpdate'])->middleware('admin');
+    Route::post('/facility/update/{id}',[FacilityController::class, 'FacilityUpdate'])->middleware('admin');
+    Route::get('/facility/read/{id}',[FacilityController::class, 'getFacilityDetail'])->middleware('admin');
+    Route::get('/facility/delete/{id}',[FacilityController::class, 'FacilityDelete'])->middleware('admin');
+
+    //User
+    Route::get('/userAll',[UserController::class, 'getAllUserPage'])->middleware('admin');
+    Route::get('/user/update/{id}',[UserController::class, 'getUserUpdate'])->middleware('admin');
+    Route::post('/user/update/{id}',[UserController::class, 'UserUpdate'])->middleware('admin');
+    Route::get('/user/read/{id}',[UserController::class, 'getUserDetail'])->middleware('admin');
+    Route::get('/user/delete/{id}',[UserController::class, 'UserDelete'])->middleware('admin');
+
+    //ComplainType
+    Route::get('/complainTypeAll',[ComplainTypeController::class, 'getAllComplainTypePage'])->middleware('admin');
+    Route::get('/complainType/create',[ComplainTypeController::class, 'getComplainTypeCreate'])->middleware('admin');
+    Route::post('/complainType/create',[ComplainTypeController::class, 'ComplainTypeCreate'])->middleware('admin');
+    Route::get('/complainType/update/{id}',[ComplainTypeController::class, 'getComplainTypeUpdate'])->middleware('admin');
+    Route::post('/complainType/update/{id}',[ComplainTypeController::class, 'ComplainTypeUpdate'])->middleware('admin');
+    Route::post('/complainType/delete/{id}',[ComplainTypeController::class, 'ComplainTypeDelete'])->middleware('admin');
+
+    //BoardingType
+    Route::get('/boardingTypeAll',[BoardingTypeController::class, 'getAllBoardingTypePage'])->middleware('admin');
+    Route::get('/boardingType/create',[BoardingTypeController::class, 'getBoardingTypeCreate'])->middleware('admin');
+    Route::post('/boardingType/create',[BoardingTypeController::class, 'BoardingTypeCreate'])->middleware('admin');
+    Route::get('/boardingType/update/{id}',[BoardingTypeController::class, 'getBoardingTypeUpdate'])->middleware('admin');
+    Route::post('/boardingType/update/{id}',[BoardingTypeController::class, 'BoardingTypeUpdate'])->middleware('admin');
+    Route::post('/boardingType/delete/{id}',[BoardingTypeController::class, 'BoardingTypeDelete'])->middleware('admin');
+
+    //TransactionType
+    Route::get('/transactionTypeAll',[TransactionTypeController::class, 'getAllTransactionTypePage'])->middleware('admin');
+    Route::get('/transactionType/create',[TransactionTypeController::class, 'getTransactionTypeCreate'])->middleware('admin');
+    Route::post('/transactionType/create',[TransactionTypeController::class, 'TransactionTypeCreate'])->middleware('admin');
+    Route::get('/transactionType/update/{id}',[TransactionTypeController::class, 'getTransactionTypeUpdate'])->middleware('admin');
+    Route::post('/transactionType/update/{id}',[TransactionTypeController::class, 'TransactionTypeUpdate'])->middleware('admin');
+    Route::post('/transactionType/delete/{id}',[TransactionTypeController::class, 'TransactionTypeDelete'])->middleware('admin');
+
+    //PaymentMethod
+    Route::get('/paymentMethodAll',[PaymentMethodController::class, 'getAllPaymentMethodPage'])->middleware('admin');
+    Route::get('/paymentMethod/create',[PaymentMethodController::class, 'getPaymentMethodCreate'])->middleware('admin');
+    Route::post('/paymentMethod/create',[PaymentMethodController::class, 'PaymentMethodCreate'])->middleware('admin');
+    Route::get('/paymentMethod/update/{id}',[PaymentMethodController::class, 'getPaymentMethodUpdate'])->middleware('admin');
+    Route::post('/paymentMethod/update/{id}',[PaymentMethodController::class, 'PaymentMethodUpdate'])->middleware('admin');
+    Route::post('/paymentMethod/delete/{id}',[PaymentMethodController::class, 'PaymentMethodDelete'])->middleware('admin');
+
+    //Gardi Punya
     Route::get('/addPaymentManager',[PaymentController::class,'getPaymentPageManager']);
-
     Route::post('/addPaymentManager',[PaymentController::class,'addPaymentManager']);
     Route::get('/pay',[PaymentController::class,'getPaymentPageTenant']);
     Route::post('/pay',[PaymentController::class,'addPaymentTenant']);
     Route::get('/paymentHistory',[PaymentController::class,'getAllPayment']);
     Route::post('/getInvoiceData',[PaymentController::class,'getInvoiceDetail']);
     Route::get('/cancelPayment',[PaymentController::class,'cancelPayment']);
-
-
-    Route::get('/facilityAll',[FacilityController::class, 'getAllFacilityPage']);
-    Route::get('/facility/create',[FacilityController::class, 'getFacilityCreate']);
-    Route::post('/facility/create',[FacilityController::class, 'FacilityCreate']);
-    Route::get('/facility/update/{id}',[FacilityController::class, 'getFacilityUpdate']);
-    Route::post('/facility/update/{id}',[FacilityController::class, 'FacilityUpdate']);
-    Route::get('/facility/read/{id}',[FacilityController::class, 'getFacilityDetail']);
-    Route::get('/facility/delete/{id}',[FacilityController::class, 'FacilityDelete']);
-
-    Route::get('/userAll',[UserController::class, 'getAllUserPage']);
-    Route::get('/user/update/{id}',[UserController::class, 'getUserUpdate']);
-    Route::post('/user/update/{id}',[UserController::class, 'UserUpdate']);
-    Route::get('/user/read/{id}',[UserController::class, 'getUserDetail']);
-    Route::get('/user/delete/{id}',[UserController::class, 'UserDelete']);
+    //Belum Middleware
 });
 
-
 Route::get('/boarding/detail', [BoardingController::class, 'getBoardingHouseDetail']);
 Route::post('/search', [BoardingController::class, 'searchBoardingByLocation']);
-// Route::resource('boarding', BoardingController::class);
-// Route::get('/boarding', [BoardingController::class, 'index']);
-// Route::get('/boarding/create', [BoardingController::class, 'create']);
-Route::get('/boarding/detail', [BoardingController::class, 'getBoardingHouseDetail']);
-Route::post('/boarding/detail/rent/{id}', [BoardingController::class, 'boardingRent']); //auth
-
-Route::get('/boardingAdmin', [BoardingController::class, 'indexAdmin']); //admin only
-Route::get('/boardingAdmin/request/{id}', [BoardingController::class, 'getAdminApproveBoarding']); //admin only
-Route::post('/boardingAdmin/request/{id}', [BoardingController::class, 'AdminApproveBoarding']); // admin only
-Route::get('/boardingOwner', [BoardingController::class, 'indexOwner']); // owner only
-Route::get('/boarding/create', [BoardingController::class, 'getCreateOwnerBoarding']); //owner only
-Route::post('/boarding/create', [BoardingController::class, 'createOwnerBoarding']); //owner only
-Route::get('/boarding/update/{id}', [BoardingController::class, 'getUpdateBoarding'])->middleware('boarding.approve.access');
-Route::get('/boarding/read/{id}', [BoardingController::class, 'getReadBoarding'])->middleware('boarding.read.access');
-Route::post('/boarding/update/{id}', [BoardingController::class, 'updateBoarding'])->middleware('boarding.approve.access');
-Route::get('/boarding/delete/{id}', [BoardingController::class, 'deleteBoarding']); //admin only
-Route::get('/boarding/reapprove/{id}', [BoardingController::class, 'getReapproveBoarding'])->middleware('boarding.approve.access');
-Route::post('/boarding/reapprove/{id}', [BoardingController::class, 'ReapproveBoarding'])->middleware('boarding.approve.access');
-
-Route::put('/boarding/image/delete/{id}', [BoardingImageController::class, 'deleteImage']); //owner only
-
-Route::get('/boardingManager', [BoardingController::class, 'indexManager']); //manager only
-Route::get('/tenantBoarding', [TenantController::class, 'getAllTenantBoarding']); //manager & Owner
-Route::get('/tenantBoarding/read/{id}', [TenantController::class, 'getDetailTenantBoarding'])->middleware('tenant.read.access');
-Route::get('/tenantBoarding/request/{id}', [TenantController::class, 'getRequestTenant'])->middleware('tenant.approve.access');
-Route::post('/tenantBoarding/request/{id}', [TenantController::class, 'RequestTenant'])->middleware('tenant.approve.access');
-
-Route::get('/boardingTenant', [BoardingController::class, 'indexTenant']);
-
-// Route::get('/boarding/test', [BoardingController::class, 'testCarousel']);
 Route::get('/boarding/all', [BoardingController::class, 'getAllBoardingHouse']);
-
-
-Route::post('/addPaymentManager',[PaymentController::class,'addPaymentManager']);
-Route::get('/pay',[PaymentController::class,'getPaymentPageTenant']);
-Route::post('/pay',[PaymentController::class,'addPaymentTenant']);
-Route::get('/paymentHistory',[PaymentController::class,'getAllPayment']);
-Route::post('/getInvoiceData',[PaymentController::class,'getInvoiceDetail']);
-Route::get('/cancelPayment',[PaymentController::class,'cancelPayment']);
-
-Route::post('/search', [BoardingController::class, 'searchBoardingByLocation']);
-Route::get('/facilityAll',[FacilityController::class, 'getAllFacilityPage']); //admin
-Route::get('/facility/create',[FacilityController::class, 'getFacilityCreate']); //admin
-Route::post('/facility/create',[FacilityController::class, 'FacilityCreate']); //admin
-Route::get('/facility/update/{id}',[FacilityController::class, 'getFacilityUpdate']); //admin
-Route::post('/facility/update/{id}',[FacilityController::class, 'FacilityUpdate']); //admin
-Route::get('/facility/read/{id}',[FacilityController::class, 'getFacilityDetail']); //admin
-Route::get('/facility/delete/{id}',[FacilityController::class, 'FacilityDelete']); //admin
-
-Route::get('/userAll',[UserController::class, 'getAllUserPage']); //admin
-Route::get('/user/update/{id}',[UserController::class, 'getUserUpdate']); //admin
-Route::post('/user/update/{id}',[UserController::class, 'UserUpdate']); //admin
-Route::get('/user/read/{id}',[UserController::class, 'getUserDetail']); //admin
-Route::get('/user/delete/{id}',[UserController::class, 'UserDelete']); //admin
-
-//ComplainType
-Route::get('/complainTypeAll',[ComplainTypeController::class, 'getAllComplainTypePage']);
-Route::get('/complainType/create',[ComplainTypeController::class, 'getComplainTypeCreate']);
-Route::post('/complainType/create',[ComplainTypeController::class, 'ComplainTypeCreate']);
-Route::get('/complainType/update/{id}',[ComplainTypeController::class, 'getComplainTypeUpdate']);
-Route::post('/complainType/update/{id}',[ComplainTypeController::class, 'ComplainTypeUpdate']);
-Route::post('/complainType/delete/{id}',[ComplainTypeController::class, 'ComplainTypeDelete']);
-
-//BoardingType
-Route::get('/boardingTypeAll',[BoardingTypeController::class, 'getAllBoardingTypePage']);
-Route::get('/boardingType/create',[BoardingTypeController::class, 'getBoardingTypeCreate']);
-Route::post('/boardingType/create',[BoardingTypeController::class, 'BoardingTypeCreate']);
-Route::get('/boardingType/update/{id}',[BoardingTypeController::class, 'getBoardingTypeUpdate']);
-Route::post('/boardingType/update/{id}',[BoardingTypeController::class, 'BoardingTypeUpdate']);
-Route::post('/boardingType/delete/{id}',[BoardingTypeController::class, 'BoardingTypeDelete']);
-
-//TransactionType
-Route::get('/transactionTypeAll',[TransactionTypeController::class, 'getAllTransactionTypePage']);
-Route::get('/transactionType/create',[TransactionTypeController::class, 'getTransactionTypeCreate']);
-Route::post('/transactionType/create',[TransactionTypeController::class, 'TransactionTypeCreate']);
-Route::get('/transactionType/update/{id}',[TransactionTypeController::class, 'getTransactionTypeUpdate']);
-Route::post('/transactionType/update/{id}',[TransactionTypeController::class, 'TransactionTypeUpdate']);
-Route::post('/transactionType/delete/{id}',[TransactionTypeController::class, 'TransactionTypeDelete']);
-
-//PaymentMethod
-Route::get('/paymentMethodAll',[PaymentMethodController::class, 'getAllPaymentMethodPage']);
-Route::get('/paymentMethod/create',[PaymentMethodController::class, 'getPaymentMethodCreate']);
-Route::post('/paymentMethod/create',[PaymentMethodController::class, 'PaymentMethodCreate']);
-Route::get('/paymentMethod/update/{id}',[PaymentMethodController::class, 'getPaymentMethodUpdate']);
-Route::post('/paymentMethod/update/{id}',[PaymentMethodController::class, 'PaymentMethodUpdate']);
-Route::post('/paymentMethod/delete/{id}',[PaymentMethodController::class, 'PaymentMethodDelete']);
-
