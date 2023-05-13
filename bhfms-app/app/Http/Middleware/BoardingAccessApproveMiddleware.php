@@ -26,7 +26,7 @@ class BoardingAccessApproveMiddleware
         //Owner
         }else if (Auth::user()->user_role_id == 3) {
             $ownerBoarding = OwnerBoarding::where('boarding_id', $request->id)->first() ?? -1;
-            if($ownerBoarding->user_id == Auth::user()->id && $ownerBoarding->owner_status == 'declined'){
+            if($ownerBoarding->user_id == Auth::user()->id){
                 return $next($request);
             }
         }

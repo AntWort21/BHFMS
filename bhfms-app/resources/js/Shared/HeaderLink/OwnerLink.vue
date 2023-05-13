@@ -51,7 +51,7 @@ defineProps({
         >Boarding Management
     </Link>
     <Link
-        href="#"
+        href="/complain/owner"
         class="h-10 w-full text-center p-2 whitespace-nowrap z-50 bg-indigo-900 hover:opacity-75"
         >Complain Management
     </Link>
