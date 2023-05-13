@@ -70,5 +70,9 @@ class Kernel extends HttpKernel
         'manager' => \App\Http\Middleware\ManagerRoleMiddleware::class,
         'complain.access' => \App\Http\Middleware\ComplainAccessMiddleware::class,
         'owner.complain.access' => \App\Http\Middleware\OwnerComplainAccessMiddleware::class,
+        'boarding.read.access' => \App\Http\Middleware\BoardingAccessReadMiddleware::class,
+        'boarding.approve.access' => \App\Http\Middleware\BoardingAccessApproveMiddleware::class,
+        'tenant.read.access' => \App\Http\Middleware\TenantAccessReadMiddleware::class,
+        'tenant.approve.access' => \App\Http\Middleware\TenantAccessApproveMiddleware::class,
     ];
 }
