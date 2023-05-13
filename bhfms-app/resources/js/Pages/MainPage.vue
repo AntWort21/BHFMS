@@ -5,23 +5,27 @@ import VueGoogleAutocomplete from "vue-google-autocomplete";
 import Header from "../Shared/Header.vue";
 import { ref } from "vue";
 
+const props = defineProps({
+    highlyRatedBoardingHouse: Array,
+});
+
 const address = ref("");
 
 const onPlaceChanged = (addressData, placeResultData) => {
     form.address = placeResultData.formatted_address;
-    form.latitude = addressData.latitude
-    form.longitude = addressData.longitude
-}
+    form.latitude = addressData.latitude;
+    form.longitude = addressData.longitude;
+};
 
 const form = useForm({
     address: "",
     latitude: 0,
-    longitude: 0
-})
+    longitude: 0,
+});
 
 const submit = () => {
-    form.post('/search')
-}
+    form.post("/search");
+};
 </script>
 
 <template>
@@ -107,79 +111,39 @@ const submit = () => {
             <!-- Highly rated experience -->
             <p class="text-2xl font-semibold">Highly Rated Experiences</p>
             <p class="text-md text-gray-600">
-                Look at our highly rated accomodation
+                Our highly rated accomodation
             </p>
-            <div class="w-full h-[50vh] bg-gray-500 flex">
-                <div class="w-1/6 my-2 mr-2 bg-white">
-                    <div class="h-2/3 bg-gray-200">ini buat pic</div>
-                    <div class="h-1/3 space-y-2">
-                        <div class="text-xs text-gray-600">Cayman Islands</div>
-                        <div class="font-semibold">Boarding House Name</div>
-                        <div class="text-sm">
-                            Description Description Description Description
-                            Description Description Description Description
-                            Description Description Description Description
+            <div class="w-full h-[50vh] flex">
+                <div
+                    v-for="(
+                        boardingHouse, key
+                    ) in props.highlyRatedBoardingHouse"
+                    :key="key"
+                    class="w-1/6 my-2 mr-2 bg-white shadow-xl"
+                >
+                    <img
+                        :src="boardingHouse.imageUrl"
+                        class="w-full h-80 object-cover"
+                        alt="No Image"
+                    />
+                    <div class="h-2/3 space-y-1 p-2">
+                        <div class="font-semibold">
+                            {{ boardingHouse.boarding_name }}
                         </div>
-                    </div>
-                </div>
-                <div class="w-1/6 my-2 mx-2 bg-white">
-                    <div class="h-2/3 bg-gray-200">ini buat pic</div>
-                    <div class="h-1/3 space-y-2">
-                        <div class="text-xs text-gray-600">Cayman Islands</div>
-                        <div class="font-semibold">Boarding House Name</div>
-                        <div class="text-sm">
-                            Description Description Description Description
-                            Description Description Description Description
-                            Description Description Description Description
+                        <div class="text-xs text-gray-600 truncate">
+                            {{ boardingHouse.address }}
                         </div>
-                    </div>
-                </div>
-                <div class="w-1/6 my-2 mx-2 bg-white">
-                    <div class="h-2/3 bg-gray-200">ini buat pic</div>
-                    <div class="h-1/3 space-y-2">
-                        <div class="text-xs text-gray-600">Cayman Islands</div>
-                        <div class="font-semibold">Boarding House Name</div>
-                        <div class="text-sm">
-                            Description Description Description Description
-                            Description Description Description Description
-                            Description Description Description Description
+                        <div class="text-sm box-content truncate">
+                            {{ boardingHouse.boarding_desc }}
                         </div>
-                    </div>
-                </div>
-                <div class="w-1/6 my-2 mx-2 bg-white">
-                    <div class="h-2/3 bg-gray-200">ini buat pic</div>
-                    <div class="h-1/3 space-y-2">
-                        <div class="text-xs text-gray-600">Cayman Islands</div>
-                        <div class="font-semibold">Boarding House Name</div>
-                        <div class="text-sm">
-                            Description Description Description Description
-                            Description Description Description Description
-                            Description Description Description Description
-                        </div>
-                    </div>
-                </div>
-                <div class="w-1/6 my-2 mx-2 bg-white">
-                    <div class="h-2/3 bg-gray-200">ini buat pic</div>
-                    <div class="h-1/3 space-y-2">
-                        <div class="text-xs text-gray-600">Cayman Islands</div>
-                        <div class="font-semibold">Boarding House Name</div>
-                        <div class="text-sm">
-                            Description Description Description Description
-                            Description Description Description Description
-                            Description Description Description Description
-                        </div>
-                    </div>
-                </div>
-                <div class="w-1/6 my-2 ml-2 bg-white">
-                    <div class="h-2/3 bg-gray-200">ini buat pic</div>
-                    <div class="h-1/3 space-y-2">
-                        <div class="text-xs text-gray-600">Cayman Islands</div>
-                        <div class="font-semibold">Boarding House Name</div>
-                        <div class="text-sm">
-                            Description Description Description Description
-                            Description Description Description Description
-                            Description Description Description Description
-                        </div>
+                        <Link
+                            href="/boarding/detail"
+                            :data="{ id: boardingHouse.id }"
+                            class="text-xs flex items-center font-semibold"
+                        >
+                            VIEW MORE DETAIL
+                            <div class="ml-1 text-sm">>></div>
+                        </Link>
                     </div>
                 </div>
             </div>

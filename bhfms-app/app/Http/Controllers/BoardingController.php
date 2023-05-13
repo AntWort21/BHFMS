@@ -29,6 +29,43 @@ class BoardingController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function getMainPage()
+    {
+        $allReview = Review::all();
+        $weightingFactor = 5;
+
+        $boardingRatingDetails = [];
+        foreach ($allReview as $review) {
+            if (isset($boardingRatingDetails[$review->boarding_id])) {
+                $boardingRatingDetails[$review->boarding_id]['total_star_rating'] += $review->rating;
+                $boardingRatingDetails[$review->boarding_id]['total_review_count'] += 1;
+            } else {
+                $boardingRatingDetails[$review->boarding_id]['total_star_rating'] = $review->rating;
+                $boardingRatingDetails[$review->boarding_id]['total_review_count'] = 1;
+                $boardingRatingDetails[$review->boarding_id]['boarding_id'] = $review->boarding_id;
+            }
+        }
+
+        $globalMean = Review::all()->avg('rating');
+        foreach ($boardingRatingDetails as $key => $array) {
+            $bayesianRating = (($weightingFactor * $globalMean) + ($array['total_star_rating'])) / ($weightingFactor + $array['total_review_count']);
+            $boardingRatingDetails[$key]['bayesian_rating'] = $bayesianRating;
+        }
+
+        usort($boardingRatingDetails, function ($a, $b) {
+            return $b['bayesian_rating'] <=> $a['bayesian_rating'];
+        });
+
+        $boardingIDs = array_slice(array_column($boardingRatingDetails, 'boarding_id'), 0, 6);
+
+        $highlyRatedBoardingHouse = Boarding::whereIn('id', $boardingIDs)->get();
+        foreach ($highlyRatedBoardingHouse as $key => $boardingHouse) {
+            $highlyRatedBoardingHouse[$key]->imageUrl = BoardingImage::where('boarding_id', $boardingHouse->id)->first()->image;
+        }
+
+        return inertia('MainPage', ['highlyRatedBoardingHouse' => $highlyRatedBoardingHouse]);
+    }
+
     public function indexAdmin(Request $request)
     {
 
@@ -43,9 +80,9 @@ class BoardingController extends Controller
             })->paginate(5)->withQueryString();
 
         $all_boarding_count = Boarding::join('owner_boardings', 'boardings.id', "=", 'owner_boardings.boarding_id')
-        ->select('owner_status', DB::raw('count(*) as total'))
-        ->groupBy('owner_status')
-        ->get()->toArray();
+            ->select('owner_status', DB::raw('count(*) as total'))
+            ->groupBy('owner_status')
+            ->get()->toArray();
 
         $all = 0;
         $apv = 0;
@@ -54,25 +91,18 @@ class BoardingController extends Controller
         $ban = 0;
         $disabled = 0;
 
-        foreach($all_boarding_count as $count => $collection) {
-            if($all_boarding_count[$count]["owner_status"] == "pending"){
-                $all+= $all_boarding_count[$count]["total"];
+        foreach ($all_boarding_count as $count => $collection) {
+            if ($all_boarding_count[$count]["owner_status"] == "pending") {
+                $all += $all_boarding_count[$count]["total"];
                 $pending = $all_boarding_count[$count]["total"];
-            }
-
-            elseif($all_boarding_count[$count]["owner_status"] == "approved"){
-                $all+= $all_boarding_count[$count]["total"];
+            } elseif ($all_boarding_count[$count]["owner_status"] == "approved") {
+                $all += $all_boarding_count[$count]["total"];
                 $apv = $all_boarding_count[$count]["total"];
-
-            }
-
-            elseif($all_boarding_count[$count]["owner_status"] == "declined"){
-                $all+= $all_boarding_count[$count]["total"];
+            } elseif ($all_boarding_count[$count]["owner_status"] == "declined") {
+                $all += $all_boarding_count[$count]["total"];
                 $dcl = $all_boarding_count[$count]["total"];
-            }
-
-            elseif($all_boarding_count[$count]["owner_status"] == "banned"){
-                $all+= $all_boarding_count[$count]["total"];
+            } elseif ($all_boarding_count[$count]["owner_status"] == "banned") {
+                $all += $all_boarding_count[$count]["total"];
                 $ban = $all_boarding_count[$count]["total"];
             }
 
@@ -120,25 +150,18 @@ class BoardingController extends Controller
         $ban = 0;
         $disabled = 0;
 
-        foreach($all_boarding_count as $count => $collection) {
-            if($all_boarding_count[$count]["owner_status"] == "pending"){
-                $all+= $all_boarding_count[$count]["total"];
+        foreach ($all_boarding_count as $count => $collection) {
+            if ($all_boarding_count[$count]["owner_status"] == "pending") {
+                $all += $all_boarding_count[$count]["total"];
                 $pending = $all_boarding_count[$count]["total"];
-            }
-
-            elseif($all_boarding_count[$count]["owner_status"] == "approved"){
-                $all+= $all_boarding_count[$count]["total"];
+            } elseif ($all_boarding_count[$count]["owner_status"] == "approved") {
+                $all += $all_boarding_count[$count]["total"];
                 $apv = $all_boarding_count[$count]["total"];
-
-            }
-
-            elseif($all_boarding_count[$count]["owner_status"] == "declined"){
-                $all+= $all_boarding_count[$count]["total"];
+            } elseif ($all_boarding_count[$count]["owner_status"] == "declined") {
+                $all += $all_boarding_count[$count]["total"];
                 $dcl = $all_boarding_count[$count]["total"];
-            }
-
-            elseif($all_boarding_count[$count]["owner_status"] == "banned"){
-                $all+= $all_boarding_count[$count]["total"];
+            } elseif ($all_boarding_count[$count]["owner_status"] == "banned") {
+                $all += $all_boarding_count[$count]["total"];
                 $ban = $all_boarding_count[$count]["total"];
             }
 
@@ -186,25 +209,18 @@ class BoardingController extends Controller
         $ban = 0;
         $disabled = 0;
 
-        foreach($all_boarding_count as $count => $collection) {
-            if($all_boarding_count[$count]["owner_status"] == "pending"){
-                $all+= $all_boarding_count[$count]["total"];
+        foreach ($all_boarding_count as $count => $collection) {
+            if ($all_boarding_count[$count]["owner_status"] == "pending") {
+                $all += $all_boarding_count[$count]["total"];
                 $pending = $all_boarding_count[$count]["total"];
-            }
-
-            elseif($all_boarding_count[$count]["owner_status"] == "approved"){
-                $all+= $all_boarding_count[$count]["total"];
+            } elseif ($all_boarding_count[$count]["owner_status"] == "approved") {
+                $all += $all_boarding_count[$count]["total"];
                 $apv = $all_boarding_count[$count]["total"];
-
-            }
-
-            elseif($all_boarding_count[$count]["owner_status"] == "declined"){
-                $all+= $all_boarding_count[$count]["total"];
+            } elseif ($all_boarding_count[$count]["owner_status"] == "declined") {
+                $all += $all_boarding_count[$count]["total"];
                 $dcl = $all_boarding_count[$count]["total"];
-            }
-
-            elseif($all_boarding_count[$count]["owner_status"] == "banned"){
-                $all+= $all_boarding_count[$count]["total"];
+            } elseif ($all_boarding_count[$count]["owner_status"] == "banned") {
+                $all += $all_boarding_count[$count]["total"];
                 $ban = $all_boarding_count[$count]["total"];
             }
 
@@ -245,32 +261,25 @@ class BoardingController extends Controller
         $all_boarding_count = TenantBoarding::select('tenant_status', DB::raw('count(*) as total'))
         ->where('user_id', '=', auth()->id())
         ->groupBy('tenant_status')
-        ->get()->toArray(); 
+        ->get()->toArray();
         $all = 0;
         $apv = 0;
         $dcl = 0;
         $pending = 0;
         $checkout = 0;
 
-        foreach($all_boarding_count as $count => $collection) {
-            if($all_boarding_count[$count]["tenant_status"] == "pending"){
-                $all+= $all_boarding_count[$count]["total"];
+        foreach ($all_boarding_count as $count => $collection) {
+            if ($all_boarding_count[$count]["tenant_status"] == "pending") {
+                $all += $all_boarding_count[$count]["total"];
                 $pending = $all_boarding_count[$count]["total"];
-            }
-
-            elseif($all_boarding_count[$count]["tenant_status"] == "approved"){
-                $all+= $all_boarding_count[$count]["total"];
+            } elseif ($all_boarding_count[$count]["tenant_status"] == "approved") {
+                $all += $all_boarding_count[$count]["total"];
                 $apv = $all_boarding_count[$count]["total"];
-
-            }
-
-            elseif($all_boarding_count[$count]["tenant_status"] == "declined"){
-                $all+= $all_boarding_count[$count]["total"];
+            } elseif ($all_boarding_count[$count]["tenant_status"] == "declined") {
+                $all += $all_boarding_count[$count]["total"];
                 $dcl = $all_boarding_count[$count]["total"];
-            }
-
-            elseif($all_boarding_count[$count]["tenant_status"] == "checkout"){
-                $all+= $all_boarding_count[$count]["total"];
+            } elseif ($all_boarding_count[$count]["tenant_status"] == "checkout") {
+                $all += $all_boarding_count[$count]["total"];
                 $checkout = $all_boarding_count[$count]["total"];
             }
         }
@@ -318,7 +327,7 @@ class BoardingController extends Controller
             $facilityList[$key]->facility_detail_name = FacilityDetail::where('id', $facility->facility_id)->first()->facility_detail_name;
         }
 
-        $currVacancy = $selectedBoardingHouseDetail->rooms - (TenantBoarding::where([['boarding_id', $request->id],['tenant_status','approved']])->count());
+        $currVacancy = $selectedBoardingHouseDetail->rooms - (TenantBoarding::where([['boarding_id', $request->id], ['tenant_status', 'approved']])->count());
         $currVacancy > 0 ? $isAvailable = true : $isAvailable = false;
         $reviews = Review::where('boarding_id', $request->id)->get();
         $totalRating = 0;
@@ -329,7 +338,7 @@ class BoardingController extends Controller
             $starRating[$reviews[$key]->rating - 1]++;
         }
 
-        if(isset(Auth::user()->id)){
+        if (isset(Auth::user()->id)) {
             $onWishlist = Wishlist::where('user_id', Auth::user()->id)->where('boarding_id', $request->id)->first() ?? null;
         } else {
             $onWishlist = null;
@@ -342,7 +351,7 @@ class BoardingController extends Controller
             'ownerPicture' => $owner->profile_picture,
             'facilityList' => $facilityList->pluck('facility_detail_name'),
             'currVacancy' => $currVacancy,
-            'isAvailable' =>$isAvailable,
+            'isAvailable' => $isAvailable,
             'reviews' => $reviews,
             'averageRating' => count($reviews) == 0 ? count($reviews) : number_format($totalRating / count($reviews), 2),
             'totalReviewCount' => count($reviews),
@@ -442,7 +451,7 @@ class BoardingController extends Controller
                 $path = 'Boarding_House_Images/' . $path;
                 $img = new BoardingImage();
 
-                Storage::putFileAs('public/',$image, $path);
+                Storage::putFileAs('public/', $image, $path);
                 $img->image = '/storage/' . $path;
                 $img->boarding_id = $BoardingNow->id;
                 $img->save();
@@ -471,7 +480,7 @@ class BoardingController extends Controller
 
     public function getReadBoardingTenant(Request $request)
     {
-        
+
         $currTenant = TenantBoarding::where('id','=',$request->id)->first();
         $currBoarding = Boarding::where('id', '=', $currTenant->boarding_id)->first();
         $currFacilities = ($currBoarding->facilities()->exists()) ? $currBoarding->facilities()->get() : null;
@@ -588,14 +597,14 @@ class BoardingController extends Controller
                 $path = 'Boarding_House_Images/' . $path;
                 $img = new BoardingImage();
 
-                Storage::putFileAs('public/',$image, $path);
+                Storage::putFileAs('public/', $image, $path);
                 $img->image = '/storage/' . $path;
                 $img->boarding_id = $request->id;
                 $img->save();
             }
         }
 
-        if(Auth::user()->user_role_id==1){
+        if (Auth::user()->user_role_id == 1) {
             return redirect('/boardingAdmin')->with('message', 'Success Updating Boarding House');
         } else if (Auth::user()->user_role_id == 3) {
             return redirect('/boardingOwner')->with('message', 'Success Updating Boarding House');
@@ -618,9 +627,9 @@ class BoardingController extends Controller
     public function boardingRent(Request $request)
     {
         $validation = $request->validate([
-            'startDate' => ['required','date','after_or_equal:today'],
+            'startDate' => ['required', 'date', 'after_or_equal:today'],
         ]);
-        
+
         $currTenantBoarding = TenantBoarding::where([['user_id','=',Auth::user()->id],['tenant_status','=','approved']])->count();
 
         if($currTenantBoarding > 0){
@@ -658,25 +667,24 @@ class BoardingController extends Controller
     public function AdminApproveBoarding(Request $request)
     {
 
-        if($request['decision'] =="accept"){
-            OwnerBoarding::where('id','=',$request->currID)->update([
+        if ($request['decision'] == "accept") {
+            OwnerBoarding::where('id', '=', $request->currID)->update([
                 'owner_status' => 2,
                 'declined_reason' => $request['reason'],
             ]);
             return redirect('/boardingAdmin')->with('message', 'Success Accepting new Boarding');
-        }else if($request['decision'] =="decline"){
-            OwnerBoarding::where('id','=',$request->currID)->update([
+        } else if ($request['decision'] == "decline") {
+            OwnerBoarding::where('id', '=', $request->currID)->update([
                 'owner_status' => 3,
                 'declined_reason' => $request['reason'],
             ]);
             return redirect('/boardingAdmin')->with('message', 'Success Declining new Boarding (Can Reapprove)');
-        }else{
-            OwnerBoarding::where('id','=',$request->currID)->update([
+        } else {
+            OwnerBoarding::where('id', '=', $request->currID)->update([
                 'owner_status' => 4,
                 'declined_reason' => $request['reason'],
             ]);
             return redirect('/boardingAdmin')->with('message', 'Success Declining new Boarding (Cannot Reapprove)');
-
         }
     }
 
@@ -702,7 +710,7 @@ class BoardingController extends Controller
             'types' => BoardingType::get(),
             'managers' => $Manager_data,
             'shared_bathroom_bool' => $shared_bathroom,
-            'reason'=>$currReason,
+            'reason' => $currReason,
         ]);
     }
 
@@ -783,7 +791,7 @@ class BoardingController extends Controller
                 $path = 'Boarding_House_Images/' . $path;
                 $img = new BoardingImage();
 
-                Storage::putFileAs('public/',$image, $path);
+                Storage::putFileAs('public/', $image, $path);
                 $img->image = '/storage/' . $path;
                 $img->boarding_id = $request->id;
                 $img->save();
