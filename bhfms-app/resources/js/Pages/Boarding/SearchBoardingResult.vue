@@ -3,17 +3,14 @@ import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
 import { Link } from "@inertiajs/inertia-vue3";
 
-const props = defineProps({
+defineProps({
     searchResults: Object,
 });
 </script>
 
 <template>
     <Header />
-    <section
-        v-if="props.searchResults.length > 0"
-        class="mx-2 my-2 space-y-2 min-h-[60vh]"
-    >
+    <section class="mx-2 my-2 space-y-2 min-h-[60vh]">
         <div class="text-2xl font-semibold">Showing All Boarding House</div>
         <div class="text-md text-gray-600">
             List of all of our registered boarding house
@@ -50,18 +47,6 @@ const props = defineProps({
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <section
-        v-else
-        class="mx-2 my-2 space-y-2 min-h-[60vh] flex flex-col justify-center items-center space-y-4"
-    >
-        <div class="text-3xl">
-            😥 No Result
-        </div>
-        <div>
-
-            We have searched our entire registry and could not find what you were looking for.
         </div>
     </section>
     <Footer />

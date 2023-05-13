@@ -10,7 +10,7 @@ defineProps({
 
 <template>
     <Header />
-    <section class="min-h-[75vh] p-10">
+    <section class="h-[75vh] p-10">
         <div class="border border-slate-200 space-y-2 px-4 py-6">
             <div class="flex justify-between">
                 <div class="semibold text-2xl text-indigo-700">COMPLAIN</div>

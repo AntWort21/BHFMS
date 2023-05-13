@@ -20,7 +20,6 @@ let props = defineProps({
     totalReviewCount: Number,
     ratingStar: Array,
     isWishlisted: Boolean,
-    boardingManagedBySameOwner: Array,
 });
 
 let totalPrice = ref(null);
@@ -200,51 +199,16 @@ let removeFromWishlist = () => {
                             Maintained By {{ props.ownerName }}
                         </div>
                         <img
-                            :src="
-                                props.ownerPicture
-                                    ? props.ownerPicture
-                                    : '../storage/images/CJ-GTASA.png'
-                            "
+                            :src="props.ownerPicture"
                             alt="no image"
                             class="w-[5rem] h-[5rem] rounded-full object-scale-down"
                         />
                     </div>
                 </div>
-                <div v-if="props.boardingManagedBySameOwner">
-                    <div class="font-semibold">Managed by Same Owner</div>
-                    <div class="flex">
-                        <div
-                            v-for="boardingHouse in props.boardingManagedBySameOwner"
-                            class="px-1 my-2 w-1/4 h-1/3"
-                        >
-                            <div class="bg-gray-200">
-                                <img
-                                    :src="boardingHouse.imageUrl"
-                                    class="w-full h-80 object-cover"
-                                    alt="Boarding Image"
-                                />
-                                <div class="h-2/3 space-y-1 p-2">
-                                    <div class="font-semibold">
-                                        {{ boardingHouse.boarding_name }}
-                                    </div>
-                                    <div class="text-xs text-gray-600 truncate">
-                                        {{ boardingHouse.address }}
-                                    </div>
-                                    <div class="text-sm box-content truncate">
-                                        {{ boardingHouse.boarding_desc }}
-                                    </div>
-                                    <Link
-                                        href="/boarding/detail"
-                                        :data="{ id: boardingHouse.id }"
-                                        class="text-xs flex items-center font-semibold"
-                                    >
-                                        VIEW MORE DETAIL
-                                        <div class="ml-1 text-sm">>></div>
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div>
+                    <div class="font-semibold">Related Boarding House</div>
+                    <div>Similar Boarding House Description</div>
+                    <div>Similar Boarding House List</div>
                 </div>
                 <div class="divide-y">
                     <div>
@@ -495,11 +459,7 @@ let removeFromWishlist = () => {
                             :key="key"
                         >
                             <img
-                                :src="
-                                    review.user.profile_picture
-                                        ? review.user.profile_picture
-                                        : '../storage/images/CJ-GTASA.png'
-                                "
+                                :src="review.user.profile_picture"
                                 alt="no image"
                                 class="w-6 h-6 rounded-xl"
                             />

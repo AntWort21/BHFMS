@@ -9,7 +9,7 @@ const props = defineProps({
 });
 
 let form = useForm({
-    name: props.userDetails.user_name,
+    name: props.userDetails.name,
     email: props.userDetails.email,
     dateOfBirth: props.userDetails.date_of_birth,
     phoneNumber: props.userDetails.phone,
@@ -23,11 +23,11 @@ let submit = () => {
 
 <template>
     <Header />
-    <section class="w-full max-h-screen h-[88vh] flex justify-center bg-cover" style="background-image: url('../storage/sofa.png')">
+    <section class="w-full max-h-screen h-[88vh] flex justify-center bg-black">
         <div
             class="flex my-5 ml-10 mr-5 bg-white w-1/6 h-2/5 justify-center items-center"
         >
-            <img :src="userDetails.profile_picture ? userDetails.profile_picture : '../storage/images/CJ-GTASA.png'" alt="No Image" class="h-full w-full"/>
+            <img :src="userDetails.profile_picture" alt="No Image" class="h-full w-full"/>
         </div>
         <div class="flex flex-col my-5 ml-5 mr-10 bg-white w-1/2 h-2/3">
             <div class="text-2xl mt-4 mx-4 text-indigo-700">

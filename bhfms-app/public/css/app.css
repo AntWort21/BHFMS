@@ -794,6 +794,9 @@ video {
 .h-\[60vh\] {
   height: 60vh;
 }
+.h-\[75vh\] {
+  height: 75vh;
+}
 .h-\[80vh\] {
   height: 80vh;
 }
@@ -1197,6 +1200,10 @@ video {
 }
 .bg-\[rgba\(0\2c 0\2c 0\2c 0\.5\)\] {
   background-color: rgba(0,0,0,0.5);
+}
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 .bg-black\/70 {
   background-color: rgb(0 0 0 / 0.7);
