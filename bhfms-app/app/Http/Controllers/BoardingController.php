@@ -32,7 +32,7 @@ class BoardingController extends Controller
     public function getMainPage()
     {
         $allReview = Review::all();
-        $weighting_factor = 5;
+        $weightingFactor = 5;
 
         $boardingRatingDetails = [];
         foreach ($allReview as $review) {
@@ -48,8 +48,8 @@ class BoardingController extends Controller
 
         $globalMean = Review::all()->avg('rating');
         foreach ($boardingRatingDetails as $key => $array) {
-            $bayesian_rating = (($weighting_factor * $globalMean) + ($array['total_star_rating'])) / ($weighting_factor + $array['total_review_count']);
-            $boardingRatingDetails[$key]['bayesian_rating'] = $bayesian_rating;
+            $bayesianRating = (($weightingFactor * $globalMean) + ($array['total_star_rating'])) / ($weightingFactor + $array['total_review_count']);
+            $boardingRatingDetails[$key]['bayesian_rating'] = $bayesianRating;
         }
 
         usort($boardingRatingDetails, function ($a, $b) {
