@@ -29,6 +29,7 @@ class FacilityController extends Controller
         $validation = $request->validate([
             'name' => ['required', 'max:200', 'min:3','unique:facility_details,facility_detail_name,'],
             'images' => ['max:1','min:1'],
+            'images.*' => ['mimes:jpeg,png,jpg,gif,svg'],
         ], $custom_messages);
 
         //FILE
@@ -71,6 +72,7 @@ class FacilityController extends Controller
         $validation = $request->validate([
             'name' => ['required', 'max:200', 'min:3','unique:facility_details,facility_detail_name,' . $request->id],
             'images' => ['max:1'],
+            'images.*' => ['mimes:jpeg,png,jpg,gif,svg'],
         ], $custom_messages);
 
         if (($request->file('images') !== null)) {
