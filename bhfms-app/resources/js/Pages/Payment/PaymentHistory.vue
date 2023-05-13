@@ -77,8 +77,8 @@ let convertAmount = (amount) => {
                     <h4>Date</h4>
                 </div>
                 <div class="w-1/4">
-                    <h4 v-if="userRole==1">Tenant Name</h4>
-                    <h4 v-else-if="userRole==2||3">Boarding House</h4>
+                    <h4 v-if="userRole == 3 || userRole == 4">Tenant Name</h4>
+                    <h4 v-else-if="userRole == 2">Boarding House</h4>
                     <h4 v-else>Boarding House</h4>
                 </div>
                 <div class="w-1/4">
@@ -87,7 +87,8 @@ let convertAmount = (amount) => {
         </section>
         <section class="mx-2 my-3">
             <div v-for="(payment) in paymentList.data" class="flex justify-around text-center py-1">
-                <PaymentHistoryTab
+             
+              <PaymentHistoryTab
                 :payment=payment
                 :userRole="userRole"
                 @showDetail="showDetail" />

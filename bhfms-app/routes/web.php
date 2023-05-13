@@ -165,6 +165,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/schedulePayment',[PaymentController::class,'checkLatePayment']);
     Route::post('/udpateInvoiceStatus',[PaymentController::class,'udpateInvoiceStatus']);
     Route::get('/editPayment',[PaymentController::class,'getEditPayment']);
+    Route::post('/editPayment',[PaymentController::class,'updatePayment']);
 
     //Belum Middleware
 });

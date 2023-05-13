@@ -1,4 +1,6 @@
 <script setup>
+import { Inertia } from "@inertiajs/inertia";
+
 defineProps({
     invoiceDetail: Object,
     price: String,
@@ -20,7 +22,7 @@ let convertTime = (date) =>{
 }
 
 let redirect = (url) => {
-    window.location.href = url;
+    Inertia.get(url);
 }
 
 const getFileName = (paymentDate, invoiceId) => {

@@ -8,8 +8,9 @@ import FormErrorMessage from '../../Shared/AccountFormInput/FormErrorMessage.vue
 import FormSelectInputTransactionType from '../../Shared/Payment/FormSelectInputTransactionType.vue';
 import FormTextBoxInputPayment from '../../Shared/Payment/FormTextBoxInputPayment.vue';
 import FormCheckboxInput from '../../Shared/Payment/FormCheckboxInput.vue';
+import { ref } from 'vue';
 
-defineProps({
+const props = defineProps({
     transaction: Array,
     listTenants: Array,
     boardingHouseName: String,
@@ -17,17 +18,30 @@ defineProps({
     tenant: Array
 });
 
+const convertDateFormat = ($date) => {
+    let paymentDate = new Date($date);
+    let year = paymentDate.getFullYear();
+    let month = String(paymentDate.getMonth() + 1).padStart(2, '0');
+    let day = String(paymentDate.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+};
+
 let form = useForm({
-    paymentDate: "",
-    paymentAmount: "",
-    transactionType: "",
-    tenantEmail: "",
-    paymentRepeat: "",
-    transactionType: "",
+    paymentDate: ref(props.transaction != null ? convertDateFormat(props.transaction.payment_date) : ''),
+    paymentAmount: ref(props.transaction != null ? props.transaction.amount : 0),
+    transactionType: ref(props.transaction != null ? props.transactionTypes[props.transaction.transaction_type_id] : ''),
+    tenantEmail: ref(props.transaction != null ? props.tenant.email: ''),
+    paymentRepeat: ref(props.transaction != null ? (props.transaction.repeat_payment === 1 ? 'true' : '') : null),
 });
 
+let query = new URLSearchParams(window.location.search);
+
 let submit = () => {
-    form.post("/addPaymentManager");
+    if(props.transaction!=null){
+        form.post("/editPayment?order=" + query.get('order') + "&boarding=" + query.get('boarding') );
+    } else{
+        form.post("/addPaymentManager");
+    }
 };
 
 const today = new Date();
@@ -38,9 +52,6 @@ const minToday = today.toISOString().split('T')[0];
 <template>
     <Header />
     <div class="m-5">
-        
-    {{ transaction }}
-    {{ tenant }}
         <h3>Payment Page</h3>
         <form @submit.prevent="submit">
             <div>
@@ -57,7 +68,7 @@ const minToday = today.toISOString().split('T')[0];
                     :label-desc="'Transaction Type'"
                     :label-name="'Transaction Type'"
                     :default-text="'Select Transaction Type'"
-                    :default-value="transaction.transaction_type_id"
+                    :default-value="transaction != null ? transaction.transaction_type_id : null"
                 />
                 <FormErrorMessage
                     :error-message="form.errors.transactionType"
@@ -69,18 +80,20 @@ const minToday = today.toISOString().split('T')[0];
                         :input-type="'date'"
                         :label-name="'Date'"
                         :min-value="minToday"
-                        :model-value="transaction.payment_date"/>
+                />
                 <FormErrorMessage
                     :error-message="form.errors.paymentDate"
                 />
             </div>
-            <div>
-                <FormTextBoxInputPayment
-                    v-model="form.paymentAmount"
-                        :input-type="'number'"
-                        :label-name="'Amount'"
-                        :min-value="'10000'"
-                        :model-value="transaction.amount"/>
+            <div>  
+                <label class="block mt-2">Amount</label>
+                <input
+                    
+                    v-model.number="form.paymentAmount"
+                    type="number"
+                    placeholder="Amount"
+                    class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                />
                 <FormErrorMessage
                    :error-message="form.errors.paymentAmount"
                 />
@@ -91,8 +104,8 @@ const minToday = today.toISOString().split('T')[0];
                     :option-list="listTenants"
                     :label-desc="'Select Tenant'"
                     :label-name="'Tenant'"
-                    :default-email="tenant.email"
-                    :default-username="tenant.user_name"
+                    :default-email="transaction != null ? tenant.email : null"
+                    :default-username="transaction != null ? tenant.user_name : null"
                     />
                 <FormErrorMessage
                     :error-message="form.errors.tenantEmail"
@@ -102,13 +115,19 @@ const minToday = today.toISOString().split('T')[0];
                 <FormCheckboxInput
                     v-model="form.paymentRepeat"
                         :label-name="'Repeat Payment'"
-                        :default-value="tenant.repeat_payment"
+                        :default-value="transaction != null ? transaction.repeat_payment : null"
                 />
                 <FormErrorMessage
                     :error-message="form.errors.paymentRepeat"
                 />
             </div>
             <button
+                v-if="transaction!=null"
+                class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">
+                Edit Payment
+            </button>
+            <button
+                v-else
                 class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">
                 Add Payment
             </button>

@@ -1,7 +1,7 @@
 <script setup>
 defineProps({
     labelName: String,
-    defaultValue: value
+    defaultValue: Number
 })
 
 </script>
@@ -13,7 +13,7 @@ defineProps({
         type="checkbox"
         class="mr-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
         value="true"
-        :checked="checked"
+        checked
         v-if="defaultValue!=null"
     />
     <input
