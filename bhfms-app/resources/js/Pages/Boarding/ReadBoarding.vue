@@ -202,6 +202,7 @@ let form = useForm({
                             Facilites
                         </label>
                         <multiselect
+                            v-if="props.selectedFacility"
                             v-model="selectedFacility"
                             :options="allFacility"
                             label="facility_detail_name"
@@ -214,6 +215,13 @@ let form = useForm({
                             :disabled="true"
                         >
                         </multiselect>
+                        <input
+                            v-else
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            type="text"
+                            placeholder="No Facilities"
+                            readonly
+                        />
                     </div>
                     <div class="mb-4">
                         <div class="">
