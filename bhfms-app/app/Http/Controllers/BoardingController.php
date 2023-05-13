@@ -109,8 +109,9 @@ class BoardingController extends Controller
         $all_boarding_count = ManagerBoarding::join('boardings', 'boardings.id', 'manager_boardings.boarding_id')
             ->join('owner_boardings', 'boardings.id', "=", 'owner_boardings.boarding_id')
             ->select('owner_status', DB::raw('count(*) as total'))
+            ->where('manager_boardings.user_id', '=', auth()->id())
             ->groupBy('owner_status')
-            ->where('manager_boardings.user_id', '=', auth()->id())->get()->toArray();
+            ->get()->toArray();
 
         $all = 0;
         $apv = 0;
@@ -174,7 +175,9 @@ class BoardingController extends Controller
 
 
         $all_boarding_count = OwnerBoarding::select('owner_status', DB::raw('count(*) as total'))
-        ->groupBy('owner_status')->where('user_id', '=', auth()->id())->get()->toArray();
+        ->where('user_id', '=', auth()->id())
+        ->groupBy('owner_status')
+        ->get()->toArray();
 
         $all = 0;
         $apv = 0;
@@ -240,7 +243,9 @@ class BoardingController extends Controller
 
 
         $all_boarding_count = TenantBoarding::select('tenant_status', DB::raw('count(*) as total'))
-        ->groupBy('tenant_status')->where('user_id', '=', auth()->id())->get()->toArray(); 
+        ->where('user_id', '=', auth()->id())
+        ->groupBy('tenant_status')
+        ->get()->toArray(); 
         $all = 0;
         $apv = 0;
         $dcl = 0;
@@ -361,7 +366,7 @@ class BoardingController extends Controller
         return Inertia::render('Boarding/SearchBoardingResult', ['searchResults' => $boardingSearchResults]);
     }
 
-    //Show the form for creating a new resource.
+
     public function getCreateOwnerBoarding()
     {
         $Manager_data = User::where('user_role_id', '=', '4')->get();

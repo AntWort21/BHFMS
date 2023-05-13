@@ -100,11 +100,6 @@ const clearManagerInput = () => {
 const submitUpdate = (this_id) => {
     form.post(`/boarding/update/${this_id}`, {});
 };
-
-// const map = new google.maps.Map(this.$el, {
-//     center: { lat: 37.7749, lng: -122.4194 },
-//     zoom: 8,
-// });
 </script>
 
 <template>
