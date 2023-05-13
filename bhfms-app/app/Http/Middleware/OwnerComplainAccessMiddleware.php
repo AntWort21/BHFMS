@@ -21,7 +21,14 @@ class OwnerComplainAccessMiddleware
     {
         $ownerId = OwnerBoarding::where('boarding_id', $request->id)->first()->user_id;
         $managerId = ManagerBoarding::where('boarding_id', $request->id)->first()->user_id ?? -1;
-        if (Auth::user()->id !== $ownerId && (Auth::user()->id !== $managerId && $managerId == -1)) {
+        if(!Auth::user()->id){ //not logged in
+            abort(404, 'Not Found');
+        }
+        if (Auth::user()->user_role_id == 3 && Auth::user()->id !== $ownerId) { //case if owner
+            abort(404, 'Not Found');
+        }
+
+        if(Auth::user()->user_role_id == 4 && (Auth::user()->id !== $managerId || $managerId == -1)) { //case if manager
             abort(404, 'Not Found');
         }
         return $next($request);
