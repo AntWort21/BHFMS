@@ -58,7 +58,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/review', [ReviewController::class, 'getAllReviewPage'])->middleware('tenant');
     Route::get('/review/create', [ReviewController::class, 'getCreateReviewOrViewReviewPage'])->middleware('review.access');
     Route::post('/review/create', [ReviewController::class, 'createReview'])->middleware('review.access');
-    Route::post('/review/update', [ReviewController::class, 'updateReview'])->middleware('review.access');;
+    Route::post('/review/update', [ReviewController::class, 'updateReview'])->middleware('review.access');
 
     Route::get('/chat', [ChatController::class, 'getChatPage']);
     Route::post('/chat', [ChatController::class, 'storeChatMessage']);
@@ -86,7 +86,7 @@ Route::middleware('auth')->group(function () {
 
     Route::put('/boarding/image/delete/{id}', [BoardingImageController::class, 'deleteImage'])->middleware('owner');
 
-    
+
     Route::get('/boardingManager', [BoardingController::class, 'indexManager'])->middleware('manager');
     Route::get('/tenantBoarding', [TenantController::class, 'getAllTenantBoarding'])->middleware('owner.manager.access'); //manager & Owner
     Route::get('/tenantBoarding/read/{id}', [TenantController::class, 'getDetailTenantBoarding'])->middleware('tenant.read.access');
