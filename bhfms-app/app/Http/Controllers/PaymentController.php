@@ -62,8 +62,8 @@ class PaymentController extends Controller
     public function getPaymentPageManager()
     {
         return Inertia::render('Payment/PaymentPageManager', [
-            'listTenants' => $this->getAllTenants(1),
-            'boardingHouseName' => $this->getBoardingHouseName(1),
+            'listTenants' => $this->getAllTenants($_GET['id']),
+            'boardingHouseName' => $this->getBoardingHouseName($_GET['id']),
             'transactionTypes' => $this->getTransactionTypeName(),
         ]);
     }

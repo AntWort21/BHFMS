@@ -1,5 +1,6 @@
 <script setup>
 import { Inertia } from "@inertiajs/inertia";
+import { Link } from "@inertiajs/inertia-vue3";
 
 defineProps({
     invoiceDetail: Object,
@@ -54,7 +55,8 @@ const getFileName = (paymentDate, invoiceId) => {
                                     <p>Invoice No</p>
                                     <p>:</p>
                                 </div>
-                                <a class="px-5 text-blue-500  w-7/12" href="">{{ invoiceDetail.invoice_id }}</a>
+                                <Link class="px-5 text-blue-500  w-7/12" href="">{{ invoiceDetail.invoice_id }} </Link>
+                                
                             </div>
                             <div class="flex flex-row">
                                 <div class="flex flex-row w-5/12 justify-between">
@@ -111,9 +113,8 @@ const getFileName = (paymentDate, invoiceId) => {
                     </div>
                     <div class="flex flex-col border w-2/6 px-3 items-center" v-if="userRole!=1">
                         <button class="mt-4 mb-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-if="invoiceDetail.payment_status=='Pending' && userRole==2" @click="redirect('/pay?order='+invoiceDetail.invoice_id)">Pay</button>
-                        <button class="mt-4 mb-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-else-if="invoiceDetail.payment_status=='Approved' && userRole==2" href="">Review</button>
                         
-                        <button class="my-2 bg-blue-500 py-1 w-24 text-white rounded-full">Chat</button>
+                        <button class="my-2 bg-blue-500 py-1 w-24 text-white rounded-full" @click="redirect('/chat')">Chat</button>
                         
                         <button class="my-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-if="userRole==2">Complain</button>
                         <button class="my-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-if="userRole==4||userRole==3" @click="redirect('/cancelPayment?order='+invoiceDetail.invoice_id+'&boarding='+query.get('boarding'))">Cancel</button>

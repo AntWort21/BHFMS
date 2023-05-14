@@ -40,7 +40,7 @@ let submit = () => {
     if(props.transaction!=null){
         form.post("/editPayment?order=" + query.get('order') + "&boarding=" + query.get('boarding') );
     } else{
-        form.post("/addPaymentManager");
+        form.post("/addPaymentBoarding");
     }
 };
 

@@ -151,14 +151,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/paymentMethod/delete/{id}',[PaymentMethodController::class, 'PaymentMethodDelete'])->middleware('admin');
 
     //Gardi Punya
-    Route::get('/addPaymentManager',[PaymentController::class,'getPaymentPageManager']);
-    Route::post('/addPaymentManager',[PaymentController::class,'addPaymentManager']);
+    Route::get('/addPaymentBoarding',[PaymentController::class,'getPaymentPageManager']);
+    Route::post('/addPaymentBoarding',[PaymentController::class,'addPaymentManager']);
     Route::get('/pay',[PaymentController::class,'getPaymentPageTenant']);
     Route::post('/pay',[PaymentController::class,'addPaymentTenant']);
     Route::get('/paymentHistory',[PaymentController::class,'getAllPayment']);
     Route::post('/getInvoiceData',[PaymentController::class,'getInvoiceDetail']);
-    Route::get('/cancelPayment',[PaymentController::class,'cancelPayment']);
-    Route::get('/addPaymentManager',[PaymentController::class,'getPaymentPageManager']);
     Route::get('/cancelPayment',[PaymentController::class,'cancelPayment']);
     Route::post('/getPaymentInvoice',[PaymentController::class,'addPaymentTenant']);
     Route::get('/checkInvoiceRequest',[PaymentController::class,'getCheckInvoiceRequest']);
