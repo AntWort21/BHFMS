@@ -16,6 +16,8 @@ let form = useForm({
     password: "",
     confirmPassword: "",
     userRole: "",
+    bankName: "",
+    accountNumber: "",
 });
 
 let submit = () => {
@@ -23,7 +25,7 @@ let submit = () => {
 };
 
 let genderList = ["Male", "Female"];
-let roleList = ["Tenant", "Owner", "Manager"]
+let roleList = ["Tenant", "Owner", "Manager"];
 </script>
 
 <template>
@@ -83,7 +85,9 @@ let roleList = ["Tenant", "Owner", "Manager"]
                             :input-type="'text'"
                             :label-name="'Phone Number'"
                         />
-                        <FormErrorMessage :error-message="form.errors.phoneNumber" />
+                        <FormErrorMessage
+                            :error-message="form.errors.phoneNumber"
+                        />
                     </div>
                     <div class="mt-4 mx-2">
                         <FormTextBoxInput
@@ -120,7 +124,31 @@ let roleList = ["Tenant", "Owner", "Manager"]
                             :option-list="roleList"
                             :default-text="'Role'"
                         />
-                        <FormErrorMessage :error-message="form.errors.userRole" />
+                        <FormErrorMessage
+                            :error-message="form.errors.userRole"
+                        />
+                    </div>
+                    <div v-if="form.userRole == 'Owner'">
+                        <div class="mt-4 mx-2">
+                            <FormTextBoxInput
+                                v-model="form.bankName"
+                                :input-type="'text'"
+                                :label-name="'Bank Name'"
+                            />
+                            <FormErrorMessage
+                                :error-message="form.errors.bankName"
+                            />
+                        </div>
+                        <div class="mt-4 mx-2">
+                            <FormTextBoxInput
+                                v-model="form.accountNumber"
+                                :input-type="'text'"
+                                :label-name="'Account Number'"
+                            />
+                            <FormErrorMessage
+                                :error-message="form.errors.accountNumber"
+                            />
+                        </div>
                     </div>
                     <div
                         class="flex items-baseline justify-betweens space-x-6 mt-4"
