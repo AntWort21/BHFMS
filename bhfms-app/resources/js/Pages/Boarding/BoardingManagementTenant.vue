@@ -88,6 +88,7 @@ watch(search, (value) => {
                                 <th class="py-3 px-6 text-center">
                                     Boarding Owner Name
                                 </th>
+                                <th class="py-3 px-6 text-center">End Date</th>
                                 <th class="py-3 px-6 text-center">Actions</th>
                             </tr>
                         </thead>
@@ -107,13 +108,24 @@ watch(search, (value) => {
                                 <StatusIcon :boarding="boarding" />
 
                                 <td class="py-3 px-6 text-center">
-                                    <a href="#">{{ boarding.user_name }}</a>
+                                    {{ boarding.user_name }}
                                 </td>
                                 <!-- Icon List -->
+                                <td
+                                    class="py-3 px-6 text-center"
+                                    v-if="boarding.end_date"
+                                >
+                                    {{ boarding.end_date }}
+                                </td>
+                                <td class="py-3 px-6 text-center" v-else>
+                                    Not yet Filled
+                                </td>
+
                                 <TableIconLinks
                                     :currentID="boarding.boarding_id"
                                     :tenantID="boarding.tenant_id"
                                     :boarding="boarding"
+                                    :end_date="boarding.end_date"
                                 />
                             </tr>
                         </tbody>

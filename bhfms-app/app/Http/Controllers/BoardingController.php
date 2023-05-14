@@ -247,7 +247,7 @@ class BoardingController extends Controller
         $Boarding_data = Boarding::join('owner_boardings', 'boardings.id', '=', 'owner_boardings.boarding_id')
             ->join('users', 'users.id', '=', 'owner_boardings.user_id')
             ->join('tenant_boardings','tenant_boardings.boarding_id','=','boardings.id')
-            ->select('boardings.boarding_name','tenant_boardings.tenant_status','users.user_name','boardings.id AS boarding_id','tenant_boardings.id AS tenant_id')
+            ->select('boardings.boarding_name','tenant_boardings.tenant_status','users.user_name','boardings.id AS boarding_id','tenant_boardings.id AS tenant_id','tenant_boardings.end_date AS end_date')
             ->where('tenant_boardings.user_id', '=', auth()->id())
             ->when($request->search, function ($query, $search) {
                 if ($search == 'all') {
@@ -814,6 +814,8 @@ class BoardingController extends Controller
         ]);
         return redirect('/boardingOwner')->with('message', 'Success Enabling Boarding House');
     }
+
+    
 
 
 }

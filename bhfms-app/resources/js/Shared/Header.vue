@@ -44,11 +44,8 @@ let hover_owner = ref(false);
                 />
             </Link>
         </div>
-        <div class="space-x-9 flex">
-            <Link class="py-2 bg-indigo-900 hover:opacity-75 z-50" href="/"
-                >Homepage</Link
-            >
-            <div v-if="$page.props.user" class="flex z-50">
+        <div class="space-x-8">
+            <div v-if="$page.props.user" class="flex z-50 space-x-10">
                 <AdminLink
                     v-if="$page.props.user.role_id == 1"
                     :hover_admin="hover_admin"
@@ -65,9 +62,19 @@ let hover_owner = ref(false);
                     :hover_tenant="hover_tenant"
                 />
             </div>
+            <div v-else class="flex z-50 space-x-10">
+                <Link
+                    class="h-10 w-full text-center p-2 whitespace-nowrap z-50 bg-indigo-900 hover:opacity-75"
+                    href="/"
+                    >Homepage</Link
+                >
+            </div>
         </div>
         <div class="flex items-center space-x-3">
-            <form @submit.prevent="submitHeader" class="w-full h-10 flex items-center justify-between border border-gray-500 bg-white rounded-3xl items-center p-3">
+            <form
+                @submit.prevent="submitHeader"
+                class="w-full h-10 flex items-center justify-between border border-gray-500 bg-white rounded-3xl items-center p-3"
+            >
                 <vue-google-autocomplete
                     id="autocomplete"
                     class="h-full rounded-3xl items-center p-3 text-black"
@@ -138,6 +145,12 @@ let hover_owner = ref(false);
                     <ul class="z-50">
                         <li class="p-2 hover:bg-gray-200 hover:rounded-lg z-50">
                             <Link href="/profile">Profile</Link>
+                        </li>
+                        <li
+                            v-if="$page.props.user.role_id == 2"
+                            class="p-2 hover:bg-gray-200 hover:rounded-lg z-50"
+                        >
+                            <Link href="/wishlist">Wishlist </Link>
                         </li>
                         <li class="p-2 hover:bg-gray-200 hover:rounded-lg z-50">
                             <Link href="/logout">Logout</Link>

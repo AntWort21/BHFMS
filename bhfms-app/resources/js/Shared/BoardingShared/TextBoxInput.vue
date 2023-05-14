@@ -6,6 +6,7 @@ defineProps({
     errorMessage: String,
     placeholder: String,
     readOnly: Boolean,
+    minValue: String,
 });
 
 defineEmits(["update:modelValue"]);
@@ -31,6 +32,7 @@ defineEmits(["update:modelValue"]);
         :type="inputType"
         :value="modelValue"
         :placeholder="placeholder"
+        :min="minValue"
     />
     <div
         v-if="errorMessage"

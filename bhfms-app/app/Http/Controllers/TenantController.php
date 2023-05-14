@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Boarding;
+use App\Models\Chat;
+use App\Models\ManagerBoarding;
 use App\Models\OwnerBoarding;
 use App\Models\TenantBoarding;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -155,5 +158,50 @@ class TenantController extends Controller
             return redirect('/tenantBoarding')->with('message', 'Success Declining new Tenant');
         }
 
+    }
+
+    public function getEndRentBoarding(Request $request){
+        $tenantBoarding = TenantBoarding::where('id','=',$request->id)->first();
+        $minEndDate = Carbon::createFromFormat('Y-m-d', $tenantBoarding->start_date)->addMonth(1)->format('Y-m-d');
+        $minEndDate = $minEndDate > Carbon::now()->addWeek(1)->format('Y-m-d') ? $minEndDate: Carbon::now()->addWeek(1)->format('Y-m-d');
+        return Inertia::render('Boarding/EndBoardingRent', [
+            'tenantBoarding' => $tenantBoarding,
+            'minEndDate' => $minEndDate,
+        ]);
+
+    }
+
+    public function endRentBoarding(Request $request){
+        
+        $validation = $request->validate([
+            'start_date' => ['required'],
+            'end_date' => ['required'],
+        ]);
+
+        $startDateCarbon = Carbon::createFromFormat('Y-m-d', $request->start_date);
+        $endDateCarbon = Carbon::createFromFormat('Y-m-d', $request->end_date)->format('D, d M Y');
+
+
+        $tenantNow = TenantBoarding::where('id','=',$request->id)->first(); 
+        $ownerID = OwnerBoarding::where('boarding_id','=',$tenantNow->boarding_id)->first()->user_id;
+        $managerID = ManagerBoarding::where('boarding_id','=',$tenantNow->boarding_id)->first()->user_id ?? -1; 
+
+        $tenantNow->update([
+            'end_date' => $request->end_date,
+        ]);
+        Chat::create([
+            'sender_id' => $tenantNow->user_id,
+            'receiver_id' => $ownerID,
+            'message' => 'This is an automated Message ! the user have asked to end the rent at'. $endDateCarbon,
+        ]);
+
+        if($managerID !== -1){
+            Chat::create([
+                'sender_id' => $tenantNow->user_id,
+                'receiver_id' => $managerID,
+                'message' => 'This is an automated Message ! the user have asked to end the rent at'. $endDateCarbon,
+            ]);
+        }
+        return redirect('/boardingTenant')->with('message', 'Success Ending Rent of Current Boarding House');
     }
 }

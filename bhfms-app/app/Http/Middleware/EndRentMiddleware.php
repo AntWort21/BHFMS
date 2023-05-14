@@ -2,12 +2,12 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\OwnerBoarding;
+use App\Models\TenantBoarding;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class BoardingAccessApproveMiddleware
+class EndRentMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,15 +18,9 @@ class BoardingAccessApproveMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        //Approve, decline, reapprove, update, banned
-        //Admin
-        if (Auth::user()->user_role_id == 1) {
-            return $next($request);
-            
-        //Owner
-        }else if (Auth::user()->user_role_id == 3) {
-            $ownerBoarding = OwnerBoarding::where('boarding_id', $request->id)->first() ?? null;
-            if($ownerBoarding->user_id == Auth::user()->id && $ownerBoarding->owner_status != 'declined'){
+        if (Auth::user()->user_role_id == 2) {
+            $tenantBoarding = TenantBoarding::where('id', $request->id)->first() ?? null;
+            if($tenantBoarding->user_id == Auth::user()->id && $tenantBoarding->tenant_status == 'approved' && $tenantBoarding->end_date == null){
                 return $next($request);
             }
         }
