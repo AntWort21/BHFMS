@@ -27,13 +27,13 @@ class ChatController extends Controller
             $boardingIDs = OwnerBoarding::where('user_id', Auth::user()->id)->where('owner_status', 'approved')->get()->pluck('boarding_id') ?? -1;
 
             foreach ($boardingIDs as $boardingId) {
-                array_push($contactIDs, ...TenantBoarding::where('boarding_id', $boardingId)->get()->pluck('user_id') ?? -1);
+                array_push($contactIDs, ...TenantBoarding::where('boarding_id', $boardingId)->where('tenant_status', 'approved')->get()->pluck('user_id') ?? -1);
                 array_push($contactIDs, ManagerBoarding::where('boarding_id', $boardingId)->first()->user_id ?? -1);
             }
         } elseif ($userRoleId == 4) { //manager
             $boardingId = ManagerBoarding::where('user_id', Auth::user()->id)->first()->boarding_id ?? -1;
 
-            array_push($contactIDs, ...TenantBoarding::where('boarding_id', $boardingId)->get()->pluck('user_id') ?? -1);
+            array_push($contactIDs, ...TenantBoarding::where('boarding_id', $boardingId)->where('tenant_status', 'approved')->get()->pluck('user_id') ?? -1);
             array_push($contactIDs, OwnerBoarding::where('boarding_id', $boardingId)->first()->user_id ?? -1);
         }
 
@@ -50,7 +50,10 @@ class ChatController extends Controller
 
     public function getChatMessage(Request $request)
     {
-        $messages = Chat::where('sender_id', Auth::user()->id)->orWhere('sender_id', $request->id)->get();
+        $messagesSent = Chat::where('sender_id', Auth::user()->id)->where('receiver_id', $request->id)->get();
+        $messagesReceived = Chat::where('sender_id', $request->id)->where('receiver_id', Auth::user()->id)->get();
+
+        $messages = $messagesSent->merge($messagesReceived)->sortBy('id')->values()->all();
 
         return response()->json([
             'messages' => $messages,
@@ -62,7 +65,7 @@ class ChatController extends Controller
     {
         $message = Chat::create([
             'sender_id' => Auth::user()->id,
-            'receiver_id' => 3,
+            'receiver_id' => $request->id,
             'message' => $request->message,
         ]);
 
