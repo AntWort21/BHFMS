@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { useForm } from "@inertiajs/inertia-vue3";
 import Footer from "../../Shared/Footer.vue";
 import Header from "../../Shared/Header.vue";
+import FormErrorMessage from "../../Shared/AccountFormInput/FormErrorMessage.vue";
 
 const props = defineProps({
     boardingHouseId: {
@@ -34,7 +35,6 @@ let submit = () => {
 let submitUpdate = () => {
     form.post("/review/update");
 };
-
 </script>
 
 <template>
@@ -44,15 +44,9 @@ let submitUpdate = () => {
             @submit.prevent="props.review == null ? submit() : submitUpdate()"
             class="border border-slate-200 space-y-2 px-4 py-6"
         >
-            <div
-                class="semibold text-2xl text-indigo-700"
-            >
-                <div v-if="props.review == null">
-                    CREATE REVIEW
-                </div>
-                <div v-else>
-                    VIEW REVIEW
-                </div>
+            <div class="semibold text-2xl text-indigo-700">
+                <div v-if="props.review == null">CREATE REVIEW</div>
+                <div v-else>VIEW REVIEW</div>
             </div>
             <div class="space-y-2">
                 <div>
@@ -78,6 +72,7 @@ let submitUpdate = () => {
                             </svg>
                         </div>
                         {{ rating }}/5
+                        <FormErrorMessage :error-message="form.errors.rating" />
                     </div>
                 </div>
                 <div>
@@ -89,6 +84,9 @@ let submitUpdate = () => {
                         class="w-full h-[20vh] p-2.5 border border-gray-300 rounded-lg"
                         placeholder="Please describe your problem"
                     ></textarea>
+                    <FormErrorMessage
+                        :error-message="form.errors.description"
+                    />
                 </div>
             </div>
             <div
