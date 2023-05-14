@@ -19,18 +19,20 @@ class ChatController extends Controller
         $userRoleId = User::where('id', Auth::user()->id)->first()->user_role_id;
         $contactIDs = [];
         if ($userRoleId == 2) { //tenant
-            $boardingId = TenantBoarding::where('user_id', Auth::user()->id)->where('tenant_status', 'approved')->first()->boarding_id;
+            $boardingId = TenantBoarding::where('user_id', Auth::user()->id)->where('tenant_status', 'approved')->first()->boarding_id ?? -1;
+
             array_push($contactIDs, OwnerBoarding::where('boarding_id', $boardingId)->first()->user_id ?? -1);
             array_push($contactIDs, ManagerBoarding::where('boarding_id', $boardingId)->first()->user_id ?? -1);
         } elseif ($userRoleId == 3) { //owner
-            $boardingIDs = OwnerBoarding::where('user_id', Auth::user()->id)->where('owner_status', 'approved')->get()->pluck('boarding_id');
+            $boardingIDs = OwnerBoarding::where('user_id', Auth::user()->id)->where('owner_status', 'approved')->get()->pluck('boarding_id') ?? -1;
 
             foreach ($boardingIDs as $boardingId) {
                 array_push($contactIDs, ...TenantBoarding::where('boarding_id', $boardingId)->get()->pluck('user_id') ?? -1);
                 array_push($contactIDs, ManagerBoarding::where('boarding_id', $boardingId)->first()->user_id ?? -1);
             }
         } elseif ($userRoleId == 4) { //manager
-            $boardingId = ManagerBoarding::where('user_id', Auth::user()->id)->first()->boarding_id;
+            $boardingId = ManagerBoarding::where('user_id', Auth::user()->id)->first()->boarding_id ?? -1;
+
             array_push($contactIDs, ...TenantBoarding::where('boarding_id', $boardingId)->get()->pluck('user_id') ?? -1);
             array_push($contactIDs, OwnerBoarding::where('boarding_id', $boardingId)->first()->user_id ?? -1);
         }
