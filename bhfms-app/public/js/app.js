@@ -21022,16 +21022,19 @@ __webpack_require__.r(__webpack_exports__);
       newMessage: "",
       pusher: null,
       channel: null,
-      receiverDetails: null,
-      showChat: false
+      receiverDetails: "",
+      showChat: false,
+      chatDestination: ""
     });
     var sendMessage = function sendMessage() {
       _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia.post("/chat", {
+        id: data.chatDestination,
         message: data.newMessage
       });
       data.newMessage = "";
     };
     var getSelectedChat = function getSelectedChat(id) {
+      data.chatDestination = id;
       data.messages = [];
       data.showChat = true;
       fetch("/chat/get?id=".concat(id)).then(function (response) {
@@ -23361,7 +23364,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'TableIconLinks',
   props: {
     currentID: Number,
-    end_date: Date,
+    endDate: Date,
     tenantID: Number,
     boarding: Object
   },
@@ -25528,8 +25531,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       currentID: boarding.boarding_id,
       tenantID: boarding.tenant_id,
       boarding: boarding,
-      end_date: boarding.end_date
-    }, null, 8 /* PROPS */, ["currentID", "tenantID", "boarding", "end_date"])]);
+      endDate: boarding.end_date
+    }, null, 8 /* PROPS */, ["currentID", "tenantID", "boarding", "endDate"])]);
   }), 128 /* KEYED_FRAGMENT */))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Pagination"], {
     "class": "my-4 pb-4 flex justify-center",
     links: $props.boardings.links
@@ -29013,9 +29016,9 @@ var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 }, "Highly Rated Experiences", -1 /* HOISTED */);
 var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
   "class": "text-md text-gray-600"
-}, " Our highly rated accomodation ", -1 /* HOISTED */);
+}, "Our highly rated accomodation", -1 /* HOISTED */);
 var _hoisted_18 = {
-  "class": "w-full h-[50vh] flex"
+  "class": "w-full min-h-[50vh] flex"
 };
 var _hoisted_19 = ["src"];
 var _hoisted_20 = {
@@ -31834,7 +31837,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [_hoisted_25];
     }),
     _: 1 /* STABLE */
-  })])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" End Rent "), $props.boarding.tenant_status == 'approved' && $props.boarding.end_date == null ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Link"], {
+  })])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" End Rent "), $props.boarding.tenant_status == 'approved' && $props.boarding.endDate == null ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Link"], {
     href: "/boarding/rent/end/".concat($props.tenantID)
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -32102,8 +32105,8 @@ var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   "class": "ml-10"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
   "class": "font-bold text-2xl"
-}, "Footer"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
-  "class": "text-sm w-1/2 whitespace-wrap text-left"
+}, "BHFMS"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+  "class": "text-sm w-1/2 whitespace-wrap text-justify"
 }, " BHFMS or Boarding House Finder & Management System, is an electronic marketplace that connects property owners and renters of boarding houses. Our platform offers a variety of features, including a user-friendly interface, easy renting and payment processes, and a comprehensive management system for property owners to manage their listings, complains, and payments. Our mission is to simplify the renting process for both parties and provide a reliable and secure platform for the boarding house community. ")], -1 /* HOISTED */);
 var _hoisted_4 = {
   "class": "mr-36 w-1/6"

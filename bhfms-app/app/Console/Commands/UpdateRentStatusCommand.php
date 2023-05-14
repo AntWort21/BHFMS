@@ -19,7 +19,7 @@ class UpdateRentStatusCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Status Updater for Rent Status that wants to checkout';
 
     /**
      * Create a new command instance.

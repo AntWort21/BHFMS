@@ -4,7 +4,7 @@ import { Inertia } from "@inertiajs/inertia";
 import { ref, reactive } from "vue";
 defineProps({
     currentID: Number,
-    end_date: Date,
+    endDate: Date,
     tenantID: Number,
     boarding: Object,
 });
@@ -305,7 +305,7 @@ const deleteBoarding = (idx) => {
                 <div
                     v-if="
                         boarding.tenant_status == 'approved' &&
-                        boarding.end_date == null
+                        boarding.endDate == null
                     "
                     class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                 >

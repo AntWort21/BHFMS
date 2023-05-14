@@ -8,8 +8,8 @@ import { Link } from "@inertiajs/inertia-vue3";
             class="p-6 bg-indigo-900 flex justify-between mt-auto text-white"
         >
             <div class="ml-10">
-                <p class="font-bold text-2xl">Footer</p>
-                <p class="text-sm w-1/2 whitespace-wrap text-left">
+                <p class="font-bold text-2xl">BHFMS</p>
+                <p class="text-sm w-1/2 whitespace-wrap text-justify">
                     BHFMS or Boarding House Finder & Management System, is an
                     electronic marketplace that connects property owners and
                     renters of boarding houses. Our platform offers a variety of

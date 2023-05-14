@@ -110,10 +110,8 @@ const submit = () => {
         <div class="mx-16 my-2 space-y-2">
             <!-- Highly rated experience -->
             <p class="text-2xl font-semibold">Highly Rated Experiences</p>
-            <p class="text-md text-gray-600">
-                Our highly rated accomodation
-            </p>
-            <div class="w-full h-[50vh] flex">
+            <p class="text-md text-gray-600">Our highly rated accomodation</p>
+            <div class="w-full min-h-[50vh] flex">
                 <div
                     v-for="(
                         boardingHouse, key

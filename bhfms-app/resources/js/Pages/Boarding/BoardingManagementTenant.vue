@@ -125,7 +125,7 @@ watch(search, (value) => {
                                     :currentID="boarding.boarding_id"
                                     :tenantID="boarding.tenant_id"
                                     :boarding="boarding"
-                                    :end_date="boarding.end_date"
+                                    :endDate="boarding.end_date"
                                 />
                             </tr>
                         </tbody>
