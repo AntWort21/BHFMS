@@ -189,17 +189,18 @@ class TenantController extends Controller
         $tenantNow->update([
             'end_date' => $request->end_date,
         ]);
+
         Chat::create([
             'sender_id' => $tenantNow->user_id,
             'receiver_id' => $ownerID,
-            'message' => 'This is an automated Message ! the user have asked to end the rent at'. $endDateCarbon,
+            'message' => 'This is an automated Message ! the user have asked to end the rent at '. $endDateCarbon,
         ]);
 
         if($managerID !== -1){
             Chat::create([
                 'sender_id' => $tenantNow->user_id,
                 'receiver_id' => $managerID,
-                'message' => 'This is an automated Message ! the user have asked to end the rent at'. $endDateCarbon,
+                'message' => 'This is an automated Message ! the user have asked to end the rent at '. $endDateCarbon,
             ]);
         }
         return redirect('/boardingTenant')->with('message', 'Success Ending Rent of Current Boarding House');

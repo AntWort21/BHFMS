@@ -68,7 +68,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/wishlist/add', [WishlistController::class, 'addWishlist']);
     Route::post('/wishlist/remove', [WishlistController::class, 'removeWishlist']);
     Route::post('/boarding/detail/rent/{id}', [BoardingController::class, 'boardingRent']);
-    Route::get('/boarding/rent/end/{id}', [TenantController::class, 'getEndRentBoarding'])->middleware('tenant.endRent.access');
+    Route::get('/boarding/rent/end/{id}', [TenantController::class, 'getEndRentBoarding']);
     Route::post('/boarding/rent/end/{id}', [TenantController::class, 'endRentBoarding'])->middleware('tenant.endRent.access');
 
     Route::get('/boardingAdmin', [BoardingController::class, 'indexAdmin'])->middleware('admin');
