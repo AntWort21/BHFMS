@@ -14,16 +14,18 @@ const data = reactive({
     newMessage: "",
     pusher: null,
     channel: null,
-    receiverDetails: null,
+    receiverDetails: "",
     showChat: false,
+    chatDestination: ""
 });
 
 const sendMessage = () => {
-    Inertia.post("/chat", { message: data.newMessage });
+    Inertia.post("/chat", { id: data.chatDestination, message: data.newMessage });
     data.newMessage = "";
 };
 
 const getSelectedChat = (id) => {
+    data.chatDestination = id;
     data.messages = [];
     data.showChat = true;
     fetch(`/chat/get?id=${id}`)
