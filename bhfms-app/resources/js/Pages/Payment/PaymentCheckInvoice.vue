@@ -1,13 +1,13 @@
 <script setup>
 import { ref } from 'vue';
 import { Link } from '@inertiajs/inertia-vue3'
-import PaymentHistoryTab from '../../Shared/Payment/PaymentHistoryTab.vue';
 import Header from '../../Shared/Header.vue';
 import Footer from '../../Shared/Footer.vue';
 import DetailBoxTenant from '../../Shared/Payment/DetailBoxTenant.vue';
+import PaymentInvoiceTab from '../../Shared/Payment/PaymentInvoiceTab.vue';
 defineProps({
   userRole: Number,
-  paymentList: Object,
+  invoiceList: Object,
 })
 
 defineExpose({
@@ -23,14 +23,14 @@ const detailInvoice = ref({
   boardingName: ''
 });
 
-let showDetail = (invoice_id) => {
+let showDetail = (invoiceId) => {
   fetch('getInvoiceData', {
     method: 'POST',
     headers: {
       "X-CSRF-Token": csrfToken,
     },
     body: JSON.stringify({
-      invoice_id: invoice_id,
+      invoice_id: invoiceId,
     })
   })
   .then((response) => response.json())
@@ -47,9 +47,9 @@ let showDetail = (invoice_id) => {
 let closeDetail = () => {
   detailBox.value = false;
   detailInvoice.value.price = 0;
-    detailInvoice.value.invoice = [];
-    detailInvoice.value.username = '';
-    detailInvoice.value.boardingName = '';
+  detailInvoice.value.invoice = [];
+  detailInvoice.value.username = '';
+  detailInvoice.value.boardingName = '';
 }
 
 let convertAmount = (amount) => {
@@ -64,57 +64,58 @@ let convertAmount = (amount) => {
         <section class="flex text-center align-middle mx-10">
             <div class="font-bold self-center">
                 <h3>
-                    Payment List
+                    Invoice List
                 </h3>
             </div>
         </section>
         <section class="mx-2 my-5">
             <div class="flex justify-around text-center">
                 <div class="w-1/4">
-                    <h4>Status</h4>
-                </div>
-                <div class="w-1/4">
                     <h4>Date</h4>
                 </div>
                 <div class="w-1/4">
-                    <h4 v-if="userRole == 3 || userRole == 4">Tenant Name</h4>
-                    <h4 v-else-if="userRole == 2">Boarding House</h4>
-                    <h4 v-else>Boarding House</h4>
+                    <h4>Amount</h4>
                 </div>
                 <div class="w-1/4">
+                    <h4>Image</h4>
+                </div>
+                <div class="w-1/4 flex flex-row">
+                    <p class="w-1/3">Approve</p>
+                    <p class="w-1/3">Reject</p>
+                    <p class="w-1/3"></p>
                 </div>
             </div>
         </section>
         <section class="mx-2 my-3">
-            <div v-for="(payment) in paymentList.data" class="flex justify-around text-center py-1">
-             
-              <PaymentHistoryTab
-                :payment=payment
-                :userRole="userRole"
-                @showDetail="showDetail" />
+            <div v-for="(invoice) in invoiceList.data" class="flex text-center py-1">
+              <PaymentInvoiceTab
+              :user-role=userRole
+              :invoice=invoice
+              @showDetail="showDetail"
+              />
             </div>
         </section>
       <div class="my-4 flex justify-center">
         <Link
-          :href="paymentList.prev_page_url"
-          v-if="paymentList.prev_page_url"
+          :href="invoiceList.prev_page_url"
+          v-if="invoiceList.prev_page_url"
           class="px-2 py-1 bg-gray-300 rounded mr-2">
             Previous
         </Link>
         <Link
-            :href="paymentList.next_page_url"
-            v-if="paymentList.next_page_url"
+            :href="invoiceList.next_page_url"
+            v-if="invoiceList.next_page_url"
             class="px-2 py-1 bg-gray-300 rounded ml-2">
             Next
         </Link>
       </div>
     </div>
-    <DetailBoxTenant v-if = "detailBox"
+    <DetailBoxTenant v-if="detailBox"
     :invoiceDetail = detailInvoice.invoice
     :price = detailInvoice.price
     :username = detailInvoice.username
     :boarding-name= detailInvoice.boardingName
     :user-role = this.userRole
-    @closeDetail = "closeDetail" />
+    @closeDetail = "closeDetail"  />
     <Footer />
 </template>

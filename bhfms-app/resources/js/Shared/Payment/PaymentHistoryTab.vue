@@ -1,4 +1,5 @@
 <script setup>
+import { Inertia } from "@inertiajs/inertia";
 defineProps({
     userRole: Number,
     payment: Object
@@ -10,7 +11,7 @@ let showInvoiceDetail = (invoice_id) => {
 }
 
 let redirect = (url) => {
-    window.location.href = url;
+    Inertia.get(url);
 }
 
 let convertTime = (date) =>{
@@ -48,10 +49,10 @@ let convertTime = (date) =>{
         </p>
     </div>
     <div class="w-1/4 m-auto">
-        <p v-if="userRole==2">
+        <p v-if="userRole == 2">
             {{ payment.boarding_name }}
         </p>
-        <p v-if="userRole==1||userRole==3">
+        <p v-if="userRole == 3 || userRole == 4">
             {{ payment.user_name }}
         </p>
     </div>

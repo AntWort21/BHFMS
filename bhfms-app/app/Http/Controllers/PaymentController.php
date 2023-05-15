@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Boarding;
+use App\Models\ManagerBoarding;
+use App\Models\OwnerBoarding;
 use App\Models\PaymentMethod;
 use App\Models\RentTransaction;
 use App\Models\TenantBoarding;
@@ -31,10 +33,15 @@ class PaymentController extends Controller
         $transaction->payment_method_id = PaymentMethod::where('payment_method_name',$validation['paymentMethod'])->first()->id;
         $transaction->payment_status = 'Processing';
         $transaction->save();
+
+        return redirect('/paymentHistory');;
     }
 
     public function addPaymentManager(Request $request)
     {
+        $customMessage = [
+            'tenantEmail.required' => 'Please select tenant',
+        ];
         
         $validation = $request->validate([
             'paymentDate' => ['required'],
@@ -42,7 +49,7 @@ class PaymentController extends Controller
             'tenantEmail' => ['required'],
             'paymentRepeat' => ['required'],
             'transactionType' => ['required']
-        ]);
+        ], $customMessage);
         RentTransaction::create([
             'tenant_boarding_id'=>$this->getTenantIdByEmail($validation['tenantEmail'])->id,
             'transaction_type_id' => TransactionType::select('id')->where('transaction_type_name',$validation['transactionType'])->first()->id,
@@ -51,16 +58,34 @@ class PaymentController extends Controller
             'payment_date' => $validation['paymentDate'],
             'repeat_payment'=> $validation['paymentRepeat'] == 'true' ?  true: false,
         ]);   
+        
+        if(Auth::user()->user_role_id == 3) {
+            return redirect('/boardingOwner'); 
+        }
+        return redirect('/boardingManager');
 
     }
 
     public function getPaymentPageManager()
     {
         return Inertia::render('Payment/PaymentPageManager', [
-            'listTenants' => $this->getAllTenants(1),
-            'boardingHouseName' => $this->getBoardingHouseName(1),
+            'listTenants' => $this->getAllTenants($_GET['id']),
+            'boardingHouseName' => $this->getBoardingHouseName($_GET['id']),
             'transactionTypes' => $this->getTransactionTypeName(),
         ]);
+    }
+
+    public function getCheckInvoiceRequest(){
+        $userRole = Auth::user()->user_role_id;
+        return Inertia::render('Payment/PaymentCheckInvoice', [
+            'userRole' => $userRole,
+            'invoiceList' => $this->getInvoiceListProcessing(),
+        ]); 
+    }
+
+    public function getInvoiceListProcessing(){
+        return RentTransaction::where('payment_status','Processing')
+        ->paginate(5);
     }
 
     private function getBoardingHouseName(int $boardingId)
@@ -84,6 +109,11 @@ class PaymentController extends Controller
         ->get();
     }
 
+    private function getTenantBoarding($tenantBoarding)
+    {
+        return TenantBoarding::where('id',$tenantBoarding)->first();
+    }
+
     private function getTenantIdByEmail(String $email)
     {
         return TenantBoarding::whereIn('user_id',function($query) use ($email){
@@ -100,13 +130,27 @@ class PaymentController extends Controller
         
         if ($userRole == 2) {
             $paymentList = $this->getListPaymentByUser(Auth::user()->id);
-        } elseif ($userRole == 1 || $userRole == 3) {
+        } elseif ($userRole == 3 || $userRole == 4) {
             $boardingId = $_GET['boarding'] ?? null;
             if ($boardingId) {
                 $paymentList = $this->getListPaymentByBoardingId($boardingId);
+            } else if($userRole == 3) { //Owner History
+                $boardingIDs = OwnerBoarding::where('user_id',Auth::user()->id)
+                ->where('owner_status', '!=', 'declined')
+                ->pluck('boarding_id');
+                $paymentList = RentTransaction::join('tenant_boardings', 'tenant_boardings.id', '=', 'tenant_boarding_id')
+                ->join('users','users.id','=','tenant_boardings.user_id')
+                ->whereIn('tenant_boardings.boarding_id',$boardingIDs)
+                ->paginate(5);
+            } else if($userRole == 4) { // Manager History
+                $boardingIDs = ManagerBoarding::where('user_id',Auth::user()->id)
+                ->pluck('boarding_id');
+                $paymentList = RentTransaction::join('tenant_boardings', 'tenant_boardings.id', '=', 'tenant_boarding_id')
+                ->join('users','users.id','=','tenant_boardings.user_id')
+                ->whereIn('tenant_boardings.boarding_id',$boardingIDs)
+                ->paginate(5);
             }
         }
-        
         return Inertia::render('Payment/PaymentHistory', [
             'userRole' => $userRole,
             'paymentList' => $paymentList,
@@ -137,19 +181,9 @@ class PaymentController extends Controller
         ->paginate(5);
     }
 
-    private function generateInvoice(String $date){
-        $year = Carbon::createFromDate($date)->format('y') * 10000000;
-        $month = Carbon::createFromDate($date)->format('m') * 1000000;
-        $day = Carbon::createFromDate($date)->format('d') * 10000;
-        $random = rand(0, 10000);
-        $invoice_id = $year + $month + $day + $random;
-
-        while (RentTransaction::where('invoice_id', $invoice_id)->first()) {
-            $random = rand(0, 10000);
-            $invoice_id = $year + $month + $day + $random;
-        }
-
-        return $invoice_id;
+    private function getTenantById(int $tenantId)
+    {
+        return User::where('id',$tenantId)->first();
     }
 
     public function getInvoiceDetail(Request $request)
@@ -165,16 +199,30 @@ class PaymentController extends Controller
         return [$transactionDetail->amount,$transactionDetail,$username,$boradingName];
     }
 
+    public function getEditPayment()
+    {
+        $transaction = RentTransaction::where('invoice_id', $_GET['order'])->first();
+        $tenantBoarding = $this->getTenantBoarding($transaction->tenant_boarding_id);
+        $transaction->amount = floor($transaction->amount / 1000) * 1000;
+        return Inertia::render('Payment/PaymentPageManager', [
+            'transaction' => $transaction,
+            'listTenants' => $this->getAllTenants(1),
+            'boardingHouseName' => $this->getBoardingHouseName($tenantBoarding->boarding_id),
+            'tenant' => $this->getTenantById($tenantBoarding->user_id),
+            'transactionTypes' => $this->getTransactionTypeName(),
+        ]);
+    }
+
     public function getPaymentPageTenant()
     {
         $paymentDetail = RentTransaction::join('tenant_boardings','tenant_boardings.id','=','tenant_boarding_id')
             ->join('boardings','boardings.id','=','tenant_boardings.boarding_id')
             ->where("invoice_id",$_GET['order'])
-            ->where('payment_status', 'Pending')
+            ->whereIn('payment_status', ['Pending','Late','Rejected'])
             ->first();
-        
-            if(!$paymentDetail){//No data
-            return redirect('/paymentHistory');;
+
+        if(!$paymentDetail){//No data
+            return redirect('/paymentHistory');
         }
         return Inertia::render('Payment/PaymentPageTenant', [
             'listPaymentMethod' => PaymentMethod::where("status","available")->pluck('payment_method_name'),
@@ -192,13 +240,13 @@ class PaymentController extends Controller
         }
     
         switch ($transaction->payment_status) {
-            case 'Processing':
+            case 'Processing': //The tenant have paid and still being processed
                 $transaction->payment_transferred_status = 'Processing_Refund';
                 break;
-            case 'Approved':
-                if ($transaction->payment_transferred_status === 'Successful') {
+            case 'Approved': //Owner have recieve the money
+                if ($transaction->payment_transferred_status === 'Successful') { //Admin have transferred to the owner 
                     $transaction->payment_transferred_status = 'Owner_Refund';
-                } else {
+                } else { //Admin have not transferred to owner
                     $transaction->payment_transferred_status = 'Pending_Refund';
                 }
                 break;
@@ -211,5 +259,92 @@ class PaymentController extends Controller
     
         return redirect('/paymentHistory?boarding=' . $_GET['boarding']);
     }
+
+    public function udpateInvoiceStatus(Request $request) 
+    {   
+        $content = json_decode($request->getContent());
+        $invoiceStatus = $content->invoiceStatus;
+        $invoiceId = $content->invoiceID;
+        $transaction = RentTransaction::where('invoice_id',$invoiceId)->first();
+        $transaction->payment_status = $invoiceStatus;
+        
+        if($invoiceStatus='Rejected' && Carbon::parse($transaction->payment_date)->lt(Carbon::today()->timezone('Asia/Jakarta')->startOfDay())){
+            $transaction->payment_date = Carbon::today()->timezone('Asia/Jakarta')->startOfDay()->addDay()->toDateString();
+        }
+        $transaction->save();
+        
+    }
+
+    public function updatePayment(Request $request) 
+    {
+        $custom_messages = [
+            'tenantEmail.required' => 'Please select tenant',
+        ];
+        $validation = $request->validate([
+            'paymentDate' => ['required'],
+            'paymentAmount' => ['required', 'numeric','min:10000'],
+            'tenantEmail' => ['required'],
+            'paymentRepeat' => ['required'],
+            'transactionType' => ['required']
+        ], $custom_messages);
+ 
+        RentTransaction::where('invoice_id',$_GET['order'])->first()->update([
+            'tenant_boarding_id'=>$this->getTenantIdByEmail($validation['tenantEmail'])->id,
+            'transaction_type_id' => TransactionType::select('id')->where('transaction_type_name',$validation['transactionType'])->first()->id,
+            'amount' => $validation['paymentAmount'] +  rand(0,1000),
+            'payment_date' => $validation['paymentDate'],
+            'repeat_payment'=> $validation['paymentRepeat'] == 'true' ?  true: false,
+
+        ]);
+
+        return redirect('/paymentHistory?boarding='.$_GET['boarding']);;
+    }
+
+    private function generateInvoice(String $date){
+        $year = Carbon::createFromDate($date)->format('y') * 10000000;
+        $month = Carbon::createFromDate($date)->format('m') * 1000000;
+        $day = Carbon::createFromDate($date)->format('d') * 10000;
+        $random = rand(0, 10000);
+        $invoice_id = $year + $month + $day + $random;
+
+        while (RentTransaction::where('invoice_id', $invoice_id)->first()) {
+            $random = rand(0, 10000);
+            $invoice_id = $year + $month + $day + $random;
+        }
+
+        return $invoice_id;
+    }
+
+    public function schedulePayment(){
+        $currDate =  Carbon::now()->timezone('Asia/Jakarta');
+        $previousDate = $currDate->startOfDay()->subDay();
+        $nextMonthDate = clone $previousDate;
+        $nextMonthDate->addMonth();
+        $yesterdayTransactions = RentTransaction::where('payment_date',$previousDate->toDateString())
+        ->where('repeat_payment',1)
+        ->get();
+        foreach ($yesterdayTransactions as $transaction) {
+            RentTransaction::create([
+                'tenant_boarding_id'=> $transaction->tenant_boarding_id,
+                'transaction_type_id' => $transaction->transaction_type_id,
+                'invoice_id' => $this->generateInvoice($nextMonthDate->toDateString()),
+                'amount' => (floor($transaction->amount / 1000) * 1000)+  rand(0,1000),
+                'payment_date' => $nextMonthDate,
+                'repeat_payment'=> true,
+            ]);
+        }
+    }
+
+    public function checkLatePayment(){
+        $currDate =  Carbon::now()->timezone('Asia/Jakarta')->startOfDay();
+        $lateTransactions = RentTransaction::where('payment_date','<',$currDate)
+        ->whereIn('payment_status', ['Pending', 'Rejected'])
+        ->get();
+        foreach ($lateTransactions as $transaction) {
+            $transaction->payment_status = 'Late';
+            $transaction->save();
+        }
+    }
+    
 }
 

@@ -42,14 +42,14 @@ let convertAmount = (amount) => {
                     :value="paymentDetail.boarding_name"
                     />
             </div>
-            <div class="w-[450px]">
+            <div class="w-[450px] my-2">
                 <FormTextBoxInputReadOnly
                         :input-type="'date'"
                         :label-name="'Month'"
                         :value="paymentDetail.payment_date"
                         />
             </div>
-            <div class="w-[450px]">
+            <div class="w-[450px] my-2">
                 <FormSelectInputPaymentType
                     v-model="form.paymentMethod"
                     :option-list="listPaymentMethod"
@@ -62,7 +62,7 @@ let convertAmount = (amount) => {
                     :error-message="form.errors.paymentMethod"
                 />
             </div>
-            <div class="w-[450px]">
+            <div class="w-[450px] my-2">
                 <FormTextBoxInputReadOnly
                         :input-type="'text'"
                         :label-name="'Amount'"
@@ -71,7 +71,7 @@ let convertAmount = (amount) => {
                    :error-message="form.errors.paymentAmount"
                 />
             </div>
-            <div class="w-[450px]">
+            <div class="w-[450px] my-2">
                 <label class="block">Upload Proof of Payment</label>
                 <input
                     type="file"
