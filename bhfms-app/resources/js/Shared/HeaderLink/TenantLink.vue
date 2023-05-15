@@ -8,7 +8,12 @@ defineProps({
 
 <template>
     <Link
-        href="/boardingTenant"
+        class="h-10 w-full text-center p-2 whitespace-nowrap z-50 bg-indigo-900 hover:opacity-75"
+        href="/"
+        >Homepage</Link
+    >
+    <Link
+        href="/boardingTenant?search=approved"
         class="h-10 w-full text-center p-2 whitespace-nowrap z-50 bg-indigo-900 hover:opacity-75"
         >My Boarding House
     </Link>
@@ -21,11 +26,6 @@ defineProps({
         href="/complain"
         class="h-10 w-full text-center p-2 whitespace-nowrap z-50 bg-indigo-900 hover:opacity-75"
         >Complain List
-    </Link>
-    <Link
-        href="/wishlist"
-        class="h-10 w-full text-center p-2 whitespace-nowrap z-50 bg-indigo-900 hover:opacity-75"
-        >Wishlist
     </Link>
     <Link
         href="/chat"
