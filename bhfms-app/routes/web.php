@@ -51,8 +51,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/complain/create', [ComplainController::class, 'createComplain'])->middleware('tenant');
     Route::get('/complain/detail', [ComplainController::class, 'getComplainDetail'])->middleware('complain.access');
 
-    Route::post('/complain/status', [ComplainController::class, 'setComplainStatus'])->middleware('owner');
-    Route::get('/complain/owner', [ComplainController::class, 'getOwnerComplainPage'])->middleware('owner');
+    Route::post('/complain/status', [ComplainController::class, 'setComplainStatus'])->middleware('owner.manager.access');
+    Route::get('/complain/owner', [ComplainController::class, 'getOwnerComplainPage'])->middleware('owner.manager.access');
     Route::get('/complain/house', [ComplainController::class, 'getSelectedBoardingHouseComplainList'])->middleware('owner.complain.access');
 
     Route::get('/review', [ReviewController::class, 'getAllReviewPage'])->middleware('tenant');
