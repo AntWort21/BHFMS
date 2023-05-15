@@ -1693,6 +1693,9 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
+.hover\:fill-purple-500:hover {
+  fill: #a855f7;
+}
 .hover\:text-\[\#9b9b9b\]:hover {
   --tw-text-opacity: 1;
   color: rgb(155 155 155 / var(--tw-text-opacity));
