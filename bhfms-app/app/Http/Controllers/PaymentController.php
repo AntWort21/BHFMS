@@ -33,6 +33,8 @@ class PaymentController extends Controller
         $transaction->payment_method_id = PaymentMethod::where('payment_method_name',$validation['paymentMethod'])->first()->id;
         $transaction->payment_status = 'Processing';
         $transaction->save();
+
+        return redirect('/paymentHistory');;
     }
 
     public function addPaymentManager(Request $request)
@@ -215,7 +217,7 @@ class PaymentController extends Controller
             ->first();
 
         if(!$paymentDetail){//No data
-            return redirect('/paymentHistory');;
+            return redirect('/paymentHistory');
         }
         return Inertia::render('Payment/PaymentPageTenant', [
             'listPaymentMethod' => PaymentMethod::where("status","available")->pluck('payment_method_name'),
@@ -257,7 +259,7 @@ class PaymentController extends Controller
     {   
         $content = json_decode($request->getContent());
         $invoiceStatus = $content->invoiceStatus;
-        $invoiceId = $content->invoiceId;
+        $invoiceId = $content->invoiceID;
         $transaction = RentTransaction::where('invoice_id',$invoiceId)->first();
         $transaction->payment_status = $invoiceStatus;
         
@@ -265,7 +267,7 @@ class PaymentController extends Controller
             $transaction->payment_date = Carbon::today()->timezone('Asia/Jakarta')->startOfDay()->addDay()->toDateString();
         }
         $transaction->save();
-
+        
     }
 
     public function updatePayment(Request $request) 
