@@ -18,7 +18,8 @@ class ReviewAccessMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $userId = TenantBoarding::where('boarding_id', $request->id)->where('user_id', Auth::user()->id)->where('tenant_status', 'checkout')->first()->user_id ?? -1;
+        $userId = TenantBoarding::where('boarding_id', $request->id ? $request->id : $request->boardingId)->where('user_id', Auth::user()->id)->where('tenant_status', 'checkout')->first()->user_id ?? -1;
+
         if ($userId == -1) {
             abort(404, 'Not Found');
         }

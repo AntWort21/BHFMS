@@ -58,7 +58,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/review', [ReviewController::class, 'getAllReviewPage'])->middleware('tenant');
     Route::get('/review/create', [ReviewController::class, 'getCreateReviewOrViewReviewPage'])->middleware('review.access');
     Route::post('/review/create', [ReviewController::class, 'createReview'])->middleware('review.access');
-    Route::post('/review/update', [ReviewController::class, 'updateReview'])->middleware('review.access');;
+    Route::post('/review/update', [ReviewController::class, 'updateReview'])->middleware('review.access');
 
     Route::get('/chat', [ChatController::class, 'getChatPage']);
     Route::post('/chat', [ChatController::class, 'storeChatMessage']);
