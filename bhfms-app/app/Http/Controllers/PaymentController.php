@@ -39,7 +39,7 @@ class PaymentController extends Controller
 
     public function addPaymentManager(Request $request)
     {
-        $custom_messages = [
+        $customMessage = [
             'tenantEmail.required' => 'Please select tenant',
         ];
         
@@ -49,7 +49,7 @@ class PaymentController extends Controller
             'tenantEmail' => ['required'],
             'paymentRepeat' => ['required'],
             'transactionType' => ['required']
-        ], $custom_messages);
+        ], $customMessage);
         RentTransaction::create([
             'tenant_boarding_id'=>$this->getTenantIdByEmail($validation['tenantEmail'])->id,
             'transaction_type_id' => TransactionType::select('id')->where('transaction_type_name',$validation['transactionType'])->first()->id,
@@ -58,6 +58,11 @@ class PaymentController extends Controller
             'payment_date' => $validation['paymentDate'],
             'repeat_payment'=> $validation['paymentRepeat'] == 'true' ?  true: false,
         ]);   
+        
+        if(Auth::user()->user_role_id == 3) {
+            return redirect('/boardingOwner'); 
+        }
+        return redirect('/boardingManager');
 
     }
 
