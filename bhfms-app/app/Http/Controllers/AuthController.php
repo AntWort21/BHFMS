@@ -30,8 +30,15 @@ class AuthController extends Controller
             'password' => ['required', 'alpha_num', 'min:6'],
             'confirmPassword' => ['required', 'same:password'],
             'phoneNumber' => ['required'],
-            'userRole' => ['required', 'in:Manager,Owner,Tenant']
+            'userRole' => ['required', 'in:Manager,Owner,Tenant'],
         ]);
+
+        if($validation['userRole'] == 'Owner') {
+            $ownerBankDetails = $request->validate([
+                'bankName' => ['required'],
+                'accountNumber' => ['required', 'numeric', 'min:10']
+            ]);
+        }
 
         User::create([
             'user_name' => $validation['firstName'] . " " . $validation['lastName'],
@@ -42,7 +49,9 @@ class AuthController extends Controller
             'user_role_id' => isset($validation['userRoleId']) ? $validation['userRoleId'] : 2,
             'profile_picture' => $validation['profilePicture'] ?? null,
             'password' => bcrypt($validation['password']),
-            'user_role_id' => UserRole::where('user_role_name', $validation['userRole'])->first()->id
+            'user_role_id' => UserRole::where('user_role_name', $validation['userRole'])->first()->id,
+            'bank_name' => $validation['userRole'] == 'Owner' ? $ownerBankDetails['bankName'] : null,
+            'account_number' => $validation['userRole'] == 'Owner' ? $ownerBankDetails['bankName'] : null,
         ]);
 
         return redirect('/login');

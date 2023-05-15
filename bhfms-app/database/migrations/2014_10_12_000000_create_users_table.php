@@ -25,6 +25,8 @@ class CreateUsersTable extends Migration
             $table->integer('user_role_id');
             $table->string('profile_picture')->nullable();
             $table->string('password');
+            $table->string('bank_name')->nullable();
+            $table->string('account_number')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
