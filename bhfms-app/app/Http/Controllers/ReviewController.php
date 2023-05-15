@@ -31,7 +31,7 @@ class ReviewController extends Controller
     {
         $validation = $request->validate([
             'boardingId' => ['required'],
-            'rating' => ['required'],
+            'rating' => ['required', 'numeric', 'min:1'],
             'description' => ['required']
         ]);
 
@@ -42,14 +42,14 @@ class ReviewController extends Controller
             'review_desc' => $request->description,
         ]);
 
-        return redirect('/');
+        return redirect('/boardingTenant')->with('message', 'Success creating review');
     }
 
     public function updateReview(Request $request)
     {
         $validation = $request->validate([
             'boardingId' => ['required'],
-            'rating' => ['required'],
+            'rating' => ['required', 'numeric', 'min:1'],
             'description' => ['required']
         ]);
 
@@ -58,6 +58,6 @@ class ReviewController extends Controller
             'review_desc' => $request->description,
         ]);
 
-        return redirect('/');
+        return redirect('/boardingTenant')->with('message', 'Success updating review');
     }
 }

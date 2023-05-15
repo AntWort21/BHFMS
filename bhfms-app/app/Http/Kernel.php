@@ -57,6 +57,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'auth.check' => \App\Http\Middleware\AuthCheckMiddleware::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
@@ -69,6 +70,7 @@ class Kernel extends HttpKernel
         'owner' => \App\Http\Middleware\OwnerRoleMiddleware::class,
         'manager' => \App\Http\Middleware\ManagerRoleMiddleware::class,
         'complain.access' => \App\Http\Middleware\ComplainAccessMiddleware::class,
+        'review.access' => \App\Http\Middleware\ReviewAccessMiddleware::class,
         'owner.complain.access' => \App\Http\Middleware\OwnerComplainAccessMiddleware::class,
         'boarding.read.access' => \App\Http\Middleware\BoardingAccessReadMiddleware::class,
         'boarding.approve.access' => \App\Http\Middleware\BoardingAccessApproveMiddleware::class,

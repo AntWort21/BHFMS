@@ -28,11 +28,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', [AuthController::class, 'getLoginPage'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
+Route::get('/login', [AuthController::class, 'getLoginPage'])->name('login')->middleware('auth.check');
+Route::post('/login', [AuthController::class, 'login'])->middleware('auth.check');
 
-Route::get('/register', [AuthController::class, 'getRegisterPage'])->name('register');
-Route::post('/register', [AuthController::class, 'register']);
+Route::get('/register', [AuthController::class, 'getRegisterPage'])->name('register')->middleware('auth.check');
+Route::post('/register', [AuthController::class, 'register'])->middleware('auth.check');
 
 Route::get('/', [BoardingController::class, 'getMainPage']);
 
@@ -88,7 +88,7 @@ Route::middleware('auth')->group(function () {
 
     Route::put('/boarding/image/delete/{id}', [BoardingImageController::class, 'deleteImage'])->middleware('owner');
 
-    
+
     Route::get('/boardingManager', [BoardingController::class, 'indexManager'])->middleware('manager');
     Route::get('/tenantBoarding', [TenantController::class, 'getAllTenantBoarding'])->middleware('owner.manager.access'); //manager & Owner
     Route::get('/tenantBoarding/read/{id}', [TenantController::class, 'getDetailTenantBoarding'])->middleware('tenant.read.access');
