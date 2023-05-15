@@ -83,7 +83,7 @@ class ComplainController extends Controller
     public function getOwnerComplainPage()
     {
         if (Auth::user()->user_role_id == 4) {
-            $boardingHouseIDs = OwnerBoarding::where('boarding_id', ManagerBoarding::where('user_id', Auth::user()->id)->first()->boarding_id)->where('owner_status', 'approved')->get()->pluck('boarding_id');
+            $boardingHouseIDs = OwnerBoarding::where('boarding_id', ManagerBoarding::where('user_id', Auth::user()->id)->first()->boarding_id ?? -1)->where('owner_status', 'approved')->get()->pluck('boarding_id') ?? -1;
         } else if (Auth::user()->user_role_id == 3) {
             $boardingHouseIDs= OwnerBoarding::where('user_id', Auth::user()->id)->where('owner_status', 'approved')->get()->pluck('boarding_id');
         }
