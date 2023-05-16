@@ -27,6 +27,7 @@ const convertDateFormat = ($date) => {
 };
 
 let form = useForm({
+    boardingHouseName: ref(props.boardingHouseName),
     paymentDate: ref(props.transaction != null ? convertDateFormat(props.transaction.payment_date) : ''),
     paymentAmount: ref(props.transaction != null ? props.transaction.amount : 0),
     transactionType: ref(props.transaction != null ? props.transactionTypes[props.transaction.transaction_type_id] : ''),
@@ -59,7 +60,7 @@ const minToday = today.toISOString().split('T')[0];
                 v-model="form.boardingHouseName"
                     :input-type="'text'"
                     :label-name="'Boarding House Name'"
-                    :value="boardingHouseName.boarding_name"/>
+                    :value="boardingHouseName"/>
             </div>
             <div>
                 <FormSelectInputTransactionType

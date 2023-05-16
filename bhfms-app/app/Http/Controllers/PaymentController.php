@@ -69,8 +69,8 @@ class PaymentController extends Controller
     public function getPaymentPageManager()
     {
         return Inertia::render('Payment/PaymentPageManager', [
-            'listTenants' => $this->getAllTenants($_GET['id']),
-            'boardingHouseName' => $this->getBoardingHouseName($_GET['id']),
+            'listTenants' => $this->getAllTenants($_GET['boarding']),
+            'boardingHouseName' => $this->getBoardingHouseName($_GET['boarding']),
             'transactionTypes' => $this->getTransactionTypeName(),
         ]);
     }
@@ -90,9 +90,7 @@ class PaymentController extends Controller
 
     private function getBoardingHouseName(int $boardingId)
     {
-        return Boarding::select('boarding_name')
-        ->where('id',$boardingId)
-        ->first();
+        return Boarding::find($boardingId)->boarding_name;
     }
 
     private function getTransactionTypeName()
@@ -189,10 +187,10 @@ class PaymentController extends Controller
 
     public function getInvoiceDetail(Request $request)
     {
-        $invoice_id = json_decode($request->getContent())->invoice_id;
+        $invoiceId = json_decode($request->getContent())->invoice_id;
         
         $transactionDetail = RentTransaction::join('transaction_types','transaction_type_id','=','transaction_types.id')
-        ->where("invoice_id",$invoice_id)
+        ->where("invoice_id",$invoiceId)
         ->first();
         $tenant_boarding = TenantBoarding::where('id',$transactionDetail->tenant_boarding_id)->first();
         $username = User::where('id',$tenant_boarding->user_id)->value('user_name');
