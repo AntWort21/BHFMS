@@ -35,6 +35,10 @@ let submit = () => {
 let submitUpdate = () => {
     form.post("/review/update");
 };
+
+let redirectBack = () => {
+    window.history.back();
+}
 </script>
 
 <template>
@@ -44,9 +48,19 @@ let submitUpdate = () => {
             @submit.prevent="props.review == null ? submit() : submitUpdate()"
             class="border border-slate-200 space-y-2 px-4 py-6"
         >
-            <div class="semibold text-2xl text-indigo-700">
-                <div v-if="props.review == null">CREATE REVIEW</div>
-                <div v-else>VIEW REVIEW</div>
+            <div>
+                <div class="semibold text-2xl text-indigo-700 flex justify-between items-center">
+                    <div v-if="props.review == null">CREATE REVIEW</div>
+                    <div v-else>VIEW REVIEW</div>
+                    <div>
+                        <button
+                            @click="redirectBack()"
+                            class="text-sm bg-red-600 text-white hover:bg-red-800 p-2 flex justify-center items-center"
+                        >
+                            Back
+                        </button>
+                    </div>
+                </div>
             </div>
             <div class="space-y-2">
                 <div>
@@ -72,8 +86,8 @@ let submitUpdate = () => {
                             </svg>
                         </div>
                         {{ rating }}/5
-                        <FormErrorMessage :error-message="form.errors.rating" />
                     </div>
+                    <FormErrorMessage :error-message="form.errors.rating" />
                 </div>
                 <div>
                     <label class="block text-xl font-semibold"
