@@ -23,7 +23,7 @@ let submit = () => {
 
 <template>
     <Header />
-    <section class="w-full max-h-screen h-[88vh] flex justify-center bg-cover" style="background-image: url('../storage/sofa.png')">
+    <section class="w-full min-h-[88vh] flex justify-center bg-cover" style="background-image: url('../storage/sofa.png')">
         <div
             class="flex my-5 ml-10 mr-5 bg-white w-1/6 h-2/5 justify-center items-center"
         >
@@ -34,7 +34,7 @@ let submit = () => {
                 Profile Account
             </div>
             <form @submit.prevent="submit" enctype="multipart/form-data">
-                <div class="flex flex-col grow mx-4 space-y-2">
+                <div class="flex flex-col grow m-4 space-y-2">
                     <FormTextBoxInput
                         v-model="form.name"
                         :input-type="'text'"
