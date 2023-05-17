@@ -34,23 +34,22 @@ class ReadSpecificPaymentMiddleware
         $tenantBoarding = TenantBoarding::find($transaction->tenant_boarding_id);
         
         if(Auth::user()->user_role_id == 2 && 
-        Auth::user()->id != $tenantBoarding->user_id){ //Case for tenant
-            abort(404, 'Not Found');
+        Auth::user()->id == $tenantBoarding->user_id){ //Case for tenant
+            return $next($request);
         }
 
         if(Auth::user()->user_role_id == 3 && OwnerBoarding::where('boarding_id',$tenantBoarding->boarding_id)
         ->where('user_id',Auth::user()->id)
-        ->first() == null) { //Case for Owner
-            abort(404, 'Not Found');
+        ->first() != null) { //Case for Owner
+            return $next($request);
         }
 
         if(Auth::user()->user_role_id == 4 && ManagerBoarding::where('boarding_id',$tenantBoarding->boarding_id)
         ->where('user_id',Auth::user()->id)
-        ->first() == null) { //Case for Manager
-            abort(404, 'Not Found');
+        ->first() != null) { //Case for Manager
+            return $next($request);
         }
-
-
-        return $next($request);
+        
+        abort(404, 'Not Found');
     }
 }

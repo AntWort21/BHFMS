@@ -19,6 +19,10 @@ class ReadPaymentMiddleware
      */
     public function handle(Request $request, Closure $next)
     {   
+       
+        if(!isset($_GET['boarding'])) {
+            return $next($request);
+        }
         $boardingId = $_GET['boarding'];
         if($boardingId!=null){
             if(Auth::user()->user_role_id == 3 && OwnerBoarding::where('boarding_id',$boardingId)

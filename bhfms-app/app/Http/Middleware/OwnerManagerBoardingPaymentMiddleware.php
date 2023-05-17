@@ -21,25 +21,28 @@ class OwnerManagerBoardingPaymentMiddleware
     public function handle(Request $request, Closure $next)
     {
         try {
-            $boardingId = $_GET['boarding'];
-            if (Auth::user()->user_role_id == 3 && OwnerBoarding::where('boarding_id',$boardingId)
-            ->where('user_id',Auth::user()->id)
-            ->where('owner_status','approved')->first() == null) { //case if owner
-                abort(404, 'Not Found');
-            }
-    
-            if(Auth::user()->user_role_id == 4 && 
-            (ManagerBoarding::where('boarding_id',$boardingId)
-            ->where('user_id',Auth::user()->id) == null || 
-            OwnerBoarding::where('boarding_id',$_GET['boarding'])
-            ->value('owner_status') != 'approved')) { //case if manager
-                abort(404, 'Not Found');
+            if(isset($_GET['boarding'])) {
+             
+                $boardingId = $_GET['boarding'];
+                if (Auth::user()->user_role_id == 3 && OwnerBoarding::where('boarding_id',$boardingId)
+                ->where('user_id',Auth::user()->id)
+                ->where('owner_status','approved')->first() != null) { //case if owner
+                    return $next($request);
+                }
+        
+                if(Auth::user()->user_role_id == 4 && 
+                (ManagerBoarding::where('boarding_id',$boardingId)
+                ->where('user_id',Auth::user()->id)->first() != null || 
+                OwnerBoarding::where('boarding_id',$_GET['boarding'])
+                ->value('owner_status') == 'approved')) { //case if manager
+                    return $next($request);
+                }
             }
 
         } catch (Throwable $e) {
             abort(500, 'Error Occurred');
         }
-
-        return $next($request);
+        abort(404, 'Not Found');
+        
     }
 }
