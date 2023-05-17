@@ -3,8 +3,8 @@ import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
 import Carousel from "../../Shared/Carousel/Carousel.vue";
 import FormTextBoxInput from "../../Shared/AccountFormInput/FormTextBoxInput.vue";
-import { useForm } from "@inertiajs/inertia-vue3";
-import { computed, ref, onMounted } from "vue";
+import { Link, useForm } from "@inertiajs/inertia-vue3";
+import { ref} from "vue";
 import { Inertia } from "@inertiajs/inertia";
 
 let props = defineProps({
@@ -134,8 +134,11 @@ let removeFromWishlist = () => {
                 <div class="flex justify-between">
                     <div class="w-2/3">
                         <div class="font-semibold">Facilities</div>
-                        <div v-for="facility in props.facilityList">
-                            {{ facility }}
+                        <div v-for="facility in props.facilityList" class="flex items-center space-x-2">
+                            <img :src="facility.facility_img_path" class="w-5 h-5" alt="">
+                            <p>
+                                {{ facility.facility_detail_name }}
+                            </p>
                         </div>
                     </div>
                     <form

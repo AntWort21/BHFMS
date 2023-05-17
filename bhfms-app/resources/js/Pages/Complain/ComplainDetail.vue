@@ -14,18 +14,31 @@ let setStatus = (id, status) => {
         status: status,
     });
 };
+
+let redirectBack = () => {
+    window.history.back();
+}
 </script>
 
 <template>
     <Header />
     <section class="min-h-[75vh] p-10">
         <div class="border border-slate-200 space-y-2 px-4 py-6">
-            <div class="semibold text-2xl text-indigo-700">Complain Detail</div>
+            <div class="flex justify-between items-center">
+                <div class="semibold text-2xl text-indigo-700">
+                    Complain Detail
+                </div>
+                <div>
+                    <button @click="redirectBack()" class=" bg-red-600 text-white hover:bg-red-800 p-2 flex justify-center items-center">
+                        Back
+                    </button>
+                </div>
+            </div>
             <div>
                 <label class="block font-semibold">Status</label>
                 <div
                     v-if="$page.props.user.role_id == 2"
-                    class="w-[6rem] h-full flex justify-center text-center rounded-md"
+                    class="w-[6rem] h-full flex justify-center text-center rounded-md whitespace-nowrap"
                     :class="{
                         'text-white bg-slate-500':
                             complain.complain_status == 'pending',
@@ -42,11 +55,11 @@ let setStatus = (id, status) => {
                         $page.props.user.role_id == 3 ||
                         $page.props.user.role_id == 4
                     "
-                    class="w-1/6 flex justify-between"
+                    class="w-1/6 flex justify-between space-x-2"
                 >
                     <button
                         v-if="complain.complain_status != 'finished'"
-                        class="w-[6rem] text-white rounded-md"
+                        class="w-[6rem] text-white rounded-md whitespace-nowrap"
                         :class="{
                             'bg-slate-700 hover:cursor-not-allowed':
                                 complain.complain_status == 'pending',
@@ -60,7 +73,7 @@ let setStatus = (id, status) => {
                     </button>
                     <button
                         v-if="complain.complain_status != 'finished'"
-                        class="w-[6rem] text-black rounded-md"
+                        class="w-[6rem] text-black rounded-md whitespace-nowrap"
                         :class="{
                             'bg-yellow-700 hover:cursor-not-allowed':
                                 complain.complain_status == 'on progress',
@@ -73,7 +86,7 @@ let setStatus = (id, status) => {
                         On Progress
                     </button>
                     <button
-                        class="w-[6rem] text-black rounded-md "
+                        class="w-[6rem] text-black rounded-md whitespace-nowrap"
                         :class="{
                             'bg-green-500 hover:cursor-not-allowed disabled':
                                 complain.complain_status == 'finished',

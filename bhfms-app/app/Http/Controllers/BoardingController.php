@@ -346,7 +346,7 @@ class BoardingController extends Controller
         $ownerId = OwnerBoarding::where('boarding_id', $request->id)->first()->user_id;
         $owner = User::where('id', $ownerId)->first();
 
-        $boardingIdManagedBySameOwner = OwnerBoarding::where('user_id', $ownerId)->where('boarding_id', '!=', $request->id)->get()->pluck('boarding_id');
+        $boardingIdManagedBySameOwner = OwnerBoarding::where('user_id', $ownerId)->where('boarding_id', '!=', $request->id)->take(4)->pluck('boarding_id');
         if($boardingIdManagedBySameOwner) {
             $boardingListManagedBySameOwner = Boarding::whereIn('id', $boardingIdManagedBySameOwner)->get();
             foreach ($boardingListManagedBySameOwner as $key => $boardingHouse) {
@@ -356,7 +356,9 @@ class BoardingController extends Controller
 
         $facilityList = Facility::where('boarding_id', $request->id)->get();
         foreach ($facilityList as $key => $facility) {
-            $facilityList[$key]->facility_detail_name = FacilityDetail::where('id', $facility->facility_id)->first()->facility_detail_name;
+            $facilityDetail = FacilityDetail::where('id', $facility->facility_id)->first();
+            $facilityList[$key]->facility_detail_name = $facilityDetail->facility_detail_name;
+            $facilityList[$key]->facility_img_path = $facilityDetail->facility_img_path;
         }
         
         $currVacancy = $selectedBoardingHouseDetail->rooms - (TenantBoarding::where([['boarding_id', $request->id], ['tenant_status', 'approved']])->count());
@@ -381,7 +383,7 @@ class BoardingController extends Controller
             'images' => $boardingHouseImages,
             'ownerName' => $owner->user_name,
             'ownerPicture' => $owner->profile_picture,
-            'facilityList' => $facilityList->pluck('facility_detail_name'),
+            'facilityList' => $facilityList,
             'currVacancy' => $currVacancy,
             'isAvailable' => $isAvailable,
             'reviews' => $reviews,
@@ -851,7 +853,7 @@ class BoardingController extends Controller
         return redirect('/boardingOwner')->with('message', 'Success Enabling Boarding House');
     }
 
-    
+
 
 
 }
