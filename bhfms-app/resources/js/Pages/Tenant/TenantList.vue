@@ -25,6 +25,18 @@ watch(search, (value) => {
         }
     );
 });
+
+let searchQuery = ref("");
+
+watch(searchQuery, (value) => {
+    Inertia.get(
+        "/tenantBoarding",
+        { searchQuery: value },
+        {
+            preserveState: true,
+        }
+    );
+});
 </script>
 
 <template>
@@ -55,6 +67,18 @@ watch(search, (value) => {
                 </div>
 
                 <div class="flow-root">
+                    <div class="mt-2 float-left">
+                        <div
+                            class="relative flex w-full flex-wrap items-stretch"
+                        >
+                            <input
+                                type="text"
+                                class="rounded border block bg-white border-gray-400 text-gray-700 py-2 px-4"
+                                v-model="searchQuery"
+                                placeholder="Search..."
+                            />
+                        </div>
+                    </div>
                     <div class="mt-2 float-right">
                         <select
                             class="rounded border block bg-white border-gray-400 text-gray-700 py-2 px-4"

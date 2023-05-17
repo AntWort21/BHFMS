@@ -25,6 +25,18 @@ watch(search, (value) => {
         }
     );
 });
+
+let searchQuery = ref("");
+
+watch(searchQuery, (value) => {
+    Inertia.get(
+        "/boardingTenant",
+        { searchQuery: value },
+        {
+            preserveState: true,
+        }
+    );
+});
 </script>
 
 <template>
@@ -52,6 +64,18 @@ watch(search, (value) => {
                 </div>
 
                 <div class="flow-root">
+                    <div class="mt-2 float-left">
+                        <div
+                            class="relative flex w-full flex-wrap items-stretch"
+                        >
+                            <input
+                                type="text"
+                                class="rounded border block bg-white border-gray-400 text-gray-700 py-2 px-4"
+                                v-model="searchQuery"
+                                placeholder="Search..."
+                            />
+                        </div>
+                    </div>
                     <div class="mt-2 float-right">
                         <select
                             class="rounded border block bg-white border-gray-400 text-gray-700 py-2 px-4"
@@ -113,9 +137,9 @@ watch(search, (value) => {
                                 <!-- Icon List -->
                                 <td
                                     class="py-3 px-6 text-center"
-                                    v-if="boarding.end_date"
+                                    v-if="boarding.endDate"
                                 >
-                                    {{ boarding.end_date }}
+                                    {{ boarding.endDate }}
                                 </td>
                                 <td class="py-3 px-6 text-center" v-else>
                                     Not yet Filled
@@ -125,7 +149,7 @@ watch(search, (value) => {
                                     :currentID="boarding.boarding_id"
                                     :tenantID="boarding.tenant_id"
                                     :boarding="boarding"
-                                    :endDate="boarding.end_date"
+                                    :endDate="boarding.endDate"
                                 />
                             </tr>
                         </tbody>

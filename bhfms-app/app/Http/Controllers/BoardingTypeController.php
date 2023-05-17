@@ -7,8 +7,14 @@ use Illuminate\Http\Request;
 
 class BoardingTypeController extends Controller
 {
-    public function getAllBoardingTypePage(){
-        $boardingTypes = BoardingType::paginate(5)->withQueryString();
+    public function getAllBoardingTypePage(Request $request){
+        $boardingTypes = BoardingType::when($request->searchQuery, function ($query, $searchQuery) {
+            if ($searchQuery == '') {
+                $query;
+            } else {
+                $query->where('boarding_type_name', 'like', '%'. $searchQuery . '%');
+            }
+        })->paginate(5)->withQueryString();
         return inertia('BoardingType/ListBoardingType', [
             'boardingTypes' => $boardingTypes
         ]);

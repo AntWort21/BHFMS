@@ -9,8 +9,14 @@ use Illuminate\Support\Facades\Storage;
 
 class FacilityController extends Controller
 {
-    public function getAllFacilityPage(){
-        $facilities = FacilityDetail::paginate(5)->withQueryString();;
+    public function getAllFacilityPage(Request $request){
+        $facilities = FacilityDetail::when($request->searchQuery, function ($query, $searchQuery) {
+            if ($searchQuery == '') {
+                $query;
+            } else {
+                $query->where('facility_detail_name', 'like', '%'. $searchQuery . '%');
+            }
+        })->paginate(5)->withQueryString();;
         return inertia('Facility/ListFacility', [
             'facilities' => $facilities
         ]);
@@ -64,7 +70,6 @@ class FacilityController extends Controller
 
     public function FacilityUpdate(Request $request){
 
-        // dd($request->id);
         $custom_messages = [
             'images.max' => 'Maximum number of image is 1 !',
         ];

@@ -50,8 +50,16 @@ class UserController extends Controller
         return redirect('/profile');
     }
 
-    public function getAllUserPage(){
-        $users = User::paginate(5)->withQueryString();;
+    public function getAllUserPage(Request $request){
+        $users = User::when($request->searchQuery, function ($query, $searchQuery) {
+            if ($searchQuery == '') {
+                $query;
+            } else {
+                $query->where('user_name', 'like', '%'. $searchQuery . '%')
+                ->orWhere('user_status', 'like', '%'. $searchQuery . '%')
+                ->orWhere('email', 'like', '%'. $searchQuery . '%');
+            }
+        })->paginate(5)->withQueryString();
 
         return inertia('User/ListUser', [
             'users' => $users
@@ -62,7 +70,7 @@ class UserController extends Controller
         $currUser = User::find($request->id);
         $currRole = $currUser->role()->first()->user_role_name;
         return inertia('User/ReadUser', [
-            'user' => $currUser,
+            'currUser' => $currUser,
             'currRole'=>$currRole,
         ]);
     }
@@ -73,7 +81,7 @@ class UserController extends Controller
         $allRole = UserRole::get();
         $currDOB = Carbon::parse($currUser->date_of_birth)->format('Y-m-d');
         return inertia('User/UpdateUser', [
-            'user' => $currUser,
+            'currUser' => $currUser,
             'all_role'=>$allRole,
             'currRole'=>$currRole,
             'currDOB'=>$currDOB,

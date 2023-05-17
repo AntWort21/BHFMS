@@ -8,7 +8,7 @@ import VueMultiselect from "vue-multiselect";
 import Multiselect from "vue-multiselect";
 
 const prop = defineProps({
-    user: Object,
+    currUser: Object,
     all_role: Object,
     currRole: Object,
     currDOB: Object,
@@ -18,9 +18,9 @@ const prop = defineProps({
 const gender_options = ["male", "female"];
 const status_options = ["active", "banned"];
 
-const selectedGender = ref(prop.user.gender);
-const selectedStatus = ref(prop.user.user_status);
-const selectedRole = ref(prop.user.user_role_id);
+const selectedGender = ref(prop.currUser.gender);
+const selectedStatus = ref(prop.currUser.user_status);
+const selectedRole = ref(prop.currUser.user_role_id);
 
 const images = ref([]);
 const previewImage = ref([]);
@@ -47,18 +47,18 @@ const deleteFileUploaded = (idx) => {
 };
 
 const form = useForm({
-    name: prop.user.user_name,
+    name: prop.currUser.user_name,
     gender: selectedGender,
     status: selectedStatus,
     user_role: selectedRole,
-    email: prop.user.email,
+    email: prop.currUser.email,
     dob: prop.currDOB,
-    phone: String(prop.user.phone),
+    phone: String(prop.currUser.phone),
     images: images,
 });
 
 const submit = () => {
-    form.post(`/user/update/${prop.user.id}`, {
+    form.post(`/user/update/${prop.currUser.id}`, {
         preserveScroll: true,
         preserveState: true,
     });
@@ -195,7 +195,7 @@ const submit = () => {
                         <div class="items-center">
                             <img
                                 class="w-40 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                :src="prop.user.profile_picture"
+                                :src="prop.currUser.profile_picture"
                             />
                         </div>
                     </div>

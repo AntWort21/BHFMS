@@ -4,11 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class PaymentMethodController extends Controller
 {
-    public function getAllPaymentMethodPage(){
-        $paymentMethods = PaymentMethod::paginate(5)->withQueryString();
+    public function getAllPaymentMethodPage(Request $request){
+        $paymentMethods = PaymentMethod::when($request->searchQuery, function ($query, $searchQuery) {
+            if ($searchQuery == '') {
+                $query;
+            } else {
+                $query->where('payment_method_name', 'like', '%'. $searchQuery . '%')
+                ->orWhere('status', 'like', '%'. $searchQuery . '%');
+            }
+        })->paginate(5)->withQueryString();
         return inertia('PaymentMethod/ListPaymentMethod', [
             'paymentMethods' => $paymentMethods
         ]);

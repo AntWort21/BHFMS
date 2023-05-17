@@ -31,6 +31,14 @@ class TenantController extends Controller
                     } else {
                         $query->where('tenant_status', '=', $search);
                     }
+                })->when($request->searchQuery, function ($query, $searchQuery) {
+                    if ($searchQuery == '') {
+                        $query;
+                    } else {
+                        $query->where('boarding_name', 'like', '%'. $searchQuery . '%')
+                        ->orWhere('owner_status', 'like', '%'. $searchQuery . '%')
+                        ->orWhere('user_name', 'like', '%'. $searchQuery . '%');
+                    }
                 })->paginate(5)->withQueryString();
             
             $all_boarding_count = TenantBoarding::join('boardings', 'boardings.id', "=", 'tenant_boardings.boarding_id')
@@ -52,6 +60,14 @@ class TenantController extends Controller
                         $query;
                     } else {
                         $query->where('tenant_status', '=', $search);
+                    }
+                })->when($request->searchQuery, function ($query, $searchQuery) {
+                    if ($searchQuery == '') {
+                        $query;
+                    } else {
+                        $query->where('boarding_name', 'like', '%'. $searchQuery . '%')
+                        ->orWhere('owner_status', 'like', '%'. $searchQuery . '%')
+                        ->orWhere('user_name', 'like', '%'. $searchQuery . '%');
                     }
                 })->paginate(5)->withQueryString();
             

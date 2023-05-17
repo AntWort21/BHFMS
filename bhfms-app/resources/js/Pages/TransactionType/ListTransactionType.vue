@@ -1,7 +1,7 @@
 <script setup>
 import { Inertia } from "@inertiajs/inertia";
 import { Link } from "@inertiajs/inertia-vue3";
-import { ref, reactive } from "vue";
+import { ref, reactive, watch } from "vue";
 import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
 import Pagination from "../../Shared/Pagination.vue";
@@ -25,6 +25,18 @@ let enableDisablePopup = (id, name) => {
 const deletetransactionType = (idx) => {
     Inertia.post(`/transactionType/delete/${idx}`);
 };
+
+let searchQuery = ref("");
+
+watch(searchQuery, (value) => {
+    Inertia.get(
+        "/transactionTypeAll",
+        { searchQuery: value },
+        {
+            preserveState: true,
+        }
+    );
+});
 </script>
 
 <template>
@@ -50,8 +62,20 @@ const deletetransactionType = (idx) => {
                     </svg>
                     <p>{{ $page.props.flash.message }}</p>
                 </div>
-                <div class="flex">
+                <div class="flow-root">
                     <div class="mt-2 float-left">
+                        <div
+                            class="relative flex w-full flex-wrap items-stretch"
+                        >
+                            <input
+                                type="text"
+                                class="rounded border block bg-white border-gray-400 text-gray-700 py-2 px-4"
+                                v-model="searchQuery"
+                                placeholder="Search..."
+                            />
+                        </div>
+                    </div>
+                    <div class="mt-2 float-right">
                         <a href="/transactionType/create">
                             <div
                                 class="rounded border block bg-white border-gray-400 text-gray-700 py-2 px-4 flex"

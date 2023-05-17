@@ -2,7 +2,9 @@
 import { Link } from "@inertiajs/inertia-vue3";
 
 defineProps({
-    hover_admin: Boolean,
+    hoverAdmin1: Boolean,
+    hoverAdmin2: Boolean,
+    hoverAdmin3: Boolean,
 });
 </script>
 
@@ -13,52 +15,103 @@ defineProps({
         >Homepage</Link
     >
     <div
-        @mouseover="hover_admin = true"
-        @mouseleave="hover_admin = false"
-        class="px-16 h-10 w-full items-center text-center border-solid border-white z-50"
+        @mouseover="hoverAdmin1 = true"
+        @mouseleave="hoverAdmin1 = false"
+        class="h-10 w-full items-center text-center border-solid border-white z-50"
     >
-        <div v-if="hover_admin == false" class="p-2 px-16 whitespace-nowrap">
-            Management
+        <div v-if="hoverAdmin1 == false" class="p-2 whitespace-nowrap">
+            Boarding Management
         </div>
         <div
-            v-if="hover_admin == true"
-            class="whitespace-nowrap py-2 bg-indigo-900 z-50 px-16"
+            v-if="hoverAdmin1 == true"
+            class="whitespace-nowrap p-2 bg-indigo-900 z-50"
         >
-            Management
+            Boarding Management
         </div>
         <div
             class="bg-indigo-900 whitespace-nowrap z-50"
-            v-if="hover_admin == true"
+            v-if="hoverAdmin1 == true"
         >
             <ul>
                 <li class="z-50 py-2 bg-indigo-900 hover:opacity-75">
-                    <Link href="/boardingAdmin">Boarding Management</Link>
+                    <Link href="/boardingAdmin">All Boarding</Link>
                 </li>
                 <li class="z-50 py-2 bg-indigo-900 hover:opacity-75">
-                    <Link href="/facilityAll">Facility Management</Link>
+                    <Link href="/boardingAdmin?search=pending"
+                        >Pending Boarding
+                    </Link>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div
+        @mouseover="hoverAdmin2 = true"
+        @mouseleave="hoverAdmin2 = false"
+        class="h-10 w-full items-center text-center border-solid border-white z-50"
+    >
+        <div v-if="hoverAdmin2 == false" class="p-2 whitespace-nowrap">
+            Other Management
+        </div>
+        <div
+            v-if="hoverAdmin2 == true"
+            class="whitespace-nowrap p-2 bg-indigo-900 z-50"
+        >
+            Other Management
+        </div>
+        <div
+            class="bg-indigo-900 whitespace-nowrap z-50"
+            v-if="hoverAdmin2 == true"
+        >
+            <ul>
+                <li class="z-50 py-2 bg-indigo-900 hover:opacity-75">
+                    <Link href="/facilityAll">All Facility </Link>
                 </li>
                 <li class="z-50 py-2 bg-indigo-900 hover:opacity-75">
-                    <Link href="/userAll">User Management</Link>
+                    <Link href="/userAll">All User </Link>
                 </li>
                 <li class="z-50 py-2 bg-indigo-900 hover:opacity-75">
-                    <Link href="/boardingTypeAll"
-                        >Boarding Type Management</Link
-                    >
+                    <Link href="/boardingTypeAll">All Boarding Type </Link>
                 </li>
                 <li class="z-50 py-2 bg-indigo-900 hover:opacity-75">
-                    <Link href="/complainTypeAll"
-                        >Complain Type Management</Link
-                    >
+                    <Link href="/complainTypeAll">All Complain Type </Link>
                 </li>
                 <li class="z-50 py-2 bg-indigo-900 hover:opacity-75">
                     <Link href="/transactionTypeAll"
-                        >Transaction Type Management</Link
-                    >
+                        >All Transaction Type
+                    </Link>
                 </li>
                 <li class="z-50 py-2 bg-indigo-900 hover:opacity-75">
-                    <Link href="/paymentMethodAll"
-                        >Payment Method Management</Link
-                    >
+                    <Link href="/paymentMethodAll">All Payment Method </Link>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div
+        @mouseover="hoverAdmin3 = true"
+        @mouseleave="hoverAdmin3 = false"
+        class="h-10 w-full items-center text-center border-solid border-white z-50"
+    >
+        <div v-if="hoverAdmin3 == false" class="p-2 whitespace-nowrap">
+            Payment & Invoice
+        </div>
+        <div
+            v-if="hoverAdmin3 == true"
+            class="whitespace-nowrap p-2 bg-indigo-900 z-50"
+        >
+            Payment & Invoice
+        </div>
+        <div
+            class="bg-indigo-900 whitespace-nowrap z-50"
+            v-if="hoverAdmin3 == true"
+        >
+            <ul>
+                <li class="z-50 py-2 bg-indigo-900 hover:opacity-75">
+                    <Link href="#">Payments </Link>
+                </li>
+                <li class="z-50 py-2 bg-indigo-900 hover:opacity-75">
+                    <Link href="#">Invoice </Link>
                 </li>
             </ul>
         </div>

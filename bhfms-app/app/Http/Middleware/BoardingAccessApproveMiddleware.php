@@ -18,7 +18,7 @@ class BoardingAccessApproveMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        //Approve, decline, reapprove, update, banned
+        //Approve, decline, update, banned
         //Admin
         if (Auth::user()->user_role_id == 1) {
             return $next($request);

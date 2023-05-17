@@ -15,6 +15,8 @@ const props = defineProps({
     currManager: Object,
     currImages: Object,
     currType: Object,
+    currVacancy: String,
+    currOwner: Object,
     images: Array,
 });
 
@@ -86,6 +88,32 @@ let form = useForm({
                     <h1 class="text-blue-600 font-bold text-2xl mb-8">
                         Boarding House Details
                     </h1>
+                    <div
+                        v-if="
+                            $page.props.user.role_id == 3 ||
+                            $page.props.user.role_id == 4
+                        "
+                    >
+                        <div class="mb-4">
+                            <TextBoxInput
+                                :read-only="true"
+                                v-model="props.currOwner.declined_reason"
+                                :input-type="'textarea'"
+                                :label-name="'Declined / Accepted Reason'"
+                                :placeholder="'None'"
+                            />
+                        </div>
+                        <div class="mb-4">
+                            <TextBoxInput
+                                :read-only="true"
+                                v-model="props.currVacancy"
+                                :input-type="'text'"
+                                :label-name="'Current Available Vacancy'"
+                                :placeholder="'Vacancy'"
+                            />
+                        </div>
+                        <hr class="h-px my-8 bg-gray-200 border-0" />
+                    </div>
 
                     <div v-if="$page.props.user.role_id == 2">
                         <div class="mb-4">
@@ -93,8 +121,8 @@ let form = useForm({
                                 :read-only="true"
                                 v-model="props.currTenant.declined_reason"
                                 :input-type="'textarea'"
-                                :label-name="'Declined Reason'"
-                                :placeholder="'Boarding House Name'"
+                                :label-name="'Declined / Accepted Reason'"
+                                :placeholder="'None'"
                             />
                         </div>
 
@@ -202,7 +230,7 @@ let form = useForm({
                             Facilites
                         </label>
                         <multiselect
-                            v-if="props.selectedFacility"
+                            v-if="props.currFacilities"
                             v-model="selectedFacility"
                             :options="allFacility"
                             label="facility_detail_name"

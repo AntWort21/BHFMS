@@ -28,11 +28,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', [AuthController::class, 'getLoginPage'])->name('login')->middleware('auth.check');
-Route::post('/login', [AuthController::class, 'login'])->middleware('auth.check');
+Route::get('/login', [AuthController::class, 'getLoginPage'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/register', [AuthController::class, 'getRegisterPage'])->name('register')->middleware('auth.check');
-Route::post('/register', [AuthController::class, 'register'])->middleware('auth.check');
+Route::get('/register', [AuthController::class, 'getRegisterPage'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
 
 Route::get('/', [BoardingController::class, 'getMainPage']);
 
@@ -53,12 +53,12 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/complain/status', [ComplainController::class, 'setComplainStatus'])->middleware('owner.manager.access');
     Route::get('/complain/owner', [ComplainController::class, 'getOwnerComplainPage'])->middleware('owner.manager.access');
-    Route::get('/complain/house', [ComplainController::class, 'getSelectedBoardingHouseComplainList'])->middleware('owner.complain.access');
+    Route::get('/complain/house', [ComplainController::class, 'getSelectedBoardingHouseComplainList'])->middleware('owner.manager.access');
 
     Route::get('/review', [ReviewController::class, 'getAllReviewPage'])->middleware('tenant');
     Route::get('/review/create', [ReviewController::class, 'getCreateReviewOrViewReviewPage'])->middleware('review.access');
     Route::post('/review/create', [ReviewController::class, 'createReview'])->middleware('review.access');
-    Route::post('/review/update', [ReviewController::class, 'updateReview'])->middleware('review.access');
+    Route::post('/review/update', [ReviewController::class, 'updateReview'])->middleware('review.access');;
 
     Route::get('/chat', [ChatController::class, 'getChatPage']);
     Route::post('/chat', [ChatController::class, 'storeChatMessage']);
@@ -68,8 +68,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/wishlist/add', [WishlistController::class, 'addWishlist']);
     Route::post('/wishlist/remove', [WishlistController::class, 'removeWishlist']);
     Route::post('/boarding/detail/rent/{id}', [BoardingController::class, 'boardingRent']);
-    Route::get('/boarding/rent/end/{id}', [TenantController::class, 'getEndRentBoarding']);
-    Route::post('/boarding/rent/end/{id}', [TenantController::class, 'endRentBoarding'])->middleware('tenant.endRent.access');
 
     Route::get('/boardingAdmin', [BoardingController::class, 'indexAdmin'])->middleware('admin');
     Route::get('/boardingAdmin/request/{id}', [BoardingController::class, 'getAdminApproveBoarding'])->middleware('admin');
@@ -81,14 +79,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/boarding/read/{id}', [BoardingController::class, 'getReadBoarding'])->middleware('boarding.read.access');
     Route::post('/boarding/update/{id}', [BoardingController::class, 'updateBoarding'])->middleware('boarding.approve.access');
     Route::get('/boarding/delete/{id}', [BoardingController::class, 'deleteBoarding'])->middleware('admin');
-    Route::get('/boarding/reapprove/{id}', [BoardingController::class, 'getReapproveBoarding'])->middleware('boarding.approve.access');
-    Route::post('/boarding/reapprove/{id}', [BoardingController::class, 'ReapproveBoarding'])->middleware('boarding.approve.access');
+    Route::get('/boarding/reapprove/{id}', [BoardingController::class, 'getReapproveBoarding'])->middleware('boarding.reapprove.access');
+    Route::post('/boarding/reapprove/{id}', [BoardingController::class, 'ReapproveBoarding'])->middleware('boarding.reapprove.access');
     Route::get('/boarding/enable/{id}', [BoardingController::class, 'enableBoardingOwner'])->middleware('boarding.approve.access');
     Route::get('/boarding/disable/{id}', [BoardingController::class, 'disableBoardingOwner'])->middleware('boarding.approve.access');
 
     Route::put('/boarding/image/delete/{id}', [BoardingImageController::class, 'deleteImage'])->middleware('owner');
 
-
+    
     Route::get('/boardingManager', [BoardingController::class, 'indexManager'])->middleware('manager');
     Route::get('/tenantBoarding', [TenantController::class, 'getAllTenantBoarding'])->middleware('owner.manager.access'); //manager & Owner
     Route::get('/tenantBoarding/read/{id}', [TenantController::class, 'getDetailTenantBoarding'])->middleware('tenant.read.access');
@@ -96,10 +94,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/tenantBoarding/request/{id}', [TenantController::class, 'RequestTenant'])->middleware('tenant.approve.access');
 
 
-
     //Tenant View all their Boarding House
     Route::get('/boardingTenant', [BoardingController::class, 'indexTenant'])->middleware('tenant');
     Route::get('/boardingTenant/detail/{id}', [BoardingController::class, 'getReadBoardingTenant'])->middleware('tenant');
+
+    Route::get('/boarding/rent/end/{id}', [TenantController::class, 'getEndRentBoarding'])->middleware('tenant.endRent.access');
+    Route::post('/boarding/rent/end/{id}', [TenantController::class, 'endRentBoarding'])->middleware('tenant.endRent.access');
 
 
     //Facility
@@ -109,14 +109,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/facility/update/{id}',[FacilityController::class, 'getFacilityUpdate'])->middleware('admin');
     Route::post('/facility/update/{id}',[FacilityController::class, 'FacilityUpdate'])->middleware('admin');
     Route::get('/facility/read/{id}',[FacilityController::class, 'getFacilityDetail'])->middleware('admin');
-    Route::get('/facility/delete/{id}',[FacilityController::class, 'FacilityDelete'])->middleware('admin');
+    Route::post('/facility/delete/{id}',[FacilityController::class, 'FacilityDelete'])->middleware('admin');
 
     //User
     Route::get('/userAll',[UserController::class, 'getAllUserPage'])->middleware('admin');
     Route::get('/user/update/{id}',[UserController::class, 'getUserUpdate'])->middleware('admin');
     Route::post('/user/update/{id}',[UserController::class, 'UserUpdate'])->middleware('admin');
     Route::get('/user/read/{id}',[UserController::class, 'getUserDetail'])->middleware('admin');
-    Route::get('/user/delete/{id}',[UserController::class, 'UserDelete'])->middleware('admin');
+    Route::post('/user/delete/{id}',[UserController::class, 'UserDelete'])->middleware('admin');
 
     //ComplainType
     Route::get('/complainTypeAll',[ComplainTypeController::class, 'getAllComplainTypePage'])->middleware('admin');
