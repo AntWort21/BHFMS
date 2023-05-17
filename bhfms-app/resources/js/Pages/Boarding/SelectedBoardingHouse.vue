@@ -134,8 +134,11 @@ let removeFromWishlist = () => {
                 <div class="flex justify-between">
                     <div class="w-2/3">
                         <div class="font-semibold">Facilities</div>
-                        <div v-for="facility in props.facilityList">
-                            {{ facility }}
+                        <div v-for="facility in props.facilityList" class="flex items-center space-x-2">
+                            <img :src="facility.facility_img_path" class="w-5 h-5" alt="">
+                            <p>
+                                {{ facility.facility_detail_name }}
+                            </p>
                         </div>
                     </div>
                     <form
