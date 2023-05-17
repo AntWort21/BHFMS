@@ -142,6 +142,7 @@ class PaymentController extends Controller
                 ->join('users','users.id','=','tenant_boardings.user_id')
                 ->whereIn('tenant_boardings.boarding_id',$boardingIDs)
                 ->paginate(5);
+
             } else if($userRole == 4) { // Manager History
                 $boardingIDs = ManagerBoarding::where('user_id',Auth::user()->id)
                 ->pluck('boarding_id');

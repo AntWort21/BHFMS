@@ -28,7 +28,7 @@ let submit = () => {
         style="background-image: url('../storage/sofa.png')"
     >
         <div
-            class="flex my-5 ml-10 mr-5 bg-white w-1/6 h-2/5 justify-center items-center"
+            class="flex my-5 ml-10 mr-5 bg-white w-1/6 h-2/5 justify-center items-center py-2"
         >
             <img
                 :src="

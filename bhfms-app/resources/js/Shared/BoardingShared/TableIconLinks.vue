@@ -371,26 +371,6 @@ const DisableBoarding = (idx) => {
                         </svg>
                     </Link>
                 </div>
-                <!-- Payment -->
-                <div
-                    v-if="boarding.tenant_status == 'approved'"
-                    class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
-                >
-                    <Link :href="`#`">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        >
-                            <rect x="2" y="4" width="20" height="16" rx="2" />
-                            <path d="M7 15h0M2 9.5h20" />
-                        </svg>
-                    </Link>
-                </div>
 
                 <!-- End Rent -->
                 <div

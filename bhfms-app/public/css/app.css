@@ -1425,6 +1425,10 @@ video {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
 }
+.px-16 {
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
 .pb-1 {
   padding-bottom: 0.25rem;
 }
@@ -1439,6 +1443,9 @@ video {
 }
 .pt-6 {
   padding-top: 1.5rem;
+}
+.pb-2 {
+  padding-bottom: 0.5rem;
 }
 .text-left {
   text-align: left;
