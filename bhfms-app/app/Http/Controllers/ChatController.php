@@ -28,13 +28,19 @@ class ChatController extends Controller
 
             foreach ($boardingIDs as $boardingId) {
                 array_push($contactIDs, ...TenantBoarding::where('boarding_id', $boardingId)->where('tenant_status', 'approved')->get()->pluck('user_id') ?? -1);
-                array_push($contactIDs, ManagerBoarding::where('boarding_id', $boardingId)->first()->user_id ?? -1);
+
+                $managerId = ManagerBoarding::where('boarding_id', $boardingId)->first()->user_id ?? -1;
+                in_array($managerId, $contactIDs) ? array_push($contactIDs, -1) : array_push($contactIDs, $managerId);
             }
         } elseif ($userRoleId == 4) { //manager
-            $boardingId = ManagerBoarding::where('user_id', Auth::user()->id)->first()->boarding_id ?? -1;
+            $boardingIDs = ManagerBoarding::where('user_id', Auth::user()->id)->get()->pluck('boarding_id') ?? -1;
 
-            array_push($contactIDs, ...TenantBoarding::where('boarding_id', $boardingId)->where('tenant_status', 'approved')->get()->pluck('user_id') ?? -1);
-            array_push($contactIDs, OwnerBoarding::where('boarding_id', $boardingId)->first()->user_id ?? -1);
+            foreach ($boardingIDs as $boardingId) {
+                array_push($contactIDs, ...TenantBoarding::where('boarding_id', $boardingId)->where('tenant_status', 'approved')->get()->pluck('user_id') ?? -1);
+
+                $ownerId = OwnerBoarding::where('boarding_id', $boardingId)->where('owner_status', 'approved')->first()->user_id ?? -1;
+                in_array($ownerId, $contactIDs) ? array_push($contactIDs, -1) : array_push($contactIDs, $ownerId);
+            }
         }
 
         $contactDetails = [];
