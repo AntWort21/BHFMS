@@ -42,7 +42,7 @@ watch(searchQuery, (value) => {
     <Header />
     <div class="overflow-x-auto">
         <div
-            class="px-6 top-0 bg-gray-100 flex justify-center bg-gray font-sans overflow-hidden mt-2"
+            class="px-6 top-0 bg-gray-100 flex justify-center bg-gray font-sans overflow-hidden pt-2 min-h-[75vh]"
         >
             <div class="flow-root w-11/12">
                 <div

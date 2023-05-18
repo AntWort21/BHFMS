@@ -45,7 +45,7 @@ watch(searchQuery, (value) => {
     <!-- {{ $page.props.user.id }} -->
     <div class="overflow-x-auto">
         <div
-            class="top-0 bg-gray-100 flex justify-center bg-gray font-sans overflow-hidden mt-2"
+            class="top-0 bg-gray-100 flex justify-center bg-gray font-sans overflow-hidden pt-2 min-h-[75vh]"
         >
             <!-- Filtering -->
             <div class="flow-root">
