@@ -4,8 +4,9 @@ import { Link } from '@inertiajs/inertia-vue3'
 import Header from '../../Shared/Header.vue';
 import Footer from '../../Shared/Footer.vue';
 import DetailBoxTenant from '../../Shared/Payment/DetailBoxTenant.vue';
-import PaymentInvoiceTab from '../../Shared/Payment/PaymentInvoiceTab.vue';
 import PopUpInputText from '../../Shared/Payment/PopUpInputText.vue';
+import PopUpInputImage from '../../Shared/Payment/PopUpInputImage.vue';
+import PaymentRemitTab from '../../Shared/Payment/PaymentRemitTab.vue';
 defineProps({
   userRole: Number,
   invoiceList: Object,
@@ -24,7 +25,8 @@ const detailInvoice = ref({
   boardingName: ''
 });
 
-const popUpBox = ref(false);
+const popUpBoxText = ref(false);
+const popUpBoxImage = ref(false);
 const popUpDetail = ref({
   id: '',
   status: ''
@@ -51,11 +53,16 @@ let showDetail = (invoiceId) => {
   detailBox.value = true;
 }
 
-let showPopUp = (popUpData) => {
+let showPopUpText = (popUpData) => {
   popUpDetail.value.status = popUpData[0];
   popUpDetail.value.id = popUpData[1];
-  popUpBox.value = true;
-  
+  popUpBoxText.value = true;
+}
+
+let showPopUpImage = (popUpData) => {
+  popUpDetail.value.status = popUpData[0];
+  popUpDetail.value.id = popUpData[1];
+  popUpBoxImage.value = true;
 }
 
 const closeDetail = () => {
@@ -66,8 +73,14 @@ const closeDetail = () => {
   detailInvoice.value.boardingName = '';
 }
 
-const closePopUp = () => {
-  popUpBox.value = false;
+const closePopUpText = () => {
+  popUpBoxText.value = false;
+  popUpDetail.value.id = '';
+  popUpDetail.value.status = '';
+}
+
+const closePopUpImage = () => {
+  popUpBoxImage.value = false;
   popUpDetail.value.id = '';
   popUpDetail.value.status = '';
 }
@@ -80,10 +93,10 @@ let convertAmount = (amount) => {
 
 <template>
     <Header />
-    <div class="z-10 my-4" >
+    <div class="z-10 my-4">
         <section class="flex text-center align-middle mx-10">
             <div class="text-2xl font-semibold self-center">
-              Invoice List
+              Remittance List
             </div>
         </section>
         <section class="mx-2 my-5">
@@ -95,7 +108,7 @@ let convertAmount = (amount) => {
                     <h4>Amount</h4>
                 </div>
                 <div class="w-1/4">
-                    <h4>Image</h4>
+                    <h4>Bank and Account Number</h4>
                 </div>
                 <div class="w-1/4 flex flex-row">
                     <p class="w-1/3">Approve</p>
@@ -106,11 +119,12 @@ let convertAmount = (amount) => {
         </section>
         <section class="mx-2 my-3">
             <div v-for="(invoice) in invoiceList.data" class="flex text-center py-1">
-              <PaymentInvoiceTab
+              <PaymentRemitTab
               :user-role=userRole
               :invoice=invoice
               @showDetail="showDetail"
-              @showPopUp="showPopUp"
+              @showPopUpDeclined="showPopUpText"
+              @showPopUpSuccessful="showPopUpImage"
               />
             </div>
         </section>
@@ -135,15 +149,22 @@ let convertAmount = (amount) => {
     :username = detailInvoice.username
     :boarding-name= detailInvoice.boardingName
     :user-role = this.userRole
-    @closeDetail = "closeDetail"  />
+    @closeDetail = "closeDetail"/>
 
-    <PopUpInputText v-if="popUpBox" 
-    :pop-up-name="'Rejection Reason'"
+    <PopUpInputImage v-if="popUpBoxImage"
+    :pop-up-name="'Accpet Proof'"
     :value= popUpDetail.status
     :label-name= "'Reason'"
     :id= popUpDetail.id
-    :link-pop="'updateInvoiceStatus'"
-    @closePopUp = "closePopUp"
-    />
+    :link-pop="'updateTransferredStatus'"
+    @closePopUp = "closePopUpImage"/>
+    
+    <PopUpInputText v-if="popUpBoxText" 
+    :pop-up-name="'Declined Reason'"
+    :value= popUpDetail.status
+    :label-name= "'Reason'"
+    :id= popUpDetail.id
+    :link-pop="'updateTransferredStatus'"
+    @closePopUp = "closePopUpText"/>
     <Footer />
 </template>

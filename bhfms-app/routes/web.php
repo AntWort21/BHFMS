@@ -161,9 +161,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/editPayment',[PaymentController::class,'updatePayment'])->middleware('owner.manager.order.access');
     Route::get('/cancelPayment',[PaymentController::class,'cancelPayment'])->middleware('owner.manager.order.access');
     Route::get('/checkInvoiceRequest',[PaymentController::class,'getCheckInvoiceRequest'])->middleware('admin');
-    Route::post('/udpateInvoiceStatus',[PaymentController::class,'udpateInvoiceStatus'])->middleware('admin');
-    
-
+    Route::post('/updateInvoiceStatus',[PaymentController::class,'updateInvoiceStatus'])->middleware('admin');
+    Route::get('/remitPayment',[PaymentController::class,'getPaymentRemit']);
+    Route::post('/updateTransferredStatus',[PaymentController::class,'updateTransferredStatus']);
     
     //Belum Middleware
 });

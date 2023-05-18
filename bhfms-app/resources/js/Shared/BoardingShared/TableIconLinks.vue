@@ -286,7 +286,7 @@ const DisableBoarding = (idx) => {
             </div>
             <!-- Owner Manager Tab -->
             <div v-if="$page.props.user.role_id == 3 || $page.props.user.role_id == 4" class="flex">
-               <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+               <div v-if="boarding.owner_status == 'approved'" class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                     <Link :href="`/addPaymentBoarding/`" :data="{boarding: currentID}">
                         <svg  stroke="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
                         viewBox="0 0 220.68 220.68" xml:space="preserve" class="fill-gray-600 hover:fill-purple-500">

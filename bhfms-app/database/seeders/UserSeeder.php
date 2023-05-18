@@ -147,5 +147,14 @@ class UserSeeder extends Seeder
             "user_role_id" =>'4',
             "password" =>bcrypt('manager4'),
         ]);
+        User::create([
+            "user_name" =>'BHFMS Staff',
+            "gender"=>'1',
+            "email" =>'bhfms@gmail.com',
+            "date_of_birth" =>'1/1/2000',
+            "phone" =>rand(1000000,5000000),
+            "user_role_id" =>'1',
+            "password" =>bcrypt('bhfms'),
+        ]);
     }
 }

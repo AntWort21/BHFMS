@@ -33,7 +33,9 @@ let convertAmount = (amount) => {
 <template>
     <Header />
     <div class="m-5">
-        <h2 class="mb-3">Make Payment</h2>
+        <div class="text-2xl font-semibold mb-3">
+            Make Payment
+        </div>
         <form @submit.prevent="submit">
             <div class="w-[450px]">
                 <FormTextBoxInputReadOnly

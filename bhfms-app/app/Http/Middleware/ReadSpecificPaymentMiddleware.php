@@ -32,7 +32,9 @@ class ReadSpecificPaymentMiddleware
         }
 
         $tenantBoarding = TenantBoarding::find($transaction->tenant_boarding_id);
-        
+        if(Auth::user()->user_role_id==1){
+            return $next($request);
+        }
         if(Auth::user()->user_role_id == 2 && 
         Auth::user()->id == $tenantBoarding->user_id){ //Case for tenant
             return $next($request);

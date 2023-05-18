@@ -12,10 +12,12 @@ let showInvoiceDetail = (invoiceId) => {
     emit('showDetail', invoiceId);
 }
 
-let showPopUp = (invoiceStatus, invoiceId) => {
-    emit('showPopUp', [invoiceStatus, invoiceId]);
+let showPopUpDeclined = (invoiceStatus, invoiceId) => {
+    emit('showPopUpDeclined', [invoiceStatus, invoiceId]);
 }
-
+let showPopUpSuccessful = (invoiceStatus, invoiceId) => {
+    emit('showPopUpSuccessful', [invoiceStatus, invoiceId]);
+}
 const getFileName = (paymentDate, invoiceId) => {
   return new Date(paymentDate).toISOString().slice(0,10).replace(/-/g,"") + invoiceId + '.png';
 }
@@ -56,16 +58,12 @@ let updateInvoiceStatus = (invoiceStatus, invoiceId) => {
         </p>
     </div>
     <div class="w-1/4 flex justify-center">
-        <img 
-            class="px-5 w-7/12 h-[150px] appearance-none"
-            v-if="invoice.payment_date"
-            :src="`/storage/proofOfPayment/`+getFileName(invoice.payment_date, invoice.invoice_id)"
-            alt="Proof Of Payment">
+        {{ invoice.bank_name }} - {{ invoice.account_number }}
     </div>
 
     <div class="w-1/4 ">
-        <input class="w-1/3 text-center" type="radio" name="checkInvoiceStatus" value="approve" v-on:click="updateInvoiceStatus('Approved', invoice.invoice_id)">
-        <input class="w-1/3 text-center" type="radio" name="checkInvoiceStatus" value="reject"  v-on:click="showPopUp('Rejected', invoice.invoice_id)">
+        <input class="w-1/3 text-center" type="radio" name="checkInvoiceStatus" value="successful" v-on:click="showPopUpSuccessful('Successful', invoice.invoice_id)">
+        <input class="w-1/3 text-center" type="radio" name="checkInvoiceStatus" value="declined"  v-on:click="showPopUpDeclined('Declined', invoice.invoice_id)">
         <button class="w-1/3 bg-blue-500 text-white rounded-md px-4 py-2" v-on:click="showInvoiceDetail(invoice.invoice_id)">
             Details
             

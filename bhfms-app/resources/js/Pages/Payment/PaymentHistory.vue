@@ -62,10 +62,8 @@ let convertAmount = (amount) => {
     <Header />
     <div class="z-10 my-4" >
         <section class="flex text-center align-middle mx-10">
-            <div class="font-bold self-center">
-                <h3>
-                    Payment List
-                </h3>
+            <div class="text-2xl font-semibold self-center">
+              Payment List
             </div>
         </section>
         <section class="mx-2 my-5">
