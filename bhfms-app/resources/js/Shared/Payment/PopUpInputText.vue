@@ -16,16 +16,16 @@ let closePopUp = () => {
 }
 
 let confirm = () => {
-    const formData = new FormData();
-    formData.append('reason', inputValue.value);
-    formData.append('invoiceID', props.id);
-    formData.append('invoiceStatus', props.value);
     fetch(props.linkPop, {
         method: 'POST',
         headers: {
         "X-CSRF-Token": csrfToken,
         },
-        body: formData,
+        body: JSON.stringify({
+            invoiceStatus: props.value,
+            invoiceID: props.id,
+            reason: inputValue.value
+      })
     })
     closePopUp();
 }

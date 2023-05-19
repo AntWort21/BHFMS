@@ -31,20 +31,6 @@ let convertAmount = (amount) => {
     return new Number(amount).toLocaleString("id-ID");
 }
 
-let updateInvoiceStatus = (invoiceStatus, invoiceId) => {
-  fetch('updateInvoiceStatus', {
-    method: 'POST',
-    headers: {
-      "X-CSRF-Token": csrfToken,
-    },
-    body: JSON.stringify({
-      invoiceStatus: invoiceStatus,
-      invoiceID: invoiceId
-
-    })
-});
-}
-
 </script>
 <template>
     <div class="w-1/4 flex justify-center">
