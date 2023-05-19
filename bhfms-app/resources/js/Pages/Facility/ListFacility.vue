@@ -1,7 +1,7 @@
 <script setup>
 import { Link } from "@inertiajs/inertia-vue3";
 import { Inertia } from "@inertiajs/inertia";
-import { ref, reactive } from "vue";
+import { ref, reactive, watch } from "vue";
 import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
 import Pagination from "../../Shared/Pagination.vue";
@@ -25,13 +25,25 @@ let enableDisablePopup = (id, name) => {
 const deleteFacility = (idx) => {
     Inertia.post(`/facility/delete/${idx}`);
 };
+
+let searchQuery = ref("");
+
+watch(searchQuery, (value) => {
+    Inertia.get(
+        "/facilityAll",
+        { searchQuery: value },
+        {
+            preserveState: true,
+        }
+    );
+});
 </script>
 
 <template>
     <Header />
     <div class="overflow-x-auto">
         <div
-            class="px-6 top-0 bg-gray-100 flex justify-center bg-gray font-sans overflow-hidden mt-2"
+            class="px-6 top-0 bg-gray-100 flex justify-center bg-gray font-sans overflow-hidden pt-2 min-h-[75vh]"
         >
             <div class="flow-root w-11/12">
                 <div
@@ -50,8 +62,21 @@ const deleteFacility = (idx) => {
                     </svg>
                     <p>{{ $page.props.flash.message }}</p>
                 </div>
-                <div class="flex">
+
+                <div class="flow-root">
                     <div class="mt-2 float-left">
+                        <div
+                            class="relative flex w-full flex-wrap items-stretch"
+                        >
+                            <input
+                                type="text"
+                                class="rounded border block bg-white border-gray-400 text-gray-700 py-2 px-4"
+                                v-model="searchQuery"
+                                placeholder="Search..."
+                            />
+                        </div>
+                    </div>
+                    <div class="mt-2 float-right">
                         <a href="/facility/create">
                             <div
                                 class="rounded border block bg-white border-gray-400 text-gray-700 py-2 px-4 flex"

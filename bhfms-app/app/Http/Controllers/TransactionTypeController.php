@@ -7,8 +7,14 @@ use Illuminate\Http\Request;
 
 class TransactionTypeController extends Controller
 {
-    public function getAllTransactionTypePage(){
-        $transactionTypes = TransactionType::paginate(5)->withQueryString();
+    public function getAllTransactionTypePage(Request $request){
+        $transactionTypes = TransactionType::when($request->searchQuery, function ($query, $searchQuery) {
+            if ($searchQuery == '') {
+                $query;
+            } else {
+                $query->where('transaction_type_name', 'like', '%'. $searchQuery . '%');
+            }
+        })->paginate(5)->withQueryString();
         return inertia('TransactionType/ListTransactionType', [
             'transactionTypes' => $transactionTypes
         ]);

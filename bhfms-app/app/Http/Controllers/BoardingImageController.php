@@ -6,6 +6,7 @@ use App\Models\BoardingImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Expr\Cast\String_;
+use PHPUnit\Framework\Constraint\Count;
 
 class BoardingImageController extends Controller
 {
@@ -16,10 +17,10 @@ class BoardingImageController extends Controller
         $currImage_path = $currImage->image;
         $currImage_path = explode('/storage/', $currImage_path);
 
-        if($currImage){
-            Storage::delete('public/'.$currImage_path[1]);
-            $currImage -> delete();
+        if(Count($currImage_path) > 1){
+            Storage::delete('public/'.$currImage_path[1]);  
         }
+        $currImage -> delete();
         return redirect()->back();
     }
 }

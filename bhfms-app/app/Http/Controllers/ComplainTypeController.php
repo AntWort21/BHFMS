@@ -7,8 +7,14 @@ use Illuminate\Http\Request;
 
 class ComplainTypeController extends Controller
 {
-    public function getAllComplainTypePage(){
-        $complainTypes = ComplainType::paginate(5)->withQueryString();
+    public function getAllComplainTypePage(Request $request){
+        $complainTypes = ComplainType::when($request->searchQuery, function ($query, $searchQuery) {
+            if ($searchQuery == '') {
+                $query;
+            } else {
+                $query->where('complain_type_name', 'like', '%'. $searchQuery . '%');
+            }
+        })->paginate(5)->withQueryString();
         return inertia('ComplainType/ListComplainType', [
             'complainTypes' => $complainTypes
         ]);

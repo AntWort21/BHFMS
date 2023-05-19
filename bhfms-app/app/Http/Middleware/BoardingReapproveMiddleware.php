@@ -7,7 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class BoardingAccessApproveMiddleware
+class BoardingReapproveMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,7 +18,6 @@ class BoardingAccessApproveMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        //Approve, decline, update, banned
         //Admin
         if (Auth::user()->user_role_id == 1) {
             return $next($request);
@@ -26,7 +25,7 @@ class BoardingAccessApproveMiddleware
         //Owner
         }else if (Auth::user()->user_role_id == 3) {
             $ownerBoarding = OwnerBoarding::where('boarding_id', $request->id)->first() ?? null;
-            if($ownerBoarding->user_id == Auth::user()->id && $ownerBoarding->owner_status != 'declined'){
+            if($ownerBoarding->user_id == Auth::user()->id && $ownerBoarding->owner_status == 'declined'){
                 return $next($request);
             }
         }

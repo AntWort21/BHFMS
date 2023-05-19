@@ -77,6 +77,14 @@ class BoardingController extends Controller
                 } else {
                     $query->where('owner_status', '=', $search);
                 }
+            })->when($request->searchQuery, function ($query, $searchQuery) {
+                if ($searchQuery == '') {
+                    $query;
+                } else {
+                    $query->where('boarding_name', 'like', '%'. $searchQuery . '%')
+                    ->orWhere('owner_status', 'like', '%'. $searchQuery . '%')
+                    ->orWhere('user_name', 'like', '%'. $searchQuery . '%');
+                }
             })->paginate(5)->withQueryString();
 
         $all_boarding_count = Boarding::join('owner_boardings', 'boardings.id', "=", 'owner_boardings.boarding_id')
@@ -133,6 +141,14 @@ class BoardingController extends Controller
                     $query;
                 } else {
                     $query->where('owner_status', '=', $search);
+                }
+            })->when($request->searchQuery, function ($query, $searchQuery) {
+                if ($searchQuery == '') {
+                    $query;
+                } else {
+                    $query->where('boarding_name', 'like', '%'. $searchQuery . '%')
+                    ->orWhere('owner_status', 'like', '%'. $searchQuery . '%')
+                    ->orWhere('user_name', 'like', '%'. $searchQuery . '%');
                 }
             })->paginate(5)->withQueryString();
 
@@ -194,6 +210,14 @@ class BoardingController extends Controller
                 } else {
                     $query->where('owner_status', '=', $search);
                 }
+            })->when($request->searchQuery, function ($query, $searchQuery) {
+                if ($searchQuery == '') {
+                    $query;
+                } else {
+                    $query->where('boarding_name', 'like', '%'. $searchQuery . '%')
+                    ->orWhere('owner_status', 'like', '%'. $searchQuery . '%')
+                    ->orWhere('user_name', 'like', '%'. $searchQuery . '%');
+                }
             })->paginate(5)->withQueryString();
 
 
@@ -247,13 +271,21 @@ class BoardingController extends Controller
         $Boarding_data = Boarding::join('owner_boardings', 'boardings.id', '=', 'owner_boardings.boarding_id')
             ->join('users', 'users.id', '=', 'owner_boardings.user_id')
             ->join('tenant_boardings','tenant_boardings.boarding_id','=','boardings.id')
-            ->select('boardings.boarding_name','tenant_boardings.tenant_status','users.user_name','boardings.id AS boarding_id','tenant_boardings.id AS tenant_id','tenant_boardings.end_date AS end_date')
+            ->select('boardings.boarding_name','tenant_boardings.tenant_status','users.user_name','boardings.id AS boarding_id','tenant_boardings.id AS tenant_id','tenant_boardings.end_date AS endDate')
             ->where('tenant_boardings.user_id', '=', auth()->id())
             ->when($request->search, function ($query, $search) {
                 if ($search == 'all') {
                     $query;
                 } else {
                     $query->where('tenant_status', '=', $search);
+                }
+            })->when($request->searchQuery, function ($query, $searchQuery) {
+                if ($searchQuery == '') {
+                    $query;
+                } else {
+                    $query->where('boarding_name', 'like', '%'. $searchQuery . '%')
+                    ->orWhere('owner_status', 'like', '%'. $searchQuery . '%')
+                    ->orWhere('user_name', 'like', '%'. $searchQuery . '%');
                 }
             })->paginate(5)->withQueryString();
 
@@ -328,7 +360,7 @@ class BoardingController extends Controller
             $facilityList[$key]->facility_detail_name = $facilityDetail->facility_detail_name;
             $facilityList[$key]->facility_img_path = $facilityDetail->facility_img_path;
         }
-
+        
         $currVacancy = $selectedBoardingHouseDetail->rooms - (TenantBoarding::where([['boarding_id', $request->id], ['tenant_status', 'approved']])->count());
         $currVacancy > 0 ? $isAvailable = true : $isAvailable = false;
         $reviews = Review::where('boarding_id', $request->id)->get();
@@ -465,18 +497,22 @@ class BoardingController extends Controller
 
     public function getReadBoarding(Request $request)
     {
-        $currBoarding = Boarding::where('id', '=', $request->id)->get()->first();
+        $currBoarding = Boarding::where('id', '=', $request->id)->first();
         $currFacilities = ($currBoarding->facilities()->exists()) ? $currBoarding->facilities()->get() : null;
         $currType = $currBoarding->boardingType()->get()->first();
         $currManager = ($currBoarding->managerBoardings()->exists()) ? $currBoarding->managerBoardings()->get()->first() : null;
         $currImages = $currBoarding->images()->get();
-
+        $currVacancy = $currBoarding->rooms - (TenantBoarding::where([['boarding_id', $request->id], ['tenant_status', 'approved']])->count());
+        $currOwner = OwnerBoarding::where('owner_boardings.boarding_id','=',$currBoarding->id)->first();
+        
         return Inertia::render('Boarding/ReadBoarding', [
             'currImages' => $currImages,
             'currBoarding' => $currBoarding,
             'currFacilities' => $currFacilities,
             'currType' => $currType,
             'currManager' => $currManager,
+            'currOwner' => $currOwner,
+            'currVacancy' => $currVacancy,
         ]);
     }
 
@@ -686,7 +722,7 @@ class BoardingController extends Controller
                 'owner_status' => 4,
                 'declined_reason' => $request['reason'],
             ]);
-            return redirect('/boardingAdmin')->with('message', 'Success Declining new Boarding (Cannot Reapprove)');
+            return redirect('/boardingAdmin?search=pending')->with('message', 'Success Declining new Boarding (Cannot Reapprove)');
         }
     }
 

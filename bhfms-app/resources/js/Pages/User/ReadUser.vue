@@ -5,8 +5,8 @@ import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
 import TextBoxInput from "../../Shared/BoardingShared/TextBoxInput.vue";
 
-const prop = defineProps({
-    user: Object,
+const userProp = defineProps({
+    currUser: Object,
     currRole: String,
     images: Array,
 });
@@ -15,13 +15,13 @@ const images = ref([]);
 const previewImage = ref([]);
 
 const form = useForm({
-    name: prop.user.user_name,
-    gender: String(prop.user.gender),
-    status: prop.user.user_status,
-    user_role: prop.currRole,
-    email: prop.user.email,
-    dob: prop.user.date_of_birth,
-    phone: String(prop.user.phone),
+    name: userProp.currUser.user_name,
+    gender: String(userProp.currUser.gender),
+    status: userProp.currUser.user_status,
+    user_role: userProp.currRole,
+    email: userProp.currUser.email,
+    dob: userProp.currUser.date_of_birth,
+    phone: String(userProp.currUser.phone),
     images: images,
 });
 </script>
@@ -122,7 +122,7 @@ const form = useForm({
                         <div class="items-center">
                             <img
                                 class="w-40 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                :src="prop.user.profile_picture"
+                                :src="userProp.currUser.profile_picture"
                             />
                         </div>
                     </div>
