@@ -92,8 +92,4 @@ class ChatController extends Controller
 
         return;
     }
-
-    public function a(){
-        return 1;
-    }
 }
