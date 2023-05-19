@@ -241,8 +241,20 @@ class PaymentController extends Controller
             'invoiceList' => $paymentList,
         ]);
     }
-    public function getPaymentSupport() {
-        
+    public function getPaymentSupport()
+    {
+        $userRole = Auth::user()->user_role_id;
+        $paymentList = RentTransaction::join('tenant_boardings', 'tenant_boardings.id', '=', 'tenant_boarding_id')
+        ->join('boardings','boardings.id','=','tenant_boardings.boarding_id')
+        ->where(function ($query) {
+            $query->where('payment_transferred_status', 'Processing_Refund')
+                ->where('payment_status', 'Canceled');
+        })->orWhere('payment_transferred_status', 'Declined')
+        ->paginate(self::PAGINATION_NUMBER);
+        return Inertia::render('Payment/PaymentSupportList',[
+            'userRole' => $userRole,
+            'paymentList' => $paymentList,
+        ]);
     }
     public function cancelPayment()
     {
