@@ -87,10 +87,32 @@ defineProps({
             </ul>
         </div>
     </div>
-
-    <Link
-        class="h-10 w-full text-center p-2 whitespace-nowrap z-50 bg-indigo-900 hover:opacity-75"
-        href="/checkInvoiceRequest"
-        >Payment & Invoice</Link
+    <div
+        @mouseover="hoverAdmin3 = true"
+        @mouseleave="hoverAdmin3 = false"
+        class="h-10 w-full items-center text-center border-solid border-white z-50"
     >
+        <div v-if="hoverAdmin3 == false" class="p-2 whitespace-nowrap">
+            Payment Management
+        </div>
+        <div
+            v-if="hoverAdmin3 == true"
+            class="whitespace-nowrap p-2 bg-indigo-900 z-50"
+        >
+            Payment Management
+        </div>
+        <div
+            class="bg-indigo-900 whitespace-nowrap z-50"
+            v-if="hoverAdmin3 == true"
+        >
+            <ul>
+                <li class="z-50 py-2 bg-indigo-900 hover:opacity-75">
+                    <Link href="/checkInvoiceRequest">Check Invoice</Link>
+                </li>
+                <li class="z-50 py-2 bg-indigo-900 hover:opacity-75">
+                    <Link href="/paymentSupport">Support Page </Link>
+                </li>
+            </ul>
+        </div>
+    </div>
 </template>
