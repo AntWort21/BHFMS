@@ -10,7 +10,7 @@ rectangle BHFMS {
 
     ' Manager'
     usecase (View Complains) as view_cmpln
-    usecase (Mark Complain as Solved) as rply_cmpln
+    usecase (Change Complain Status) as chng_cmpln
     usecase (Accept Tenant) as accept_tenant
     usecase (View Boarding House Own) as view_bh
     
@@ -20,11 +20,15 @@ rectangle BHFMS {
 
     ' User'
     usecase (Rent Boarding House) as rent_bh
-    usecase (WishList Boarding House) as wish_bh
+    usecase (Wishlist Boarding House) as wish_bh
+    usecase (Search Boarding House) as search_bh
     usecase (Pay Rent) as rpymnt
     usecase (Make Complain) as cmpln
-    usecase (Make Review) as rvw
-    usecase (Wishlist Notification) as ntf_wl_bh
+    usecase (Make Review) as mk_rvw
+    usecase (View Review) as vw_rvw
+    usecase (Update Review) as update_rvw
+    usecase (View All Boarding House) as show_bh_all
+    usecase (View Boarding House Detail) as show_bh_detail
 
     ' Supervisor / Admin'
     usecase (View All Boarding House List) as show_bh_admin
@@ -77,13 +81,17 @@ adm ---> show_fcl_admin
 user ---> rpymnt
 user ---> rent_bh
 user ---> cmpln
-user ---> rvw
+user ---> mk_rvw
+user ---> vw_rvw
 user ---> wish_bh
-wish_bh ...> ntf_wl_bh: <<Include>>
+user ---> show_bh_all
+user ---> search_bh
+vw_rvw ...> update_rvw: <<Extend>>
+show_bh_all ...> show_bh_detail: <<Extend>>
 
 
 mngr ---> view_cmpln
-view_cmpln ...> rply_cmpln: <<Extend>>
+view_cmpln ...> chng_cmpln: <<Extend>>
 ' mngr ---> view_bh
 
 ' CRUD Boarding House
