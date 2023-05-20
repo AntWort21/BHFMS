@@ -60,7 +60,7 @@ let convertAmount = (amount) => {
 
 <template>
     <Header />
-    <div class="z-10 my-4" >
+    <div class="z-10 my-4 min-h-[75vh]">
         <section class="flex text-center align-middle mx-10">
             <div class="text-2xl font-semibold self-center">
               Payment Support List

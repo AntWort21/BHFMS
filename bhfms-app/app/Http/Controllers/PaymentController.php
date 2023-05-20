@@ -251,7 +251,7 @@ class PaymentController extends Controller
                 ->where('payment_status', 'Canceled');
         })->orWhere('payment_transferred_status', 'Declined')
         ->paginate(self::PAGINATION_NUMBER);
-        return Inertia::render('Payment/PaymentSupportList',[
+        return Inertia::render('Payment/PaymentSupport',[
             'userRole' => $userRole,
             'paymentList' => $paymentList,
         ]);

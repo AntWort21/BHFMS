@@ -52,7 +52,7 @@ const minToday = today.toISOString().split('T')[0];
 </script>
 <template>
     <Header />
-    <div class="m-5">
+    <div class="m-5 min-h-[75vh]">
         <div class="text-2xl font-semibold">
             Payment Page
         </div>
