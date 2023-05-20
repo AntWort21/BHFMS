@@ -1,0 +1,15 @@
+@startuml
+title Boarding House
+|User|
+    :Select Boarding House Menu;
+    
+|Website|
+    :Show Boarding House Menu;
+
+|User|
+    :Select Boarding House Review Menu;
+
+|Website|
+    :Show review page;
+    stop
+@enduml

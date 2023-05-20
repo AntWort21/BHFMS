@@ -1,0 +1,17 @@
+@startuml
+title Boarding House
+|User|
+    :Update Rating;
+    :Update Review;
+    :Click Save;
+    
+|Website|
+    :Validate user input;
+    If (is User input valid?) then (Yes)
+        :Save to database;
+        :show user boarding house page;
+        stop
+    else (No)
+        :show user Review page with error;
+        stop
+@enduml

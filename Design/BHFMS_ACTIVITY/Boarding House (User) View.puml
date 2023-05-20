@@ -1,0 +1,9 @@
+@startuml
+title Boarding House
+|User|
+    :Select View All Boarding House Menu;
+    
+|Website|
+    :Show List Boarding House;
+    stop
+@enduml

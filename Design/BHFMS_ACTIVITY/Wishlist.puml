@@ -2,22 +2,17 @@
 
 |User|
 start
-    :Checkout Boarding House Detail;
+    :View selected boarding house detail;
 
 |Website|
-    :Show Boarding House Detail page;
+    :Show selected boarding house detail page;
 
 |User|
-    :Add This Boarding House to Wishlist;
+    :Add this boarding house to wishlist;
 
 |Website|
-    :Set Boarding House to User Wishlist;
-    :Show Added to Wishlist Popup;
-    repeat :Check Boarding House Capacity Periodically;
-    repeat while (Boarding House has Empty Slot?) is (no)
-        ->yes;
-    :Log user into the website;
-    :Show Home Page;
+    :Add boarding house to user wishlist;
+    :Redirect user to selected boarding house detail page;
 stop
 
 @enduml
