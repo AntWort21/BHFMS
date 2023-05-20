@@ -282,13 +282,19 @@ class PaymentController extends Controller
                     $transaction->payment_status = 'Canceled';
                 }
                 break;
+            case 'Rejected':
+                $transaction->payment_status = 'Canceled';
+                break;
+            case 'Pending':
+                $transaction->payment_status = 'Canceled';
+                break;
             default:
                 break;
         }
         
         $transaction->save();
     
-        return redirect('/paymentHistory?boarding=' . $_GET['boarding']);
+        return;
     }
 
     public function updateInvoiceStatus(Request $request) 
@@ -330,16 +336,17 @@ class PaymentController extends Controller
             'transactionType' => ['required']
         ], $custom_messages);
  
-        RentTransaction::where('invoice_id',$_GET['order'])->first()->update([
-            'tenant_boarding_id'=>$this->getTenantIdByEmail($validation['tenantEmail'],$_GET['boarding'])->id,
+        $transaction = RentTransaction::where('invoice_id',$_GET['order'])->first();
+        $boardingId = TenantBoarding::find($transaction->tenant_boarding_id)->boarding_id;
+        $transaction->update([
+            'tenant_boarding_id'=>$this->getTenantIdByEmail($validation['tenantEmail'],$boardingId)->id,
             'transaction_type_id' => TransactionType::select('id')->where('transaction_type_name',$validation['transactionType'])->first()->id,
             'amount' => $validation['paymentAmount'] +  rand(0,1000),
             'payment_date' => $validation['paymentDate'],
-            'repeat_payment'=> $validation['paymentRepeat'] == 'true' ?  true: false,
-
+            'repeat_payment'=> $request['paymentRepeat'] == 'true' ?  true: false,
         ]);
 
-        return redirect('/paymentHistory?boarding='.$_GET['boarding']);;
+        return redirect('/paymentHistory?boarding='.$boardingId);
     }
 
     public function updateTransferredStatus(Request $request){
