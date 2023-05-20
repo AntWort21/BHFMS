@@ -79,5 +79,10 @@ class Kernel extends HttpKernel
         'tenant.approve.access' => \App\Http\Middleware\TenantAccessApproveMiddleware::class,
         'owner.manager.access' => \App\Http\Middleware\OwnerManagerMiddleware::class,
         'tenant.endRent.access'=> \App\Http\Middleware\EndRentMiddleware::class,
+        'owner.manager.boarding.payment.access' => \App\Http\Middleware\OwnerManagerBoardingPaymentMiddleware::class,
+        'owner.manager.order.access' => \App\Http\Middleware\OwnerManagerOrderMiddleware::class,
+        'read.specific.payment.access' => \App\Http\Middleware\ReadSpecificPaymentMiddleware::class,
+        'tenant.payment.access' => \App\Http\Middleware\TenantPaymentMiddleware::class,
+        'read.history.payment.access' => \App\Http\Middleware\ReadPaymentMiddleware::class,
     ];
 }

@@ -1335,6 +1335,9 @@ video {
 .fill-current {
   fill: currentColor;
 }
+.fill-gray-600 {
+  fill: #4b5563;
+}
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
@@ -1412,6 +1415,10 @@ video {
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
+}
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
 }
 .py-6 {
   padding-top: 1.5rem;

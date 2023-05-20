@@ -1,10 +1,10 @@
 <script setup>
 import { ref } from 'vue';
 import { Link } from '@inertiajs/inertia-vue3'
-import PaymentHistoryTab from '../../Shared/Payment/PaymentHistoryTab.vue';
 import Header from '../../Shared/Header.vue';
 import Footer from '../../Shared/Footer.vue';
 import DetailBoxTenant from '../../Shared/Payment/DetailBoxTenant.vue';
+import PaymentSupportTab from '../../Shared/Payment/PaymentSupportTab.vue';
 defineProps({
   userRole: Number,
   paymentList: Object,
@@ -63,7 +63,7 @@ let convertAmount = (amount) => {
     <div class="z-10 my-4 min-h-[75vh]">
         <section class="flex text-center align-middle mx-10">
             <div class="text-2xl font-semibold self-center">
-              Payment List
+              Payment Support List
             </div>
         </section>
         <section class="mx-2 my-5">
@@ -75,9 +75,7 @@ let convertAmount = (amount) => {
                     <h4>Date</h4>
                 </div>
                 <div class="w-1/4">
-                    <h4 v-if="userRole == 3 || userRole == 4">Tenant Name</h4>
-                    <h4 v-else-if="userRole == 2">Boarding House</h4>
-                    <h4 v-else>Boarding House</h4>
+                    <h4>Boarding House</h4>
                 </div>
                 <div class="w-1/4">
                 </div>
@@ -86,7 +84,7 @@ let convertAmount = (amount) => {
         <section class="mx-2 my-3">
             <div v-for="(payment) in paymentList.data" class="flex justify-around text-center py-1">
              
-              <PaymentHistoryTab
+              <PaymentSupportTab
                 :payment=payment
                 :userRole="userRole"
                 @showDetail="showDetail" />
