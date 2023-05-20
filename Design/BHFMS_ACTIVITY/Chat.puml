@@ -2,14 +2,22 @@
 title Chat
 |User|
 start
-    :See All Chat History;
-    repeat
-        :Click Specific Chat;
-        :User Send New Message;
-        backward :Press Back Button;
-    repeat while (User Wants To See Other Chatting) is (Yes)
-    
-|Website|
+:Click on chat menu;
+|System|
+:return chat page;
+|User|
+:Click Specific Chat;
+|System|
+repeat
+:return chat with chat history;
+|User|
+:User Send New Message;
+|System|
     :Insert Message To DB;
-stop
+|User|
+  backward :Click other chat;
+if (User Wants To See Other Chat) then (Yes)
+else (no)
+   stop
+endif
 @enduml
