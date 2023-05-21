@@ -1,6 +1,0 @@
-@startuml
-Controller --> Database: Check Specific Boarding House Capacity
-Controller <- Database: Return Data On That Boarding House
-Website <- Controller: Send Boarding House is Empty Message
-User <- Website: Notify User Regarding Empty Slot in the wishlisted boarding house
-@enduml
