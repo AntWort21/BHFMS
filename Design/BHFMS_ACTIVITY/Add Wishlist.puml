@@ -4,13 +4,13 @@
 start
     :View selected boarding house detail;
 
-|Website|
+|System|
     :Show selected boarding house detail page;
 
 |User|
     :Add this boarding house to wishlist;
 
-|Website|
+|System|
     :Add boarding house to user wishlist;
     :Redirect user to selected boarding house detail page;
 stop

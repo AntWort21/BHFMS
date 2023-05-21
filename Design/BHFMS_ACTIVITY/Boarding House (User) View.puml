@@ -3,7 +3,7 @@ title Boarding House
 |User|
     :Select View All Boarding House Menu;
     
-|Website|
+|System|
     :Show List Boarding House;
     stop
 @enduml

@@ -5,7 +5,7 @@ title Boarding House
     :Update Review;
     :Click Save;
     
-|Website|
+|System|
     :Validate user input;
     If (is User input valid?) then (Yes)
         :Save to database;

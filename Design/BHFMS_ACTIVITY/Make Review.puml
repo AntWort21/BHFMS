@@ -3,7 +3,7 @@
 start
     :Open Review Page;
 
-|Website|
+|System|
     :Show Review Page;
 
 |User|
@@ -11,7 +11,7 @@ start
     :Give Rating;
     :Submit;
 
-|Website|
+|System|
     :Insert To DB;
     :Show Home Page;
 
