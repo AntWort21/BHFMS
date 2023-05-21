@@ -1,0 +1,55 @@
+@startuml
+User -> ReviewPage: getReviewPage()
+ReviewPage -> ReviewController: getReviewPage()
+ReviewController -> ReviewModel: getReviewList(user_details)
+ReviewController <-- ReviewModel: review_list
+ReviewPage <-- ReviewController: review_list
+User <-- ReviewPage: displayReviewPage(review_list)
+
+alt (New Review)
+    User -> ReviewPage: insertNewReview(review_details, rating)
+    ReviewPage -> ReviewController: validateUserInput(review_details, rating)
+
+    alt (user input valid)
+        ReviewController -> ReviewModel: insertNewReview(review_details, rating)
+        ReviewController <-- ReviewModel: success_response
+        ReviewPage <-- ReviewController: success_response
+        User <-- ReviewPage: displayReviewPage()
+    else (user input invalid)
+        ReviewPage <-- ReviewController: failed_response
+        User <-- ReviewPage: displayReviewPage(failed_response)
+    end
+
+else (Update Old Review)
+    User -> ReviewPage: getSelectedUserReviewDetails()
+    ReviewPage -> ReviewController: getReviewDetails(selected_review_id)
+    ReviewController -> ReviewModel: getReviewDetails(selected_review_id)
+    ReviewController <-- ReviewModel: review_details
+    ReviewPage <-- ReviewController: review_details
+    User <-- ReviewPage: displaySelectedUserReviewDetails(review_details)
+
+    User -> ReviewPage: updateUserReview()
+    ReviewPage -> ReviewController: updateUserReview(updated_review_details)
+    ReviewController -> ReviewController: validateUserReview(updated_review_details)
+
+    alt (updated_review_details valid)
+        ReviewController -> ReviewModel: updateUserReview(updated_review_details)
+        ReviewController <-- ReviewModel: success_response
+        ReviewPage <-- ReviewController: success_response
+        User <-- ReviewPage: displayReviewPage()
+    else (updated_review_details invalid)
+        ReviewPage <-- ReviewController: failed_error_response
+        User <-- ReviewPage: displaySelectedUserReviewDetails(failed_error_response)
+    end
+end
+
+User -> ReviewPage: Insert Review, Give Rating
+ReviewPage -> ReviewController: Validate User Input
+ReviewPage <-- ReviewController: Send Success Response
+ReviewPage -> ReviewController: Send Insert to DB Instructions
+ReviewController -> ReviewModel: Insert to DB
+ReviewController <-- ReviewModel: Show Success Insert to DB Response
+ReviewPage <-- ReviewController: Return Insert Successful Message
+User <-- ReviewPage: Show Home Page
+
+@enduml

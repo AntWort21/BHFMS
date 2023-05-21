@@ -1,0 +1,20 @@
+@startuml
+User -> ReviewPage: openReviewPage()
+ReviewPage -> ReviewController: getReviewPage(user_data)
+ReviewController -> ReviewModel: reviewPageGet(user_data)
+ReviewController <-- ReviewModel: review_data
+ReviewPage <-- ReviewController: review_data
+User <-- ReviewPage: displayReviewPage(review_data)
+User -> ReviewPage: selectReview()
+ReviewPage -> ReviewController: getReviewDetail()
+ReviewController -> ReviewModel: reviewGetDetail()
+ReviewController <-- ReviewModel: review_detail
+ReviewPage <-- ReviewController: review_detail
+User <-- ReviewPage: reviewDetailPage(review_detail)
+User -> ReviewPage: updateReview(updated_review_data)
+ReviewPage -> ReviewController: updateReview(updated_review_data)
+ReviewController -> ReviewModel: reviewUpdate(updated_data)
+ReviewController <-- ReviewModel: success_message
+ReviewPage <-- ReviewController: success_message
+User <-- ReviewPage: redirectToReviewPage()
+@enduml
