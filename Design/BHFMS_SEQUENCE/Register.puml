@@ -1,19 +1,19 @@
 @startuml
-User -> Website: Request Registration Page
-User <-- Website: Return Registration Page
-User -> Website: Input User Credentials
-Website -> Controller: Validate User Input
+User -> RegisterPage: getRegistrationPage()
+User <-- RegisterPage: displayRegistrationPage()
+User -> RegisterPage: inputUserCredentials()
+RegisterPage -> AuthController: validateUserCredentials(user_credentials)
 alt Input Validated
-    Website <-- Controller: Send Input Validated Response
-    Website -> Controller: Send Insert to DB request
-    Controller -> Database: Insert New User to DB
-    Controller <-- Database: Send Insert Success Response
-    Website <-- Controller: Send Success Response
-    User <-- Website: Show Welcome Page
+    RegisterPage <-- AuthController: input_validated_response
+    RegisterPage -> AuthController: insertToDB(user_credentials)
+    AuthController -> UserModel: insertToDB(user_credentials)
+    AuthController <-- UserModel: insert_success_response
+    RegisterPage <-- AuthController: success_response
+    User <-- RegisterPage: displayHomePage()
     
 else Input Invalid
-    Website <-- Controller: Send Error Response
-    User <-- Website: Show Register Page With Error
+    RegisterPage <-- AuthController: error_response
+    User <-- RegisterPage: displayRegisterPage(error_response)
 end
 
 @enduml

@@ -1,25 +1,28 @@
 @startuml
-User -> Website: Request User Complain List
-Website -> Controller: Request User Complain List
-Controller -> Database: get user complain list
-Controller <-- Database: Return user complain list
-Website <-- Controller: Return user complain list
-User <-- Website: Return User Complain List
+User -> ComplainPage: getUserComplainListPage()
+ComplainPage -> ComplainController: getUserComplainList()
+ComplainController -> ComplainModel: getUserComplainList()
+ComplainController <-- ComplainModel: user_complain_list
+ComplainPage <-- ComplainController: user_complain_list
+User <-- ComplainPage: displayUserComplainListPage(user_complain_list)
 
 alt Create New Complain
 
-    User -> Website: Create New Complain
-    User <-- Website: Show Complain Form
-    User -> Website: Fill Complain Form
-    Website -> Controller: Fill Complain Form
-    Controller -> Database: Save Complain
+    User -> ComplainPage: getUserNewComplainForm()
+    User <-- ComplainPage: displayUserComplainForm()
+    User -> ComplainPage: inputUserComplain()
+    ComplainPage -> ComplainController: insertNewComplainForm(user_new_complain_details)
+    ComplainController -> ComplainModel: insertToDB(user_new_complain_details)
+    ComplainController <-- ComplainModel: success_response
+    ComplainPage <-- ComplainController: success_response
+    User <-- ComplainPage: displayUserComplainlist()
 else View Complain
 
-    User -> Website: View Specific Complain
-    Website -> Controller: View Specific Complain
-    Controller -> Database: View Specific Complain
-    Controller <-- Database: Return complain detail
-    Website <-- Controller: Return complain detail
-    User <-- Website: Return complain detail
+    User -> ComplainPage: getSpecificComplainDetails()
+    ComplainPage -> ComplainController: getSpecificComplainDetails()
+    ComplainController -> ComplainModel: getSpecificComplainDetails()
+    ComplainController <-- ComplainModel: specific_complain_details
+    ComplainPage <-- ComplainController: complain_details
+    User <-- ComplainPage: displaySpecificComplainDetails(specific_complain_details)
 end
 @enduml

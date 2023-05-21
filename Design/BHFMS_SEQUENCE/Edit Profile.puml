@@ -1,15 +1,19 @@
 @startuml
-User -> Website: Request Show Edit Profile
-User <-- Website: Return Edit Profile
-User -> Website: Fill in Update Profile Form
-Website -> Controller: Validate User Input
+User -> ProfilePage: getEditProfilePage()
+ProfilePage -> UserController: getUserProfileDetails()
+UserController -> UserModel: getUserProfileDetails()
+UserController <-- UserModel: user_profile_details
+ProfilePage <-- UserController: user_profile_details
+User <-- ProfilePage: displayEditProfilePage(user_profile_details)
+User -> ProfilePage: inputEditProfileForm()
+ProfilePage -> UserController: validateUserInput(user_update_profile_input)
 alt Validation Success
-        Controller -> Database: Update User Profile
-        Controller <-- Database: Show Success Update to DB Response
-        Website <-- Controller: Return Update Successful Message
-        User <-- Website: Show Home Page
+        UserController -> UserModel: updateUserDetails(user_update_profile_input)
+        UserController <-- UserModel: success_response
+        ProfilePage <-- UserController: success_response
+        User <-- ProfilePage: displayHomePage()
 else Validation Failed
-        Website <-- Controller: Return Update Successful Message
-        User <-- Website: Show Home Page
+        ProfilePage <-- UserController: failed_response
+        User <-- ProfilePage: displayProfilePage(failed_response)
 end
 @enduml

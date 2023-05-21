@@ -1,0 +1,10 @@
+@startuml
+
+User -> WishlistPage: openWishlistPage()
+WishlistPage -> WishlistController: getUserWishlist(user_details)
+WishlistController -> WishlistModel: getUserWishlistFromDB(user_details)
+WishlistController <-- WishlistModel: user_wishlist_details
+WishlistPage <-- WishlistController: user_wishlist_details
+User <-- WishlistPage: displayWishlistPage(user_wishlist_details)
+
+@enduml

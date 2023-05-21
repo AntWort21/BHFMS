@@ -1,0 +1,17 @@
+@startuml
+
+User -> BoardingHousePage: openAllBoardingHousePage()
+BoardingHousePage -> BoardingController: getAllBoardingHouse()
+BoardingController -> BoardingModel: getAllBoardingHouseData()
+BoardingController <-- BoardingModel: boarding_houses_data
+BoardingHousePage <-- BoardingController: boarding_houses_data
+User <-- BoardingHousePage: displayAllBoardingHousesPage(boarding_houses_data)
+
+User -> BoardingHousePage: openSelectedBoardingHouseDetail()
+BoardingHousePage -> BoardingController: getSelectedBoardingHouseDetail()
+BoardingController -> BoardingModel: selectedBoardingHouseDetailGet()
+BoardingController <-- BoardingModel: boarding_house_detail_data
+BoardingHousePage <-- BoardingController: boarding_house_detail_data
+User <-- BoardingHousePage: displaySelectedBoardingHouseDetailPage(boarding_house_detail_data)
+
+@enduml
