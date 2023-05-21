@@ -3,13 +3,13 @@
 start
     :Open Login Page;
 
-|Website|
+|System|
     :Show Login Page;
 
 |User|
     :Insert Credentials;
 
-|Website|
+|System|
     :Check Credentials;
 
     if (Do Credentials Match the Database?) then (yes) 
