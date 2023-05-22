@@ -159,6 +159,8 @@ const submitUpdate = (this_id) => {
                             v-on:placechanged="getAddressData"
                             v-model="form.address"
                             ref="address"
+                            country="id"
+                            types=""
                         >
                         </vue-google-autocomplete>
                         <div

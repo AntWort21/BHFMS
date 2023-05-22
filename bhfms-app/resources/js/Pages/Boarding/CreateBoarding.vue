@@ -130,7 +130,8 @@ const submit = () => {
                             classname="form-control"
                             placeholder="Select Address"
                             v-on:placechanged="getAddressData"
-                            types="address"
+                            country="id"
+                            types=""
                             v-model="form.address"
                         >
                         </vue-google-autocomplete>

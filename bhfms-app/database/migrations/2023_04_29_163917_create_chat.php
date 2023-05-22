@@ -24,7 +24,7 @@ class CreateChat extends Migration
             $table->foreign('receiver_id')->references('id')
             ->on('users')->cascadeOnUpdate()->cascadeOnDelete();
 
-            $table->text('message');
+            $table->longtext('message');
             $table->timestamps();
         });
     }

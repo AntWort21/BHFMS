@@ -24,16 +24,16 @@ class BoardingTypeSeeder extends Seeder
             "boarding_type_name" =>'Apartment'
         ]);
         BoardingType::create([
-            "boarding_type_name" =>'Not a Mansion'
+            "boarding_type_name" =>'Cabin'
         ]);
         BoardingType::create([
             "boarding_type_name" =>'Condo'
         ]);
         BoardingType::create([
-            "boarding_type_name" =>'Trailer'
+            "boarding_type_name" =>'Duplex'
         ]);
         BoardingType::create([
-            "boarding_type_name" =>'CyberSpace'
+            "boarding_type_name" =>'Tiny Home'
         ]);
     }
 }

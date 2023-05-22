@@ -85,6 +85,8 @@ let hoverOwner = ref(false);
                     placeholder="Search Here"
                     v-model="address"
                     v-on:placechanged="onPlaceChangedHeader"
+                    country="id"
+                    types=""
                 />
                 <div
                     class="flex items-baseline justify-end items-center space-x-10"

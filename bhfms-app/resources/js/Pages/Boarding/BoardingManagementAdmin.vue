@@ -131,8 +131,7 @@ watch(searchQuery, (value) => {
                                 <td class="py-3 px-6 text-left">
                                     <div class="flex items-center">
                                         <span class="mr-2 font-medium"
-                                            >{{ boarding.boarding_name }} -- (
-                                            ID: {{ boarding.boarding_id }} )
+                                            >{{ boarding.boarding_name }}
                                         </span>
                                     </div>
                                 </td>

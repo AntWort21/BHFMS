@@ -397,7 +397,7 @@ class BoardingController extends Controller
 
     public function searchBoardingByLocation(Request $request)
     {
-        $radius = 50; //radius in km
+        $radius = 5; //radius in km
 
         $boardingSearchResults = Boarding::select(
             'id',
@@ -436,7 +436,7 @@ class BoardingController extends Controller
         ];
 
         $validation = $request->validate([
-            'name' => ['required', 'max:50'],
+            'name' => ['required', 'max:200'],
             'address' => ['required'],
             'type' => ['required'],
             'rooms' => ['required', 'numeric', 'min:1'],
@@ -570,7 +570,7 @@ class BoardingController extends Controller
         ];
 
         $validation = $request->validate([
-            'name' => ['required', 'max:50'],
+            'name' => ['required', 'max:200'],
             'address' => ['required'],
             'type' => ['required'],
             'rooms' => ['required', 'numeric', 'min:1'],
@@ -761,7 +761,7 @@ class BoardingController extends Controller
         ];
 
         $validation = $request->validate([
-            'name' => ['required', 'max:50'],
+            'name' => ['required', 'max:200'],
             'address' => ['required'],
             'type' => ['required'],
             'rooms' => ['required', 'numeric', 'min:1'],

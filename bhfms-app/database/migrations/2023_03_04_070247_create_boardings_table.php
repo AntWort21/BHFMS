@@ -16,7 +16,7 @@ class CreateBoardingsTable extends Migration
         Schema::create('boardings', function (Blueprint $table) {
             $table->id();
             $table->string('boarding_name');
-            $table->string('address');
+            $table->longText('address');
             $table->string('latitude');
             $table->string('longitude');
             $table->unsignedBigInteger('type_id');
@@ -24,7 +24,7 @@ class CreateBoardingsTable extends Migration
             $table->integer('rooms');
             $table->boolean('shared_bathroom');
             $table->integer('price');
-            $table->string('boarding_desc');
+            $table->longText('boarding_desc');
             $table->timestamps();
 
         });
