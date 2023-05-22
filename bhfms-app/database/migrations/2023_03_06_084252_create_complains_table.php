@@ -28,7 +28,7 @@ class CreateComplainsTable extends Migration
             $table->foreign('complain_type_id')->references('id')
             ->on('complain_types')->cascadeOnUpdate()->cascadeOnDelete();
 
-            $table->string('complain_desc');
+            $table->longtext('complain_desc');
             $table->string('complain_image_url');
             $table->enum('complain_status',['pending','finished','on progress'])->default('pending');
 

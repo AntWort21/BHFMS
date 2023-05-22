@@ -33,7 +33,7 @@ class CreateRentTransactionsTable extends Migration
             $table->integer('amount');
             $table->date('payment_date');
             $table->enum('payment_status',['Pending','Processing','Approved','Rejected','Late','Canceled'])->default('Pending');
-            $table->string('declined_reason')->nullable();
+            $table->longtext('declined_reason')->nullable();
             $table->enum('payment_transferred_status',['Pending','Successful','Declined','Processing_Refund','Processing_Refund_Success'])->default('Pending');
             $table->boolean('repeat_payment')->default(false);
             $table->timestamps();

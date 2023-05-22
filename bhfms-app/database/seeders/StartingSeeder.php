@@ -15,6 +15,6 @@ class StartingSeeder extends Seeder
     public function run()
     {
         $sql = file_get_contents(storage_path('app').'/public/startingSeeder.sql');
-        DB::statement($sql);
+        DB::unprepared($sql);
     }
 }

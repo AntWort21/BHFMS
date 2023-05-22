@@ -82,7 +82,7 @@ class UserSeeder extends Seeder
             "email" =>'tenant2@gmail.com',
             "date_of_birth" =>'1/1/2000',
             "phone" =>rand(1000000,5000000),
-            "user_role_id" =>'3',
+            "user_role_id" =>'2',
             "password" =>bcrypt('tenant2'),
         ]);
         User::create([
