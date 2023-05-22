@@ -78,7 +78,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/boarding/update/{id}', [BoardingController::class, 'getUpdateBoarding'])->middleware('boarding.approve.access');
     Route::get('/boarding/read/{id}', [BoardingController::class, 'getReadBoarding'])->middleware('boarding.read.access');
     Route::post('/boarding/update/{id}', [BoardingController::class, 'updateBoarding'])->middleware('boarding.approve.access');
-    Route::get('/boarding/delete/{id}', [BoardingController::class, 'deleteBoarding'])->middleware('admin');
+    Route::post('/boarding/delete/{id}', [BoardingController::class, 'deleteBoarding'])->middleware('admin');
     Route::get('/boarding/reapprove/{id}', [BoardingController::class, 'getReapproveBoarding'])->middleware('boarding.reapprove.access');
     Route::post('/boarding/reapprove/{id}', [BoardingController::class, 'ReapproveBoarding'])->middleware('boarding.reapprove.access');
     Route::get('/boarding/enable/{id}', [BoardingController::class, 'enableBoardingOwner'])->middleware('boarding.approve.access');
