@@ -53,10 +53,10 @@ class ComplainController extends Controller
 
         Complain::create([
             'user_id' => Auth::user()->id,
-            'boarding_id' => TenantBoarding::where('user_id', Auth::user()->id)->where('tenant_status', 'approved')->first()->boarding_id,
+            'boarding_id' => TenantBoarding::where('user_id', Auth::user()->id)->where('tenant_status', 'approved')->first()->boarding_id ?? null,
             'complain_type_id' => ComplainType::where('complain_type_name', $request->complainType)->first()->id,
             'complain_desc' => $request->description,
-            'complain_image_url' => '/storage/images/' . $fileName ?? null
+            'complain_image_url' => '/storage/images/' . ($fileName ?? 'CJ-GTASA.png')
         ]);
 
         return redirect('/complain');

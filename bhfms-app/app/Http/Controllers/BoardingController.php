@@ -57,8 +57,9 @@ class BoardingController extends Controller
         });
 
         $boardingIDs = array_slice(array_column($boardingRatingDetails, 'boarding_id'), 0, 6);
+        $approvedBoardingHouse = OwnerBoarding::where('owner_status', 'approved')->get()->pluck('boarding_id');
 
-        $highlyRatedBoardingHouse = Boarding::whereIn('id', $boardingIDs)->get();
+        $highlyRatedBoardingHouse = Boarding::whereIn('id', $boardingIDs)->whereIn('id', $approvedBoardingHouse)->get();
         foreach ($highlyRatedBoardingHouse as $key => $boardingHouse) {
             $highlyRatedBoardingHouse[$key]->imageUrl = BoardingImage::where('boarding_id', $boardingHouse->id)->first()->image;
         }
@@ -360,7 +361,7 @@ class BoardingController extends Controller
             $facilityList[$key]->facility_detail_name = $facilityDetail->facility_detail_name;
             $facilityList[$key]->facility_img_path = $facilityDetail->facility_img_path;
         }
-        
+
         $currVacancy = $selectedBoardingHouseDetail->rooms - (TenantBoarding::where([['boarding_id', $request->id], ['tenant_status', 'approved']])->count());
         $currVacancy > 0 ? $isAvailable = true : $isAvailable = false;
         $reviews = Review::where('boarding_id', $request->id)->get();
@@ -399,6 +400,8 @@ class BoardingController extends Controller
     {
         $radius = 50; //radius in km
 
+        $approvedBoardingHouse = OwnerBoarding::where('owner_status', 'approved')->get()->pluck('boarding_id');
+
         $boardingSearchResults = Boarding::select(
             'id',
             'boarding_name',
@@ -408,7 +411,7 @@ class BoardingController extends Controller
             DB::raw("SQRT(
             POW(69.1 * (latitude - $request->latitude), 2) +
             POW(69.1 * ($request->longitude - longitude) * COS(latitude / 57.3), 2)) AS distance")
-        )->having('distance', '<', $radius)->get();
+        )->whereIn('id', $approvedBoardingHouse)->having('distance', '<', $radius)->get();
 
         foreach ($boardingSearchResults as $key => $boardingHouse) {
             $boardingSearchResults[$key]->imageUrl = BoardingImage::where('boarding_id', $boardingHouse->id)->first()->image;
@@ -504,7 +507,7 @@ class BoardingController extends Controller
         $currImages = $currBoarding->images()->get();
         $currVacancy = $currBoarding->rooms - (TenantBoarding::where([['boarding_id', $request->id], ['tenant_status', 'approved']])->count());
         $currOwner = OwnerBoarding::where('owner_boardings.boarding_id','=',$currBoarding->id)->first();
-        
+
         return Inertia::render('Boarding/ReadBoarding', [
             'currImages' => $currImages,
             'currBoarding' => $currBoarding,
