@@ -1,17 +1,17 @@
 @startuml
 title Boarding House
-|User|
+|Tenant|
     :Update Rating;
     :Update Review;
     :Click Save;
     
 |System|
-    :Validate user input;
-    If (is User input valid?) then (Yes)
+    :Validate Tenant input;
+    If (is Tenant input valid?) then (Yes)
         :Save to database;
-        :show user boarding house page;
+        :show Tenant boarding house page;
     else (No)
-        :show user Review page with error;
+        :show Tenant Review page with error;
     endif
     stop
 @enduml

@@ -1,10 +1,10 @@
 @startuml
 
-User -> WishlistPage: openWishlistPage()
-WishlistPage -> WishlistController: getUserWishlist(user_details)
-WishlistController -> WishlistModel: getUserWishlistFromDB(user_details)
-WishlistController <-- WishlistModel: user_wishlist_details
-WishlistPage <-- WishlistController: user_wishlist_details
-User <-- WishlistPage: displayWishlistPage(user_wishlist_details)
+Tenant -> WishlistPage: openWishlistPage()
+WishlistPage -> WishlistController: getTenantWishlist(Tenant_details)
+WishlistController -> WishlistModel: getTenantWishlistFromDB(Tenant_details)
+WishlistController <-- WishlistModel: Tenant_wishlist_details
+WishlistPage <-- WishlistController: Tenant_wishlist_details
+Tenant <-- WishlistPage: displayWishlistPage(Tenant_wishlist_details)
 
 @enduml
