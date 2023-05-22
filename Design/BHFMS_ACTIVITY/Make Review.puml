@@ -1,12 +1,12 @@
 @startuml
-|User|
+|Tenant|
 start
     :Open Review Page;
 
 |System|
     :Show Review Page;
 
-|User|
+|Tenant|
     :Insert Review;
     :Give Rating;
     :Submit;

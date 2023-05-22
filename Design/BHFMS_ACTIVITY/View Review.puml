@@ -1,12 +1,12 @@
 @startuml
 title Boarding House
-|User|
+|Tenant|
     :Select Boarding House Menu;
     
 |System|
     :Show Boarding House Menu;
 
-|User|
+|Tenant|
     :Select Boarding House Review Menu;
 
 |System|
