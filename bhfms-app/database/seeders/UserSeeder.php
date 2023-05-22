@@ -60,7 +60,7 @@ class UserSeeder extends Seeder
             "password" =>bcrypt('owner4'),
         ]);
         User::create([
-            "user_name" =>'Tenant  1',
+            "user_name" =>'Tenant 1',
             "gender"=>'1',
             "email" =>'tenant1@gmail.com',
             "date_of_birth" =>'1/1/2000',
@@ -69,7 +69,7 @@ class UserSeeder extends Seeder
             "password" =>bcrypt('tenant1'),
         ]);
         User::create([
-            "user_name" =>'Tenant  2',
+            "user_name" =>'Tenant 2',
             "gender"=>'2',
             "email" =>'tenant2@gmail.com',
             "date_of_birth" =>'1/1/2000',
@@ -78,7 +78,7 @@ class UserSeeder extends Seeder
             "password" =>bcrypt('tenant2'),
         ]);
         User::create([
-            "user_name" =>'Tenant  3',
+            "user_name" =>'Tenant 3',
             "gender"=>'2',
             "email" =>'tenant3@gmail.com',
             "date_of_birth" =>'1/1/2000',
@@ -107,11 +107,11 @@ class UserSeeder extends Seeder
         User::create([
             "user_name" =>'Manager 1',
             "gender"=>'1',
-            "email" =>'Manager1@gmail.com',
+            "email" =>'manager1@gmail.com',
             "date_of_birth" =>'1/1/2000',
             "phone" =>rand(1000000,5000000),
             "user_role_id" =>'4',
-            "password" =>bcrypt('Manager1'),
+            "password" =>bcrypt('manager1'),
         ]);
         User::create([
             "user_name" =>'Manager  2',
@@ -123,16 +123,16 @@ class UserSeeder extends Seeder
             "password" =>bcrypt('manager2'),
         ]);
         User::create([
-            "user_name" =>'manager  3',
+            "user_name" =>'Manager  3',
             "gender"=>'1',
-            "email" =>'Manager3gmail.com',
+            "email" =>'manager3gmail.com',
             "date_of_birth" =>'1/1/2000',
             "phone" =>rand(1000000,5000000),
             "user_role_id" =>'4',
             "password" =>bcrypt('Manager3'),
         ]);
         User::create([
-            "user_name" =>'Manager  4',
+            "user_name" =>'manager  4',
             "email" =>'manager4@gmail.com',
             "date_of_birth" =>'1/1/2000',
             "phone" =>rand(1000000,5000000),

@@ -14,21 +14,23 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
+            UserRoleSeeder::class,
             UserSeeder::class,
             BoardingTypeSeeder::class,
-            FacilityDetailSeeder::class,
-            BoardingSeeder::class,
-            UserRoleSeeder::class,
-            FacilitySeeder::class,
-            BoardingImageSeeder::class,
-            OwnerBoardingSeeder::class,
-            TenantBoardingSeeder::class,
+            // FacilityDetailSeeder::class,
+            // BoardingSeeder::class,
+            
+            // FacilitySeeder::class,
+            // BoardingImageSeeder::class,
+            // OwnerBoardingSeeder::class,
+            // TenantBoardingSeeder::class,
             PaymentMethodsSeeder::class,
             TransactionTypesSeeder::class,
             // RentTransactionSeeder::class,
             ComplainTypeSeeder::class,
-            ComplainSeeder::class,
-            ReviewSeeder::class,
+            StartingSeeder::class,
+            // ComplainSeeder::class,
+            // ReviewSeeder::class,
         ]);
 
     }

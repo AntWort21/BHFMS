@@ -18,14 +18,14 @@ class ReviewSeeder extends Seeder
             'user_id' => 10,
             'boarding_id' => 1,
             'rating' => 3,
-            'review_desc' => 'good place to live',
+            'review_desc' => 'Good place to live',
         ]);
 
         Review::create([
             'user_id' => 5,
             'boarding_id' => 1,
             'rating' => 4,
-            'review_desc' => 'relaxing place',
+            'review_desc' => 'Relaxing place',
         ]);
 
         Review::create([
