@@ -1,0 +1,19 @@
+@startuml
+title Facility Details Delete (Admin)
+|Admin|
+start 
+    : Admin Press Delete Facility Details Button;
+|System|
+    : Show Delete Confirmation;
+|Admin|
+    : Admin Click Button;
+|System|
+If () then (Confirm)
+    : System Delete Selected Facility Details;
+    : Show Success Delete Facility Details Message;
+    stop
+else (Back)
+    : Go Back to view All Facility Details Management Page;
+    stop  
+endif
+@enduml

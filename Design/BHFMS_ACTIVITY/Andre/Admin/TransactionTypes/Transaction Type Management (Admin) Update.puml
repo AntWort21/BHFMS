@@ -1,0 +1,24 @@
+@startuml
+title Transaction Type Update (Admin)
+|Admin|
+start 
+    : Select Update Transaction Type;
+|System|
+    :Show Transaction Type Update Form;
+|Admin|  
+    : Admin Update Transaction Type;
+    : Admin Click Button;
+|System|
+If () then (Submit)
+    :Check Form Validity;
+    if () is (Valid) then
+        : System Update Transaction Type;
+        : Show Success Update Transaction Type Message;
+    else (Not Valid)
+        : Show Transaction Type Form Errors Message;
+    endif
+else (Back)
+    : Go Back to view All Transaction Types Management Page;
+endif
+stop
+@enduml

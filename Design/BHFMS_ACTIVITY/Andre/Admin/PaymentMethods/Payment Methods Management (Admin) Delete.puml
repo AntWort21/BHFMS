@@ -1,0 +1,18 @@
+@startuml
+title Payment Method Delete (Admin)
+|Admin|
+start 
+    : Admin Press Delete Payment Method Button;
+|System|
+    : Show Delete Confirmation;
+|Admin|
+    : Admin Click Button;
+|System|
+If () then (Confirm)
+    : System Delete Payment Method;
+    : Show Success Delete Payment Method Message;
+else (Back)
+    : Go Back to view All Payment Methods Management Page;
+endif
+stop
+@enduml

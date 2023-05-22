@@ -1,0 +1,8 @@
+@startuml
+title Boarding House (Manager)
+|Manager|
+    :Select List Boarding House;
+|Website|
+    :Show List Boarding House;
+    stop
+@enduml

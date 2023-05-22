@@ -1,0 +1,12 @@
+@startuml
+title Boarding House View (Tenant)
+|Tenant|
+start 
+    :Tenant Click See All Boarding Houses;
+
+|System|
+    :System Retrieves All Boarding Houses History Data;
+    :Show All Boarding Houses History Page (Tenant);
+    stop
+
+@enduml

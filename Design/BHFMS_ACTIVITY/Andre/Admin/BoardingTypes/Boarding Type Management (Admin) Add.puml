@@ -1,0 +1,27 @@
+@startuml
+title Boarding Type Add (Admin)
+|Admin|
+start 
+    : Admin Press Add Boarding Type Button;
+|System|
+    : Show Add New Boarding Type Form;
+|Admin|
+    : Admin Add Boarding Type;
+    : Admin Click Button;
+|System|
+If () then (Submit)
+    : Check Boarding Type Validity;
+    if () is (Valid) then
+        : System Add Boarding Type;
+        : Show Success Add Boarding Type Message;
+    else (Not Valid)
+        : Show Failed Add Boarding Type Message;
+        : Show Form Errors Message;
+        
+    endif
+else (Back)
+    : Go Back to view All Boarding Type Management Page;
+      
+endif
+stop
+@enduml

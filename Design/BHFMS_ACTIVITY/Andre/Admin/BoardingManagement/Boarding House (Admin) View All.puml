@@ -1,0 +1,12 @@
+@startuml
+title Boarding House View (Admin)
+|Admin|
+start 
+    :Admin Click See All Boarding Houses;
+
+|System|
+    :System Retrieves All Boarding Houses Data;
+    :Show All Boarding Houses Page (Admin);
+    stop
+
+@enduml

@@ -1,0 +1,11 @@
+@startuml
+title User Management View All (Admin)
+|Admin|
+start 
+    :Admin Click See All User;
+
+|System|
+    :System Retrieves All User Data;
+    :Show All User Management Page (Admin);
+    stop
+@enduml

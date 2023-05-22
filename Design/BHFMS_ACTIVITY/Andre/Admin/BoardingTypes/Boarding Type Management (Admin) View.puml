@@ -1,0 +1,11 @@
+@startuml
+title Boarding Types Management View All (Admin)
+|Admin|
+start 
+    :Admin Click See All Boarding Types;
+|System|
+    :System Retrieves All Boarding Types Data;
+    :Show All Boarding Types Management Page (Admin);
+    stop
+
+@enduml

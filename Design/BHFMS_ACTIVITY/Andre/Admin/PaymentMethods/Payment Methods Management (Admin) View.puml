@@ -1,0 +1,11 @@
+@startuml
+title Payment Methods Management View All (Admin)
+|Admin|
+start 
+    :Admin Click See All Payment Methods;
+|System|
+    :System Retrieves All Payment Methods Data;
+    :Show All Payment Methods Management Page (Admin);
+    stop
+
+@enduml
