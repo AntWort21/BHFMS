@@ -1,12 +1,12 @@
 @startuml
 
-|User|
+|Tenant|
 start
     :Open Wishlist Page;
 
 |System|
-    :Get User Wishlist Data from DB;
-    :Show User Wishlist Page;
+    :Get Tenant Wishlist Data from DB;
+    :Show Tenant Wishlist Page;
 stop
 
 @enduml

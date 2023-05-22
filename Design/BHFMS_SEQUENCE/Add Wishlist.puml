@@ -1,23 +1,23 @@
 @startuml
-User -> BoardingHousePage: openAllBoardingHousePage()
+Tenant -> BoardingHousePage: openAllBoardingHousePage()
 BoardingHousePage -> BoardingController: getAllBoardingHouse()
 BoardingController -> BoardingModel: getAllBoardingHouseData()
 BoardingController <-- BoardingModel: boarding_houses_data
 BoardingHousePage <-- BoardingController: boarding_houses_data
-User <-- BoardingHousePage: displayAllBoardingHousesPage(boarding_houses_data)
+Tenant <-- BoardingHousePage: displayAllBoardingHousesPage(boarding_houses_data)
 
-User -> BoardingHousePage: openSelectedBoardingHouseDetail()
+Tenant -> BoardingHousePage: openSelectedBoardingHouseDetail()
 BoardingHousePage -> BoardingController: getSelectedBoardingHouseDetail()
 BoardingController -> BoardingModel: selectedBoardingHouseDetailGet()
 BoardingController <-- BoardingModel: boarding_house_detail_data
 BoardingHousePage <-- BoardingController: boarding_house_detail_data
-User <-- BoardingHousePage: displaySelectedBoardingHouseDetailPage(boarding_house_detail_data)
+Tenant <-- BoardingHousePage: displaySelectedBoardingHouseDetailPage(boarding_house_detail_data)
 
-User -> BoardingHousePage: addToWishlist()
-BoardingHousePage -> WishlistController: addToWishlist(user_details, boarding_details)
-WishlistController -> WishlistModel: insertIntoUserWishlist(user_details, boarding_details)
+Tenant -> BoardingHousePage: addToWishlist()
+BoardingHousePage -> WishlistController: addToWishlist(Tenant_details, boarding_details)
+WishlistController -> WishlistModel: insertIntoTenantWishlist(Tenant_details, boarding_details)
 WishlistController <-- WishlistModel: success_response
 BoardingHousePage <-- WishlistController: success_response
-User <-- BoardingHousePage: displaySelectedBoardingHouseDetailPage(boarding_house_detail_data, wishlist_response)
+Tenant <-- BoardingHousePage: displaySelectedBoardingHouseDetailPage(boarding_house_detail_data, wishlist_response)
 
 @enduml
