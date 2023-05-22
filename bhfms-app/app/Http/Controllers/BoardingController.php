@@ -57,9 +57,9 @@ class BoardingController extends Controller
         });
 
         $boardingIDs = array_slice(array_column($boardingRatingDetails, 'boarding_id'), 0, 6);
-        $approvedBoardingHouse = OwnerBoarding::where('owner_status', 'approved')->get()->pluck('boarding_id');
+        $approvedBoardingHouseIDs = OwnerBoarding::where('owner_status', 'approved')->get()->pluck('boarding_id');
 
-        $highlyRatedBoardingHouse = Boarding::whereIn('id', $boardingIDs)->whereIn('id', $approvedBoardingHouse)->get();
+        $highlyRatedBoardingHouse = Boarding::whereIn('id', $boardingIDs)->whereIn('id', $approvedBoardingHouseIDs)->get();
         foreach ($highlyRatedBoardingHouse as $key => $boardingHouse) {
             $highlyRatedBoardingHouse[$key]->imageUrl = BoardingImage::where('boarding_id', $boardingHouse->id)->first()->image;
         }
@@ -330,7 +330,8 @@ class BoardingController extends Controller
 
     public function getAllBoardingHouse()
     {
-        $allBoardingHouse = Boarding::paginate(18);
+        $approvedBoardingHouseId = OwnerBoarding::where('owner_status', 'approved')->get()->pluck('boarding_id');
+        $allBoardingHouse = Boarding::whereIn('id', $approvedBoardingHouseId)->paginate(18);
 
         foreach ($allBoardingHouse as $key => $boardingHouse) {
             $allBoardingHouse[$key]->imageUrl = BoardingImage::where('boarding_id', $boardingHouse->id)->first()->image;
@@ -400,7 +401,7 @@ class BoardingController extends Controller
     {
         $radius = 5; //radius in km
 
-        $approvedBoardingHouse = OwnerBoarding::where('owner_status', 'approved')->get()->pluck('boarding_id');
+        $approvedBoardingHouseIDs = OwnerBoarding::where('owner_status', 'approved')->get()->pluck('boarding_id');
 
         $boardingSearchResults = Boarding::select(
             'id',
@@ -411,7 +412,7 @@ class BoardingController extends Controller
             DB::raw("SQRT(
             POW(69.1 * (latitude - $request->latitude), 2) +
             POW(69.1 * ($request->longitude - longitude) * COS(latitude / 57.3), 2)) AS distance")
-        )->whereIn('id', $approvedBoardingHouse)->having('distance', '<', $radius)->get();
+        )->whereIn('id', $approvedBoardingHouseIDs)->having('distance', '<', $radius)->get();
 
         foreach ($boardingSearchResults as $key => $boardingHouse) {
             $boardingSearchResults[$key]->imageUrl = BoardingImage::where('boarding_id', $boardingHouse->id)->first()->image;
