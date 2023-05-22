@@ -32,8 +32,10 @@ let convertAmount = (amount) => {
 </script>
 <template>
     <Header />
-    <div class="m-5">
-        <h2 class="mb-3">Make Payment</h2>
+    <div class="m-5 min-h-[75vh]">
+        <div class="text-2xl font-semibold mb-3">
+            Make Payment
+        </div>
         <form @submit.prevent="submit">
             <div class="w-[450px]">
                 <FormTextBoxInputReadOnly

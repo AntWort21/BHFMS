@@ -22,6 +22,8 @@ class UserSeeder extends Seeder
             "phone" =>rand(1000000,5000000),
             "user_role_id" =>'1',
             "password" =>bcrypt('admin1'),
+            "bank_name" => 'BCA',
+            "account_number" => "115123",
         ]);
         User::create([
             "user_name" =>'Owner 1',
@@ -31,6 +33,8 @@ class UserSeeder extends Seeder
             "phone" =>rand(1000000,5000000),
             "user_role_id" =>'3',
             "password" =>bcrypt('owner1'),
+            "bank_name" => 'Mandiri',
+            "account_number" => "5012312",
         ]);
         User::create([
             "user_name" =>'Owner 2',
@@ -40,6 +44,8 @@ class UserSeeder extends Seeder
             "phone" =>rand(1000000,5000000),
             "user_role_id" =>'3',
             "password" =>bcrypt('owner2'),
+            "bank_name" => 'BRI',
+            "account_number" => "1014121412",
         ]);
         User::create([
             "user_name" =>'Owner 3',
@@ -49,6 +55,8 @@ class UserSeeder extends Seeder
             "phone" =>rand(1000000,5000000),
             "user_role_id" =>'3',
             "password" =>bcrypt('owner3'),
+            "bank_name" => 'HSBC',
+            "account_number" => "58123121",
         ]);
         User::create([
             "user_name" =>'Owner 4',
@@ -138,6 +146,15 @@ class UserSeeder extends Seeder
             "phone" =>rand(1000000,5000000),
             "user_role_id" =>'4',
             "password" =>bcrypt('manager4'),
+        ]);
+        User::create([
+            "user_name" =>'BHFMS Staff',
+            "gender"=>'1',
+            "email" =>'bhfms@gmail.com',
+            "date_of_birth" =>'1/1/2000',
+            "phone" =>rand(1000000,5000000),
+            "user_role_id" =>'1',
+            "password" =>bcrypt('bhfms'),
         ]);
     }
 }

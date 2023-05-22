@@ -1,17 +1,31 @@
 @startuml
 |User|
 start
-    :See All Complain History;
+:See All Complain History;
 
-    If (User Want To Complain) then (Create New Complain)
+|System|
+:Show all complain history;
+
+|User|
+If (User Want To Complain) then (Create New Complain)
         :User Clicks Create New Complain;
+        |System|
+        :Show create new complain page;
+        |User|
         :User Input Complain Type and Description;
-
-    else (View Current Complain)
+        |System|
+        if (Validate Input) then (Input valid)
+          :Save to DB;
+        else (Input Invalid)
+          :Show create new complain page with error;
+        endif
+else (View Current Complain)
         :User Click Specific Complain;
-        :Click Specific Chat;
+        |System|
+        :Show User Specific complain detail;
+        |User|
         :User Can See The Complain Status;
         
-    endif
+endif
 stop
 @enduml

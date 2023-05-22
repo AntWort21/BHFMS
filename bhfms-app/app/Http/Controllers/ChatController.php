@@ -79,4 +79,17 @@ class ChatController extends Controller
 
         return back();
     }
+
+    public function storeSpecificChatMessage(int $senderId, int $receiverId, String $message)
+    {
+        $message = Chat::create([
+            'sender_id' => $senderId,
+            'receiver_id' => $receiverId,
+            'message' => $message,
+        ]);
+
+        broadcast(new NewChatMessage($message))->toOthers();
+
+        return;
+    }
 }

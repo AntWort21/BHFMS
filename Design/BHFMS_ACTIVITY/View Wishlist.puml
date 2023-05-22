@@ -1,0 +1,12 @@
+@startuml
+
+|User|
+start
+    :Open Wishlist Page;
+
+|System|
+    :Get User Wishlist Data from DB;
+    :Show User Wishlist Page;
+stop
+
+@enduml

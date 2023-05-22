@@ -32,9 +32,9 @@ const getFileName = (paymentDate, invoiceId) => {
 </script>
 
 <template>
-   <div @scroll.prevent class="fixed flex w-full h-full bg-black/70  top-0 left-0 right-0 bottom-0 overflow-hidden items-center align-middle justify-center z-10 pointer-events-auto cursor-pointer" v-on:click="closeDetail">
+   <div @scroll.prevent class="fixed flex w-full h-full bg-black/70  top-0 left-0 right-0 bottom-0 overflow-hidden items-center align-middle justify-center z-50 pointer-events-auto cursor-pointer" v-on:click="closeDetail">
    </div>
-   <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+   <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
             <div class="relative flex flex-col bg-white/100 opacity-100">
                 <div class="flex flex-row justify-between p-2">
                     <h2>
@@ -117,7 +117,7 @@ const getFileName = (paymentDate, invoiceId) => {
                         <button class="my-2 bg-blue-500 py-1 w-24 text-white rounded-full" @click="redirect('/chat')">Chat</button>
                         
                         <button class="my-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-if="userRole==2">Complain</button>
-                        <button class="my-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-if="userRole==4||userRole==3" @click="redirect('/cancelPayment?order='+invoiceDetail.invoice_id+'&boarding='+query.get('boarding'))">Cancel</button>
+                        <button class="my-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-if="(userRole==4||userRole==3) && invoiceDetail.payment_transferred_status !='Successful' " @click="redirect('/cancelPayment?order='+invoiceDetail.invoice_id+'&boarding='+query.get('boarding'))">Cancel</button>
                         <button class="my-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-if="userRole==4||userRole==3" @click="redirect('/editPayment?order='+invoiceDetail.invoice_id+'&boarding='+query.get('boarding'))">Edit</button>
                     </div>
                 </div>

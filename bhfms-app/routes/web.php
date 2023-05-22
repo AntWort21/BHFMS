@@ -151,20 +151,20 @@ Route::middleware('auth')->group(function () {
     Route::post('/paymentMethod/delete/{id}',[PaymentMethodController::class, 'PaymentMethodDelete'])->middleware('admin');
 
     //Gardi Punya
-    Route::get('/addPaymentBoarding',[PaymentController::class,'getPaymentPageManager']);
-    Route::post('/addPaymentBoarding',[PaymentController::class,'addPaymentManager']);
-    Route::get('/pay',[PaymentController::class,'getPaymentPageTenant']);
-    Route::post('/pay',[PaymentController::class,'addPaymentTenant']);
-    Route::get('/paymentHistory',[PaymentController::class,'getAllPayment']);
-    Route::post('/getInvoiceData',[PaymentController::class,'getInvoiceDetail']);
-    Route::get('/cancelPayment',[PaymentController::class,'cancelPayment']);
-    Route::post('/getPaymentInvoice',[PaymentController::class,'addPaymentTenant']);
-    Route::get('/checkInvoiceRequest',[PaymentController::class,'getCheckInvoiceRequest']);
-    Route::get('/schedulePayment',[PaymentController::class,'checkLatePayment']);
-    Route::post('/udpateInvoiceStatus',[PaymentController::class,'udpateInvoiceStatus']);
-    Route::get('/editPayment',[PaymentController::class,'getEditPayment']);
-    Route::post('/editPayment',[PaymentController::class,'updatePayment']);
-
+    Route::get('/paymentHistory',[PaymentController::class,'getAllPayment'])->middleware('read.history.payment.access');
+    Route::get('/pay',[PaymentController::class,'getPaymentPageTenant'])->middleware('tenant.payment.access'); //tenant payment
+    Route::post('/pay',[PaymentController::class,'addPaymentTenant'])->middleware('tenant.payment.access');
+    Route::post('/getInvoiceData',[PaymentController::class,'getInvoiceDetail'])->middleware('read.specific.payment.access'); //read payment
+    Route::get('/addPaymentBoarding',[PaymentController::class,'getPaymentPageManager'])->middleware('owner.manager.boarding.payment.access');
+    Route::post('/addPaymentBoarding',[PaymentController::class,'addPaymentManager'])->middleware('owner.manager.boarding.payment.access');
+    Route::get('/editPayment',[PaymentController::class,'getEditPayment'])->middleware('owner.manager.order.access'); 
+    Route::post('/editPayment',[PaymentController::class,'updatePayment'])->middleware('owner.manager.order.access');
+    Route::get('/cancelPayment',[PaymentController::class,'cancelPayment'])->middleware('owner.manager.order.access');
+    Route::get('/checkInvoiceRequest',[PaymentController::class,'getCheckInvoiceRequest'])->middleware('admin');
+    Route::post('/updateInvoiceStatus',[PaymentController::class,'updateInvoiceStatus'])->middleware('admin');
+    Route::get('/remitPayment',[PaymentController::class,'getPaymentRemit'])->middleware('admin');
+    Route::post('/updateTransferredStatus',[PaymentController::class,'updateTransferredStatus'])->middleware('admin');
+    Route::get('/paymentSupport',[PaymentController::class,'getPaymentSupport'])->middleware('admin');
     //Belum Middleware
 });
 

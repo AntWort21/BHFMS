@@ -27,6 +27,7 @@ const convertDateFormat = ($date) => {
 };
 
 let form = useForm({
+    boardingHouseName: ref(props.boardingHouseName),
     paymentDate: ref(props.transaction != null ? convertDateFormat(props.transaction.payment_date) : ''),
     paymentAmount: ref(props.transaction != null ? props.transaction.amount : 0),
     transactionType: ref(props.transaction != null ? props.transactionTypes[props.transaction.transaction_type_id] : ''),
@@ -40,7 +41,7 @@ let submit = () => {
     if(props.transaction!=null){
         form.post("/editPayment?order=" + query.get('order') + "&boarding=" + query.get('boarding') );
     } else{
-        form.post("/addPaymentBoarding");
+        form.post("/addPaymentBoarding" + "?boarding=" + query.get('boarding') );
     }
 };
 
@@ -51,15 +52,17 @@ const minToday = today.toISOString().split('T')[0];
 </script>
 <template>
     <Header />
-    <div class="m-5">
-        <h3>Payment Page</h3>
+    <div class="m-5 min-h-[75vh]">
+        <div class="text-2xl font-semibold">
+            Payment Page
+        </div>
         <form @submit.prevent="submit">
             <div>
             <FormTextBoxInputReadOnly
                 v-model="form.boardingHouseName"
                     :input-type="'text'"
                     :label-name="'Boarding House Name'"
-                    :value="boardingHouseName.boarding_name"/>
+                    :value="boardingHouseName"/>
             </div>
             <div>
                 <FormSelectInputTransactionType

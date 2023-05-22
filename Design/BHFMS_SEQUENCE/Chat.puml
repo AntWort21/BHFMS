@@ -1,18 +1,18 @@
 @startuml
-User -> Website: Request User Chat History
-Website -> Controller: Request User Chat History
-Controller -> Database: Get user chat history
-Controller <-- Database: Return user chat history
-Website <-- Controller: Return user payment list
-User <-- Website: Return User Chat History
-User -> Website: Choose one of the chat
-User <-- Website: Show Chat
-User -> Website: Send Message
-Website -> Controller: Save Message
-Controller -> Database: Save Message
+User -> ChatPage: getChatPage()
+ChatPage -> ChatController: getUserChatDetails(user_details);
+ChatController -> ChatModel: getUserChatDetails(user_details);
+ChatController <-- ChatModel: user_chat_details
+ChatPage <-- ChatController: user_chat_details
+User <-- ChatPage: displayChatPage(user_chat_details)
+User -> ChatPage: chooseOneSpecificChat
+User <-- ChatPage: displaySpecificChat()
 opt New Message
-    Controller <-- Database: Return New Message
-    Website <-- Controller: Return Success Response
-    User <-- Website: Show User New Message
+    User -> ChatPage: sendMessage()
+    ChatPage -> ChatController: saveUserMessageHistory(user_message)
+    ChatController -> ChatModel: saveMessage(user_message)
+    ChatController <-- ChatModel: new_message
+    ChatPage <-- ChatController: new_message
+    User <-- ChatPage: displaySpecificChat(new_message)
 end
 @enduml
