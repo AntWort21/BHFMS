@@ -1,0 +1,11 @@
+@startuml
+title Transaction Types Management View All (Admin)
+|Admin|
+start 
+    :Admin Click See All Transaction Types;
+|System|
+    :System Retrieves All Transaction Types Data;
+    :Show All Transaction Types Management Page (Admin);
+    stop
+
+@enduml

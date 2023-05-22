@@ -1,0 +1,29 @@
+@startuml
+actor Manager as act
+participant RequestTenantPage as view
+participant TenantController as ctrl
+participant TenantModel as model
+
+act -> view : getRequestTenantPage()
+act <-- view : displayRequestTenantPage()
+
+    act->view : inputRequestTenantForm()
+    view->ctrl : checkUserInput()
+        alt Accept
+        ctrl-->view:input_validated_response
+        view->ctrl: RequestTenant(status: Approved)
+        ctrl->model: RequestTenant(status: Approved)
+        model --> ctrl: success_response
+            alt BoardingFull
+            ctrl->model: UpdateOtherTenantStatus(status: Declined)
+            model --> ctrl: success_response
+            end
+        ctrl --> view: success_response
+        view-->act: displayAllTenantsOwnPage(success_response)
+        else Reject
+        ctrl --> view: error_response
+        view-->act: getRequestTenantPage(error_response)
+        end
+
+
+@enduml

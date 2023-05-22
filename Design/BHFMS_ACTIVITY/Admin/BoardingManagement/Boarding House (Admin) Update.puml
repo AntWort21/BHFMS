@@ -1,0 +1,27 @@
+@startuml
+title Boarding House Update (Admin)
+
+|Admin|
+start
+    : Select Update Boarding House;
+
+|System|
+    : Show Boarding House Details;
+
+|Admin|
+    : Admin Update Boarding House Details;
+    : Admin Click Button;
+|System|
+If () then (Confirm)
+    : Check Form Validity;
+    if () is (Valid) then
+        : System Update Selected Boarding House;
+        : Show Success Update Boarding House Message;
+    else (Not Valid)
+        : Show Boarding Form Errors Message;
+    endif
+else (Back)
+    : Go Back to view All Boarding Management Page;
+endif
+stop 
+@enduml

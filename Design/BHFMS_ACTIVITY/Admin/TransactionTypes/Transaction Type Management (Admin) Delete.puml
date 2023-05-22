@@ -1,0 +1,18 @@
+@startuml
+title Transaction Type Delete (Admin)
+|Admin|
+start 
+    : Admin Press Delete Transaction Type Button;
+|System|
+    : Show Delete Confirmation;
+|Admin|
+    : Admin Click Button;
+|System|
+If () then (Confirm)
+    : System Delete Transaction Type;
+    : Show Success Delete Transaction Type Message;
+else (Back)
+    : Go Back to view All Transaction Types Management Page;
+endif
+stop
+@enduml

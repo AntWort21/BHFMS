@@ -1,0 +1,18 @@
+@startuml
+title Complain Types Delete (Admin)
+|Admin|
+start 
+    : Admin Press Delete Complain Types Button;
+|System|
+    : Show Delete Confirmation;
+|Admin|
+    : Admin Click Button;
+|System|
+If () then (Confirm)
+    : System Delete Complain Type;
+    : Show Success Delete Complain Type Message;
+else (Back)
+    : Go Back to view All Complain Types Management Page;
+endif
+stop
+@enduml

@@ -1,0 +1,19 @@
+@startuml
+
+|User|
+start
+    :View selected boarding house detail;
+
+|System|
+    :Show selected boarding house detail page;
+
+|User|
+    :Fill in Start Rent Date;
+    :Click Rent Button;
+
+|System|
+    :Add details to tenantBoardings;
+    :Redirect user to selected boarding house detail page;
+stop
+
+@enduml

@@ -1,0 +1,14 @@
+@startuml
+actor Manager as act
+participant ViewAllTenantsOwnPage as view
+participant TenantsOwnController as ctrl
+participant TenantsOwnModel as model
+
+act -> view: openAllTenantsOwnPage()
+view -> ctrl: getAllTenantsOwn()
+ctrl -> model: getAllBoardinsgFromDB()
+ctrl <-- model: all_tenants_own
+view <-- ctrl: all_tenants_own
+act <-- view: displayAllTenantsOwnPage(all_tenants_own)
+
+@enduml

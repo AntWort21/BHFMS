@@ -1,0 +1,27 @@
+@startuml
+title Transaction Type Add (Admin)
+|Admin|
+start 
+    : Admin Press Add Transaction Type Button;
+|System|
+    : Show Add New Transaction Type Form;
+|Admin|
+    : Admin Add Transaction Type;
+    : Admin Click Button;
+|System|
+If () then (Submit)
+    : Check Transaction Type Validity;
+    if () is (Valid) then
+        : System Add Transaction Type;
+        : Show Success Add Transaction Type Message;
+    else (Not Valid)
+        : Show Failed Add Transaction Type Message;
+        : Show Form Errors Message;
+        
+    endif
+else (Back)
+    : Go Back to view All Transaction Type Management Page;
+      
+endif
+stop
+@enduml

@@ -1,0 +1,27 @@
+@startuml
+title Payment Method Add (Admin)
+|Admin|
+start 
+    : Admin Press Add Payment Method Button;
+|System|
+    : Show Add New Payment Method Form;
+|Admin|
+    : Admin Add Payment Method;
+    : Admin Click Button;
+|System|
+If () then (Submit)
+    : Check Payment Method Validity;
+    if () is (Valid) then
+        : System Add Payment Method;
+        : Show Success Add Payment Method Message;
+    else (Not Valid)
+        : Show Failed Add Payment Method Message;
+        : Show Form Errors Message;
+        
+    endif
+else (Back)
+    : Go Back to view All Payment Method Management Page;
+      
+endif
+stop
+@enduml

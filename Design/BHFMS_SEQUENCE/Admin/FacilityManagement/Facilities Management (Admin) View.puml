@@ -1,0 +1,14 @@
+@startuml
+actor Admin as act
+participant ViewAllFacilityDetailsPage as view
+participant FacilityDetailsController as ctrl
+participant FacilityDetailsModel as model
+
+act -> view: openAllFacilityDetailsPage()
+view -> ctrl: getAllFacilityDetails()
+ctrl -> model: getAllFacilityDetailsFromDB()
+ctrl <-- model: all_facility_details
+view <-- ctrl: all_facility_details
+act <-- view: displayAllFacilityDetailsPage(all_facility_details)
+
+@enduml

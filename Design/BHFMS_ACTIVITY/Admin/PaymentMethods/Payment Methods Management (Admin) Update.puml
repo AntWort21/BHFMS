@@ -1,0 +1,24 @@
+@startuml
+title Payment Method Update (Admin)
+|Admin|
+start 
+    : Select Update Payment Method;
+|System|
+    :Show Payment Method Update Form;
+|Admin|  
+    : Admin Update Payment Method;
+    : Admin Click Button;
+|System|
+If () then (Submit)
+    :Check Form Validity;
+    if () is (Valid) then
+        : System Update Payment Method;
+        : Show Success Update Payment Method Message;
+    else (Not Valid)
+        : Show Payment Method Form Errors Message;
+    endif
+else (Back)
+    : Go Back to view All Payment Methods Management Page;
+endif
+stop
+@enduml

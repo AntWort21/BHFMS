@@ -1,0 +1,19 @@
+@startuml
+title Request Tenant(Manager/Owner)
+|Manager/Owner|
+    :Click Tenant Request Button;
+|System|
+    :Show Tenant Request Form;
+|Manager/Owner|
+    :Manager/Owner Click Button;
+|System|
+    If () then (Approve)
+        :Update Tenant Request Status to Approved;
+        :Show Success Accepting Message;
+    else (Decline)
+        :Update Tenant Request Status to Declined;
+        :Show Success Declining Message;
+    Endif
+stop
+
+@enduml

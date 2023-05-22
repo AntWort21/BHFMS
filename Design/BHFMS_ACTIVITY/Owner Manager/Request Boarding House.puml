@@ -1,0 +1,26 @@
+@startuml
+title Boarding House Request Add
+|Owner|
+start
+    : Owner Press Add Boarding House Button;
+|System|
+    : Show Add New Boarding House Form;
+|Owner|
+    : Owner Add Boarding House;
+    : Owner Click Button;
+|System|
+If () then (Submit)
+    : Check Boarding House Validity;
+    if () is (Valid) then
+        : System Add Boarding House with Pending Status;
+        : Show Success Add Boarding House Message;
+    else (Not Valid)
+        : Show Failed Add Boarding House Message;
+        : Show Form Errors Message;
+        
+    endif
+else (Back)
+    : Go Back to view All Boarding House Own Page;
+endif
+stop
+@enduml

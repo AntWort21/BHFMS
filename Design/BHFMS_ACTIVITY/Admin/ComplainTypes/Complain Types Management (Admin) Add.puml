@@ -1,0 +1,28 @@
+@startuml
+title Complain Type Add (Admin)
+|Admin|
+start 
+    : Admin Press Add Complain Type Button;
+|System|
+    : Show Add New Complain Type Form;
+|Admin|
+    : Admin Add Complain Type;
+    : Admin Click Button;
+|System|
+If () then (Submit)
+    : Check Complain Type Validity;
+    if () is (Valid) then
+        : System Add Complain Type;
+        : Show Success Add Complain Type Message;
+        
+    else (Not Valid)
+        : Show Failed Add Complain Type Message;
+        : Show Form Errors Message;
+        
+    endif
+else (Back)
+    : Go Back to view All Complain Type Management Page;
+      
+endif
+stop
+@enduml

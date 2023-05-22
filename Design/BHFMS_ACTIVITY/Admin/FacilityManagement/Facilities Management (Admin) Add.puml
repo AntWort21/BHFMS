@@ -1,0 +1,28 @@
+@startuml
+title Facility Details Add (Admin)
+|Admin|
+start 
+    : Admin Press Add Facility Details Button;
+|System|
+    : Show Add New Facility Details Form;
+|Admin|
+    : Admin Add Facility Details;
+    : Admin Click Button;
+|System|
+If () then (Submit)
+    : Check Facility Details Validity;
+    if () is (Valid) then
+        : System Add Facility Details;
+        : Show Success Add Facility Details Message;
+        
+    else (Not Valid)
+        : Show Failed Add Facility Details Message;
+        : Show Form Errors Message;
+        
+    endif
+else (Back)
+    : Go Back to view All Facility Details Management Page;
+      
+endif
+stop
+@enduml

@@ -1,0 +1,11 @@
+@startuml
+title Complain Types Management View All (Admin)
+|Admin|
+start 
+    :Admin Click See All Complain Types;
+|System|
+    :System Retrieves All Complain Types Data;
+    :Show All Complain Types Management Page (Admin);
+    stop
+
+@enduml

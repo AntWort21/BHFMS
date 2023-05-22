@@ -1,0 +1,14 @@
+@startuml
+actor Admin as act
+participant ViewAllBoardingPage as view
+participant BoardingController as ctrl
+participant BoardingModel as model
+
+act -> view: openAllBoardingsPage()
+view -> ctrl: getAllBoardings()
+ctrl -> model: getAllBoardinsgFromDB()
+ctrl <-- model: all_boarding_houses
+view <-- ctrl: all_boarding_houses
+act <-- view: displayAllBoardingsPage(all_boarding_houses)
+
+@enduml
