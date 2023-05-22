@@ -10,8 +10,8 @@ title Boarding House
     If (is User input valid?) then (Yes)
         :Save to database;
         :show user boarding house page;
-        stop
     else (No)
         :show user Review page with error;
-        stop
+    endif
+    stop
 @enduml

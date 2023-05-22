@@ -63,7 +63,7 @@ class AuthController extends Controller
             'password' => ['required', 'alpha_num']
         ]);
 
-        if (Auth::attempt($validation)) {
+        if (Auth::attempt($validation) && Auth::user()->user_status == 'active') {
             $request->session()->regenerate();
 
             return redirect('/');
