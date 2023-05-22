@@ -46,9 +46,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [UserController::class, 'getProfilePage']);
     Route::post('/profile/update', [UserController::class, 'updateProfile']);
 
-    Route::get('/complain', [ComplainController::class, 'getComplainListPage'])->middleware('tenant');
-    Route::get('/complain/create', [ComplainController::class, 'getCreateComplainPage'])->middleware('tenant');
-    Route::post('/complain/create', [ComplainController::class, 'createComplain'])->middleware('tenant');
+    Route::get('/complain', [ComplainController::class, 'getComplainListPage'])->middleware('make.complain.access');
+    Route::get('/complain/create', [ComplainController::class, 'getCreateComplainPage'])->middleware('make.complain.access');
+    Route::post('/complain/create', [ComplainController::class, 'createComplain'])->middleware('make.complain.access');
     Route::get('/complain/detail', [ComplainController::class, 'getComplainDetail'])->middleware('complain.access');
 
     Route::post('/complain/status', [ComplainController::class, 'setComplainStatus'])->middleware('owner.manager.access');
@@ -86,7 +86,7 @@ Route::middleware('auth')->group(function () {
 
     Route::put('/boarding/image/delete/{id}', [BoardingImageController::class, 'deleteImage'])->middleware('owner');
 
-    
+
     Route::get('/boardingManager', [BoardingController::class, 'indexManager'])->middleware('manager');
     Route::get('/tenantBoarding', [TenantController::class, 'getAllTenantBoarding'])->middleware('owner.manager.access'); //manager & Owner
     Route::get('/tenantBoarding/read/{id}', [TenantController::class, 'getDetailTenantBoarding'])->middleware('tenant.read.access');
@@ -157,7 +157,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/getInvoiceData',[PaymentController::class,'getInvoiceDetail'])->middleware('read.specific.payment.access'); //read payment
     Route::get('/addPaymentBoarding',[PaymentController::class,'getPaymentPageManager'])->middleware('owner.manager.boarding.payment.access');
     Route::post('/addPaymentBoarding',[PaymentController::class,'addPaymentManager'])->middleware('owner.manager.boarding.payment.access');
-    Route::get('/editPayment',[PaymentController::class,'getEditPayment'])->middleware('owner.manager.order.access'); 
+    Route::get('/editPayment',[PaymentController::class,'getEditPayment'])->middleware('owner.manager.order.access');
     Route::post('/editPayment',[PaymentController::class,'updatePayment'])->middleware('owner.manager.order.access');
     Route::get('/cancelPayment',[PaymentController::class,'cancelPayment'])->middleware('owner.manager.order.access');
     Route::get('/checkInvoiceRequest',[PaymentController::class,'getCheckInvoiceRequest'])->middleware('admin');
