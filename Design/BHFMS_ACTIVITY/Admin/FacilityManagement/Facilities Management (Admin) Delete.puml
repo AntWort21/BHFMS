@@ -1,5 +1,5 @@
 @startuml
-title Facility Details Delete (Admin)
+title Delete Facility Details 
 |Admin|
 start 
     : Admin Press Delete Facility Details Button;
@@ -13,7 +13,7 @@ If () then (Confirm)
     : Show Success Delete Facility Details Message;
     stop
 else (Back)
-    : Go Back to view All Facility Details Management Page;
+    : Go Back to view All Facility Details Page;
     stop  
 endif
 @enduml

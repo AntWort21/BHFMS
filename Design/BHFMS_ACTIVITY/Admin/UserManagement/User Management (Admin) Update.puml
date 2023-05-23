@@ -1,5 +1,5 @@
 @startuml
-title User Update (Admin)
+title Update User
 |Admin|
 start 
     : Select Update User;
@@ -18,7 +18,7 @@ If () then (Submit)
         : Show User Form Errors Message;
     endif
 else (Back)
-    : Go Back to view All User Management Page;  
+    : Go Back to view All Users Page;  
 endif
 stop
 @enduml

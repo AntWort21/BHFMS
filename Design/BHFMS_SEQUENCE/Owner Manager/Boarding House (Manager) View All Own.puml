@@ -1,4 +1,5 @@
 @startuml
+title View Boarding House Own by Manager
 actor Manager as act
 participant ViewAllBoardingsOwnPage as view
 participant BoardingsOwnController as ctrl

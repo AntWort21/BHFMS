@@ -1,5 +1,5 @@
 @startuml
-title Disable Boarding House (Owner)
+title Disable Boarding House
 |Owner|
 start 
     :Select Disable Boarding House Button;

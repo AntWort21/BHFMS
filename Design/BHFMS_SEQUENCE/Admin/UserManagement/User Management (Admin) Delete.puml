@@ -1,4 +1,5 @@
 @startuml
+title Ban User
 actor Admin as act
 participant DeleteUserConfirmationPage as view
 participant UserController as ctrl

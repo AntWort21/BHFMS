@@ -1,4 +1,5 @@
 @startuml
+title View All Payment Methods
 actor Admin as act
 participant ViewAllPaymentMethodsPage as view
 participant PaymentMethodsController as ctrl

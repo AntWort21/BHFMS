@@ -1,4 +1,5 @@
 @startuml
+title View All Boarding Type
 actor Admin as act
 participant ViewAllBoardingTypePage as view
 participant BoardingTypeController as ctrl

@@ -1,5 +1,5 @@
 @startuml
-title Complain Type Add (Admin)
+title Add Complain Type
 |Admin|
 start 
     : Admin Press Add Complain Type Button;
@@ -21,7 +21,7 @@ If () then (Submit)
         
     endif
 else (Back)
-    : Go Back to view All Complain Type Management Page;
+    : Go Back to view All Complain Types Page;
       
 endif
 stop

@@ -1,4 +1,5 @@
 @startuml
+title View All Tenant
 actor Manager as act
 participant ViewAllTenantsOwnPage as view
 participant TenantsOwnController as ctrl

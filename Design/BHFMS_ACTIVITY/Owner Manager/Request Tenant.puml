@@ -1,5 +1,5 @@
 @startuml
-title Request Tenant(Manager/Owner)
+title Tenant Request
 |Manager/Owner|
     :Click Tenant Request Button;
 |System|

@@ -1,4 +1,5 @@
 @startuml
+title Disable Boarding House
 actor Owner as act
 participant DisableBoardingConfirmationPage as view
 participant BoardingController as ctrl

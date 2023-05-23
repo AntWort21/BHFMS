@@ -1,5 +1,5 @@
 @startuml
-title Boarding House View (Tenant)
+title Boarding House History (Tenant)
 |Tenant|
 start 
     :Tenant Click See All Boarding Houses;

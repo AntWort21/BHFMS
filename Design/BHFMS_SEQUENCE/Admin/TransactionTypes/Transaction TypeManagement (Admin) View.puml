@@ -1,4 +1,5 @@
 @startuml
+title View All Transaction Types
 actor Admin as act
 participant ViewAllTransactionTypesPage as view
 participant TransactionTypesController as ctrl

@@ -1,5 +1,5 @@
 @startuml
-title Transaction Type Add (Admin)
+title Add Transaction Type 
 |Admin|
 start 
     : Admin Press Add Transaction Type Button;
@@ -20,7 +20,7 @@ If () then (Submit)
         
     endif
 else (Back)
-    : Go Back to view All Transaction Type Management Page;
+    : Go Back to view All Transaction Types Page;
       
 endif
 stop

@@ -1,5 +1,5 @@
 @startuml
-title Boarding House View (Manager)
+title View Boarding House Own by Manager
 |Manager|
 start 
     :Manager Click See All Boarding Houses;
