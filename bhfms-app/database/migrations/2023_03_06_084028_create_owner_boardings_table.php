@@ -25,7 +25,7 @@ class CreateOwnerBoardingsTable extends Migration
             ->on('boardings')->cascadeOnUpdate()->cascadeOnDelete();
             
             $table->enum('owner_status',['pending','approved','declined','banned','disabled'])->default('pending');
-            $table->string('declined_reason')->nullable();
+            $table->longtext('declined_reason')->nullable();
 
             $table->unique(['user_id', 'boarding_id']);
             $table->timestamps();
