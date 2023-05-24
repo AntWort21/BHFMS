@@ -43,7 +43,7 @@ rectangle BHFMS {
     usecase (View All Boarding House Management) as show_bh_admin
     usecase (Ban Boarding House) as del_bh_admin
     usecase (Boarding House Request) as aprv_bh_admin
-    usecase (View Boarding House Detail) as view_bh
+    usecase (View Boarding House Detail Management) as view_bh
 
     usecase (View All Facility Details) as show_fcl_admin 
     usecase (Delete Facility Detail) as del_fcl_admin
