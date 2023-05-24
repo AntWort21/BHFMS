@@ -7,7 +7,6 @@ import TextBoxInput from "../../Shared/BoardingShared/TextBoxInput.vue";
 
 const prop = defineProps({
     transactionType: Object,
-    n: Object,
 });
 
 const form = useForm({
