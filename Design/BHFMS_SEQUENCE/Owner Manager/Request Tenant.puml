@@ -15,10 +15,20 @@ act <-- view : displayRequestTenantPage()
         view->ctrl: RequestTenant(status: Approved)
         ctrl->model: RequestTenant(status: Approved)
         model --> ctrl: success_response
+        ctrl->model :CheckCurrentBoardingFull(boarding_id)
+        model --> ctrl: boarding_full_response
             alt BoardingFull
             ctrl->model: UpdateOtherTenantStatus(status: Declined)
             model --> ctrl: success_response
             end
+
+        ctrl->model :CheckCurrentTenantPendingRequest(tenant_id)
+        model --> ctrl: tenant_pending_request_response
+            alt TenantRequestExist
+            ctrl->model: UpdateTenantsOtherPendingStatus(status: Declined)
+            model --> ctrl: success_response
+            end
+        
         ctrl --> view: success_response
         view-->act: displayAllTenantsOwnPage(success_response)
         else Reject

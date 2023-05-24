@@ -9,11 +9,22 @@ title Tenant Request
 |System|
     If () then (Approve)
         :Update Tenant Request Status to Approved;
-        :Show Success Accepting Message;
+        :Check If Current Boarding Room became Full;
+        If () then (Full)
+        :Reject Other Tenant that have Requested to this Boarding;
+        else (Not Full)
+        endif
+
+        :Check Tenant Pending Request;
+        If () then (Exist)
+        :Reject Tenant`s other Pending Request;
+        else (Not Exist)
+        endif
+    :Show Success Accepting Message;
     else (Decline)
         :Update Tenant Request Status to Declined;
         :Show Success Declining Message;
-    Endif
+    endif
 stop
 
 @enduml

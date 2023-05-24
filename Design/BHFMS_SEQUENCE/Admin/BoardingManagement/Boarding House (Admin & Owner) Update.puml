@@ -1,5 +1,5 @@
 @startuml
-title Edit Boarding House 
+title Edit Boarding House
 actor Admin as act
 participant UpdateBoardingPage as view
 participant BoardingController as ctrl
