@@ -1,4 +1,5 @@
 @startuml
+title Edit Complain Type
 actor Admin as act
 participant UpdateComplainTypePage as view
 participant ComplainTypeController as ctrl

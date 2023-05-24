@@ -1,4 +1,5 @@
 @startuml
+title Add Transaction Type
 actor Admin as act
 participant AddTransactionTypePage as view
 participant TransactionTypeController as ctrl

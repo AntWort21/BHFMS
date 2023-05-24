@@ -1,0 +1,221 @@
+@startuml
+' hide the spot
+hide circle
+
+class users {
+  - id: Integer
+  - user_name : Varchar
+  - gender : Enumerate
+  - user_status : Enumerate
+  - email : Varchar
+  - email_verified_at : Varchar
+  - date_of_birth : Date
+  - phone : Varchar
+  - account_number: Varchar
+  - ban_name: Varchar
+  - user_role_id : Integer
+  - profile_picture : Varchar
+  - password : Varchar
+  - created_at : Date
+  - updated_at : Date
+}
+
+class user_roles {
+  - id: Integer
+  - user_role_name : Varchar
+  - created_at : Date
+  - updated_at : Date
+}
+
+class boarding_types {
+  - id : Integer
+  - name : Varchar
+  - created_at : Date
+  - updated_at : Date
+}
+
+class boardings {
+  - id : Integer
+  - boarding_name : Varchar
+  - address : Longtext
+  - latitude : Varchar
+  - longitude : Varchar
+  - type_id : Integer
+  - rooms : Integer
+  - shared_bathroom : Boolean
+  - price : Integer
+  - boarding_desc : Longtext
+  - created_at : Date
+  - updated_at : Date
+  -getID();
+}
+
+class tenant_boardings {
+  - id : Integer
+  - user_id : Integer
+  - boarding_id : Integer
+  - start_date: Date
+  - end_date: Date
+  - tenant_status : Enumerate
+  - declined_reason : longtext
+}
+
+class facility_details {
+  - id: Integer
+  - name : Varchar
+  - facility_img_path : Varchar
+  - created_at : Date
+  - updated_at : Date
+}
+
+class facilities {
+  - id : Integer
+  - facility_id : Integer
+  - boarding_id : Integer
+  - created_at : Date
+  - updated_at : Date
+}
+
+class boarding_images {
+  - id : Integer
+  - boarding_id : Integer
+  - image : Varchar
+  - created_at : Date
+  - updated_at : Date
+}
+
+class rent_transaction {
+  - id : Integer
+  - tenant_boarding_id : Integer
+  - transaction_type_id : Integer 
+  - payment_method_id : Integer
+  - invoice_id : Integer
+  - amount : Integer
+  - start_date : Date
+  - end_date : Date
+  - payment_status : Enumerate
+  - declined_reason : Longtext
+  - payment_transferred_status : Enumerate
+  - repeat_payment : Boolean
+  - created_at : Date
+  - updated_at : Date
+}
+
+class owner_boardings {
+  - id : Integer
+  - user_id : Integer
+  - boarding_id : Integer
+  - owner_status: Enumerate
+  - declined_reason : longtext
+  - created_at : Date
+  - updated_at : Date
+}
+
+class manager_boardings {
+  - id : Integer
+  - boarding_id : Integer
+  - user_id : Integer
+  - created_at : Date
+  - updated_at : Date
+}
+
+class complain_types {
+  - id : Integer
+  - complain_type_name : Varchar
+  - created_at : Date
+  - updated_at : Date
+}
+
+class reviews {
+  - id : Integer
+  - user_id : Integer
+  - boarding_id : Integer
+  - rating : Integer
+  - review_desc : Longtext
+  - created_at : Date
+  - updated_at : Date
+}
+
+class complains {
+  - id : Integer
+  - user_id : Integer
+  - boarding_id : Integer
+  - complain_type_id : Integer
+  - complain_desc : Longtext
+  - created_at : Date
+  - updated_at : Date
+}
+
+class wishlists {
+  - id: Integer
+  - boarding_id: Integer
+  - user_id: Integer
+  - created_at : Date
+  - updated_at : Date
+}
+
+class payment_methods {
+  - id: Integer
+  - payment_method_name: Varchar
+  - created_at : Date
+  - updated_at : Date
+}
+
+class chats {
+  - id: Integer
+  - user_id: Integer
+  - chatroom_id: Integer
+  - message: Longtext
+  - is_deleted: Boolean
+  - is_edited: Boolean
+  - created_at : Date
+  - updated_at : Date
+}
+
+class chatrooms {
+  - id: Integer
+  - created_at : Date
+  - updated_at : Date
+}
+
+class transaction_tpyes {
+  - id : Integer
+  - transaction_tpye_name : Varchar
+  - created_at : Date
+  - updated_at : Date
+}
+
+users --|| usrl
+boardings --|| bhi
+boardings --|| f
+facility_details --|| f
+
+users --|| tenant_boardings
+boardings --|| tenant_boardings
+
+tenant_boardings --|| rent_transaction
+payment_methods --|| rent_transaction
+transaction_tpyes --|| rent_transaction
+
+users --|| owner_boardings
+owner_boardings --|| boardings
+
+users --|| manager_boardings
+boardings --|> manager_boardings
+
+users --|| reviews
+boardings --|| reviews
+
+users --|| complains
+boardings --|| complains
+complain_types --|| complains
+
+boarding_types --|| boardings
+
+users --|| wishlists
+boardings --|| wishlists
+
+users --|> chats
+chatrooms --|> chats
+
+@enduml

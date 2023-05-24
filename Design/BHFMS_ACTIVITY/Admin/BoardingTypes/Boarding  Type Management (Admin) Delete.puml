@@ -1,5 +1,5 @@
 @startuml
-title Boarding Type Delete (Admin)
+title Delete Boarding Type 
 |Admin|
 start 
     : Admin Press Delete Boarding Type Button;
@@ -12,7 +12,7 @@ If () then (Confirm)
     : System Delete Boarding Type;
     : Show Success Delete Boarding Type Message;
 else (Back)
-    : Go Back to view All Boarding Types Management Page;
+    : Go Back to view All Boarding Types Page;
 endif
 stop
 @enduml

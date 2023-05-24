@@ -1,4 +1,5 @@
 @startuml
+title Update User
 actor Admin as act
 participant UpdateUserPage as view
 participant UserController as ctrl

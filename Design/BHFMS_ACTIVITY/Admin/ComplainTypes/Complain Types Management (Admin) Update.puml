@@ -1,5 +1,5 @@
 @startuml
-title Complain Type Update (Admin)
+title Edit Complain Type
 |Admin|
 start 
     : Select Update Complain Type;
@@ -18,7 +18,7 @@ If () then (Submit)
         : Show Complain Type Form Errors Message;
     endif
 else (Back)
-    : Go Back to view All Complain Type Management Page;
+    : Go Back to view All Complain Types Page;
 endif
 stop
 @enduml

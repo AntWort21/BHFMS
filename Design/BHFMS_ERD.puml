@@ -8,15 +8,18 @@ skinparam linetype ortho
 entity "users" as usr {
   *id: Integer<<PK>>
   --
-  *user_name : Varchar
-  *gender : Varchar
-  *email : Varchar
-  *email_verified_at : Varchar
+  *user_name : Varchar(255)
+  *gender : Enumerate
+  *user_status : Enumerate
+  *email : Varchar(255)
+  *email_verified_at : Varchar(255)
   *date_of_birth : Date
-  *phone : Varchar
+  *phone : Varchar(255)
+  *account_number: Varchar(255)
+  *ban_name: Varchar(255)
   *user_role_id : Integer <<FK>>
-  *profile_picture : Varchar
-  *password : Varchar
+  *profile_picture : Varchar(255)
+  *password : Varchar(255)
   *created_at : Date
   *updated_at : Date
 }
@@ -24,7 +27,7 @@ entity "users" as usr {
 entity "user_roles" as usrl {
   *id: Integer<<PK>>
   --
-  *user_role_name : Varchar
+  *user_role_name : Varchar(255)
   *created_at : Date
   *updated_at : Date
 }
@@ -32,7 +35,7 @@ entity "user_roles" as usrl {
 entity "boarding_types" as bht {
   *id : Integer <<PK>>
   --
-  *name : Varchar
+  *name : Varchar(255)
   *created_at : Date
   *updated_at : Date
 }
@@ -40,15 +43,15 @@ entity "boarding_types" as bht {
 entity "boardings" as bh {
   *id : Integer <<PK>>
   --
-  *boarding_name : Varchar
-  *address : Varchar
-  *latitude : Double
-  *longitude : Double
+  *boarding_name : Varchar(255)
+  *address : Longtext
+  *latitude : Varchar(255)
+  *longitude : Varchar(255)
   *type_id : Integer <<FK>>
   *rooms : Integer
   *shared_bathroom : Boolean
   *price : Integer
-  *boarding_desc : Varchar
+  *boarding_desc : Longtext
   *created_at : Date
   *updated_at : Date
 }
@@ -60,20 +63,20 @@ entity "tenant_boardings" as tb {
   *boarding_id : Integer <<FK>>
   *start_date: Date
   *end_date: Date
-  *tenant_status : Boolean
-  *declined_reason : Varchar
+  *tenant_status : Enumerate
+  *declined_reason : longtext
 }
 
 entity "facility_details" as fd {
   *id: Integer <<FK>>
   --
-  *name : Varchar
-  *facility_img_path : Varchar
+  *name : Varchar(255)
+  *facility_img_path : Varchar(255)
   *created_at : Date
   *updated_at : Date
 }
 
-' Composite key
+
 entity "facilities" as f {
   *id : Integer <<PK>>
   *facility_id : Integer <<FK>>
@@ -87,7 +90,7 @@ entity "boarding_images" as bhi {
   *id : Integer <<PK>>
   *boarding_id : Integer <<FK>>
   --
-  *image : image
+  *image : Varchar(255)
   *created_at : Date
   *updated_at : Date
 }
@@ -102,9 +105,9 @@ entity "rent_transaction" as rt {
   *amount : Integer
   *start_date : Date
   *end_date : Date
-  *payment_status : Enum
-  *declined_reason : Varchar
-  *payment_transferred_status : Enum
+  *payment_status : Enumerate
+  *declined_reason : Longtext
+  *payment_transferred_status : Enumerate
   *repeat_payment : Boolean
   *created_at : Date
   *updated_at : Date
@@ -117,7 +120,7 @@ entity "owner_boardings" as lobh {
   *user_id : Integer <<FK>>
   *boarding_id : Integer <<FK>>
   *owner_status: Enumerate
-  *declined_reason : Varchar
+  *declined_reason : longtext
   *created_at : Date
   *updated_at : Date
 }
@@ -134,7 +137,9 @@ entity "manager_boardings" as mabh {
 entity "complain_types" as cmplnt {
   *id : Integer <<PK>>
   --
-  *complain_type_name : Varchar
+  *complain_type_name : Varchar(255)
+  *created_at : Date
+  *updated_at : Date
 }
 
 entity "reviews" as rvw {
@@ -143,7 +148,7 @@ entity "reviews" as rvw {
   *user_id : Integer <<FK>>
   *boarding_id : Integer <<FK>>
   *rating : Integer
-  *review_desc : Varchar
+  *review_desc : Longtext
   *created_at : Date
   *updated_at : Date
 }
@@ -154,7 +159,7 @@ entity "complains" as cmpln {
   *user_id : Integer <<FK>>
   *boarding_id : Integer <<FK>>
   *complain_type_id : Integer <<FK>>
-  *complain_desc : Varchar
+  *complain_desc : Longtext
   *created_at : Date
   *updated_at : Date
 }
@@ -172,7 +177,7 @@ entity "wishlists" as fr {
 entity "payment_methods" as pymnt {
   *id: Integer<<PK>>
   --
-  *payment_method_name: Varchar
+  *payment_method_name: Varchar(255)
   *created_at : Date
   *updated_at : Date
 }
@@ -182,7 +187,7 @@ entity "chats" as cht {
   --
   *user_id: Integer<<FK>>
   *chatroom_id: Integer<<FK>>
-  *message: Varchar
+  *message: Longtext
   *is_deleted: Boolean
   *is_edited: Boolean
   *created_at : Date
@@ -199,7 +204,7 @@ entity "chatrooms" as chtrm {
 entity "transaction_tpyes" as tt {
   *id : Integer <<PK>>
   --
-  *transaction_tpye_name : Varchar
+  *transaction_tpye_name : Varchar(255)
   *created_at : Date
   *updated_at : Date
 }

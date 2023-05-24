@@ -1,5 +1,5 @@
 @startuml
-title User Delete/Ban(Admin)
+title Ban User
 |Admin|
 start 
     :Select Delete/Ban User Button;
@@ -12,7 +12,7 @@ If () then (Confirm)
     : System Update Selected User status to Banned;
     : Show Success Deleting User Message;
 else (Back)
-    : Go Back to view All Boarding Management Page;  
+    : Go Back to view All Users Page;  
 endif
 stop
 @enduml

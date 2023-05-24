@@ -1,5 +1,5 @@
 @startuml
-title Boarding House Request Add
+title Request New Boarding
 |Owner|
 start
     : Owner Press Add Boarding House Button;

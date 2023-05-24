@@ -1,5 +1,5 @@
 @startuml
-title Facility Details Add (Admin)
+title Add Facility Detail
 |Admin|
 start 
     : Admin Press Add Facility Details Button;
@@ -21,7 +21,7 @@ If () then (Submit)
         
     endif
 else (Back)
-    : Go Back to view All Facility Details Management Page;
+    : Go Back to view All Facility Details Page;
       
 endif
 stop

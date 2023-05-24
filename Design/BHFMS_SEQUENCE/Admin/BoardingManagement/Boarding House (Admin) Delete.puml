@@ -1,4 +1,5 @@
 @startuml
+title Ban Boarding House 
 actor Admin as act
 participant DeleteBoardingConfirmationPage as view
 participant BoardingController as ctrl

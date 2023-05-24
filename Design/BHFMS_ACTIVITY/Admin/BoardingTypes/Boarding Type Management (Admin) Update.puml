@@ -1,5 +1,5 @@
 @startuml
-title Boarding Type Update (Admin)
+title Edit Boarding Type
 |Admin|
 start 
     : Select Update Boarding Type;
@@ -18,7 +18,7 @@ If () then (Submit)
         : Show Boarding Type Form Errors Message;
     endif
 else (Back)
-    : Go Back to view All Boarding Types Management Page;
+    : Go Back to view All Boarding Types Page;
 endif
 stop
 @enduml

@@ -1,16 +1,16 @@
 @startuml
-title Boarding House Update (Admin)
+title Edit Boarding House
 
-|Admin|
+|Admin/ Owner|
 start
     : Select Update Boarding House;
 
 |System|
     : Show Boarding House Details;
 
-|Admin|
-    : Admin Update Boarding House Details;
-    : Admin Click Button;
+|Admin/ Owner|
+    : Admin/ Owner Update Boarding House Details;
+    : Admin/ Owner Click Button;
 |System|
 If () then (Confirm)
     : Check Form Validity;
