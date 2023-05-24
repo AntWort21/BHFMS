@@ -15,6 +15,7 @@ rectangle BHFMS {
     usecase (View All Tenant) as view_tenant
     usecase (Tenant Request) as accept_tenant
     usecase (View Boarding House Own By Manager) as view_bh_own_mng
+    usecase (View Tenant Detail) as view_tenant_detail
 
     ' Boarding House Owner'
     usecase (Request New Boarding) as req_bh
@@ -187,4 +188,5 @@ view_bh_own_mng <... view_bh: <<Extend>>
 
 
 view_tenant <...  accept_tenant: <<Extend>>
+view_tenant <... view_tenant_detail <<Extend>>
 @enduml
