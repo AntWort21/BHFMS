@@ -1,0 +1,18 @@
+@startuml
+|Admin|
+start
+:Select Check Invoice Page;
+|Website|
+:Return Check Invoice Page;
+|Admin|
+    if (Admin Approve) is (Approve) then
+|Website|
+    else (Reject)
+|Admin|
+    :Admin Give Reason for Rejection;
+|Website|
+    :Send Rejection Message;
+endif
+:Update Payment Status in DB;
+stop
+@enduml

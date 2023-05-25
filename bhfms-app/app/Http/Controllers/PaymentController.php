@@ -199,6 +199,9 @@ class PaymentController extends Controller
     public function getEditPayment()
     {
         $transaction = RentTransaction::where('invoice_id', $_GET['order'])->first();
+        if($transaction->payment_status != 'Pending'){
+            redirect('paymentHistory');
+        }
         $tenantBoarding = $this->getTenantBoarding($transaction->tenant_boarding_id);
         $transaction->amount = floor($transaction->amount / 1000) * 1000;
         return Inertia::render('Payment/PaymentPageManager', [
@@ -256,6 +259,7 @@ class PaymentController extends Controller
             'paymentList' => $paymentList,
         ]);
     }
+    
     public function cancelPayment()
     {
         $transaction = RentTransaction::where('invoice_id', $_GET['order'])->first();
@@ -337,6 +341,9 @@ class PaymentController extends Controller
         ], $custom_messages);
  
         $transaction = RentTransaction::where('invoice_id',$_GET['order'])->first();
+        if($transaction->payment_status != 'Pending'){
+            redirect('paymentHistory');
+        }
         $boardingId = TenantBoarding::find($transaction->tenant_boarding_id)->boarding_id;
         $transaction->update([
             'tenant_boarding_id'=>$this->getTenantIdByEmail($validation['tenantEmail'],$boardingId)->id,

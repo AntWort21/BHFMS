@@ -1,0 +1,33 @@
+@startuml
+actor "actin" as act
+participant ":CheckInvoiceRequest\n<<UI>>" as view
+participant PaymentController as pctrl
+participant ChatController as cctrl
+participant TransactionModel as tm
+
+act -> view : getTransactionDetailPage()
+view -> pctrl : getTransactionDetail(invoiceId)
+pctrl -> tm : getTransaction(invoiceId)
+pctrl <-- tm : transaction_data
+view <-- pctrl : displayTransactionDetail(transaction_data)
+
+act -> view : cancelTransaction()
+view -> pctrl : cancelTransaction(invoiceId)
+pctrl -> tm : getTransaction(invoiceId)
+pctrl <-- tm : transaction_data
+
+alt (Transfer Status is Successful)
+    view <-- pctrl : rejectCancel()
+else (Payment Status is Approve)
+    pctrl -> tm : updatePaymentStatus(invoiceId)
+    pctrl -> tm : updateTransactionStatus(invoiceId)
+    pctrl -> cctrl : storeSpecificChatMessage(tenantId, reason)
+    
+else (Payment Status is Pending or Rejected)
+    pctrl -> tm : updatePaymentStatus(invoiceId)
+else (Payment Status is Processing)
+    pctrl -> tm : updateTransactionStatus(invoiceId)
+end
+
+
+@enduml

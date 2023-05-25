@@ -17,6 +17,10 @@ rectangle BHFMS {
     usecase (View Boarding House Own By Manager) as view_bh_own_mng
     usecase (View Tenant Detail) as view_tenant_detail
 
+    usecase (Make Payment Invoice) as mk_pay_inv
+    usecase (Edit Payment Invoice) as edit_pay_inv
+    usecase (Cancel Payment Invoice) as cancel_pay_inv
+
     ' Boarding House Owner'
     usecase (Request New Boarding) as req_bh
     usecase (Reapprove Boarding) as reapv_bh
@@ -79,7 +83,8 @@ rectangle BHFMS {
     usecase (Add Transaction Type) as aprv_ttyp_admin
     
     usecase (View All Payment History) as view_payment
-    usecase (Accept Payment) as accpt_payment
+    usecase (Check Payment Invoice) as chk_pi_admin
+    usecase (View All Payment Support) as show_ps_admin
 }
 
 actor :Owner: as own
@@ -117,6 +122,8 @@ mngr ---> rgs
 
 adm ---> show_bh_admin
 adm ---> show_fcl_admin
+adm --> chk_pi_admin
+adm --> show_ps_admin
 
 tenant ---> rpymnt
 tenant ---> rent_bh
@@ -136,7 +143,9 @@ user ---> search_bh
 vw_rvw <... update_rvw: <<Extend>>
 show_bh_all <... show_bh_detail: <<Extend>>
 
-
+mngr ---> mk_pay_inv
+mk_pay_inv ...> edit_pay_inv: <<Extend>>
+mk_pay_inv ...> cancel_pay_inv: <<Extend>>
 
 view_cmpln <... chng_cmpln: <<Extend>>
 view_bh_own_own <... edit_bh: <<Extend>>

@@ -1,0 +1,13 @@
+@startuml
+title Payments View (Admin)
+|User|
+start 
+:User Click See All Payments;
+
+
+|Website|
+:Retrieves All Payments Data;
+:Show All Payments;
+stop
+
+@enduml
