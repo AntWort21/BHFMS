@@ -23235,17 +23235,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'UpdateTransactionType',
   props: {
-    complainType: Object
+    transactionType: Object
   },
   setup: function setup(__props, _ref) {
     var expose = _ref.expose;
     expose();
     var prop = __props;
     var form = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.useForm)({
-      name: prop.complainType.complain_type_name
+      name: prop.transactionType.transaction_type_name
     });
     var submit = function submit() {
-      form.post("/complainType/update/".concat(prop.complainType.id), {
+      form.post("/transactionType/update/".concat(prop.transactionType.id), {
         preserveScroll: true,
         preserveState: true
       });
@@ -28662,7 +28662,7 @@ var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNod
 var _hoisted_5 = ["onSubmit"];
 var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
   "class": "text-blue-600 font-bold text-2xl mb-8"
-}, " Add new Boarding Type ", -1 /* HOISTED */);
+}, " Update Boarding Type ", -1 /* HOISTED */);
 var _hoisted_7 = {
   "class": "mb-4"
 };
@@ -31795,7 +31795,7 @@ var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNod
 var _hoisted_5 = ["onSubmit"];
 var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
   "class": "text-blue-600 font-bold text-2xl mb-8"
-}, " Add new Complain Type ", -1 /* HOISTED */);
+}, " Update Transaction Type ", -1 /* HOISTED */);
 var _hoisted_7 = {
   "class": "mb-4"
 };
@@ -31809,7 +31809,7 @@ var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Header"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" to Admin Boarding Page "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Link"], {
     "class": "my-2 mx-2 text-m float-right bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-1 rounded focus:outline-none focus:shadow-outline",
-    href: '/complainTypeAll'
+    href: '/transactionTypeAll'
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_4];
@@ -31825,8 +31825,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $setup.form.name = $event;
     }),
     "input-type": 'text',
-    "label-name": 'Complain Type Name',
-    placeholder: 'Complain Type Name',
+    "label-name": 'Transaction Type Name',
+    placeholder: 'Transaction Type Name',
     "error-message": $setup.form.errors.name
   }, null, 8 /* PROPS */, ["modelValue", "error-message"])]), _hoisted_8], 40 /* PROPS, HYDRATE_EVENTS */, _hoisted_5)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Footer"])], 64 /* STABLE_FRAGMENT */);
 }
