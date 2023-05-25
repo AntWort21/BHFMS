@@ -1,4 +1,5 @@
 @startuml
+title Delete Payment Method
 actor Admin as act
 participant DeletePaymentMethodConfirmationPage as view
 participant PaymentMethodController as ctrl

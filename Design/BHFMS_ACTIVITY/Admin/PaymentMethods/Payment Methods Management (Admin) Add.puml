@@ -1,5 +1,5 @@
 @startuml
-title Payment Method Add (Admin)
+title Add Payment Method 
 |Admin|
 start 
     : Admin Press Add Payment Method Button;
@@ -20,7 +20,7 @@ If () then (Submit)
         
     endif
 else (Back)
-    : Go Back to view All Payment Method Management Page;
+    : Go Back to view All Payment Methods Page;
       
 endif
 stop

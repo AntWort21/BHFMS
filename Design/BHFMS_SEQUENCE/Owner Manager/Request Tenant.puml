@@ -1,4 +1,5 @@
 @startuml
+title Tenant Request
 actor Manager as act
 participant RequestTenantPage as view
 participant TenantController as ctrl

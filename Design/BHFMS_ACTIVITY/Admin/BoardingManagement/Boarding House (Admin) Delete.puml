@@ -1,5 +1,5 @@
 @startuml
-title Boarding House Delete/Ban(Admin)
+title Ban Boarding House
 |Admin|
 start 
     :Select Delete/Ban Boarding House Button;

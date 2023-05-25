@@ -1,4 +1,5 @@
 @startuml
+title End Rent Boarding House
 actor Admin as act
 participant EndRentBoardingPage as view
 participant BoardingController as ctrl

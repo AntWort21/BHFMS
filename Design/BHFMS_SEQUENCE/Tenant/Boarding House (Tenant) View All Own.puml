@@ -1,4 +1,5 @@
 @startuml
+title Boarding House History Tenant
 actor Admin as act
 participant ViewAllBoardingHistoryPage as view
 participant BoardingController as ctrl

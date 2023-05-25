@@ -1,5 +1,5 @@
 @startuml
-title Enable Boarding House (Owner)
+title Enable Boarding House
 |Admin|
 start 
     :Select Enable Boarding House Button;

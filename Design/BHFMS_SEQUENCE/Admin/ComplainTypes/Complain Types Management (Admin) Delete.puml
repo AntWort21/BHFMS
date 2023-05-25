@@ -1,4 +1,5 @@
 @startuml
+title Delete Complain Type
 actor Admin as act
 participant DeleteComplainTypeConfirmationPage as view
 participant ComplainTypeController as ctrl

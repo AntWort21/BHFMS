@@ -1,4 +1,5 @@
 @startuml
+title Update facility Detail
 actor Admin as act
 participant UpdateFacilityDetailPage as view
 participant FacilityDetailController as ctrl

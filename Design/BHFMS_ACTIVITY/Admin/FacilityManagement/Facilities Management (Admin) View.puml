@@ -1,12 +1,12 @@
 @startuml
-title Facility Details Management View All (Admin)
+title View All Facility Details
 |Admin|
 start 
     :Admin Click See All Facility Details;
 
 |System|
     :System Retrieves All Facility Details Data;
-    :Show All Facility Details Management Page (Admin);
+    :Show All Facility Details Page;
     stop
 
 @enduml

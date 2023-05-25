@@ -1,5 +1,5 @@
 @startuml
-title Transaction Type Update (Admin)
+title Edit Transaction Type 
 |Admin|
 start 
     : Select Update Transaction Type;
@@ -18,7 +18,7 @@ If () then (Submit)
         : Show Transaction Type Form Errors Message;
     endif
 else (Back)
-    : Go Back to view All Transaction Types Management Page;
+    : Go Back to view All Transaction Types Page;
 endif
 stop
 @enduml

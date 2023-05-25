@@ -1,5 +1,5 @@
 @startuml
-title Boarding Type Add (Admin)
+title Add Boarding Type
 |Admin|
 start 
     : Admin Press Add Boarding Type Button;
@@ -20,7 +20,7 @@ If () then (Submit)
         
     endif
 else (Back)
-    : Go Back to view All Boarding Type Management Page;
+    : Go Back to view All Boarding Types Page;
       
 endif
 stop

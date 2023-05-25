@@ -1,4 +1,5 @@
 @startuml
+title Delete Facility Detail
 actor Admin as act
 participant DeleteFacilityDetailConfirmationPage as view
 participant FacilityDetailController as ctrl

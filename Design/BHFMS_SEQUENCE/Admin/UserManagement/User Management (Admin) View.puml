@@ -1,4 +1,5 @@
 @startuml
+title View All Users
 actor Admin as act
 participant ViewAllUserPage as view
 participant UserController as ctrl

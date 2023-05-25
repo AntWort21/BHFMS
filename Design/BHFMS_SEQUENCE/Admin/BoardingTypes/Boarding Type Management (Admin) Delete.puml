@@ -1,4 +1,5 @@
 @startuml
+title Delete Boarding Type
 actor Admin as act
 participant DeleteBoardingTypeConfirmationPage as view
 participant BoardingTypeController as ctrl

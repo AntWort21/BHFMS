@@ -1,4 +1,5 @@
 @startuml
+title Delete Transaction Type
 actor Admin as act
 participant DeleteTransactionTypeConfirmationPage as view
 participant TransactionTypeController as ctrl

@@ -1,5 +1,5 @@
 @startuml
-
+title Start Rent Boarding House
 |User|
 start
     :View selected boarding house detail;
@@ -12,8 +12,13 @@ start
     :Click Rent Button;
 
 |System|
-    :Add details to tenantBoardings;
+    if () is (Valid) then
+        :Add details to tenantBoardings;
     :Redirect user to selected boarding house detail page;
+    else (Not Valid)
+        : Show Start Rent Boarding Form Errors Message;
+    endif
+    
 stop
 
 @enduml

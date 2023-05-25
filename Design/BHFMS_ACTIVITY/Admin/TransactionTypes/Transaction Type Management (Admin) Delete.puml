@@ -1,5 +1,5 @@
 @startuml
-title Transaction Type Delete (Admin)
+title Delete Transaction Type  
 |Admin|
 start 
     : Admin Press Delete Transaction Type Button;
@@ -12,7 +12,7 @@ If () then (Confirm)
     : System Delete Transaction Type;
     : Show Success Delete Transaction Type Message;
 else (Back)
-    : Go Back to view All Transaction Types Management Page;
+    : Go Back to view All Transaction Types Page;
 endif
 stop
 @enduml

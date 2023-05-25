@@ -1,4 +1,5 @@
 @startuml
+title View All Complain Type
 actor Admin as act
 participant ViewAllComplainTypesPage as view
 participant ComplainTypesController as ctrl

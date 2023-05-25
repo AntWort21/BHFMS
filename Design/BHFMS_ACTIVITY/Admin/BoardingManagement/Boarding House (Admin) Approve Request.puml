@@ -1,5 +1,5 @@
 @startuml
-title Boarding House (Admin)
+title Boarding House Request
 |Admin|
 start 
     :Select Request Boarding House;

@@ -1,5 +1,5 @@
 @startuml
-title Boarding House View (Manager)
+title View All Tenant
 |Manager|
 start 
     :Manager Click See All Tenants;

@@ -1,5 +1,5 @@
 @startuml
-title Payment Method Update (Admin)
+title Edit Payment Method 
 |Admin|
 start 
     : Select Update Payment Method;
@@ -18,7 +18,7 @@ If () then (Submit)
         : Show Payment Method Form Errors Message;
     endif
 else (Back)
-    : Go Back to view All Payment Methods Management Page;
+    : Go Back to view All Payment Methods Page;
 endif
 stop
 @enduml

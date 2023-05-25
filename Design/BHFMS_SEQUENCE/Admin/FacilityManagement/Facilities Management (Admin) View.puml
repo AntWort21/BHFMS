@@ -1,4 +1,5 @@
 @startuml
+title View All Facility Details
 actor Admin as act
 participant ViewAllFacilityDetailsPage as view
 participant FacilityDetailsController as ctrl

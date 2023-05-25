@@ -1,4 +1,5 @@
 @startuml
+title Approve Boarding House 
 actor Admin as act
 participant RequestBoardingPage as view
 participant BoardingController as ctrl
