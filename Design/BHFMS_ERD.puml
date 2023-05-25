@@ -1,7 +1,7 @@
 @startuml
 ' hide the spot
 hide circle
-
+skinparam dpi 300
 ' avoid problems with angled crows feet
 skinparam linetype ortho
 

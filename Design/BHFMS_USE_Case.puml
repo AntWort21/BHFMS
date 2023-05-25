@@ -1,5 +1,6 @@
 @startuml
 left to right direction
+skinparam linetype ortho
 
 rectangle BHFMS {
     ' General'
@@ -14,6 +15,7 @@ rectangle BHFMS {
     usecase (View All Tenant) as view_tenant
     usecase (Tenant Request) as accept_tenant
     usecase (View Boarding House Own By Manager) as view_bh_own_mng
+    usecase (View Tenant Detail) as view_tenant_detail
 
     ' Boarding House Owner'
     usecase (Request New Boarding) as req_bh
@@ -44,7 +46,7 @@ rectangle BHFMS {
     usecase (View All Boarding House Management) as show_bh_admin
     usecase (Ban Boarding House) as del_bh_admin
     usecase (Boarding House Request) as aprv_bh_admin
-    usecase (View Boarding House Detail) as view_bh
+    usecase (View Boarding House Detail Management) as view_bh
 
     usecase (View All Facility Details) as show_fcl_admin 
     usecase (Delete Facility Detail) as del_fcl_admin
@@ -190,4 +192,5 @@ view_bh_own_mng <... view_bh: <<Extend>>
 
 
 view_tenant <...  accept_tenant: <<Extend>>
+view_tenant <... view_tenant_detail <<Extend>>
 @enduml
