@@ -26,7 +26,9 @@ rectangle BHFMS {
     ' Tenant'
     usecase (Start Rent Boarding House) as rent_bh
     usecase (End Rent Boarding House) as end_rent_bh
-    usecase (Wishlist Boarding House) as wish_bh
+    usecase (Add Wishlist Boarding House) as add_wish_bh
+    usecase (View Wishlist Boarding House) as view_wish_bh
+    usecase (Delete Wishlist Boarding House) as del_wish_bh
     usecase (Search Boarding House) as search_bh
     usecase (Pay Rent) as rpymnt
     usecase (Make Complain) as cmpln
@@ -119,10 +121,12 @@ tenant ---> rent_bh
 tenant ---> cmpln
 tenant ---> mk_rvw
 tenant ---> vw_rvw
-tenant ---> wish_bh
+tenant ---> add_wish_bh
+tenant ---> view_wish_bh
 tenant ---> view_bh_tenant
 view_bh_tenant <... view_bh: <<Extend>>
 view_bh_tenant <... end_rent_bh: <<Extend>>
+view_wish_bh <... del_wish_bh: <<Extend>>
 
 user ---> show_bh_all
 user ---> search_bh

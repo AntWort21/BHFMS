@@ -1,0 +1,18 @@
+@startuml
+
+|Tenant|
+start
+    :Open Wishlist Page;
+
+|System|
+    :Get Tenant Wishlist Data from DB;
+    :Show Tenant Wishlist Page;
+
+|Tenant|
+    :Delete Selected Boarding House;
+|System|
+    :Delete Tenant's Selected Boarding House:
+    :Show Tenant Wishlist Page;
+stop
+
+@enduml
