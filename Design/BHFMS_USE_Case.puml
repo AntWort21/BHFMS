@@ -20,6 +20,7 @@ rectangle BHFMS {
     usecase (Make Payment Invoice) as mk_pay_inv
     usecase (Edit Payment Invoice) as edit_pay_inv
     usecase (Cancel Payment Invoice) as cancel_pay_inv
+    usecase (View Payment History) as view_ph
 
     ' Boarding House Owner'
     usecase (Request New Boarding) as req_bh
@@ -44,7 +45,7 @@ rectangle BHFMS {
     usecase (View All Boarding House) as show_bh_all
     usecase (View Boarding House Detail) as show_bh_detail
     usecase (Boarding House History Tenant) as view_bh_tenant
-
+    usecase (View Payment History) as view_ph
 
     ' Supervisor / Admin'
     usecase (View All Boarding House Management) as show_bh_admin
@@ -82,8 +83,8 @@ rectangle BHFMS {
     usecase (Edit Transaction Type) as edit_ttyp_admin
     usecase (Add Transaction Type) as aprv_ttyp_admin
     
-    usecase (View All Payment History) as view_payment
-    usecase (Check Payment Invoice) as chk_pi_admin
+    usecase (View Payment Invoice) as show_pi_admin
+    usecase (Approve / Reject Payment Invoice) as aprv_rjct_pi_admin
     usecase (View All Payment Support) as show_ps_admin
 }
 
@@ -97,9 +98,6 @@ actor :Manager: as mngr
 adm ---> edt_profile
 tenant ---> edt_profile
 mngr ---> edt_profile
-
-mngr ---> view_payment
-view_payment <... accpt_payment: <<Extend>>
 
 user <|-right- mngr
 mngr <|-right- own
@@ -120,10 +118,14 @@ mngr ---> cht
 user ---> rgs
 mngr ---> rgs
 
+mngr ---> view_ph
+tenant ---> view_ph
+
 adm ---> show_bh_admin
 adm ---> show_fcl_admin
-adm --> chk_pi_admin
+adm --> show_pi_admin
 adm --> show_ps_admin
+show_pi_admin <... aprv_rjct_pi_admin: <<Extend>>
 
 tenant ---> rpymnt
 tenant ---> rent_bh
