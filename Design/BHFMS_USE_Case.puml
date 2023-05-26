@@ -83,6 +83,19 @@ rectangle BHFMS {
     usecase (Edit Transaction Type) as edit_ttyp_admin
     usecase (Add Transaction Type) as aprv_ttyp_admin
     
+    usecase (View All Payment History) as view_payment
+    usecase (Accept Payment) as accpt_payment
+
+
+    usecase (Filter Boarding Houses) as filter_bh
+    usecase (Filter Facility Details) as filter_fcl
+    usecase (Filter Boarding Types) as filter_bh_type
+    usecase (Filter Complain Types) as filter_cmpl_type
+    usecase (Filter Tenants) as filter_tnt
+    usecase (Filter Payment Methods) as filter_pym_mtd
+    usecase (Filter Transaction Types) as filter_tr_typ
+    usecase (Filter Users) as filter_user
+
     usecase (View Payment Invoice) as show_pi_admin
     usecase (Approve / Reject Payment Invoice) as aprv_rjct_pi_admin
     usecase (View All Payment Support) as show_ps_admin
@@ -203,5 +216,18 @@ view_bh_own_mng <... view_bh: <<Extend>>
 
 
 view_tenant <...  accept_tenant: <<Extend>>
-view_tenant <... view_tenant_detail <<Extend>>
+view_tenant <... view_tenant_detail: <<Extend>>
+
+' Filters
+view_tenant <.. filter_tnt: <<Extend>>
+view_bh_own_mng <.. filter_bh: <<Extend>>
+view_bh_own_own <.. filter_bh: <<Extend>>
+show_bh_admin <.. filter_bh: <<Extend>>
+view_bh_tenant <.. filter_bh: <<Extend>>
+show_fcl_admin <.. filter_fcl: <<Extend>>
+show_user_admin <.. filter_user: <<Extend>>
+show_btyp_admin <.. filter_bh_type: <<Extend>>
+show_ctyp_admin <.. filter_cmpl_type: <<Extend>>
+show_pymtd_admin <.. filter_pym_mtd: <<Extend>>
+show_ttyp_admin <.. filter_tr_typ: <<Extend>>
 @enduml
