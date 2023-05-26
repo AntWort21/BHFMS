@@ -19,6 +19,8 @@ entity "users" as usr {
   *ban_name: Varchar(255)
   *user_role_id : Integer <<FK>>
   *profile_picture : Varchar(255)
+  *profile_picture : Varchar(255)
+  *account_number : Varchar(255)
   *password : Varchar(255)
   *created_at : Date
   *updated_at : Date
@@ -43,11 +45,11 @@ entity "boarding_types" as bht {
 entity "boardings" as bh {
   *id : Integer <<PK>>
   --
+  *type_id : Integer <<FK>>
   *boarding_name : Varchar(255)
   *address : Longtext
   *latitude : Varchar(255)
   *longitude : Varchar(255)
-  *type_id : Integer <<FK>>
   *rooms : Integer
   *shared_bathroom : Boolean
   *price : Integer
@@ -65,6 +67,8 @@ entity "tenant_boardings" as tb {
   *end_date: Date
   *tenant_status : Enumerate
   *declined_reason : longtext
+  *created_at : Date
+  *updated_at : Date
 }
 
 entity "facility_details" as fd {
@@ -103,10 +107,8 @@ entity "rent_transaction" as rt {
   *payment_method_id : Integer <<FK>>
   *invoice_id : Integer
   *amount : Integer
-  *start_date : Date
-  *end_date : Date
+  *payment_date : Date
   *payment_status : Enumerate
-  *declined_reason : Longtext
   *payment_transferred_status : Enumerate
   *repeat_payment : Boolean
   *created_at : Date
@@ -160,6 +162,8 @@ entity "complains" as cmpln {
   *boarding_id : Integer <<FK>>
   *complain_type_id : Integer <<FK>>
   *complain_desc : Longtext
+  *complain_image_url : Longtext
+  *complain_status : Enumerate
   *created_at : Date
   *updated_at : Date
 }
@@ -178,6 +182,7 @@ entity "payment_methods" as pymnt {
   *id: Integer<<PK>>
   --
   *payment_method_name: Varchar(255)
+  *status: Enumerate
   *created_at : Date
   *updated_at : Date
 }
@@ -185,26 +190,17 @@ entity "payment_methods" as pymnt {
 entity "chats" as cht {
   *id: Integer<<PK>>
   --
-  *user_id: Integer<<FK>>
-  *chatroom_id: Integer<<FK>>
+  *sender_id: Integer<<FK>>
+  *receiver_id: Integer<<FK>>
   *message: Longtext
-  *is_deleted: Boolean
-  *is_edited: Boolean
   *created_at : Date
   *updated_at : Date
 }
 
-entity "chatrooms" as chtrm {
-  *id: Integer<<PK>>
-  --
-  *created_at : Date
-  *updated_at : Date
-}
-
-entity "transaction_tpyes" as tt {
+entity "transaction_types" as tt {
   *id : Integer <<PK>>
   --
-  *transaction_tpye_name : Varchar(255)
+  *transaction_type_name : Varchar(255)
   *created_at : Date
   *updated_at : Date
 }

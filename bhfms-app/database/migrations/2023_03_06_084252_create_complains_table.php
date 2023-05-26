@@ -29,7 +29,7 @@ class CreateComplainsTable extends Migration
             ->on('complain_types')->cascadeOnUpdate()->cascadeOnDelete();
 
             $table->longtext('complain_desc');
-            $table->string('complain_image_url');
+            $table->longtext('complain_image_url');
             $table->enum('complain_status',['pending','finished','on progress'])->default('pending');
 
 

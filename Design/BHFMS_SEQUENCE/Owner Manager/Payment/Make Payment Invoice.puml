@@ -1,0 +1,27 @@
+@startuml
+actor "Owner & Manager" as act
+participant ":ViewAllPayments\n<<UI>>" as view
+participant PaymentController as ctrl
+participant TransactionModel as tm
+
+act -> view : openAddPaymentPage()
+view -> ctrl : getAddPaymentPage(BoardingID)
+ctrl -> tm : getTenantList(BoardingID)
+ctrl <-- tm : tenant_list
+ctrl -> tm : getAvailablePaymentMethod()
+ctrl <-- tm : payment_method_list
+view <-- ctrl : tenant_list,payment_method_list
+act <-- view : displayAddPaymentPage(tenant_list, payment_method_list) 
+
+act -> view : addPaymentInformation()
+view -> ctrl : addPayment(payment_information)
+ctrl -> ctrl : validatePaymentInput(payment_information)
+ctrl -> ctrl : generateInvoice(payment_information)
+
+alt (Payment Input Valid)
+    ctrl -> tm : insertPayment(payment_information)
+    view <-- ctrl : displayBoaringHouseViewAll()
+else (Payment Input Invalid)
+    view <-- ctrl : displayInputInvalid()
+end
+@enduml

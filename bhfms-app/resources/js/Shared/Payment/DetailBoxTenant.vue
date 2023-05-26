@@ -117,8 +117,8 @@ const getFileName = (paymentDate, invoiceId) => {
                         <button class="my-2 bg-blue-500 py-1 w-24 text-white rounded-full" @click="redirect('/chat')">Chat</button>
                         
                         <button class="my-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-if="userRole==2">Complain</button>
-                        <button class="my-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-if="(userRole==4||userRole==3) && invoiceDetail.payment_transferred_status !='Successful' " @click="redirect('/cancelPayment?order='+invoiceDetail.invoice_id+'&boarding='+query.get('boarding'))">Cancel</button>
-                        <button class="my-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-if="userRole==4||userRole==3" @click="redirect('/editPayment?order='+invoiceDetail.invoice_id+'&boarding='+query.get('boarding'))">Edit</button>
+                        <button class="my-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-if="(userRole==4||userRole==3) && (invoiceDetail.payment_transferred_status !='Successful' && invoiceDetail.payment_status !='Canceled')" @click="redirect('/cancelPayment?order='+invoiceDetail.invoice_id+'&boarding='+query.get('boarding'))">Cancel</button>
+                        <button class="my-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-if="userRole==4||userRole==3 && invoiceDetail.payment_status =='Pending'" @click="redirect('/editPayment?order='+invoiceDetail.invoice_id+'&boarding='+query.get('boarding'))">Edit</button>
                     </div>
                 </div>
             </div>

@@ -15,12 +15,15 @@ class CreateBoardingsTable extends Migration
     {
         Schema::create('boardings', function (Blueprint $table) {
             $table->id();
+            
+            $table->unsignedBigInteger('type_id');
+            $table->foreign('type_id')->references('id')->on('boarding_types');
+            
+            
             $table->string('boarding_name');
             $table->longText('address');
             $table->string('latitude');
             $table->string('longitude');
-            $table->unsignedBigInteger('type_id');
-            $table->foreign('type_id')->references('id')->on('boarding_types');
             $table->integer('rooms');
             $table->boolean('shared_bathroom');
             $table->integer('price');

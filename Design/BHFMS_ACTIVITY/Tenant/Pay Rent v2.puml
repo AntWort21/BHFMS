@@ -1,32 +1,32 @@
 @startuml
 
-|User|
+|Tenant|
 start
 :Open Payment List Page;
 
 |Website|
 :Show Payment List Page;
 
-|User|
+|Tenant|
 :Select One Payment From the List;
 
 |Website|
 :Show Payment Details;
 
-|User|
+|Tenant|
 :Select Payment Method;
 
 |Website|
 :Show Upload Payment Receipt/Proof;
 
-|User|
+|Tenant|
+repeat
 :Upload Payment Receipt/Proof;
-
 |Website|
-:Process Payment Receipt/Proof;
-:Insert Payment Receipt/Proof to DB;
-:Notify Owner/Manager Regarding Payment;
-:Show Payment List Page;
+repeat while (Verify Image) is (Invalid)
+        ->Valid;
+    :Insert Payment Receipt/Proof to Storage;
+    :Update Payment Status;
+    :Show Payment List Page;
 stop
-
 @enduml

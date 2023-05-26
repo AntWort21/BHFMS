@@ -1,0 +1,25 @@
+@startuml
+actor "Tenant" as act
+participant ":Pay\n<<UI>>" as view
+participant PaymentController as ctrl
+participant TransactionModel as tm
+participant Storage as stg
+act -> view: getPaymentPage()
+view -> ctrl: getPaymentDetail()
+ctrl -> tm : getPaymentData(invoiceId)
+ctrl <-- tm : payment_data
+view <-- ctrl : payment_data
+act <-- view : displayPaymentPage(payment_data) 
+
+act -> view : uploadPaymentProof()
+view -> ctrl:  uploadPaymentProof(image_proof)
+ctrl -> ctrl: verifyImage(image_proof)
+alt (Image is Valid) 
+ctrl -> stg : saveImage(image_proof)
+ctrl -> tm: updatePaymentStatus(invoiceId)
+view <-- ctrl : displayPaymentHistory()
+act <-- view: displayPaymentHistoryPage()
+else (Image is Invalid)
+act <-- view: displayPaymentPage(payment_data) 
+end
+@enduml

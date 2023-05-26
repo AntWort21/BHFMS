@@ -1,0 +1,9 @@
+@startuml
+|Admin|
+start
+:Select Check Invoice Page;
+|Website|
+:Retrieve Processing Payment;
+:Show Check Invoice Page;
+stop
+@enduml

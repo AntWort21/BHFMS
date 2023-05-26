@@ -1,0 +1,20 @@
+@startuml
+actor "Owner & Manager" as act
+participant ":PaymentHistory\n<<UI>>" as view
+participant PaymentController as ctrl
+participant TransactionModel as tm
+
+act -> view : openPaymentHistoryPage()
+view -> ctrl : getPaymentHistoryPage()
+
+alt (BoardingID Specified)
+    ctrl -> tm : getPaymentHistoryBasedOnID(BoardingID)
+else (BoardingID Not Specified)
+    ctrl -> tm : getPaymentHistory()
+end
+
+ctrl <-- tm : payment_data
+view <-- ctrl : payment_data
+act <-- view : displayPaymentHistoryPage(payment_data) 
+
+@enduml
