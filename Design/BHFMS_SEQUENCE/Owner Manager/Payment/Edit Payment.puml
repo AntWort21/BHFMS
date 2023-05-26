@@ -1,0 +1,38 @@
+@startuml
+actor "Owner & Manager" as act
+participant ":EditPayment\n<<UI>>" as view
+participant PaymentController as ctrl
+participant TransactionModel as tm
+
+act -> view : getTransactionDetailPage()
+view -> ctrl : getTransactionDetail(invoiceId)
+ctrl -> tm : getTransaction(invoiceId)
+ctrl <-- tm : transaction_data
+view <-- ctrl : displayTransactionDetail(transaction_data)
+
+act -> view : editPayment()
+view -> ctrl : getEditPaymentPage(invoiceId)
+ctrl -> tm : getTransaction(invoiceId)
+ctrl <-- tm : transaction_data
+
+alt (Payment Status Not Pending)
+    view <-- ctrl : getPaymentHistoryPage()
+    act <-- view : displayPaymentHistoryPage() 
+else (Payment Status is Pending)
+    view <-- ctrl : payment_data
+    act <-- view : displayEditPaymentPage(payment_data) 
+
+    act -> view : editPayment()
+    view -> ctrl : updatePaymentData(payment_data)
+    ctrl -> ctrl : validatePaymentInput(payment_information)
+    alt (Payment Input is Valid)
+        ctrl -> tm : updatePayment(payment_data)
+    
+        view <-- ctrl : getPaymentHistoryPage()
+        act <-- view : displayPaymentHistoryPage()
+    else (Payment Input is Inalid)
+    
+        act <-- view : displayEditPaymentPage(payment_data)
+    end 
+end 
+@enduml

@@ -1,0 +1,11 @@
+@startuml
+title Payments View (Admin)
+|Admin|
+start 
+:Admin Click Support Payment;
+
+|Website|
+:Retrieves All Payment That Need Support;
+stop
+
+@enduml

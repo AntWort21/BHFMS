@@ -1,0 +1,20 @@
+@startuml
+|Owner & Manager|
+start
+:Select Boarding House for Detail;
+|Website|
+:Return Boarding House Detail;
+|Owner & Manager|
+:Select Edit Payment;
+|Website|
+:Show Edit Payment Page;
+|Owner & Manager|
+repeat
+:Update Payment;
+|Website|
+repeat while (Verify New Payment) is (Invalid)
+        ->Valid;
+    :Update Payment in DB;
+    :Return Payment View;
+stop
+@enduml
