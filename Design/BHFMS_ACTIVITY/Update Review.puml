@@ -1,5 +1,5 @@
 @startuml
-title Boarding House
+title Update Review
 |Tenant|
     :Update Rating;
     :Update Review;

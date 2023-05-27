@@ -1,5 +1,5 @@
 @startuml
-
+title Delete Wishlist Boarding House
 Tenant -> WishlistPage: openWishlistPage()
 WishlistPage -> WishlistController: getTenantWishlist(Tenant_details)
 WishlistController -> WishlistModel: getTenantWishlistFromDB(Tenant_details)

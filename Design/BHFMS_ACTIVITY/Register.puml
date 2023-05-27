@@ -1,4 +1,5 @@
 @startuml
+Title Register
 |User|
 start
     :Open Registration Page;

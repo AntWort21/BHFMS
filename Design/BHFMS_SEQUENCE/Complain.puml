@@ -1,4 +1,5 @@
 @startuml
+title udah gw pisah jadi create sama view
 Tenant -> ComplainPage: getTenantComplainListPage()
 ComplainPage -> ComplainController: getTenantComplainList()
 ComplainController -> ComplainModel: getTenantComplainList()

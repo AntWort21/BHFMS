@@ -1,4 +1,5 @@
 @startuml
+title Add Wishlist Boarding House
 Tenant -> BoardingHousePage: openAllBoardingHousePage()
 BoardingHousePage -> BoardingController: getAllBoardingHouse()
 BoardingController -> BoardingModel: getAllBoardingHouseData()

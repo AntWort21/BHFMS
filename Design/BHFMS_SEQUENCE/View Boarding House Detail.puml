@@ -1,5 +1,5 @@
 @startuml
-
+title View Boarding House Detail
 User -> BoardingHouseManagementPage: openAllBoardingHouseManagementPage()
 BoardingHouseManagementPage -> BoardingController: getAllBoardingHouse()
 BoardingController -> BoardingModel: getAllBoardingHouseData()

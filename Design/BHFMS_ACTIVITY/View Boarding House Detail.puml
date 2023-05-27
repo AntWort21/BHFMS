@@ -1,5 +1,5 @@
 @startuml
-title Boarding House
+title View Boarding House Detail
 |User|
     :Select boarding house from view all boarding house;
     

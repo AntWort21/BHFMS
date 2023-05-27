@@ -1,4 +1,5 @@
 @startuml
+title ini kyknya duplicate complain change status deh
 Manager -> ComplainListPage: requestSelectedBoardingHouseComplainList()
 ComplainListPage -> ComplainController: requestSelectedBoardingHouseComplainList()
 ComplainController -> ComplainModel: getSelectedBoardingHouseComplainList()

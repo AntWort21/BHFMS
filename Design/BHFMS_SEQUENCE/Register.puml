@@ -1,4 +1,5 @@
 @startuml
+title Register
 User -> RegisterPage: getRegistrationPage()
 User <-- RegisterPage: displayRegistrationPage()
 User -> RegisterPage: inputUserCredentials()
