@@ -581,10 +581,4 @@ RentTransactionModel "1"--"1" PaymentController
 TransactionTypeModel "1"--"1" PaymentController
 TransactionTypeModel "1"--"1" TransactionTypeController
 
-
-
-
-
-
-
 @enduml
