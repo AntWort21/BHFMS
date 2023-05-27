@@ -1,4 +1,5 @@
 @startuml
+title Change Complain Status
 Manager -> ComplainListPage: getComplainListPage()
 ComplainListPage -> ComplainController: getComplainList()
 ComplainController -> ComplainModel: complainListGet()

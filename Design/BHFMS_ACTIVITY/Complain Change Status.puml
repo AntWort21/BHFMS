@@ -1,4 +1,5 @@
 @startuml
+title Change Complain Status
 |Owner|
 start
 :Select Boarding House View All complain button;

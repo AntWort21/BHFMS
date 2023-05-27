@@ -1,4 +1,5 @@
 @startuml
+title Login
 User -> LoginPage: openLoginPage()
 User <-- LoginPage: DisplayLoginPage()
 User -> LoginPage: inputUserCredentials()

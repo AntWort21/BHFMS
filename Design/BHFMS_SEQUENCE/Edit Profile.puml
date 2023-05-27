@@ -1,4 +1,5 @@
 @startuml
+title Edit Profile
 User -> ProfilePage: getEditProfilePage()
 ProfilePage -> UserController: getUserProfileDetails()
 UserController -> UserModel: getUserProfileDetails()

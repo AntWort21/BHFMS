@@ -1,4 +1,5 @@
 @startuml
+title View Review
 Tenant -> ReviewPage: openReviewPage()
 ReviewPage -> ReviewController: getReviewPage(Tenant_data)
 ReviewController -> ReviewModel: reviewPageGet(Tenant_data)
