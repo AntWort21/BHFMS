@@ -19,7 +19,7 @@ class ChatController extends Controller
     {
         $userRoleId = User::where('id', Auth::user()->id)->first()->user_role_id;
         $contactIDs = [];
-        if($userRoleId == 1){
+        if($userRoleId == 1){ //Admin Support
             $adminSupportID = User::where('email','bhfms@gmail.com')->first()->id;
             $listHelps = Chat::selectRaw("DISTINCT CASE WHEN sender_id = {$adminSupportID} THEN receiver_id ELSE sender_id END AS id")
             ->where(function ($query) use ($adminSupportID) {
@@ -31,13 +31,8 @@ class ChatController extends Controller
             ->groupBy('id', 'sender_id', 'receiver_id')
             ->orderBy('created_at')
             ->get();
-            // dd($listHelp);
-            // dd($adminSupportID);
             foreach ($listHelps as $listHelp) {
                 array_push($contactIDs, User::find($listHelp->id)->id ?? -1);
-
-                // $managerId = ManagerBoarding::where('boarding_id', $boardingId)->first()->user_id ?? -1;
-                // in_array($managerId, $contactIDs) ? array_push($contactIDs, -1) : array_push($contactIDs, $managerId);
             }
         }elseif ($userRoleId == 2) { //tenant
             
