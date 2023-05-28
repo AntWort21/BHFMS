@@ -1,4 +1,5 @@
 @startuml
+title Pay Rent
 actor "Tenant" as act
 participant ":Pay\n<<UI>>" as view
 participant PaymentController as ctrl

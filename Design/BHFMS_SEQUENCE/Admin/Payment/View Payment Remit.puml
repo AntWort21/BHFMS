@@ -1,4 +1,5 @@
 @startuml
+title View Payment Remit
 actor "Admin" as act
 participant ":PaymentRemit\n<<UI>>" as view
 participant PaymentController as pctrl

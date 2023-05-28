@@ -1,4 +1,5 @@
 @startuml
+title View Payment Remit
 |Admin|
 start
 :Select Remit Page;

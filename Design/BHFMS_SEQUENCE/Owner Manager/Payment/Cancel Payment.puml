@@ -1,4 +1,5 @@
 @startuml
+title Cancel Payment
 actor "actin" as act
 participant ":CheckInvoiceRequest\n<<UI>>" as view
 participant PaymentController as pctrl

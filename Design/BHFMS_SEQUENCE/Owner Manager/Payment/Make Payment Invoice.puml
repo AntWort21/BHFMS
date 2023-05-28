@@ -1,4 +1,5 @@
 @startuml
+title Make Payment Invoice
 actor "Owner & Manager" as act
 participant ":ViewAllPayments\n<<UI>>" as view
 participant PaymentController as ctrl

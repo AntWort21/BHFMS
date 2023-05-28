@@ -1,4 +1,5 @@
 @startuml
+title Approve Reject Payment Invoice
 |Admin|
 start
 :Select Check Invoice Page;

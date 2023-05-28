@@ -1,5 +1,5 @@
 @startuml
-actor "Tenant" as act
+actor "User" as act
 participant ":PaymentDetail\n<<UI>>" as view
 participant PaymentController as ctrl
 participant TransactionModel as tm
@@ -10,16 +10,4 @@ ctrl -> tm : getPaymentData(invoice_id)
 ctrl <-- tm : payment_data
 view <-- ctrl : payment_data
 act <-- view : displayPaymentPage(payment_data) 
-
-act -> view : uploadPaymentProof()
-view -> ctrl:  uploadPaymentProof(image_proof)
-ctrl -> ctrl: verifyImage(image_proof)
-alt (Image is Valid) 
-ctrl -> stg : saveImage(image_proof)
-ctrl -> tm: updatePaymentStatus(invoice_id)
-view <-- ctrl : displayPaymentHistory()
-act <-- view: displayPaymentHistoryPage()
-else (Image is Invalid)
-act <-- view: displayPaymentPage(payment_data) 
-end
 @enduml
