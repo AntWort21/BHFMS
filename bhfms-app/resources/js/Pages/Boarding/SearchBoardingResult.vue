@@ -12,7 +12,7 @@ const props = defineProps({
     <Header />
     <section
         v-if="props.searchResults.length > 0"
-        class="mx-2 my-2 space-y-2 min-h-[60vh]"
+        class="mx-2 my-2 space-y-2 min-h-[65vh]"
     >
         <div class="text-2xl font-semibold">Showing All Boarding House</div>
         <div class="text-md text-gray-600">
@@ -30,6 +30,9 @@ const props = defineProps({
                         alt="No Image"
                     />
                     <div class="h-2/3 space-y-1 p-2">
+                        <div class="text-sm text-gray-800">
+                            {{ boardingHouse.distance.toFixed(2) }} kilometers from destination
+                        </div>
                         <div class="font-semibold">
                             {{ boardingHouse.boarding_name }}
                         </div>
