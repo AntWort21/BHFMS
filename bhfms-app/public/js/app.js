@@ -30883,7 +30883,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onCloseDetail: $setup.closeDetail
   }, null, 8 /* PROPS */, ["invoiceDetail", "price", "username", "boarding-name", "user-role"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.popUpBoxImage ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["PopUpInputImage"], {
     key: 1,
-    "pop-up-name": 'Accpet Proof',
+    "pop-up-name": 'Accept Proof',
     value: $setup.popUpDetail.status,
     "label-name": 'Reason',
     id: $setup.popUpDetail.id,
