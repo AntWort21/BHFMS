@@ -13,11 +13,11 @@ view <-- ctrl : transaction_data
 act <-- view : displayCheckInvoicePage(transaction_data) 
 alt (Approve Invoice)
     act -> view : approveInvoice()
-    view -> pctrl : updateInvoiceStatus(invoiceId, response)
-    pctrl -> tm : updateInvoiceStatus(invoiceId, response)
+    view -> pctrl : updateInvoiceStatus(invoice_id, response)
+    pctrl -> tm : updateInvoiceStatus(invoice_id, response)
 
     opt (Tranfer Status is Processing Refund)
-        pctrl -> tm : cancelPaymentStatus(invoiceId)
+        pctrl -> tm : cancelPaymentStatus(invoice_id)
         pctrl -> cctrl : storeSpecificChatMessage(tenantId, reason)
     end
 else (Reject Invoice)
@@ -25,12 +25,12 @@ else (Reject Invoice)
     act <-- view : displayReasonBox()
     act -> view : giveRejectionReason()
     
-    view -> pctrl : updateInvoiceStatus(invoiceId, response, reason)
+    view -> pctrl : updateInvoiceStatus(invoice_id, response, reason)
     pctrl -> cctrl : sendMessage(tenantId, reason)
-    pctrl -> tm : updateInvoiceStatus(invoiceId, response)
+    pctrl -> tm : updateInvoiceStatus(invoice_id, response)
 
     opt (Tranfer Status is Processing Refund)
-        pctrl -> tm : cancelPaymentStatus(invoiceId)
+        pctrl -> tm : cancelPaymentStatus(invoice_id)
     end
 end
 @enduml

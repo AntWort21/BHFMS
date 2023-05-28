@@ -9,12 +9,11 @@ start
 |Admin|
 :Select Approve or Reject Button;    
 if (Admin Approve) is (Approve) then
-|Website|
+    :Admin Upload Proof of Transfer Image;
 else (Reject)
-|Admin|
-:Admin Give Reason for Rejection;
+    :Admin Give Reason for Rejection;
 |Website|
-:Send Rejection Message;
+    :Send Rejection Message;
 endif
 
 :Update Payment Status in DB;
