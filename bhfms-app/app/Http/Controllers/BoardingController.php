@@ -393,7 +393,7 @@ class BoardingController extends Controller
 
     public function searchBoardingByLocation(Request $request)
     {
-        $radius = 5; //radius in km
+        $radius = 2; //radius in km
         $earthRadius = 6371; //radius in km
 
         $approvedBoardingHouseIDs = OwnerBoarding::where('owner_status', 'approved')->get()->pluck('boarding_id');
