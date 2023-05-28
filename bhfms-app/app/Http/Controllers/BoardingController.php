@@ -82,9 +82,9 @@ class BoardingController extends Controller
                 if ($searchQuery == '') {
                     $query;
                 } else {
-                    $query->where('boarding_name', 'like', '%'. $searchQuery . '%')
-                    ->orWhere('owner_status', 'like', '%'. $searchQuery . '%')
-                    ->orWhere('user_name', 'like', '%'. $searchQuery . '%');
+                    $query->where('boarding_name', 'like', '%' . $searchQuery . '%')
+                        ->orWhere('owner_status', 'like', '%' . $searchQuery . '%')
+                        ->orWhere('user_name', 'like', '%' . $searchQuery . '%');
                 }
             })->paginate(5)->withQueryString();
 
@@ -113,10 +113,8 @@ class BoardingController extends Controller
             } elseif ($all_boarding_count[$count]["owner_status"] == "banned") {
                 $all += $all_boarding_count[$count]["total"];
                 $ban = $all_boarding_count[$count]["total"];
-            }
-
-            elseif($all_boarding_count[$count]["owner_status"] == "disabled"){
-                $all+= $all_boarding_count[$count]["total"];
+            } elseif ($all_boarding_count[$count]["owner_status"] == "disabled") {
+                $all += $all_boarding_count[$count]["total"];
                 $disabled = $all_boarding_count[$count]["total"];
             }
         }
@@ -147,9 +145,9 @@ class BoardingController extends Controller
                 if ($searchQuery == '') {
                     $query;
                 } else {
-                    $query->where('boarding_name', 'like', '%'. $searchQuery . '%')
-                    ->orWhere('owner_status', 'like', '%'. $searchQuery . '%')
-                    ->orWhere('user_name', 'like', '%'. $searchQuery . '%');
+                    $query->where('boarding_name', 'like', '%' . $searchQuery . '%')
+                        ->orWhere('owner_status', 'like', '%' . $searchQuery . '%')
+                        ->orWhere('user_name', 'like', '%' . $searchQuery . '%');
                 }
             })->paginate(5)->withQueryString();
 
@@ -180,10 +178,8 @@ class BoardingController extends Controller
             } elseif ($all_boarding_count[$count]["owner_status"] == "banned") {
                 $all += $all_boarding_count[$count]["total"];
                 $ban = $all_boarding_count[$count]["total"];
-            }
-
-            elseif($all_boarding_count[$count]["owner_status"] == "disabled"){
-                $all+= $all_boarding_count[$count]["total"];
+            } elseif ($all_boarding_count[$count]["owner_status"] == "disabled") {
+                $all += $all_boarding_count[$count]["total"];
                 $disabled = $all_boarding_count[$count]["total"];
             }
         }
@@ -215,17 +211,17 @@ class BoardingController extends Controller
                 if ($searchQuery == '') {
                     $query;
                 } else {
-                    $query->where('boarding_name', 'like', '%'. $searchQuery . '%')
-                    ->orWhere('owner_status', 'like', '%'. $searchQuery . '%')
-                    ->orWhere('user_name', 'like', '%'. $searchQuery . '%');
+                    $query->where('boarding_name', 'like', '%' . $searchQuery . '%')
+                        ->orWhere('owner_status', 'like', '%' . $searchQuery . '%')
+                        ->orWhere('user_name', 'like', '%' . $searchQuery . '%');
                 }
             })->paginate(5)->withQueryString();
 
 
         $all_boarding_count = OwnerBoarding::select('owner_status', DB::raw('count(*) as total'))
-        ->where('user_id', '=', auth()->id())
-        ->groupBy('owner_status')
-        ->get()->toArray();
+            ->where('user_id', '=', auth()->id())
+            ->groupBy('owner_status')
+            ->get()->toArray();
 
         $all = 0;
         $apv = 0;
@@ -247,10 +243,8 @@ class BoardingController extends Controller
             } elseif ($all_boarding_count[$count]["owner_status"] == "banned") {
                 $all += $all_boarding_count[$count]["total"];
                 $ban = $all_boarding_count[$count]["total"];
-            }
-
-            elseif($all_boarding_count[$count]["owner_status"] == "disabled"){
-                $all+= $all_boarding_count[$count]["total"];
+            } elseif ($all_boarding_count[$count]["owner_status"] == "disabled") {
+                $all += $all_boarding_count[$count]["total"];
                 $disabled = $all_boarding_count[$count]["total"];
             }
         }
@@ -271,8 +265,8 @@ class BoardingController extends Controller
 
         $Boarding_data = Boarding::join('owner_boardings', 'boardings.id', '=', 'owner_boardings.boarding_id')
             ->join('users', 'users.id', '=', 'owner_boardings.user_id')
-            ->join('tenant_boardings','tenant_boardings.boarding_id','=','boardings.id')
-            ->select('boardings.boarding_name','tenant_boardings.tenant_status','users.user_name','boardings.id AS boarding_id','tenant_boardings.id AS tenant_id','tenant_boardings.end_date AS endDate')
+            ->join('tenant_boardings', 'tenant_boardings.boarding_id', '=', 'boardings.id')
+            ->select('boardings.boarding_name', 'tenant_boardings.tenant_status', 'users.user_name', 'boardings.id AS boarding_id', 'tenant_boardings.id AS tenant_id', 'tenant_boardings.end_date AS endDate')
             ->where('tenant_boardings.user_id', '=', auth()->id())
             ->when($request->search, function ($query, $search) {
                 if ($search == 'all') {
@@ -284,17 +278,17 @@ class BoardingController extends Controller
                 if ($searchQuery == '') {
                     $query;
                 } else {
-                    $query->where('boarding_name', 'like', '%'. $searchQuery . '%')
-                    ->orWhere('owner_status', 'like', '%'. $searchQuery . '%')
-                    ->orWhere('user_name', 'like', '%'. $searchQuery . '%');
+                    $query->where('boarding_name', 'like', '%' . $searchQuery . '%')
+                        ->orWhere('owner_status', 'like', '%' . $searchQuery . '%')
+                        ->orWhere('user_name', 'like', '%' . $searchQuery . '%');
                 }
             })->paginate(5)->withQueryString();
 
 
         $all_boarding_count = TenantBoarding::select('tenant_status', DB::raw('count(*) as total'))
-        ->where('user_id', '=', auth()->id())
-        ->groupBy('tenant_status')
-        ->get()->toArray();
+            ->where('user_id', '=', auth()->id())
+            ->groupBy('tenant_status')
+            ->get()->toArray();
         $all = 0;
         $apv = 0;
         $dcl = 0;
@@ -349,7 +343,7 @@ class BoardingController extends Controller
         $owner = User::where('id', $ownerId)->first();
 
         $boardingIdManagedBySameOwner = OwnerBoarding::where('user_id', $ownerId)->where('boarding_id', '!=', $request->id)->take(4)->pluck('boarding_id');
-        if($boardingIdManagedBySameOwner) {
+        if ($boardingIdManagedBySameOwner) {
             $boardingListManagedBySameOwner = Boarding::whereIn('id', $boardingIdManagedBySameOwner)->get();
             foreach ($boardingListManagedBySameOwner as $key => $boardingHouse) {
                 $boardingListManagedBySameOwner[$key]->imageUrl = BoardingImage::where('boarding_id', $boardingHouse->id)->first()->image;
@@ -400,6 +394,7 @@ class BoardingController extends Controller
     public function searchBoardingByLocation(Request $request)
     {
         $radius = 5; //radius in km
+        $earthRadius = 6371; //radius in km
 
         $approvedBoardingHouseIDs = OwnerBoarding::where('owner_status', 'approved')->get()->pluck('boarding_id');
 
@@ -409,9 +404,15 @@ class BoardingController extends Controller
             'address',
             'latitude',
             'longitude',
-            DB::raw("SQRT(
-            POW(69.1 * (latitude - $request->latitude), 2) +
-            POW(69.1 * ($request->longitude - longitude) * COS(latitude / 57.3), 2)) AS distance")
+            DB::raw("
+                $earthRadius * 2 * ASIN(
+                        SQRT(
+                            POWER(SIN((RADIANS(latitude - $request->latitude)) / 2), 2)
+                            + COS(RADIANS($request->latitude)) * COS(RADIANS(latitude))
+                            * POWER(SIN((RADIANS(longitude - $request->longitude))/ 2), 2)
+                        )
+                    )
+                AS distance")
         )->whereIn('id', $approvedBoardingHouseIDs)->having('distance', '<', $radius)->get();
 
         foreach ($boardingSearchResults as $key => $boardingHouse) {
@@ -507,7 +508,7 @@ class BoardingController extends Controller
         $currManager = ($currBoarding->managerBoardings()->exists()) ? $currBoarding->managerBoardings()->get()->first() : null;
         $currImages = $currBoarding->images()->get();
         $currVacancy = $currBoarding->rooms - (TenantBoarding::where([['boarding_id', $request->id], ['tenant_status', 'approved']])->count());
-        $currOwner = OwnerBoarding::where('owner_boardings.boarding_id','=',$currBoarding->id)->first();
+        $currOwner = OwnerBoarding::where('owner_boardings.boarding_id', '=', $currBoarding->id)->first();
 
         return Inertia::render('Boarding/ReadBoarding', [
             'currImages' => $currImages,
@@ -523,7 +524,7 @@ class BoardingController extends Controller
     public function getReadBoardingTenant(Request $request)
     {
 
-        $currTenant = TenantBoarding::where('id','=',$request->id)->first();
+        $currTenant = TenantBoarding::where('id', '=', $request->id)->first();
         $currBoarding = Boarding::where('id', '=', $currTenant->boarding_id)->first();
         $currFacilities = ($currBoarding->facilities()->exists()) ? $currBoarding->facilities()->get() : null;
         $currType = $currBoarding->boardingType()->get()->first();
@@ -672,9 +673,9 @@ class BoardingController extends Controller
             'startDate' => ['required', 'date', 'after_or_equal:today'],
         ]);
 
-        $currTenantBoarding = TenantBoarding::where([['user_id','=',Auth::user()->id],['tenant_status','=','approved']])->count();
+        $currTenantBoarding = TenantBoarding::where([['user_id', '=', Auth::user()->id], ['tenant_status', '=', 'approved']])->count();
 
-        if($currTenantBoarding > 0){
+        if ($currTenantBoarding > 0) {
             return back()->with('message', 'Cannot rent boarding house when you have an active one !');
         }
         $BoardingNow = TenantBoarding::create([
@@ -843,21 +844,19 @@ class BoardingController extends Controller
         return redirect('/boardingOwner')->with('message', 'Success Asking for Reapproval');
     }
 
-    public function disableBoardingOwner(Request $request){
-        OwnerBoarding::where('boarding_id','=',$request->id)->first()->update([
+    public function disableBoardingOwner(Request $request)
+    {
+        OwnerBoarding::where('boarding_id', '=', $request->id)->first()->update([
             'owner_status' => 'disabled',
         ]);
         return redirect('/boardingOwner')->with('message', 'Success Disabling Boarding House');
     }
 
-    public function enableBoardingOwner(Request $request){
-        OwnerBoarding::where('boarding_id','=',$request->id)->first()->update([
+    public function enableBoardingOwner(Request $request)
+    {
+        OwnerBoarding::where('boarding_id', '=', $request->id)->first()->update([
             'owner_status' => 'approved',
         ]);
         return redirect('/boardingOwner')->with('message', 'Success Enabling Boarding House');
     }
-
-
-
-
 }
