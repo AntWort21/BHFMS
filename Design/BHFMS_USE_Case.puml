@@ -152,6 +152,7 @@ tenant ---> rent_bh
 tenant ---> cmpln
 tenant ---> mk_rvw
 tenant ---> vw_rvw
+tenant ---> view_cmpln
 tenant ---> add_wish_bh
 tenant ---> view_wish_bh
 tenant ---> view_bh_tenant
