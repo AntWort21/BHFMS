@@ -152,7 +152,7 @@ let convertAmount = (amount) => {
     @closeDetail = "closeDetail"/>
 
     <PopUpInputImage v-if="popUpBoxImage"
-    :pop-up-name="'Accpet Proof'"
+    :pop-up-name="'Accept Proof'"
     :value= popUpDetail.status
     :label-name= "'Reason'"
     :id= popUpDetail.id

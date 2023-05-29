@@ -1,5 +1,5 @@
 @startuml
-
+title Pay Rent
 |Tenant|
 start
 :Open Payment List Page;

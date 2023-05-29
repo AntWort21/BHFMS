@@ -1,4 +1,5 @@
 @startuml
+title View Payment Invoice
 |Admin|
 start
 :Select Check Invoice Page;

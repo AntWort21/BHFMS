@@ -1,4 +1,5 @@
 @startuml
+title Edit Payment
 actor "Owner & Manager" as act
 participant ":EditPayment\n<<UI>>" as view
 participant PaymentController as ctrl

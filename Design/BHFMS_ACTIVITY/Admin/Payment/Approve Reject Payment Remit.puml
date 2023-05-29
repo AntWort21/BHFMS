@@ -1,4 +1,5 @@
 @startuml
+title Approve Reject Payment Remit
 |Admin|
 start
 :Select Check Invoice Page;
@@ -9,12 +10,11 @@ start
 |Admin|
 :Select Approve or Reject Button;    
 if (Admin Approve) is (Approve) then
-|Website|
+    :Admin Upload Proof of Transfer Image;
 else (Reject)
-|Admin|
-:Admin Give Reason for Rejection;
+    :Admin Give Reason for Rejection;
 |Website|
-:Send Rejection Message;
+    :Send Rejection Message;
 endif
 
 :Update Payment Status in DB;

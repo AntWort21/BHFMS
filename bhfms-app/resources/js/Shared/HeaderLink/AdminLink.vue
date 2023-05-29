@@ -112,6 +112,9 @@ defineProps({
                 <li class="z-50 py-2 bg-indigo-900 hover:opacity-75">
                     <Link href="/paymentSupport">Support Page </Link>
                 </li>
+                <li class="z-50 py-2 bg-indigo-900 hover:opacity-75">
+                    <Link href="/remitPayment">Remit Page </Link>
+                </li>
             </ul>
         </div>
     </div>

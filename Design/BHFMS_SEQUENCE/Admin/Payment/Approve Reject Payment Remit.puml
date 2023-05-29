@@ -1,0 +1,42 @@
+@startuml
+title Approve Reject Payment Remit
+actor "Admin" as act
+participant ":PaymentRemit\n<<UI>>" as view
+participant PaymentController as pctrl
+participant ChatController as cctrl
+participant TransactionModel as tm
+participant Storage as strg
+
+act -> view : openPaymentRemitPage()
+view -> pctrl : getPaymentRemitPage()
+pctrl -> tm : getProcessingTransaction()
+pctrl <-- tm : transaction_data
+view <-- ctrl : transaction_data
+act <-- view : displayPaymentRemitPage(transaction_data) 
+alt (Approve transfer)
+
+    act -> view : approveRemit()
+    
+    act <-- view : displayProofOfTransferBox()
+    act -> view : uploadProofOfTransfer()
+    view -> pctrl : updateInvoiceApproveStatus(invoice_id, proof, response)
+    pctrl -> pctrl : validateImage()
+    alt (Image is Valid) 
+        ctrl -> stg : saveImage(image_proof)
+        pctrl -> tm : updateInvoiceStatus(invoice_id)
+        view <-- ctrl : displayPaymentRemit()
+        act <-- view: displayPaymentRemitPage()
+    else (Image is Invalid)
+        view <-- ctrl : error_response
+        act <-- view : displayPaymentRemitPage(transaction_data, error_response) 
+    end
+else (Reject Invoice)
+    act -> view : rejectInvoice()
+    act <-- view : displayReasonBox()
+    act -> view : giveRejectionReason()
+    
+    view -> pctrl : updateInvoiceRejectStatus(invoice_id, response, reason)
+    pctrl -> cctrl : sendMessage(owner_id, reason)
+    pctrl -> tm : updateInvoiceStatus(invoice_id, response)
+end
+@enduml

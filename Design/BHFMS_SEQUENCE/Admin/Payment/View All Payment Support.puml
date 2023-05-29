@@ -1,4 +1,5 @@
 @startuml
+title View All Payment Support
 actor Admin as act
 participant ":PaymentSupport\n<<UI>>" as view
 participant PaymentController as ctrl
