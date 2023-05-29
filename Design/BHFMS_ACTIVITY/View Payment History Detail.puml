@@ -1,0 +1,12 @@
+@startuml
+title View Payment History Detail
+|User|
+start 
+:User Click Detail Button Payment;
+
+|Website|
+:Retrieves Payments Detail Data;
+:Show Payment Detail;
+stop
+
+@enduml
