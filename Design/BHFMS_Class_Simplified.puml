@@ -1,318 +1,318 @@
 @startuml
 ' Controller
 class AuthController {
-    getRegisterPage()
-    getLoginPage()
-    register()
-    login()
-    logout()
+    +getRegisterPage()
+    +getLoginPage()
+    +register()
+    +login()
+    +logout()
 }
 
 class BoardingController {
-    getMainPage()
-    indexAdmin()
-    indexManager()
-    indexOwner()
-    indexTenant()
-    getAllBoardingHouse()
-    getBoardingHouseDetail()
-    searchBoardingByLocation()
-    getCreateOwnerBoarding()
-    createOwnerBoarding()
-    getReadBoarding()
-    getReadingBoardingTenant()
-    getUpdateBoarding()
-    updateBoarding()
-    deleteBoarding()
-    boardingRent()
-    getAdminApproveBoarding()
-    adminApproveBoarding()
-    getReapproveBoarding()
-    reapproveBoarding()
-    disableBoardingOwner()
-    enableBoardingOwner()
+    +getMainPage()
+    +indexAdmin()
+    +indexManager()
+    +indexOwner()
+    +indexTenant()
+    +getAllBoardingHouse()
+    +getBoardingHouseDetail()
+    +searchBoardingByLocation()
+    +getCreateOwnerBoarding()
+    +createOwnerBoarding()
+    +getReadBoarding()
+    +getReadingBoardingTenant()
+    +getUpdateBoarding()
+    +updateBoarding()
+    +deleteBoarding()
+    +boardingRent()
+    +getAdminApproveBoarding()
+    +adminApproveBoarding()
+    +getReapproveBoarding()
+    +reapproveBoarding()
+    +disableBoardingOwner()
+    +enableBoardingOwner()
 }
 
 class BoardingImageController {
-    deleteImage()
+    +deleteImage()
 }
 
 class BoardingTypeController {
-    getAllBoardingTypePage()
-    getBoardingTypeCreate()
-    boardingTypeCreate()
-    getBoardingTypeUpdate()
-    boardingTypeUpdate()
-    boardingTypeDelete()
+    +getAllBoardingTypePage()
+    +getBoardingTypeCreate()
+    +boardingTypeCreate()
+    +getBoardingTypeUpdate()
+    +boardingTypeUpdate()
+    +boardingTypeDelete()
 }
 
 class ChatController {
-    getChatPage()
-    getChatMessage()
-    storeChatMessage()
-    storeSpecificChatMessage()
+    +getChatPage()
+    +getChatMessage()
+    +storeChatMessage()
+    +storeSpecificChatMessage()
 }
 
 class ComplainController {
-    getComplainListPage()
-    getCreateComplainPage()
-    createComplain()
-    getComplainDetail()
-    setComplainStatus()
-    getOwnerComplainPage()
-    getSelectedBoardingHouseComplainList()
+    +getComplainListPage()
+    +getCreateComplainPage()
+    +createComplain()
+    +getComplainDetail()
+    +setComplainStatus()
+    +getOwnerComplainPage()
+    +getSelectedBoardingHouseComplainList()
 }
 
 class ComplainTypeController {
-    getAllComplainTypePage()
-    getComplainTypeCreate()
-    complainTypeCreate()
-    getComplainTypeUpdate()
-    complainTypeUpdate()
-    complainTypeDelete()
+    +getAllComplainTypePage()
+    +getComplainTypeCreate()
+    +complainTypeCreate()
+    +getComplainTypeUpdate()
+    +complainTypeUpdate()
+    +complainTypeDelete()
 }
 
 class FacilityController {
-    getAllFacilitypage()
-    getFacilityCreate()
-    facilityCreate()
-    getFacilityUpdate()
-    facilityUpdate()
-    facilityDelete()
+    +getAllFacilitypage()
+    +getFacilityCreate()
+    +facilityCreate()
+    +getFacilityUpdate()
+    +facilityUpdate()
+    +facilityDelete()
 }
 class PaymentController {
-    addPaymentTenant()
-    addPaymentManager()
-    getPaymentPageManager()
-    getCheckInvoiceRequest()
-    getInvoiceListProcessing()
-    getBoardingHouseName()
-    getTransactionTypeName()
-    getAllTenants()
-    getTenantBoarding()
-    getTenantIdByEmail()
-    getAllPayment()
-    getListPaymentByUser()
-    getListPaymentByBoardingId()
-    getTenantById()
-    getInvoiceDetail()
-    getEditPayment()
-    getPaymentPageTenant()
-    getPaymentRemit()
-    getPaymentSupport()
-    cancelPayment()
-    updateInvoiceStatus()
-    updatePayment()
-    updateTransferredStatus()
-    generateInvoice()
-    schedulePayment()
-    checkLatePayment()
+    +addPaymentTenant()
+    +addPaymentManager()
+    +getPaymentPageManager()
+    +getCheckInvoiceRequest()
+    +getInvoiceListProcessing()
+    -getBoardingHouseName()
+    -getTransactionTypeName()
+    -getAllTenants()
+    -getTenantBoarding()
+    -getTenantIdByEmail()
+    +getAllPayment()
+    +getListPaymentByUser()
+    +getListPaymentByBoardingId()
+    +getTenantById()
+    +getInvoiceDetail()
+    +getEditPayment()
+    +getPaymentPageTenant()
+    +getPaymentRemit()
+    +getPaymentSupport()
+    +cancelPayment()
+    +updateInvoiceStatus()
+    +updatePayment()
+    +updateTransferredStatus()
+    +generateInvoice()
+    +schedulePayment()
+    +checkLatePayment()
 }
 
 class PaymentMethodController {
-    getAllPaymentMethodPage()
-    getPaymentMethodCreate()
-    paymentMethodCreate()
-    getPaymentMethodUpdate()
-    paymentMethodUpdate()
-    paymentMethodDelete()
+    +getAllPaymentMethodPage()
+    +getPaymentMethodCreate()
+    +paymentMethodCreate()
+    +getPaymentMethodUpdate()
+    +paymentMethodUpdate()
+    +paymentMethodDelete()
 }
 
 class ReviewController {
-    getAllReviewPage()
-    getCreateReviewOrViewReviewPage()
-    createReview()
-    updateReview()
+    +getAllReviewPage()
+    +getCreateReviewOrViewReviewPage()
+    +createReview()
+    +updateReview()
 }
 class TenantController {
-    getAllTenantBoarding()
-    getDetailTenantBoarding()
-    getRequestTenant()
-    RequestTenant()
-    getEndRentBoarding()
-    endRentBoarding()
+    +getAllTenantBoarding()
+    +getDetailTenantBoarding()
+    +getRequestTenant()
+    +RequestTenant()
+    +getEndRentBoarding()
+    +endRentBoarding()
 }
 class TransactionTypeController {
-    getAllTransactionTypePage()
-    getTransactionTypeCreate()
-    transactionTypeCreate()
-    getTransactionTypeUpdate()
-    TransactionTypeUpdate()
-    TransactionTypeDelete()
+    +getAllTransactionTypePage()
+    +getTransactionTypeCreate()
+    +transactionTypeCreate()
+    +getTransactionTypeUpdate()
+    +TransactionTypeUpdate()
+    +TransactionTypeDelete()
 }
 class UserController {
-    getProfilePage()
-    updateProfile()
-    getAllUserPage()
-    getUserDetail()
-    getUserUpdate()
-    UserUpdate()
-    UserDelete()
+    +getProfilePage()
+    +updateProfile()
+    +getAllUserPage()
+    +getUserDetail()
+    +getUserUpdate()
+    +UserUpdate()
+    +UserDelete()
 }
 class WishlistController {
-    showWishlist()
-    addWishlist()
-    removeWishlist()
+    +showWishlist()
+    +addWishlist()
+    +removeWishlist()
 }
 
 
 ' Model
 class Boarding {
-    BigInteger id
-    UnsignedBigInteger type_id
-    String boarding_name
-    LongText address
-    String latitude
-    String longitude
-    Integer rooms
-    Boolean shared_bathroom
-    Integer price
-    LongText boarding_desc
-    Datetime timestamps
+    +BigInteger id
+    +UnsignedBigInteger type_id
+    +String boarding_name
+    +LongText address
+    +String latitude
+    +String longitude
+    +Integer rooms
+    +Boolean shared_bathroom
+    +Integer price
+    +LongText boarding_desc
+    +Datetime timestamps
 }
 
 class BoardingImage {
-    BigInteger id
-    UnsignedBigInteger boarding_id
-    String image
-    Datetime timestamps
+    +BigInteger id
+    +UnsignedBigInteger boarding_id
+    +String image
+    +Datetime timestamps
 }
 
 class BoardingType {
-    BigInteger id
-    String boarding_type_name
-    Datetime timestamps
+    +BigInteger id
+    +String boarding_type_name
+    +Datetime timestamps
 }
 
 class Chat {
-    BigInteger id
-    UnsignedBigInteger sender_id
-    UnsignedBigInteger receiver_id
-    LongText message
-    Datetime timestamps
+    +BigInteger id
+    +UnsignedBigInteger sender_id
+    +UnsignedBigInteger receiver_id
+    +LongText message
+    +Datetime timestamps
 }
 
 class Complain {
-    BigInteger id
-    UnsignedBigInteger user_id
-    UnsignedBigInteger boarding_id
-    UnsignedBigInteger complain_types
-    LongText complain_desc
-    LongText complain_image_url
-    Enumerate complain_status
+    +BigInteger id
+    +UnsignedBigInteger user_id
+    +UnsignedBigInteger boarding_id
+    +UnsignedBigInteger complain_types
+    +LongText complain_desc
+    +LongText complain_image_url
+    +Enumerate complain_status
 }
 
 class ComplainType {
-    BigInteger id
-    String complain_type_name
-    Datetime timestamps
+    +BigInteger id
+    +String complain_type_name
+    +Datetime timestamps
 }
 
 class Facility {
-    BigInteger id
-    UnsignedBigInteger facility_id
-    UnsignedBigInteger boarding_id
-    Datetime timestamps
+    +BigInteger id
+    +UnsignedBigInteger facility_id
+    +UnsignedBigInteger boarding_id
+    +Datetime timestamps
 }
 
 class FacilityDetail {
-    BigInteger id
-    String facility_detail_name
-    String facility_img_path
-    Datetime timestamps
+    +BigInteger id
+    +String facility_detail_name
+    +String facility_img_path
+    +Datetime timestamps
 }
 
 class ManagerBoarding {
-    BigInteger id
-    UnsignedBigInteger user_id
-    UnsignedBigInteger boarding_id
-    Datetime timestamps
+    +BigInteger id
+    +UnsignedBigInteger user_id
+    +UnsignedBigInteger boarding_id
+    +Datetime timestamps
 }
 
 class OwnerBoarding {
-    BigInteger id
-    UnsignedBigInteger user_id
-    UnsignedBigInteger boarding_id
-    Enumerate owner_status
-    LongText declined_reason
-    Datetime timestamps
+    +BigInteger id
+    +UnsignedBigInteger user_id
+    +UnsignedBigInteger boarding_id
+    +Enumerate owner_status
+    +LongText declined_reason
+    +Datetime timestamps
 }
 
 class PaymentMethod {
-    BigInteger id
-    String payment_method_name
-    Enumerate StateAttributeFontSize
-    Datetime timestamps
+    +BigInteger id
+    +String payment_method_name
+    +Enumerate StateAttributeFontSize
+    +Datetime timestamps
 }
 
 class RentTransaction {
-    BigInteger id
-    UnsignedBigInteger tenant_boarding_id
-    UnsignedBigInteger transaction_type_id
-    UnsignedBigInteger payment_method_id
-    UnsignedBigInteger invoice_id
-    Integer amount
-    Date payment_date
-    Enumerate payment_status
-    Enumerate payment_transferred_status
-    Boolean repeat_payment
-    Datetime timestamps
+    +BigInteger id
+    +UnsignedBigInteger tenant_boarding_id
+    +UnsignedBigInteger transaction_type_id
+    +UnsignedBigInteger payment_method_id
+    +UnsignedBigInteger invoice_id
+    +Integer amount
+    +Date payment_date
+    +Enumerate payment_status
+    +Enumerate payment_transferred_status
+    +Boolean repeat_payment
+    +Datetime timestamps
 }
 
 class Review {
-    BigInteger id
-    UnsignedBigInteger user_id
-    UnsignedBigInteger boarding_id
-    Integer rating
-    LongText review_desc
-    Datetime timestamps
+    +BigInteger id
+    +UnsignedBigInteger user_id
+    +UnsignedBigInteger boarding_id
+    +Integer rating
+    +LongText review_desc
+    +Datetime timestamps
 }
 
 class TenantBoarding {
-    BigInteger id
-    UnsignedBigInteger user_id
-    UnsignedBigInteger boarding_id
-    Date start_date
-    Date end_date
-    Enumerate tenant_status
-    LongText declined_reason
-    Datetime timestamps
+    +BigInteger id
+    +UnsignedBigInteger user_id
+    +UnsignedBigInteger boarding_id
+    +Date start_date
+    +Date end_date
+    +Enumerate tenant_status
+    +LongText declined_reason
+    +Datetime timestamps
 }
 
 class TransactionType {
-    BigInteger id
-    String transaction_type_name
-    Datetime timestamps
+    +BigInteger id
+    +String transaction_type_name
+    +Datetime timestamps
 }
 
 class User {
-    BigInteger id
-    String user_name
-    Enumerate gender
-    Enumerate user_status
-    String email
-    Datetime email_verified_at
-    String date_of_birth
-    String phone
-    Integer user_role_id
-    String profile_picture
-    String password
-    String bank_name
-    String account_number
-    Datetime timestamps
+    +BigInteger id
+    +String user_name
+    +Enumerate gender
+    +Enumerate user_status
+    +String email
+    +Datetime email_verified_at
+    +String date_of_birth
+    +String phone
+    +Integer user_role_id
+    +String profile_picture
+    +String password
+    +String bank_name
+    +String account_number
+    +Datetime timestamps
 }
 
 class UserRole {
-    BigInteger id
-    String user_role_name
-    Datetime timestamps
+    +BigInteger id
+    +String user_role_name
+    +Datetime timestamps
 }
 
 class Wishlist {
-    BigInteger id
-    UnsignedBigInteger user_id
-    UnsignedBigInteger boarding_id
-    Datetime timestamps
+    +BigInteger id
+    +UnsignedBigInteger user_id
+    +UnsignedBigInteger boarding_id
+    +Datetime timestamps
 }
 
 ' Middleware
