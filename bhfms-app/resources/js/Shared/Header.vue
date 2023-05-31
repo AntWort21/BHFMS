@@ -24,7 +24,7 @@ const form = useForm({
 });
 
 const submitHeader = () => {
-    form.post("/search");
+    form.get("/search");
 };
 let hoverAdmin1 = ref(false);
 let hoverAdmin2 = ref(false);
