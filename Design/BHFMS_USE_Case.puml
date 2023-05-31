@@ -8,7 +8,9 @@ rectangle BHFMS {
     usecase (Login) as lgn
     usecase (Register) as rgs
     usecase (Edit Profile) as edt_profile
-
+    usecase (View Payment History) as view_ph
+    usecase (View Payment History Detail) as view_ph_detail
+    
     ' Manager'
     usecase (View Complains) as view_cmpln
     usecase (Change Complain Status) as chng_cmpln
@@ -20,7 +22,6 @@ rectangle BHFMS {
     usecase (Make Payment Invoice) as mk_pay_inv
     usecase (Edit Payment Invoice) as edit_pay_inv
     usecase (Cancel Payment Invoice) as cancel_pay_inv
-    usecase (View Payment History) as view_ph
 
     ' Boarding House Owner'
     usecase (Request New Boarding) as req_bh
@@ -45,7 +46,6 @@ rectangle BHFMS {
     usecase (View All Boarding House) as show_bh_all
     usecase (View Boarding House Detail) as show_bh_detail
     usecase (Boarding House History Tenant) as view_bh_tenant
-    usecase (View Payment History) as view_ph
 
     ' Supervisor / Admin'
     usecase (View All Boarding House Management) as show_bh_admin
@@ -99,6 +99,8 @@ rectangle BHFMS {
     usecase (View Payment Invoice) as show_pi_admin
     usecase (Approve / Reject Payment Invoice) as aprv_rjct_pi_admin
     usecase (View All Payment Support) as show_ps_admin
+    usecase (View Payment Remit) as show_pr_admin
+    usecase (Approve / Reject Payment Remit) as aprv_rjct_pr_admin
 }
 
 actor :Owner: as own
@@ -133,18 +135,24 @@ mngr ---> rgs
 
 mngr ---> view_ph
 tenant ---> view_ph
+view_ph <... view_ph_detail: <<Extend>>
 
 adm ---> show_bh_admin
 adm ---> show_fcl_admin
-adm --> show_pi_admin
-adm --> show_ps_admin
+adm ---> show_pi_admin
+adm ---> show_ps_admin
+adm ---> show_pr_admin
 show_pi_admin <... aprv_rjct_pi_admin: <<Extend>>
+show_pi_admin <... view_ph_detail: <<Extend>>
+show_ps_admin <... view_ph_detail: <<Extend>>
+show_pr_admin <... aprv_rjct_pr_admin: <<Extend>>
 
 tenant ---> rpymnt
 tenant ---> rent_bh
 tenant ---> cmpln
 tenant ---> mk_rvw
 tenant ---> vw_rvw
+tenant ---> view_cmpln
 tenant ---> add_wish_bh
 tenant ---> view_wish_bh
 tenant ---> view_bh_tenant
@@ -165,6 +173,7 @@ mk_pay_inv ...> cancel_pay_inv: <<Extend>>
 view_cmpln <... chng_cmpln: <<Extend>>
 view_bh_own_own <... edit_bh: <<Extend>>
 show_bh_admin <.. edit_bh: <<Extend>>
+
 own ---> view_bh_own_own
 view_bh_own_own <... req_bh: <<Extend>>
 view_bh_own_own <... reapv_bh: <<Extend>>

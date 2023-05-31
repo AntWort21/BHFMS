@@ -1,5 +1,5 @@
 @startuml
-title Boarding House
+title Search Boarding House
 |User|
     :Input location in search box;
     

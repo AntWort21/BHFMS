@@ -1,4 +1,5 @@
 @startuml
+title Chat
 User -> ChatPage: getChatPage()
 ChatPage -> ChatController: getUserChatDetails(user_details);
 ChatController -> ChatModel: getUserChatDetails(user_details);

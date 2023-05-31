@@ -52,7 +52,6 @@ let convertAmount = (amount) => {
         <input class="w-1/3 text-center" type="radio" name="checkInvoiceStatus" value="declined"  v-on:click="showPopUpDeclined('Declined', invoice.invoice_id)">
         <button class="w-1/3 bg-blue-500 text-white rounded-md px-4 py-2" v-on:click="showInvoiceDetail(invoice.invoice_id)">
             Details
-            
         </button>
       
     </div>

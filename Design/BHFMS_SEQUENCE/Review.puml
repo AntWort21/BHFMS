@@ -1,4 +1,5 @@
 @startuml
+title ini juga udah gw pisah jadi make review, view review, sama update review
 Tenant -> ReviewPage: getReviewPage()
 ReviewPage -> ReviewController: getReviewPage()
 ReviewController -> ReviewModel: getReviewList(Tenant_details)
@@ -42,14 +43,5 @@ else (Update Old Review)
         Tenant <-- ReviewPage: displaySelectedTenantReviewDetails(failed_error_response)
     end
 end
-
-Tenant -> ReviewPage: Insert Review, Give Rating
-ReviewPage -> ReviewController: Validate Tenant Input
-ReviewPage <-- ReviewController: Send Success Response
-ReviewPage -> ReviewController: Send Insert to DB Instructions
-ReviewController -> ReviewModel: Insert to DB
-ReviewController <-- ReviewModel: Show Success Insert to DB Response
-ReviewPage <-- ReviewController: Return Insert Successful Message
-Tenant <-- ReviewPage: Show Home Page
 
 @enduml

@@ -24,7 +24,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post("/search");
+    form.get("/search");
 };
 </script>
 

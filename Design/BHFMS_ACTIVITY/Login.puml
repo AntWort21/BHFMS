@@ -1,4 +1,5 @@
 @startuml
+title Login
 |User|
 start
     :Open Login Page;

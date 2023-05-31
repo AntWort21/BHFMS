@@ -1,5 +1,5 @@
 @startuml
-
+title Edit Profile
 |User|
 start
     :Open Edit Profile Page;

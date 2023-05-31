@@ -184,9 +184,9 @@ INSERT INTO `wishlists` (`id`, `user_id`, `boarding_id`, `created_at`, `updated_
 (5, 8, 14, '2023-05-22 04:35:38', '2023-05-22 04:35:38'),
 (6, 8, 8, '2023-05-22 04:37:53', '2023-05-22 04:37:53');
 
-INSERT INTO `rent_transactions` (`id`, `tenant_boarding_id`, `transaction_type_id`, `invoice_id`, `payment_method_id`, `amount`, `payment_date`, `payment_status`, `declined_reason`, `payment_transferred_status`, `repeat_payment`, `created_at`, `updated_at`) VALUES
-(1, 11, 1, 235227734, NULL, 5000790, '2023-05-22', 'Pending', NULL, 'Pending', 1, '2023-05-22 04:58:33', '2023-05-22 04:58:33'),
-(2, 11, 2, 235314680, NULL, 50027, '2023-05-31', 'Pending', NULL, 'Pending', 0, '2023-05-22 04:59:01', '2023-05-22 04:59:01'),
-(3, 22, 2, 999912, 2, 300000, '2023-05-18', 'Approved', NULL, 'Successful', 0, NULL, NULL),
-(4, 22, 3, 999912, 2, 30000, '2023-05-18', 'Approved', NULL, 'Successful', 0, NULL, NULL),
-(5, 22, 3, 999912, 2, 30000, '2023-05-18', 'Canceled', NULL, 'Pending', 0, NULL, NULL);
+INSERT INTO `rent_transactions` (`id`, `tenant_boarding_id`, `transaction_type_id`, `invoice_id`, `payment_method_id`, `amount`, `payment_date`, `payment_status`, `payment_transferred_status`, `repeat_payment`, `created_at`, `updated_at`) VALUES
+(1, 11, 1, 235227734, NULL, 5000790, '2023-05-22', 'Pending', 'Pending', 1, '2023-05-22 04:58:33', '2023-05-22 04:58:33'),
+(2, 11, 2, 235314680, NULL, 50027, '2023-05-31', 'Pending', 'Pending', 0, '2023-05-22 04:59:01', '2023-05-22 04:59:01'),
+(3, 22, 2, 235314601, 2, 300000, '2023-05-18', 'Approved', 'Successful', 0, NULL, NULL),
+(4, 22, 3, 235314667, 2, 30000, '2023-05-18', 'Approved', 'Successful', 0, NULL, NULL),
+(5, 22, 3, 235314912, 2, 30000, '2023-05-18', 'Canceled', 'Pending', 0, NULL, NULL);

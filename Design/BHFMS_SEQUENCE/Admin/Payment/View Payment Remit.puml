@@ -1,14 +1,14 @@
 @startuml
-title View Payment Invoice
+title View Payment Remit
 actor "Admin" as act
-participant ":CheckInvoiceRequest\n<<UI>>" as view
+participant ":PaymentRemit\n<<UI>>" as view
 participant PaymentController as pctrl
 participant ChatController as cctrl
 participant TransactionModel as tm
 
-act -> view : openCheckInvoicePage()
-view -> pctrl : getCheckInvoicePage()
+act -> view : openPaymentRemitPage()
+view -> pctrl : getPaymentRemitPage()
 pctrl -> tm : getProcessingTransaction()
 pctrl <-- tm : transaction_data
 view <-- ctrl : transaction_data
-act <-- view : displayCheckInvoicePage(transaction_data) 
+act <-- view : displayPaymentRemitPage(transaction_data)  

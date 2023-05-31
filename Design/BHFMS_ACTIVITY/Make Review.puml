@@ -1,4 +1,5 @@
 @startuml
+title Make Review
 |Tenant|
 start
     :Open Review Page;

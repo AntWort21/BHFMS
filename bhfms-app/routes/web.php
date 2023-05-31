@@ -169,5 +169,5 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/boarding/detail', [BoardingController::class, 'getBoardingHouseDetail']);
-Route::post('/search', [BoardingController::class, 'searchBoardingByLocation']);
+Route::get('/search', [BoardingController::class, 'searchBoardingByLocation']);
 Route::get('/boarding/all', [BoardingController::class, 'getAllBoardingHouse']);

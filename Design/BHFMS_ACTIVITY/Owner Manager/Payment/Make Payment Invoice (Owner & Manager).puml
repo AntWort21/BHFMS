@@ -1,4 +1,5 @@
 @startuml
+title Make Payment Invoice
 |Owner & Manager|
 start
 :Select Boarding House Page;

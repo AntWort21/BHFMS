@@ -1,4 +1,5 @@
 @startuml
+title Search Boarding House
 User -> SearchPage: inputSearchData()
 SearchPage -> BoardingController: searchBoardingByLocation(searchData)
 BoardingController -> BoardingModel: boardingGet(searchData)
