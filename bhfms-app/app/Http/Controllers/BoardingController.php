@@ -342,7 +342,7 @@ class BoardingController extends Controller
         $ownerId = OwnerBoarding::where('boarding_id', $request->id)->first()->user_id;
         $owner = User::where('id', $ownerId)->first();
 
-        $boardingIdManagedBySameOwner = OwnerBoarding::where('user_id', $ownerId)->where('boarding_id', '!=', $request->id)->take(4)->pluck('boarding_id');
+        $boardingIdManagedBySameOwner = OwnerBoarding::where('user_id', $ownerId)->where('boarding_id', '!=', $request->id)->where('owner_status', 'approved')->take(4)->pluck('boarding_id');
         if ($boardingIdManagedBySameOwner) {
             $boardingListManagedBySameOwner = Boarding::whereIn('id', $boardingIdManagedBySameOwner)->get();
             foreach ($boardingListManagedBySameOwner as $key => $boardingHouse) {
