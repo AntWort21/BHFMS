@@ -21907,7 +21907,7 @@ __webpack_require__.r(__webpack_exports__);
       longitude: 0
     });
     var submit = function submit() {
-      form.post("/search");
+      form.get("/search");
     };
     var __returned__ = {
       props: props,
@@ -24244,7 +24244,7 @@ __webpack_require__.r(__webpack_exports__);
       longitude: 0
     });
     var submitHeader = function submitHeader() {
-      form.post("/search");
+      form.get("/search");
     };
     var hoverAdmin1 = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(false);
     var hoverAdmin2 = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(false);
