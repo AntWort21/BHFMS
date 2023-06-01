@@ -17,14 +17,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('rent:status')->daily();
-        
-        $schedule->call(function () {
-    
-            $paymentController = new PaymentController();
-            $paymentController->schedulePayment();
-            $paymentController->checkLatePayment();
-            
-        })->daily('01:00');
+        $schedule->command('payment:late')->daily();
+        $schedule->command('payment:scheduler')->dailyAt('00:01');
     }
 
     /**
