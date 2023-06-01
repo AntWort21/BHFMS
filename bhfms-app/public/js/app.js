@@ -30523,7 +30523,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     value: $setup.popUpDetail.status,
     "label-name": 'Reason',
     id: $setup.popUpDetail.id,
-    "link-pop": 'updateInvoiceStatus',
+    "link-pop": '/updateInvoiceStatus',
     onClosePopUp: $setup.closePopUp
   }, null, 8 /* PROPS */, ["value", "id"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Footer"])], 64 /* STABLE_FRAGMENT */);
 }
@@ -30887,7 +30887,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     value: $setup.popUpDetail.status,
     "label-name": 'Reason',
     id: $setup.popUpDetail.id,
-    "link-pop": 'updateTransferredStatus',
+    "link-pop": '/updateTransferredStatus',
     onClosePopUp: $setup.closePopUpImage
   }, null, 8 /* PROPS */, ["value", "id"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.popUpBoxText ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["PopUpInputText"], {
     key: 2,
@@ -30895,7 +30895,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     value: $setup.popUpDetail.status,
     "label-name": 'Reason',
     id: $setup.popUpDetail.id,
-    "link-pop": 'updateTransferredStatus',
+    "link-pop": '/updateTransferredStatus',
     onClosePopUp: $setup.closePopUpText
   }, null, 8 /* PROPS */, ["value", "id"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Footer"])], 64 /* STABLE_FRAGMENT */);
 }

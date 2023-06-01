@@ -142,7 +142,7 @@ let convertAmount = (amount) => {
     :value= popUpDetail.status
     :label-name= "'Reason'"
     :id= popUpDetail.id
-    :link-pop="'updateInvoiceStatus'"
+    :link-pop="'/updateInvoiceStatus'"
     @closePopUp = "closePopUp"
     />
     <Footer />
