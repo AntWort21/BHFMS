@@ -33,7 +33,7 @@ const popUpDetail = ref({
 })
 
 let showDetail = (invoiceId) => {
-  fetch('getInvoiceData', {
+  fetch('/getInvoiceData', {
     method: 'POST',
     headers: {
       "X-CSRF-Token": csrfToken,
@@ -156,7 +156,7 @@ let convertAmount = (amount) => {
     :value= popUpDetail.status
     :label-name= "'Reason'"
     :id= popUpDetail.id
-    :link-pop="'updateTransferredStatus'"
+    :link-pop="'/updateTransferredStatus'"
     @closePopUp = "closePopUpImage"/>
     
     <PopUpInputText v-if="popUpBoxText" 
@@ -164,7 +164,7 @@ let convertAmount = (amount) => {
     :value= popUpDetail.status
     :label-name= "'Reason'"
     :id= popUpDetail.id
-    :link-pop="'updateTransferredStatus'"
+    :link-pop="'/updateTransferredStatus'"
     @closePopUp = "closePopUpText"/>
     <Footer />
 </template>

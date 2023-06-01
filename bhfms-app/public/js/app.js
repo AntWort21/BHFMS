@@ -21907,7 +21907,7 @@ __webpack_require__.r(__webpack_exports__);
       longitude: 0
     });
     var submit = function submit() {
-      form.post("/search");
+      form.get("/search");
     };
     var __returned__ = {
       props: props,
@@ -22189,7 +22189,7 @@ __webpack_require__.r(__webpack_exports__);
       status: ''
     });
     var showDetail = function showDetail(invoiceId) {
-      fetch('getInvoiceData', {
+      fetch('/getInvoiceData', {
         method: 'POST',
         headers: {
           "X-CSRF-Token": csrfToken
@@ -22299,7 +22299,7 @@ __webpack_require__.r(__webpack_exports__);
       boardingName: ''
     });
     var showDetail = function showDetail(invoice_id) {
-      fetch('getInvoiceData', {
+      fetch('/getInvoiceData', {
         method: 'POST',
         headers: {
           "X-CSRF-Token": csrfToken
@@ -22572,7 +22572,7 @@ __webpack_require__.r(__webpack_exports__);
       status: ''
     });
     var showDetail = function showDetail(invoiceId) {
-      fetch('getInvoiceData', {
+      fetch('/getInvoiceData', {
         method: 'POST',
         headers: {
           "X-CSRF-Token": csrfToken
@@ -22696,7 +22696,7 @@ __webpack_require__.r(__webpack_exports__);
       boardingName: ''
     });
     var showDetail = function showDetail(invoice_id) {
-      fetch('getInvoiceData', {
+      fetch('/getInvoiceData', {
         method: 'POST',
         headers: {
           "X-CSRF-Token": csrfToken
@@ -24244,7 +24244,7 @@ __webpack_require__.r(__webpack_exports__);
       longitude: 0
     });
     var submitHeader = function submitHeader() {
-      form.post("/search");
+      form.get("/search");
     };
     var hoverAdmin1 = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(false);
     var hoverAdmin2 = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(false);
@@ -24862,7 +24862,7 @@ __webpack_require__.r(__webpack_exports__);
       return new Number(amount).toLocaleString("id-ID");
     };
     var updateInvoiceStatus = function updateInvoiceStatus(invoiceStatus, invoiceId) {
-      fetch('updateInvoiceStatus', {
+      fetch('/updateInvoiceStatus', {
         method: 'POST',
         headers: {
           "X-CSRF-Token": csrfToken
@@ -30523,7 +30523,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     value: $setup.popUpDetail.status,
     "label-name": 'Reason',
     id: $setup.popUpDetail.id,
-    "link-pop": 'updateInvoiceStatus',
+    "link-pop": '/updateInvoiceStatus',
     onClosePopUp: $setup.closePopUp
   }, null, 8 /* PROPS */, ["value", "id"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Footer"])], 64 /* STABLE_FRAGMENT */);
 }
@@ -30887,7 +30887,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     value: $setup.popUpDetail.status,
     "label-name": 'Reason',
     id: $setup.popUpDetail.id,
-    "link-pop": 'updateTransferredStatus',
+    "link-pop": '/updateTransferredStatus',
     onClosePopUp: $setup.closePopUpImage
   }, null, 8 /* PROPS */, ["value", "id"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.popUpBoxText ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["PopUpInputText"], {
     key: 2,
@@ -30895,7 +30895,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     value: $setup.popUpDetail.status,
     "label-name": 'Reason',
     id: $setup.popUpDetail.id,
-    "link-pop": 'updateTransferredStatus',
+    "link-pop": '/updateTransferredStatus',
     onClosePopUp: $setup.closePopUpText
   }, null, 8 /* PROPS */, ["value", "id"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Footer"])], 64 /* STABLE_FRAGMENT */);
 }
