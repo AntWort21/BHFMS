@@ -22189,7 +22189,7 @@ __webpack_require__.r(__webpack_exports__);
       status: ''
     });
     var showDetail = function showDetail(invoiceId) {
-      fetch('getInvoiceData', {
+      fetch('/getInvoiceData', {
         method: 'POST',
         headers: {
           "X-CSRF-Token": csrfToken
@@ -22299,7 +22299,7 @@ __webpack_require__.r(__webpack_exports__);
       boardingName: ''
     });
     var showDetail = function showDetail(invoice_id) {
-      fetch('getInvoiceData', {
+      fetch('/getInvoiceData', {
         method: 'POST',
         headers: {
           "X-CSRF-Token": csrfToken
@@ -22572,7 +22572,7 @@ __webpack_require__.r(__webpack_exports__);
       status: ''
     });
     var showDetail = function showDetail(invoiceId) {
-      fetch('getInvoiceData', {
+      fetch('/getInvoiceData', {
         method: 'POST',
         headers: {
           "X-CSRF-Token": csrfToken
@@ -22696,7 +22696,7 @@ __webpack_require__.r(__webpack_exports__);
       boardingName: ''
     });
     var showDetail = function showDetail(invoice_id) {
-      fetch('getInvoiceData', {
+      fetch('/getInvoiceData', {
         method: 'POST',
         headers: {
           "X-CSRF-Token": csrfToken
@@ -24862,7 +24862,7 @@ __webpack_require__.r(__webpack_exports__);
       return new Number(amount).toLocaleString("id-ID");
     };
     var updateInvoiceStatus = function updateInvoiceStatus(invoiceStatus, invoiceId) {
-      fetch('updateInvoiceStatus', {
+      fetch('/updateInvoiceStatus', {
         method: 'POST',
         headers: {
           "X-CSRF-Token": csrfToken

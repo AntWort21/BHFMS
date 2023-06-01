@@ -33,7 +33,7 @@ const popUpDetail = ref({
 })
 
 let showDetail = (invoiceId) => {
-  fetch('getInvoiceData', {
+  fetch('/getInvoiceData', {
     method: 'POST',
     headers: {
       "X-CSRF-Token": csrfToken,

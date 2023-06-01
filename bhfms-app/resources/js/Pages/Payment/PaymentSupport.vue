@@ -24,7 +24,7 @@ const detailInvoice = ref({
 });
 
 let showDetail = (invoice_id) => {
-  fetch('getInvoiceData', {
+  fetch('/getInvoiceData', {
     method: 'POST',
     headers: {
       "X-CSRF-Token": csrfToken,

@@ -30,7 +30,7 @@ let convertAmount = (amount) => {
 }
 
 let updateInvoiceStatus = (invoiceStatus, invoiceId) => {
-  fetch('updateInvoiceStatus', {
+  fetch('/updateInvoiceStatus', {
     method: 'POST',
     headers: {
       "X-CSRF-Token": csrfToken,
