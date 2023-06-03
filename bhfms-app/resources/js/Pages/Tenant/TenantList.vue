@@ -6,6 +6,7 @@ import Footer from "../../Shared/Footer.vue";
 import Pagination from "../../Shared/Pagination.vue";
 import TableIconLinks from "../../Shared/TenantShared/TableIconLinks.vue";
 import StatusIcon from "../../Shared/TenantShared/StatusIcon.vue";
+import Legends from "../../Shared/TenantShared/Legends.vue";
 defineProps({
     all_count: Number,
     approved: Number,
@@ -103,6 +104,7 @@ watch(searchQuery, (value) => {
                         </select>
                     </div>
                 </div>
+                <Legends />
 
                 <div class="bg-white shadow-md rounded my-6">
                     <table class="min-w-max w-full table-auto">
