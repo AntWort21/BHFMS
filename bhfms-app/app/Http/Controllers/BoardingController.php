@@ -164,6 +164,7 @@ class BoardingController extends Controller
         $pending = 0;
         $ban = 0;
         $disabled = 0;
+        $pendingPayment = 0;
 
         foreach ($all_boarding_count as $count => $collection) {
             if ($all_boarding_count[$count]["owner_status"] == "pending") {
@@ -181,6 +182,9 @@ class BoardingController extends Controller
             } elseif ($all_boarding_count[$count]["owner_status"] == "disabled") {
                 $all += $all_boarding_count[$count]["total"];
                 $disabled = $all_boarding_count[$count]["total"];
+            } elseif ($all_boarding_count[$count]["owner_status"] == "pending_payment") {
+                $all += $all_boarding_count[$count]["total"];
+                $pendingPayment = $all_boarding_count[$count]["total"];
             }
         }
 
@@ -192,6 +196,7 @@ class BoardingController extends Controller
             'banned' => $ban,
             'disabled' => $disabled,
             'boardings' => $Boarding_data,
+            'pendingPayment' => $pendingPayment,
         ]);
     }
 
@@ -228,6 +233,7 @@ class BoardingController extends Controller
         $dcl = 0;
         $pending = 0;
         $ban = 0;
+        $pendingPayment = 0;
         $disabled = 0;
 
         foreach ($all_boarding_count as $count => $collection) {
@@ -246,6 +252,9 @@ class BoardingController extends Controller
             } elseif ($all_boarding_count[$count]["owner_status"] == "disabled") {
                 $all += $all_boarding_count[$count]["total"];
                 $disabled = $all_boarding_count[$count]["total"];
+            } elseif ($all_boarding_count[$count]["owner_status"] == "pending_payment") {
+                $all += $all_boarding_count[$count]["total"];
+                $pendingPayment = $all_boarding_count[$count]["total"];
             }
         }
 
@@ -257,6 +266,7 @@ class BoardingController extends Controller
             'banned' => $ban,
             'disabled' => $disabled,
             'boardings' => $Boarding_data,
+            'pendingPayment' => $pendingPayment,
         ]);
     }
 
@@ -294,6 +304,8 @@ class BoardingController extends Controller
         $dcl = 0;
         $pending = 0;
         $checkout = 0;
+        $pendingPayment = 0;
+        
 
         foreach ($all_boarding_count as $count => $collection) {
             if ($all_boarding_count[$count]["tenant_status"] == "pending") {
@@ -308,6 +320,9 @@ class BoardingController extends Controller
             } elseif ($all_boarding_count[$count]["tenant_status"] == "checkout") {
                 $all += $all_boarding_count[$count]["total"];
                 $checkout = $all_boarding_count[$count]["total"];
+            } elseif ($all_boarding_count[$count]["tenant_status"] == "pending_payment") {
+                $all += $all_boarding_count[$count]["total"];
+                $pendingPayment = $all_boarding_count[$count]["total"];
             }
         }
 
@@ -319,6 +334,7 @@ class BoardingController extends Controller
             'declined' => $dcl,
             'checkout' => $checkout,
             'boardings' => $Boarding_data,
+            'pendingPayment' => $pendingPayment,
         ]);
     }
 

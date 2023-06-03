@@ -32,6 +32,12 @@ defineProps({
         >
 
         <span
+            v-else-if="boarding.owner_status == 'pending_payment'"
+            class="bg-blue-200 text-blue-600 py-1 px-3 rounded-full text-xs"
+            >Pending Payment</span
+        >
+
+        <span
             v-else
             class="bg-slate-200 text-slate-600 py-1 px-3 rounded-full text-xs"
             >Banned</span
@@ -56,6 +62,11 @@ defineProps({
             v-else-if="boarding.tenant_status == 'declined'"
             class="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs"
             >Declined</span
+        >
+        <span
+            v-else-if="boarding.tenant_status == 'pending_payment'"
+            class="bg-blue-200 text-blue-600 py-1 px-3 rounded-full text-xs"
+            >Pending Payment</span
         >
 
         <span
