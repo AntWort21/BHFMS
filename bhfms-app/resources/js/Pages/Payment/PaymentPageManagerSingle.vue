@@ -1,21 +1,19 @@
 <script setup>
 import { useForm } from '@inertiajs/inertia-vue3';
-import FormSelectInputTenant from '../../Shared/Payment/FormSelectInputTenant.vue';
 import Header from '../../Shared/Header.vue';
 import Footer from '../../Shared/Footer.vue';
 import FormTextBoxInputReadOnly from '../../Shared/Payment/FormTextBoxInputReadOnly.vue';
 import FormErrorMessage from '../../Shared/AccountFormInput/FormErrorMessage.vue';
-import FormSelectInputTransactionType from '../../Shared/Payment/FormSelectInputTransactionType.vue';
 import FormTextBoxInputPayment from '../../Shared/Payment/FormTextBoxInputPayment.vue';
-import FormCheckboxInput from '../../Shared/Payment/FormCheckboxInput.vue';
 import { ref } from 'vue';
 
 const props = defineProps({
-    transaction: Array,
-    listTenants: Array,
+    boardingId: Number,
     boardingHouseName: String,
-    transactionTypes: Array,
-    tenant: Array
+    transactionType: String,
+    tenant: Array,
+    transaction: Array,
+
 });
 
 const convertDateFormat = ($date) => {
@@ -27,21 +25,20 @@ const convertDateFormat = ($date) => {
 };
 
 let form = useForm({
-    boardingHouseName: ref(props.boardingHouseName),
+    boardingId: ref(props.boardingId != null ? props.boardingId : ''),
     paymentDate: ref(props.transaction != null ? convertDateFormat(props.transaction.payment_date) : ''),
     paymentAmount: ref(props.transaction != null ? props.transaction.amount : 0),
-    transactionType: ref(props.transaction != null ? props.transactionTypes[props.transaction.transaction_type_id] : ''),
-    tenantEmail: ref(props.transaction != null ? props.tenant.email: ''),
-    paymentRepeat: ref(props.transaction != null ? (props.transaction.repeat_payment === 1 ? 'true' : '') : null),
+    transactionType: ref(props.transactionType != null ? props.transactionType : ''),
+    tenantEmail: ref(props.tenant != null ? props.tenant.email : ''),
 });
 
 let query = new URLSearchParams(window.location.search);
 
 let submit = () => {
     if(props.transaction!=null){
-        form.post("/editPayment?order=" + query.get('order'));
+        form.post("/downPayment/edit?order=" + query.get('order'));
     } else{
-        form.post("/addPaymentBoarding" + "?boarding=" + query.get('boarding') );
+        form.post("/downPayment/add");
     }
 };
 
@@ -65,14 +62,11 @@ const minToday = today.toISOString().split('T')[0];
                     :value="boardingHouseName"/>
             </div>
             <div>
-                <FormSelectInputTransactionType
-                    v-model="form.transactionType"
-                    :option-list="transactionTypes"
-                    :label-desc="'Transaction Type'"
+                <FormTextBoxInputReadOnly 
+                v-model="form.transactionType"
+                    :input-type="'text'"
                     :label-name="'Transaction Type'"
-                    :default-text="'Select Transaction Type'"
-                    :default-value="transaction != null ? transaction.transaction_type_id : null"
-                />
+                    :value="transactionType"/>
                 <FormErrorMessage
                     :error-message="form.errors.transactionType"
                 />
@@ -91,7 +85,6 @@ const minToday = today.toISOString().split('T')[0];
             <div>  
                 <label class="block mt-2">Amount</label>
                 <input
-                    
                     v-model.number="form.paymentAmount"
                     type="number"
                     placeholder="Amount"
@@ -102,27 +95,10 @@ const minToday = today.toISOString().split('T')[0];
                 />
             </div>
             <div>
-                <FormSelectInputTenant
-                    v-model="form.tenantEmail"
-                    :option-list="listTenants"
-                    :label-desc="'Select Tenant'"
-                    :label-name="'Tenant'"
-                    :default-email="transaction != null ? tenant.email : null"
-                    :default-username="transaction != null ? tenant.user_name : null"
-                    />
-                <FormErrorMessage
-                    :error-message="form.errors.tenantEmail"
-                />
-            </div>
-            <div>
-                <FormCheckboxInput
-                    v-model="form.paymentRepeat"
-                        :label-name="'Repeat Payment'"
-                        :default-value="transaction != null ? transaction.repeat_payment : null"
-                />
-                <FormErrorMessage
-                    :error-message="form.errors.paymentRepeat"
-                />
+                <FormTextBoxInputReadOnly 
+                    :input-type="'text'"
+                    :label-name="'Tenant Name'"
+                    :value="props.tenant.user_name"/>
             </div>
             <button
                 v-if="transaction!=null"

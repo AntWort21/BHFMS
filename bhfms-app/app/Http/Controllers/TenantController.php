@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class TenantController extends Controller
@@ -147,32 +148,17 @@ class TenantController extends Controller
     public function RequestTenant(Request $request){
         $accFirst = TenantBoarding::where('id','=',$request->currID)->first();
         $checkRoom = Boarding::where('id','=',$accFirst->boarding_id)->first()->rooms;
-        $checkTenant = TenantBoarding::where([['boarding_id','=',$accFirst->boarding_id],['tenant_status','=','approved']])->count();
+        $checkTenant = TenantBoarding::where('boarding_id', $accFirst->boarding_id)
+                        ->whereIn('tenant_status', ['approved', 'pending_payment'])
+                        ->count();
         if($checkRoom - $checkTenant <= 0 ){
             return redirect('/tenantBoarding')->with('message', 'Cannot Accept new Tenant as room is full');
         }
 
         if($request->accept){
-            TenantBoarding::where('id','=',$request->currID)->update([
-                'tenant_status' => 2,
-                'declined_reason' => $request['reason'],
-            ]);
+            //Down Payment
+            return redirect('/downPayment'.'?tenantboarding='.$accFirst->id);
             
-            //Decline all Current User Accepted Tenant Boarding
-            $update = TenantBoarding::where('user_id','=',$accFirst->user_id)->where('tenant_status','=','pending')->update([
-                'tenant_status' => 'declined',
-                'declined_reason' => 'Already Accepted in another Boarding House.',
-            ]);
-
-            //Decline all other request if room is full
-            if($checkRoom - $checkTenant -1 <= 0 ){
-                $update = TenantBoarding::where('boarding_id','=',$accFirst->boarding_id)->where('tenant_status','=','pending')->update([
-                    'tenant_status' => 'declined',
-                    'declined_reason' => 'The Boarding House you requested is currently at maximum capacity as other tenants have been accepted first.',
-                ]);
-            }
-
-            return redirect('/tenantBoarding')->with('message', 'Success Accepting new Tenant');
         }else{
             TenantBoarding::where('id','=',$request->currID)->update([
                 'tenant_status' => 3,
@@ -182,7 +168,31 @@ class TenantController extends Controller
         }
 
     }
+    public function acceptTenant($tenantId) {
+            
 
+            $tenant = TenantBoarding::find($tenantId);
+            $tenant->update([
+                'tenant_status' => 'approved',
+                // 'declined_reason' => $request['reason'],
+            ]);
+            $checkRoom = Boarding::where('id','=',$tenant->boarding_id)->first()->rooms;
+            $checkTenant = TenantBoarding::where([['boarding_id','=',$tenant->boarding_id],['tenant_status','=','approved']])->count();
+        
+            //Decline all Current User Accepted Tenant Boarding
+            $update = TenantBoarding::where('user_id','=',$tenant->user_id)->where('tenant_status','=','pending')->update([
+                'tenant_status' => 'declined',
+                'declined_reason' => 'Already Accepted in another Boarding House.',
+            ]);
+
+            //Decline all other request if room is full
+            if($checkRoom - $checkTenant -1 <= 0 ){
+                $update = TenantBoarding::where('boarding_id','=',$tenant->boarding_id)->where('tenant_status','=','pending')->update([
+                    'tenant_status' => 'declined',
+                    'declined_reason' => 'The Boarding House you requested is currently at maximum capacity as other tenants have been accepted first.',
+                ]);
+            }
+    }
     public function getEndRentBoarding(Request $request){
         $tenantBoarding = TenantBoarding::where('id','=',$request->id)->first();
         $minEndDate = Carbon::createFromFormat('Y-m-d', $tenantBoarding->start_date)->addMonth(1)->format('Y-m-d');

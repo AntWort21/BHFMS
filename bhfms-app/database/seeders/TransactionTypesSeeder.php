@@ -24,6 +24,9 @@ class TransactionTypesSeeder extends Seeder
             "transaction_type_name"=>'Water'
         ]);
         TransactionType::create([
+            "transaction_type_name"=>'Down Payment'
+        ]);
+        TransactionType::create([
             "transaction_type_name"=>'Other'
         ]);
     }

@@ -22238,7 +22238,7 @@ __webpack_require__.r(__webpack_exports__);
     var query = new URLSearchParams(window.location.search);
     var submit = function submit() {
       if (props.transaction != null) {
-        form.post("/editPayment?order=" + query.get('order') + "&boarding=" + query.get('boarding'));
+        form.post("/editPayment?order=" + query.get('order'));
       } else {
         form.post("/addPaymentBoarding" + "?boarding=" + query.get('boarding'));
       }
@@ -22264,6 +22264,95 @@ __webpack_require__.r(__webpack_exports__);
       FormTextBoxInputPayment: _Shared_Payment_FormTextBoxInputPayment_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
       FormCheckboxInput: _Shared_Payment_FormCheckboxInput_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
       ref: vue__WEBPACK_IMPORTED_MODULE_9__.ref
+    };
+    Object.defineProperty(__returned__, '__isScriptSetup', {
+      enumerable: false,
+      value: true
+    });
+    return __returned__;
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Payment/PaymentPageManagerSingle.vue?vue&type=script&setup=true&lang=js":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Payment/PaymentPageManagerSingle.vue?vue&type=script&setup=true&lang=js ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
+/* harmony import */ var _Shared_Header_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Shared/Header.vue */ "./resources/js/Shared/Header.vue");
+/* harmony import */ var _Shared_Footer_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Shared/Footer.vue */ "./resources/js/Shared/Footer.vue");
+/* harmony import */ var _Shared_Payment_FormTextBoxInputReadOnly_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Shared/Payment/FormTextBoxInputReadOnly.vue */ "./resources/js/Shared/Payment/FormTextBoxInputReadOnly.vue");
+/* harmony import */ var _Shared_AccountFormInput_FormErrorMessage_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Shared/AccountFormInput/FormErrorMessage.vue */ "./resources/js/Shared/AccountFormInput/FormErrorMessage.vue");
+/* harmony import */ var _Shared_Payment_FormTextBoxInputPayment_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../Shared/Payment/FormTextBoxInputPayment.vue */ "./resources/js/Shared/Payment/FormTextBoxInputPayment.vue");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'PaymentPageManagerSingle',
+  props: {
+    boardingId: Number,
+    boardingHouseName: String,
+    transactionType: String,
+    tenant: Array,
+    transaction: Array
+  },
+  setup: function setup(__props, _ref) {
+    var expose = _ref.expose;
+    expose();
+    var props = __props;
+    var convertDateFormat = function convertDateFormat($date) {
+      var paymentDate = new Date($date);
+      var year = paymentDate.getFullYear();
+      var month = String(paymentDate.getMonth() + 1).padStart(2, '0');
+      var day = String(paymentDate.getDate()).padStart(2, '0');
+      return "".concat(year, "-").concat(month, "-").concat(day);
+    };
+    var form = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.useForm)({
+      boardingId: (0,vue__WEBPACK_IMPORTED_MODULE_6__.ref)(props.boardingId != null ? props.boardingId : ''),
+      paymentDate: (0,vue__WEBPACK_IMPORTED_MODULE_6__.ref)(props.transaction != null ? convertDateFormat(props.transaction.payment_date) : ''),
+      paymentAmount: (0,vue__WEBPACK_IMPORTED_MODULE_6__.ref)(props.transaction != null ? props.transaction.amount : 0),
+      transactionType: (0,vue__WEBPACK_IMPORTED_MODULE_6__.ref)(props.transactionType != null ? props.transactionType : ''),
+      tenantEmail: (0,vue__WEBPACK_IMPORTED_MODULE_6__.ref)(props.tenant != null ? props.tenant.email : '')
+    });
+    var query = new URLSearchParams(window.location.search);
+    var submit = function submit() {
+      if (props.transaction != null) {
+        form.post("/downPayment/edit?order=" + query.get('order'));
+      } else {
+        form.post("/downPayment/add");
+      }
+    };
+    var today = new Date();
+    today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+    var minToday = today.toISOString().split('T')[0];
+    var __returned__ = {
+      props: props,
+      convertDateFormat: convertDateFormat,
+      form: form,
+      query: query,
+      submit: submit,
+      today: today,
+      minToday: minToday,
+      useForm: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.useForm,
+      Header: _Shared_Header_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+      Footer: _Shared_Footer_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+      FormTextBoxInputReadOnly: _Shared_Payment_FormTextBoxInputReadOnly_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+      FormErrorMessage: _Shared_AccountFormInput_FormErrorMessage_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+      FormTextBoxInputPayment: _Shared_Payment_FormTextBoxInputPayment_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+      ref: vue__WEBPACK_IMPORTED_MODULE_6__.ref
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -30496,13 +30585,10 @@ var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   "class": "block mt-2"
 }, "Amount", -1 /* HOISTED */);
 var _hoisted_4 = {
-  clas: ""
-};
-var _hoisted_5 = {
   key: 0,
   "class": "px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900"
 };
-var _hoisted_6 = {
+var _hoisted_5 = {
   key: 1,
   "class": "px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900"
 };
@@ -30564,7 +30650,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "default-username": $props.transaction != null ? $props.tenant.user_name : null
   }, null, 8 /* PROPS */, ["modelValue", "option-list", "default-email", "default-username"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormErrorMessage"], {
     "error-message": $setup.form.errors.tenantEmail
-  }, null, 8 /* PROPS */, ["error-message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormCheckboxInput"], {
+  }, null, 8 /* PROPS */, ["error-message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormCheckboxInput"], {
     modelValue: $setup.form.paymentRepeat,
     "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
       return $setup.form.paymentRepeat = $event;
@@ -30573,7 +30659,90 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "default-value": $props.transaction != null ? $props.transaction.repeat_payment : null
   }, null, 8 /* PROPS */, ["modelValue", "default-value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormErrorMessage"], {
     "error-message": $setup.form.errors.paymentRepeat
-  }, null, 8 /* PROPS */, ["error-message"])]), $props.transaction != null ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", _hoisted_5, " Edit Payment ")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", _hoisted_6, " Add Payment "))], 32 /* HYDRATE_EVENTS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Footer"])], 64 /* STABLE_FRAGMENT */);
+  }, null, 8 /* PROPS */, ["error-message"])]), $props.transaction != null ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", _hoisted_4, " Edit Payment ")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", _hoisted_5, " Add Payment "))], 32 /* HYDRATE_EVENTS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Footer"])], 64 /* STABLE_FRAGMENT */);
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Payment/PaymentPageManagerSingle.vue?vue&type=template&id=3f437c5c":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Payment/PaymentPageManagerSingle.vue?vue&type=template&id=3f437c5c ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = {
+  "class": "m-5 min-h-[75vh]"
+};
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "text-2xl font-semibold"
+}, " Payment Page ", -1 /* HOISTED */);
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "class": "block mt-2"
+}, "Amount", -1 /* HOISTED */);
+var _hoisted_4 = {
+  key: 0,
+  "class": "px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900"
+};
+var _hoisted_5 = {
+  key: 1,
+  "class": "px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900"
+};
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Header"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+    onSubmit: _cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+      return $setup.submit && $setup.submit.apply($setup, arguments);
+    }, ["prevent"]))
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormTextBoxInputReadOnly"], {
+    modelValue: $setup.form.boardingHouseName,
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+      return $setup.form.boardingHouseName = $event;
+    }),
+    "input-type": 'text',
+    "label-name": 'Boarding House Name',
+    value: $props.boardingHouseName
+  }, null, 8 /* PROPS */, ["modelValue", "value"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormTextBoxInputReadOnly"], {
+    modelValue: $setup.form.transactionType,
+    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+      return $setup.form.transactionType = $event;
+    }),
+    "input-type": 'text',
+    "label-name": 'Transaction Type',
+    value: $props.transactionType
+  }, null, 8 /* PROPS */, ["modelValue", "value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormErrorMessage"], {
+    "error-message": $setup.form.errors.transactionType
+  }, null, 8 /* PROPS */, ["error-message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormTextBoxInputPayment"], {
+    modelValue: $setup.form.paymentDate,
+    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+      return $setup.form.paymentDate = $event;
+    }),
+    "input-type": 'date',
+    "label-name": 'Date',
+    "min-value": $setup.minToday
+  }, null, 8 /* PROPS */, ["modelValue", "min-value"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormErrorMessage"], {
+    "error-message": $setup.form.errors.paymentDate
+  }, null, 8 /* PROPS */, ["error-message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+      return $setup.form.paymentAmount = $event;
+    }),
+    type: "number",
+    placeholder: "Amount",
+    "class": "w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.paymentAmount, void 0, {
+    number: true
+  }]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormErrorMessage"], {
+    "error-message": $setup.form.errors.paymentAmount
+  }, null, 8 /* PROPS */, ["error-message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["FormTextBoxInputReadOnly"], {
+    "input-type": 'text',
+    "label-name": 'Tenant Name',
+    value: $setup.props.tenant.user_name
+  }, null, 8 /* PROPS */, ["value"])]), $props.transaction != null ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", _hoisted_4, " Edit Payment ")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", _hoisted_5, " Add Payment "))], 32 /* HYDRATE_EVENTS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Footer"])], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -34709,7 +34878,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[4] || (_cache[4] = function ($event) {
       return $setup.redirect('/chat');
     })
-  }, "Chat"), $props.userRole == 2 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", _hoisted_33, "Complain")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), ($props.userRole == 4 || $props.userRole == 3) && $props.invoiceDetail.payment_transferred_status != 'Successful' && $props.invoiceDetail.payment_status != 'Canceled' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+  }, "Chat"), $props.userRole == 2 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", _hoisted_33, "Complain")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), ($props.userRole == 4 || $props.userRole == 3) && $props.invoiceDetail.payment_transferred_status != 'Successful' && $props.invoiceDetail.payment_status != 'Canceled' && $props.invoiceDetail.transaction_type_name != 'Down Payment' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
     key: 2,
     "class": "my-2 bg-blue-500 py-1 w-24 text-white rounded-full",
     onClick: _cache[5] || (_cache[5] = function ($event) {
@@ -48651,6 +48820,34 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Payment/PaymentPageManagerSingle.vue":
+/*!*****************************************************************!*\
+  !*** ./resources/js/Pages/Payment/PaymentPageManagerSingle.vue ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _PaymentPageManagerSingle_vue_vue_type_template_id_3f437c5c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PaymentPageManagerSingle.vue?vue&type=template&id=3f437c5c */ "./resources/js/Pages/Payment/PaymentPageManagerSingle.vue?vue&type=template&id=3f437c5c");
+/* harmony import */ var _PaymentPageManagerSingle_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PaymentPageManagerSingle.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Pages/Payment/PaymentPageManagerSingle.vue?vue&type=script&setup=true&lang=js");
+/* harmony import */ var F_BHFMS_bhfms_app_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,F_BHFMS_bhfms_app_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PaymentPageManagerSingle_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PaymentPageManagerSingle_vue_vue_type_template_id_3f437c5c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Pages/Payment/PaymentPageManagerSingle.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Payment/PaymentPageTenant.vue":
 /*!**********************************************************!*\
   !*** ./resources/js/Pages/Payment/PaymentPageTenant.vue ***!
@@ -50832,6 +51029,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Payment/PaymentPageManagerSingle.vue?vue&type=script&setup=true&lang=js":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/Pages/Payment/PaymentPageManagerSingle.vue?vue&type=script&setup=true&lang=js ***!
+  \****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_PaymentPageManagerSingle_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_PaymentPageManagerSingle_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./PaymentPageManagerSingle.vue?vue&type=script&setup=true&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Payment/PaymentPageManagerSingle.vue?vue&type=script&setup=true&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Payment/PaymentPageTenant.vue?vue&type=script&setup=true&lang=js":
 /*!*********************************************************************************************!*\
   !*** ./resources/js/Pages/Payment/PaymentPageTenant.vue?vue&type=script&setup=true&lang=js ***!
@@ -52316,6 +52529,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_PaymentPageManager_vue_vue_type_template_id_d2db6a2c__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_PaymentPageManager_vue_vue_type_template_id_d2db6a2c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./PaymentPageManager.vue?vue&type=template&id=d2db6a2c */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Payment/PaymentPageManager.vue?vue&type=template&id=d2db6a2c");
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Payment/PaymentPageManagerSingle.vue?vue&type=template&id=3f437c5c":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/Pages/Payment/PaymentPageManagerSingle.vue?vue&type=template&id=3f437c5c ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_PaymentPageManagerSingle_vue_vue_type_template_id_3f437c5c__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_PaymentPageManagerSingle_vue_vue_type_template_id_3f437c5c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./PaymentPageManagerSingle.vue?vue&type=template&id=3f437c5c */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Pages/Payment/PaymentPageManagerSingle.vue?vue&type=template&id=3f437c5c");
 
 
 /***/ }),
@@ -55009,6 +55238,8 @@ var map = {
 	"./Payment/PaymentHistory.vue": "./resources/js/Pages/Payment/PaymentHistory.vue",
 	"./Payment/PaymentPageManager": "./resources/js/Pages/Payment/PaymentPageManager.vue",
 	"./Payment/PaymentPageManager.vue": "./resources/js/Pages/Payment/PaymentPageManager.vue",
+	"./Payment/PaymentPageManagerSingle": "./resources/js/Pages/Payment/PaymentPageManagerSingle.vue",
+	"./Payment/PaymentPageManagerSingle.vue": "./resources/js/Pages/Payment/PaymentPageManagerSingle.vue",
 	"./Payment/PaymentPageTenant": "./resources/js/Pages/Payment/PaymentPageTenant.vue",
 	"./Payment/PaymentPageTenant.vue": "./resources/js/Pages/Payment/PaymentPageTenant.vue",
 	"./Payment/PaymentRemit": "./resources/js/Pages/Payment/PaymentRemit.vue",

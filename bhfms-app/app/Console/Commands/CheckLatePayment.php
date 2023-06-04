@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\RentTransaction;
+use App\Models\TenantBoarding;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
@@ -44,7 +45,17 @@ class CheckLatePayment extends Command
         ->whereIn('payment_status', ['Pending', 'Rejected'])
         ->get();
         foreach ($lateTransactions as $transaction) {
-            $transaction->payment_status = 'Late';
+            $tenantBoarding = TenantBoarding::find($transaction->tenant_boarding_id);
+            if ($tenantBoarding->tenant_status == 'pending_payment') {
+                $tenantBoarding->update([
+                    'tenant_status' => 'declined',
+                    'declined_reason' => 'Tenant pays late for down payment',
+                ]);
+                $transaction->payment_status = 'Canceled';
+                
+            } else {
+                $transaction->payment_status = 'Late';
+            }
             $transaction->save();
         }
     }

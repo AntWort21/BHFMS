@@ -155,6 +155,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pay',[PaymentController::class,'getPaymentPageTenant'])->middleware('tenant.payment.access'); //tenant payment
     Route::post('/pay',[PaymentController::class,'addPaymentTenant'])->middleware('tenant.payment.access');
     Route::post('/getInvoiceData',[PaymentController::class,'getInvoiceDetail'])->middleware('read.specific.payment.access'); //read payment
+    //ganti
     Route::get('/addPaymentBoarding',[PaymentController::class,'getPaymentPageManager'])->middleware('owner.manager.boarding.payment.access');
     Route::post('/addPaymentBoarding',[PaymentController::class,'addPaymentManager'])->middleware('owner.manager.boarding.payment.access');
     Route::get('/editPayment',[PaymentController::class,'getEditPayment'])->middleware('owner.manager.order.access');
@@ -165,6 +166,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/remitPayment',[PaymentController::class,'getPaymentRemit'])->middleware('admin');
     Route::post('/updateTransferredStatus',[PaymentController::class,'updateTransferredStatus'])->middleware('admin');
     Route::get('/paymentSupport',[PaymentController::class,'getPaymentSupport'])->middleware('admin');
+    Route::get('/downPayment',[PaymentController::class,'getDownPayment'])->middleware('owner.manager.order.access');;
+    Route::post('/downPayment/add',[PaymentController::class,'addDownPayment'])->middleware('owner.manager.order.access');;
+    Route::post('/downPayment/edit',[PaymentController::class,'editDownPayment'])->middleware('owner.manager.order.access');;
+    
     //Belum Middleware
 });
 
