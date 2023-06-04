@@ -83,28 +83,31 @@ class FacilityController {
 class PaymentController {
     +addPaymentTenant(request)
     +addPaymentManager(request)
+    +addDownPayment(request)
     +getPaymentPageManager()
     +getCheckInvoiceRequest()
     +getInvoiceListProcessing()
-    -getBoardingHouseName(boardingId)
-    -getTransactionTypeName()
-    -getAllTenants(boardingId)
-    -getTenantBoarding(tenantBoarding)
-    -getTenantIdByEmail(email, boardingId)
     +getAllPayment()
-    -getListPaymentByUser(userId)
-    -getListPaymentByBoardingId(boardingId)
-    -getTenantById(tenantId)
     +getInvoiceDetail(request)
     +getEditPayment()
+    +getDownPayment()
     +getPaymentPageTenant()
     +getPaymentRemit()
     +getPaymentSupport()
     +cancelPayment()
     +updateInvoiceStatus(request)
     +updatePayment(request)
+    +editDownPayment(request)
     +updateTransferredStatus(request)
     -generateInvoice(date)
+    -getBoardingHouseName(boardingId)
+    -getTransactionTypeName()
+    -getAllTenants(boardingId)
+    -getTenantBoarding(tenantBoarding)
+    -getTenantIdByEmail(email, boardingId)
+    -getListPaymentByUser(userId)
+    -getListPaymentByBoardingId(boardingId)
+    -getTenantById(tenantId)
 }
 
 class PaymentMethodController {
@@ -127,6 +130,7 @@ class TenantController {
     +getDetailTenantBoarding(request)
     +getRequestTenant(request)
     +RequestTenant(request)
+    +acceptTenant(tenantId)
     +getEndRentBoarding(request)
     +endRentBoarding(request)
 }
@@ -366,4 +370,6 @@ Wishlist "1"--"1" Boarding
 
 Complain "1"--"1" Boarding
 
+PaymentController ..> ChatController : use storeSpecific method
+PaymentController ..> TenantController : use acceptTenant method
 @enduml

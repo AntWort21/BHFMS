@@ -246,11 +246,15 @@ class PaymentController extends Controller
         ]);
     }
     
-    public function cancelPayment() //Make so that down payment cannot be canceled
+    public function cancelPayment()
     {
         $transaction = RentTransaction::where('invoice_id', $_GET['order'])->first();
     
         if ($transaction->payment_status === 'Canceled') {
+            return redirect('/paymentHistory?boarding=' . $_GET['boarding']);
+        }
+
+        if (TransactionType::find($transaction->transaction_type_id)->transaction_type_name == 'Down Payment') {
             return redirect('/paymentHistory?boarding=' . $_GET['boarding']);
         }
         

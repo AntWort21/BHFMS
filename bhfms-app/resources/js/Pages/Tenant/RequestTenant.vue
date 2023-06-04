@@ -101,7 +101,7 @@ const acceptRequest = (this_id) => {
                         <label
                             class="block text-gray-700 text-sm font-bold mb-2"
                         >
-                            Accept or Decline Reason (Optional)
+                           Decline Reason (Optional)
                         </label>
                         <textarea
                             v-model="form.reason"
