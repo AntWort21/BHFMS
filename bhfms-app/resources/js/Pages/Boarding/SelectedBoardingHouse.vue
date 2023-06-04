@@ -4,7 +4,7 @@ import Footer from "../../Shared/Footer.vue";
 import Carousel from "../../Shared/Carousel/Carousel.vue";
 import FormTextBoxInput from "../../Shared/AccountFormInput/FormTextBoxInput.vue";
 import { Link, useForm } from "@inertiajs/inertia-vue3";
-import { ref} from "vue";
+import { ref } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 
 let props = defineProps({
@@ -22,7 +22,7 @@ let props = defineProps({
     isWishlisted: Boolean,
     boardingManagedBySameOwner: Array,
 });
-
+const buttonClicked = ref(false);
 let totalPrice = ref(null);
 let mouseover = ref(false);
 
@@ -61,6 +61,13 @@ let removeFromWishlist = () => {
         },
         { preserveScroll: true }
     );
+};
+
+const handleClick = (idx) => {
+    if (form.startDate) {
+        buttonClicked.value = true;
+        form.post(`/boarding/detail/rent/${idx}`, {});
+    }
 };
 </script>
 
@@ -134,8 +141,15 @@ let removeFromWishlist = () => {
                 <div class="flex justify-between">
                     <div class="w-2/3">
                         <div class="font-semibold">Facilities</div>
-                        <div v-for="facility in props.facilityList" class="flex items-center space-x-2">
-                            <img :src="facility.facility_img_path" class="w-5 h-5" alt="">
+                        <div
+                            v-for="facility in props.facilityList"
+                            class="flex items-center space-x-2"
+                        >
+                            <img
+                                :src="facility.facility_img_path"
+                                class="w-5 h-5"
+                                alt=""
+                            />
                             <p>
                                 {{ facility.facility_detail_name }}
                             </p>
@@ -187,7 +201,8 @@ let removeFromWishlist = () => {
                             <div class="w-1/2 flex justify-end mt-5">
                                 <button
                                     class="w-36 h-10 bg-indigo-900 flex justify-center items-center text-white rounded-md disabled:opacity-50"
-                                    :disabled="!isAvailable"
+                                    @click="handleClick(boardingHouseDetail.id)"
+                                    :disabled="buttonClicked"
                                 >
                                     Rent
                                 </button>
