@@ -11,6 +11,7 @@ use App\Models\TenantBoarding;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class ComplainController extends Controller
@@ -85,15 +86,20 @@ class ComplainController extends Controller
         if (Auth::user()->user_role_id == 4) {
             $boardingHouseIDs = OwnerBoarding::where('boarding_id', ManagerBoarding::where('user_id', Auth::user()->id)->first()->boarding_id ?? -1)->where('owner_status', 'approved')->get()->pluck('boarding_id') ?? -1;
         } else if (Auth::user()->user_role_id == 3) {
-            $boardingHouseIDs= OwnerBoarding::where('user_id', Auth::user()->id)->where('owner_status', 'approved')->get()->pluck('boarding_id');
+            $boardingHouseIDs = OwnerBoarding::where('user_id', Auth::user()->id)->where('owner_status', 'approved')->get()->pluck('boarding_id');
         }
 
         $boardingHouses = Boarding::whereIn('id', $boardingHouseIDs)->get();
 
         foreach ($boardingHouses as $key => $boarding) {
-            $boardingHouses[$key]->complain_finished_count = Complain::where('boarding_id', $boarding->id)->where('complain_status', 'finished')->count();
-            $boardingHouses[$key]->complain_on_progress_count = Complain::where('boarding_id', $boarding->id)->where('complain_status', 'on progress')->count();
-            $boardingHouses[$key]->complain_pending_count = Complain::where('boarding_id', $boarding->id)->where('complain_status', 'pending')->count();
+            $complainCounts = Complain::where('boarding_id', $boarding->id)
+                ->select('complain_status', DB::raw('COUNT(*) as count'))
+                ->groupBy('complain_status')
+                ->pluck('count', 'complain_status')
+                ->toArray();
+            $boardingHouses[$key]->complain_finished_count = $complainCounts['finished'] ?? 0;
+            $boardingHouses[$key]->complain_on_progress_count = $complainCounts['on progress'] ?? 0;
+            $boardingHouses[$key]->complain_pending_count = $complainCounts['pending'] ?? 0;
         }
 
         return Inertia::render('Complain/Owner/BoardingHouseList', ['boardingHouseList' => $boardingHouses]);
