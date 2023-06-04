@@ -4,7 +4,7 @@ import Footer from "../../Shared/Footer.vue";
 import Carousel from "../../Shared/Carousel/Carousel.vue";
 import FormTextBoxInput from "../../Shared/AccountFormInput/FormTextBoxInput.vue";
 import { Link, useForm } from "@inertiajs/inertia-vue3";
-import { ref} from "vue";
+import { ref, onMounted, onUpdated, onErrorCaptured } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 
 let props = defineProps({
@@ -22,7 +22,7 @@ let props = defineProps({
     isWishlisted: Boolean,
     boardingManagedBySameOwner: Array,
 });
-
+let buttonClicked = ref(false);
 let totalPrice = ref(null);
 let mouseover = ref(false);
 
@@ -41,6 +41,7 @@ let form = useForm({
 
 let submit = (idx) => {
     form.post(`/boarding/detail/rent/${idx}`, {});
+    buttonClicked.value = true;
 };
 
 let addToWishlist = () => {
@@ -61,6 +62,10 @@ let removeFromWishlist = () => {
         },
         { preserveScroll: true }
     );
+};
+
+const restartRent = () => {
+    buttonClicked.value = false;
 };
 </script>
 
@@ -134,8 +139,15 @@ let removeFromWishlist = () => {
                 <div class="flex justify-between">
                     <div class="w-2/3">
                         <div class="font-semibold">Facilities</div>
-                        <div v-for="facility in props.facilityList" class="flex items-center space-x-2">
-                            <img :src="facility.facility_img_path" class="w-5 h-5" alt="">
+                        <div
+                            v-for="facility in props.facilityList"
+                            class="flex items-center space-x-2"
+                        >
+                            <img
+                                :src="facility.facility_img_path"
+                                class="w-5 h-5"
+                                alt=""
+                            />
                             <p>
                                 {{ facility.facility_detail_name }}
                             </p>
@@ -173,10 +185,13 @@ let removeFromWishlist = () => {
                             </div>
 
                             <div class="border border-solid border-slate-300">
-                                <FormTextBoxInput
+                                <label class="block">Start Date</label>
+                                <input
                                     v-model="form.startDate"
-                                    :input-type="'date'"
-                                    :label-name="'Start Date'"
+                                    type="date"
+                                    placeholder="date"
+                                    @click="restartRent()"
+                                    class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
                                 />
                             </div>
                             <div
@@ -187,7 +202,8 @@ let removeFromWishlist = () => {
                             <div class="w-1/2 flex justify-end mt-5">
                                 <button
                                     class="w-36 h-10 bg-indigo-900 flex justify-center items-center text-white rounded-md disabled:opacity-50"
-                                    :disabled="!isAvailable"
+                                    @click="handleClick(boardingHouseDetail.id)"
+                                    :disabled="buttonClicked"
                                 >
                                     Rent
                                 </button>
