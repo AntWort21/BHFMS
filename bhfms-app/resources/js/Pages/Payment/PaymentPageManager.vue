@@ -39,9 +39,9 @@ let query = new URLSearchParams(window.location.search);
 
 let submit = () => {
     if(props.transaction!=null){
-        form.post("/editPayment?order=" + query.get('order'));
+        form.post("/paymentBoarding/edit?order=" + query.get('order'));
     } else{
-        form.post("/addPaymentBoarding" + "?boarding=" + query.get('boarding') );
+        form.post("/paymentBoarding/add" + "?boarding=" + query.get('boarding') );
     }
 };
 

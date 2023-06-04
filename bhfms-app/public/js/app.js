@@ -22238,9 +22238,9 @@ __webpack_require__.r(__webpack_exports__);
     var query = new URLSearchParams(window.location.search);
     var submit = function submit() {
       if (props.transaction != null) {
-        form.post("/editPayment?order=" + query.get('order'));
+        form.post("/paymentBoarding/edit?order=" + query.get('order'));
       } else {
-        form.post("/addPaymentBoarding" + "?boarding=" + query.get('boarding'));
+        form.post("/paymentBoarding/add" + "?boarding=" + query.get('boarding'));
       }
     };
     var today = new Date();
@@ -33700,7 +33700,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     _: 1 /* STABLE */
   }, 8 /* PROPS */, ["href"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Owner Manager Tab "), _ctx.$page.props.user.role_id == 3 || _ctx.$page.props.user.role_id == 4 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_21, [$props.boarding.owner_status == 'approved' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Link"], {
-    href: "/addPaymentBoarding/",
+    href: "/paymentBoarding/add",
     data: {
       boarding: $props.currentID
     }
@@ -34882,13 +34882,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     key: 2,
     "class": "my-2 bg-blue-500 py-1 w-24 text-white rounded-full",
     onClick: _cache[5] || (_cache[5] = function ($event) {
-      return $setup.redirect('/cancelPayment?order=' + $props.invoiceDetail.invoice_id + '&boarding=' + $setup.query.get('boarding'));
+      return $setup.redirect('/paymentBoarding/cancel?order=' + $props.invoiceDetail.invoice_id + '&boarding=' + $setup.query.get('boarding'));
     })
   }, "Cancel")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $props.userRole == 4 || $props.userRole == 3 && $props.invoiceDetail.payment_status == 'Pending' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
     key: 3,
     "class": "my-2 bg-blue-500 py-1 w-24 text-white rounded-full",
     onClick: _cache[6] || (_cache[6] = function ($event) {
-      return $setup.redirect('/editPayment?order=' + $props.invoiceDetail.invoice_id + '&boarding=' + $setup.query.get('boarding'));
+      return $setup.redirect('/paymentBoarding/edit?order=' + $props.invoiceDetail.invoice_id + '&boarding=' + $setup.query.get('boarding'));
     })
   }, "Edit")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])], 64 /* STABLE_FRAGMENT */);
 }
