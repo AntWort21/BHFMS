@@ -370,6 +370,6 @@ Wishlist "1"--"1" Boarding
 
 Complain "1"--"1" Boarding
 
-PaymentController ..> ChatController : use storeSpecific method
+PaymentController ..> ChatController : use storeSpecificChatMessage method
 PaymentController ..> TenantController : use acceptTenant method
 @enduml
