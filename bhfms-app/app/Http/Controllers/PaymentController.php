@@ -389,37 +389,6 @@ class PaymentController extends Controller
 
         return $invoice_id;
     }
-
-    public function schedulePayment(){
-        $currDate =  Carbon::now()->timezone('Asia/Jakarta');
-        $previousDate = $currDate->startOfDay()->subDay();
-        $nextMonthDate = clone $previousDate;
-        $nextMonthDate->addMonth();
-        $yesterdayTransactions = RentTransaction::where('payment_date',$previousDate->toDateString())
-        ->where('repeat_payment',1)
-        ->get();
-        foreach ($yesterdayTransactions as $transaction) {
-            RentTransaction::create([
-                'tenant_boarding_id'=> $transaction->tenant_boarding_id,
-                'transaction_type_id' => $transaction->transaction_type_id,
-                'invoice_id' => $this->generateInvoice($nextMonthDate->toDateString()),
-                'amount' => (floor($transaction->amount / 1000) * 1000)+  rand(0,1000),
-                'payment_date' => $nextMonthDate,
-                'repeat_payment'=> true,
-            ]);
-        }
-    }
-
-    public function checkLatePayment(){
-        $currDate =  Carbon::now()->timezone('Asia/Jakarta')->startOfDay();
-        $lateTransactions = RentTransaction::where('payment_date','<',$currDate)
-        ->whereIn('payment_status', ['Pending', 'Rejected'])
-        ->get();
-        foreach ($lateTransactions as $transaction) {
-            $transaction->payment_status = 'Late';
-            $transaction->save();
-        }
-    }
     
 }
 

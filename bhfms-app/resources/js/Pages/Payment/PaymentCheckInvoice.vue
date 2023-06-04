@@ -31,7 +31,7 @@ const popUpDetail = ref({
 })
 
 let showDetail = (invoiceId) => {
-  fetch('getInvoiceData', {
+  fetch('/getInvoiceData', {
     method: 'POST',
     headers: {
       "X-CSRF-Token": csrfToken,
@@ -142,7 +142,7 @@ let convertAmount = (amount) => {
     :value= popUpDetail.status
     :label-name= "'Reason'"
     :id= popUpDetail.id
-    :link-pop="'updateInvoiceStatus'"
+    :link-pop="'/updateInvoiceStatus'"
     @closePopUp = "closePopUp"
     />
     <Footer />
