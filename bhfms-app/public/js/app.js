@@ -28161,7 +28161,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $setup.restartRent();
     }),
     "class": "w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.startDate]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <FormTextBoxInput\r\n                                    v-model=\"form.startDate\"\r\n                                    :input-type=\"'date'\"\r\n                                    :label-name=\"'Start Date'\"\r\n                                    @click=\"restartRent()\"\r\n                                /> ")]), $setup.form.errors.startDate ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.startDate]])]), $setup.form.errors.startDate ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
     key: 3,
     textContent: (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.form.errors.startDate),
     "class": "text-red-500 text-xs mt-1"
