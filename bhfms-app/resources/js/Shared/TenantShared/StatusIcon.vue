@@ -30,5 +30,10 @@ defineProps({
             class="bg-slate-200 text-slate-600 py-1 px-3 rounded-full text-xs"
             >Checkout</span
         >
+        <span
+            v-else-if="user.tenant_status == 'pending_payment'"
+            class="bg-slate-200 text-slate-600 py-1 px-3 rounded-full text-xs"
+            >Pending Payment</span
+        >
     </td>
 </template>

@@ -6,6 +6,7 @@ import Footer from "../../Shared/Footer.vue";
 import Pagination from "../../Shared/Pagination.vue";
 import TableIconLinks from "../../Shared/BoardingShared/TableIconLinks.vue";
 import StatusIcon from "../../Shared/BoardingShared/StatusIcon.vue";
+import Legends from "../../Shared/BoardingShared/Legends.vue";
 defineProps({
     all_count: Number,
     approved: Number,
@@ -13,7 +14,6 @@ defineProps({
     pending: Number,
     banned: Number,
     disabled: Number,
-    pendingPayment: Number,
     boardings: Object,
 });
 
@@ -102,12 +102,11 @@ watch(searchQuery, (value) => {
                             <option value="banned">
                                 Banned ({{ banned }})
                             </option>
-                            <option value="pending_payment">
-                                Pending Payment ({{ pendingPayment }})
-                            </option>
                         </select>
                     </div>
                 </div>
+
+                <Legends />
 
                 <div class="bg-white shadow-md rounded my-6">
                     <table class="min-w-max w-full table-auto">
