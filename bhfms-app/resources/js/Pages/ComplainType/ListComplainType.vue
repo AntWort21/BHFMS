@@ -5,6 +5,7 @@ import { ref, reactive, watch } from "vue";
 import Header from "../../Shared/Header.vue";
 import Footer from "../../Shared/Footer.vue";
 import Pagination from "../../Shared/Pagination.vue";
+import Legends from "../../Shared/AdminLegends.vue";
 defineProps({
     complainTypes: Object,
 });
@@ -92,7 +93,7 @@ watch(searchQuery, (value) => {
                         </a>
                     </div>
                 </div>
-
+                <Legends />
                 <div class="bg-white shadow-md rounded my-6">
                     <table class="min-w-max w-full table-auto">
                         <thead>

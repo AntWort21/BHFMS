@@ -14,7 +14,6 @@ defineProps({
     pending: Number,
     banned: Number,
     disabled: Number,
-    pendingPayment: Number,
     boardings: Object,
 });
 
@@ -118,9 +117,6 @@ watch(searchQuery, (value) => {
                             </option>
                             <option value="banned">
                                 Banned ({{ banned }})
-                            </option>
-                            <option value="pending_payment">
-                                Pending Payment ({{ pendingPayment }})
                             </option>
                         </select>
                     </div>

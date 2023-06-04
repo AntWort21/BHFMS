@@ -301,24 +301,19 @@ const toggleList = () => {
                         <div class="w-4 mr-2 transform">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                viewBox="0 0 24 24"
                                 fill="none"
+                                viewBox="0 0 24 24"
                                 stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
                             >
                                 <path
-                                    d="M22 11.08V12a10 10 0 1 1-5.93-9.14"
-                                ></path>
-                                <polyline
-                                    points="22 4 12 14.01 9 11.01"
-                                ></polyline>
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                                />
                             </svg>
                         </div>
-                        <span class="mr-2 text-xs bold">Boarding Request</span>
+                        <span class="mr-2 text-xs bold">Edit</span>
                     </li>
                     <li class="p-2 flex">
                         <div class="w-4 mr-2 transform">
@@ -350,6 +345,29 @@ const toggleList = () => {
                         <span class="mr-2 text-xs bold"
                             >Ban Boarding House</span
                         >
+                    </li>
+                    <li class="p-2 flex">
+                        <div class="w-4 mr-2 transform">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path
+                                    d="M22 11.08V12a10 10 0 1 1-5.93-9.14"
+                                ></path>
+                                <polyline
+                                    points="22 4 12 14.01 9 11.01"
+                                ></polyline>
+                            </svg>
+                        </div>
+                        <span class="mr-2 text-xs bold">Boarding Request</span>
                     </li>
                 </div>
             </ul>

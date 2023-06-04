@@ -13,6 +13,7 @@ defineProps({
     declined: Number,
     pending: Number,
     done: Number,
+    pendingPayment: Number,
     users: Object,
 });
 
@@ -100,6 +101,9 @@ watch(searchQuery, (value) => {
                             </option>
                             <option value="checkout">
                                 Checkout ({{ done }})
+                            </option>
+                            <option value="pending_payment">
+                                Pending Payment ({{ pendingPayment }})
                             </option>
                         </select>
                     </div>

@@ -7,6 +7,7 @@ import Footer from "../../Shared/Footer.vue";
 import Pagination from "../../Shared/Pagination.vue";
 import StatusIcon from "../../Shared/AccountFormInput/StatusIcon.vue";
 import RoleIcon from "../../Shared/AccountFormInput/RoleIcon.vue";
+import Legends from "../../Shared/AdminLegends.vue";
 defineProps({
     users: Object,
 });
@@ -64,13 +65,16 @@ watch(searchQuery, (value) => {
                     </svg>
                     <p>{{ $page.props.flash.message }}</p>
                 </div>
-                <div class="relative flex w-full flex-wrap items-stretch pt-2">
-                    <input
-                        type="text"
-                        class="rounded border block bg-white border-gray-400 text-gray-700 py-2 px-4"
-                        v-model="searchQuery"
-                        placeholder="Search..."
-                    />
+                <div class="relative flow-root flex-wrap items-stretch pt-2">
+                    <div class="mt-2 float-left">
+                        <input
+                            type="text"
+                            class="rounded border block bg-white border-gray-400 text-gray-700 py-2 px-4"
+                            v-model="searchQuery"
+                            placeholder="Search..."
+                        />
+                    </div>
+                    <Legends :is-user="true" />
                 </div>
 
                 <div class="bg-white shadow-md rounded my-6">
