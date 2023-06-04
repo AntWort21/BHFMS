@@ -82,6 +82,7 @@ class TenantController extends Controller
         $apv = 0;
         $dcl = 0;
         $pending = 0;
+        $pendingPayment = 0;
         $done = 0;
 
         foreach($all_boarding_count as $count => $collection) {
@@ -105,6 +106,11 @@ class TenantController extends Controller
                 $all+= $all_boarding_count[$count]["total"]; 
                 $done = $all_boarding_count[$count]["total"];
             }
+
+            elseif($all_boarding_count[$count]["tenant_status"] == "pending_payment"){
+                $all+= $all_boarding_count[$count]["total"]; 
+                $pendingPayment = $all_boarding_count[$count]["total"];
+            }
         }
 
         return Inertia::render('Tenant/TenantList', [
@@ -113,6 +119,7 @@ class TenantController extends Controller
             'pending' => $pending,
             'declined' => $dcl,
             'done' => $done,
+            'pendingPayment' => $pendingPayment,
             'users' => $Tenant_data,
         ]);
     }
