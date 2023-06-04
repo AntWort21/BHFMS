@@ -88,9 +88,15 @@ class ComplainController extends Controller
             $boardingHouseIDs= OwnerBoarding::where('user_id', Auth::user()->id)->where('owner_status', 'approved')->get()->pluck('boarding_id');
         }
 
-        $boardingHouse = Boarding::whereIn('id', $boardingHouseIDs)->get();
+        $boardingHouses = Boarding::whereIn('id', $boardingHouseIDs)->get();
 
-        return Inertia::render('Complain/Owner/BoardingHouseList', ['boardingHouseList' => $boardingHouse]);
+        foreach ($boardingHouses as $key => $boarding) {
+            $boardingHouses[$key]->complain_finished_count = Complain::where('boarding_id', $boarding->id)->where('complain_status', 'finished')->count();
+            $boardingHouses[$key]->complain_on_progress_count = Complain::where('boarding_id', $boarding->id)->where('complain_status', 'on progress')->count();
+            $boardingHouses[$key]->complain_pending_count = Complain::where('boarding_id', $boarding->id)->where('complain_status', 'pending')->count();
+        }
+
+        return Inertia::render('Complain/Owner/BoardingHouseList', ['boardingHouseList' => $boardingHouses]);
     }
 
     public function getSelectedBoardingHouseComplainList(Request $request)

@@ -22,12 +22,21 @@ defineProps({
                 :key="key"
                 class="border border-slate-200 flex justify-between items-center px-4 hover:bg-slate-50"
             >
-                <div>
-                    <div class="font-semibold text-lg">
-                        {{ boardingHouse.boarding_name }}
+                <div class="w-full flex justify-between items-center">
+                    <div class="w-1/2">
+                        <div class="font-semibold text-lg">
+                            {{ boardingHouse.boarding_name }}
+                        </div>
+                        <div class="break-normal">
+                            {{ boardingHouse.address }}
+                        </div>
                     </div>
-                    <div>
-                        {{ boardingHouse.address }}
+                    <div class="w-1/2 flex justify-end">
+                        <div class="text-right">
+                            <p>pending: {{ boardingHouse.complain_pending_count }}</p>
+                            <p>on progress: {{ boardingHouse.complain_on_progress_count }}</p>
+                            <p>finished: {{ boardingHouse.complain_finished_count }}</p>
+                        </div>
                     </div>
                 </div>
             </Link>
