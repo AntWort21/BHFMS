@@ -39,7 +39,7 @@ defineProps({
                 <div>
                     <div class="w-6 h-6 rounded-full"
                         :class="{
-                            'bg-yellow-500':
+                            'bg-slate-500':
                                 complain.complain_status == 'pending',
                             'bg-yellow-500':
                                 complain.complain_status == 'on progress',
