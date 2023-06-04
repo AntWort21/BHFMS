@@ -1105,6 +1105,10 @@ video {
 .whitespace-nowrap {
   white-space: nowrap;
 }
+.break-normal {
+  overflow-wrap: normal;
+  word-break: normal;
+}
 .rounded {
   border-radius: 0.25rem;
 }
@@ -1447,6 +1451,9 @@ video {
 }
 .text-center {
   text-align: center;
+}
+.text-right {
+  text-align: right;
 }
 .text-justify {
   text-align: justify;

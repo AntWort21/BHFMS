@@ -4,7 +4,7 @@ import Footer from "../../Shared/Footer.vue";
 import Carousel from "../../Shared/Carousel/Carousel.vue";
 import FormTextBoxInput from "../../Shared/AccountFormInput/FormTextBoxInput.vue";
 import { Link, useForm } from "@inertiajs/inertia-vue3";
-import { ref } from "vue";
+import { ref, onMounted, onUpdated, onErrorCaptured } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 
 let props = defineProps({
@@ -22,7 +22,7 @@ let props = defineProps({
     isWishlisted: Boolean,
     boardingManagedBySameOwner: Array,
 });
-const buttonClicked = ref(false);
+let buttonClicked = ref(false);
 let totalPrice = ref(null);
 let mouseover = ref(false);
 
@@ -41,6 +41,7 @@ let form = useForm({
 
 let submit = (idx) => {
     form.post(`/boarding/detail/rent/${idx}`, {});
+    buttonClicked.value = true;
 };
 
 let addToWishlist = () => {
@@ -63,11 +64,8 @@ let removeFromWishlist = () => {
     );
 };
 
-const handleClick = (idx) => {
-    if (form.startDate) {
-        buttonClicked.value = true;
-        form.post(`/boarding/detail/rent/${idx}`, {});
-    }
+const restartRent = () => {
+    buttonClicked.value = false;
 };
 </script>
 
@@ -187,10 +185,13 @@ const handleClick = (idx) => {
                             </div>
 
                             <div class="border border-solid border-slate-300">
-                                <FormTextBoxInput
+                                <label class="block">Start Date</label>
+                                <input
                                     v-model="form.startDate"
-                                    :input-type="'date'"
-                                    :label-name="'Start Date'"
+                                    type="date"
+                                    placeholder="date"
+                                    @click="restartRent()"
+                                    class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
                                 />
                             </div>
                             <div
