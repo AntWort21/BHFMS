@@ -8,8 +8,7 @@ start
 |User|
 :Click Specific Chat;
 |System|
-repeat
-:return chat with chat history;
+repeat :return chat with chat history;
 |User|
 :User Send New Message;
 |System|
