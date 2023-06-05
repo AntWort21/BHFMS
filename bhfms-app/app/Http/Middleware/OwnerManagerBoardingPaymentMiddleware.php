@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Models\ManagerBoarding;
 use App\Models\OwnerBoarding;
+use App\Models\TenantBoarding;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,9 +22,14 @@ class OwnerManagerBoardingPaymentMiddleware
     public function handle(Request $request, Closure $next)
     {
         try {
-            if(isset($_GET['boarding'])) {
-             
-                $boardingId = $_GET['boarding'];
+            $boardingId = null;
+
+            if(isset($_GET['tenantBoarding'])){
+                $boardingId = TenantBoarding::find($_GET['tenantBoarding'])->boarding_id;
+            }
+            if(isset($_GET['boarding']) || $boardingId !== null) {
+                
+                $boardingId = $boardingId === null ? $_GET['boarding'] : $boardingId;
                 if (Auth::user()->user_role_id == 3 && OwnerBoarding::where('boarding_id',$boardingId)
                 ->where('user_id',Auth::user()->id)
                 ->where('owner_status','approved')->first() != null) { //case if owner
@@ -38,6 +44,7 @@ class OwnerManagerBoardingPaymentMiddleware
                     return $next($request);
                 }
             }
+
 
         } catch (Throwable $e) {
             abort(500, 'Error Occurred');

@@ -22548,7 +22548,7 @@ __webpack_require__.r(__webpack_exports__);
       if (props.transaction != null) {
         form.post("/downPayment/edit?order=" + query.get('order'));
       } else {
-        form.post("/downPayment/add");
+        form.post("/downPayment/add?tenantBoarding=" + query.get('tenantBoarding'));
       }
     };
     var today = new Date();
@@ -25197,6 +25197,7 @@ __webpack_require__.r(__webpack_exports__);
       return new Date(date).toLocaleDateString();
     };
     var convertAmount = function convertAmount(amount) {
+      amount = Math.floor(amount / 1000) * 1000;
       return new Number(amount).toLocaleString("id-ID");
     };
     var __returned__ = {

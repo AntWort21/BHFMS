@@ -75,7 +75,7 @@ class PaymentController extends Controller
             'tenantEmail' => ['required'],
             'boardingId' => ['required']
         ]);
-        $tenantId = $this->getTenantIdByEmail($validation['tenantEmail'],$validation['boardingId'])->id;
+        $tenantId = $_GET['tenantBoarding'];
         RentTransaction::create([
             'tenant_boarding_id'=>$tenantId,
             'transaction_type_id' => TransactionType::where('transaction_type_name',$validation['transactionType'])->first()->id,
@@ -190,7 +190,7 @@ class PaymentController extends Controller
 
     public function getDownPayment()
     {   
-        $tenantBoarding = $this->getTenantBoarding($_GET['tenantboarding']);
+        $tenantBoarding = $this->getTenantBoarding($_GET['tenantBoarding']);
         return Inertia::render('Payment/PaymentPageManagerSingle', [
             'tenant' => User::find($tenantBoarding->user_id),
             'boardingHouseName' =>  $this->getBoardingHouseName($tenantBoarding->boarding_id),

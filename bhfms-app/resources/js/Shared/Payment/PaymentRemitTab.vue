@@ -22,12 +22,12 @@ const getFileName = (paymentDate, invoiceId) => {
   return new Date(paymentDate).toISOString().slice(0,10).replace(/-/g,"") + invoiceId + '.png';
 }
 
-
 let convertTime = (date) =>{
     return new Date(date).toLocaleDateString()
 }
 
 let convertAmount = (amount) => {
+    amount = Math.floor(amount / 1000) * 1000;
     return new Number(amount).toLocaleString("id-ID");
 }
 

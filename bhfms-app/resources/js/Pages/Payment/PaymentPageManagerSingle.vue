@@ -38,7 +38,7 @@ let submit = () => {
     if(props.transaction!=null){
         form.post("/downPayment/edit?order=" + query.get('order'));
     } else{
-        form.post("/downPayment/add");
+        form.post("/downPayment/add?tenantBoarding=" + query.get('tenantBoarding'));
     }
 };
 

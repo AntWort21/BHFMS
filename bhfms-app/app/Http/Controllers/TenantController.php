@@ -157,7 +157,7 @@ class TenantController extends Controller
 
         if($request->accept){
             //Down Payment
-            return redirect('/downPayment'.'?tenantboarding='.$accFirst->id);
+            return redirect('/downPayment'.'?tenantBoarding='.$accFirst->id);
             
         }else{
             TenantBoarding::where('id','=',$request->currID)->update([
