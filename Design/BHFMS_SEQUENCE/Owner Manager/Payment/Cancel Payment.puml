@@ -29,6 +29,7 @@ else (Payment Status is Pending or Rejected)
 else (Payment Status is Processing)
     pctrl -> tm : updateTransactionStatus(invoiceId)
 end
-
+view <-- pctrl : response_message
+act <-- view : displayResponseMessage(response_message)
 
 @enduml

@@ -9,24 +9,29 @@ const props = defineProps({
     linkPop: String,
 });
 const csrfToken = document.getElementsByName("csrf-token")[0].content; 
-const emit = defineEmits(['closePopUp']);
+const emit = defineEmits(['closePopUp','infoAlert']);
 const inputValue = ref('');
 let closePopUp = () => {
     emit('closePopUp');
 }
+const infoAlert = (message) => {
+    emit('infoAlert', message)
+}
 
-let confirm = () => {
-    fetch(props.linkPop, {
+let confirm = async () => {
+    const formData = new FormData();
+    formData.append('reason', inputValue.value);
+    formData.append('invoiceID', props.id);
+    formData.append('invoiceStatus', props.value);
+    const response = await fetch(props.linkPop, {
         method: 'POST',
         headers: {
         "X-CSRF-Token": csrfToken,
         },
-        body: JSON.stringify({
-            invoiceStatus: props.value,
-            invoiceID: props.id,
-            reason: inputValue.value
-      })
-    })
+        body: formData,
+    });
+    const data = await response.json();
+    infoAlert(data.message);
     closePopUp();
 }
 

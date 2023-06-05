@@ -34,7 +34,7 @@ class PaymentController extends Controller
         $transaction->payment_status = 'Processing';
         $transaction->save();
 
-        return redirect('/paymentHistory');;
+        return redirect('/paymentHistory')->with('message','Invoice has been paid !');
     }
 
     public function addPaymentManager(Request $request)
@@ -59,9 +59,10 @@ class PaymentController extends Controller
         ]);   
         
         if(Auth::user()->user_role_id == 3) {
-            return redirect('/boardingOwner'); 
+            return redirect('/boardingOwner')->with('message', 'Invoice has been made !'); 
         }
-        return redirect('/boardingManager');
+        
+        return redirect('/boardingManager')->with('message', 'Invoice has been made !');
 
     }
 
@@ -86,7 +87,7 @@ class PaymentController extends Controller
         TenantBoarding::find($tenantId)->update([
             'tenant_status' => 'pending_payment'
         ]);
-        return redirect('/tenantBoarding');
+        return redirect('/tenantBoarding')->with('message', 'Down Payment has been made !');
         
     }
     public function getPaymentPageManager()
@@ -120,7 +121,7 @@ class PaymentController extends Controller
         if ($userRole == 2) {
             $paymentList = $this->getListPaymentByUser(Auth::user()->id);
         } elseif ($userRole == 3 || $userRole == 4) {
-            $boardingId = $_GET['boarding'] ?? null;
+            $boardingId = isset($_GET['boarding']) && $_GET['boarding'] !== 'null' ? $_GET['boarding'] : null;
             if ($boardingId) {
                 $paymentList = $this->getListPaymentByBoardingId($boardingId);
             } else if($userRole == 3) { //Owner History
@@ -162,7 +163,7 @@ class PaymentController extends Controller
     {
         $transaction = RentTransaction::where('invoice_id', $_GET['order'])->first();
         if($transaction->payment_status != 'Pending'){
-            redirect('/paymentHistory');
+            redirect('/paymentHistory')->with('message','Invoice cannot be edited !');
         }
 
         $tenantBoarding = $this->getTenantBoarding($transaction->tenant_boarding_id);
@@ -178,7 +179,6 @@ class PaymentController extends Controller
                 'transaction' => $transaction
             ]);
         }
-
         return Inertia::render('Payment/PaymentPageManager', [
             'transaction' => $transaction,
             'listTenants' => $this->getAllTenants($tenantBoarding->boarding_id),
@@ -287,20 +287,21 @@ class PaymentController extends Controller
         }
         
         $transaction->save();
-    
-        return;
+        return redirect('/paymentHistory?boarding=' . $_GET['boarding'])->with('message','Invoice has been canceled !');
     }
 
     public function updateInvoiceStatus(Request $request) 
     {   
-        $content = json_decode($request->getContent());
-        $invoiceStatus = $content->invoiceStatus;
-        $invoiceId = $content->invoiceID;
+        $msg = 'An error has occurred please contact your administrator';
+        
+        $invoiceStatus = $request->invoiceStatus;
+        $invoiceId = $request->invoiceID;
         $transaction = RentTransaction::where('invoice_id',$invoiceId)->first();
         $transaction->payment_status = $invoiceStatus;
         if($invoiceStatus == 'Approved' && TransactionType::find($transaction->transaction_type_id)->transaction_type_name == 'Down Payment') {
             $tenantController = new TenantController;
             $tenantController->acceptTenant($transaction->tenant_boarding_id);
+            $msg = 'Payment invoice: '.$transaction->invoice_id.', has been approved';
         }
         if($invoiceStatus == 'Approved' && $transaction->payment_transferred_status=='Processing_Refund'){
             $chatController = new ChatController;
@@ -308,18 +309,21 @@ class PaymentController extends Controller
             $this->getTenantBoarding($transaction->tenant_boarding_id)->user_id,
             'Please send your Bank name and Account Number for refund on this transaction - '.$transaction->invoice_id);
             $transaction->payment_status = 'Canceled';
+            $msg = 'Payment invoice: '.$transaction->invoice_id.', has been approved';
         }
         if($invoiceStatus == 'Rejected' && Carbon::parse($transaction->payment_date)->lt(Carbon::today()->timezone('Asia/Jakarta')->startOfDay())){
             $transaction->payment_date = Carbon::today()->timezone('Asia/Jakarta')->startOfDay()->addDay()->toDateString();
+            $msg = 'Payment invoice: '.$transaction->invoice_id.', has been rejected';
         }
-        if($invoiceStatus == 'Rejected' && $content->reason!=null) {
+        if($invoiceStatus == 'Rejected' && $request->reason!=null) {
             $chatController = new ChatController;
             $chatController->storeSpecificChatMessage(User::where('email','bhfms@gmail.com')->first()->id,
             $this->getTenantBoarding($transaction->tenant_boarding_id)->user_id,
-            $content->reason);
+            $request->reason);
+            $msg = 'Payment invoice: '.$transaction->invoice_id.', has been rejected';
         }
         $transaction->save();
-        
+        return response()->json(['message' => $msg]);
     }
 
     public function updatePayment(Request $request) 
@@ -347,7 +351,7 @@ class PaymentController extends Controller
             'repeat_payment'=> $request['paymentRepeat'] == 'true' ?  true: false,
         ]);
 
-        return redirect('/paymentHistory?boarding='.$boardingId);
+        return redirect('/paymentHistory?boarding='.$boardingId)->with('message','Invoice has been edited !');
     }
     public function editDownPayment(Request $request) {
         $validation = $request->validate([
@@ -366,13 +370,14 @@ class PaymentController extends Controller
 
         $boardingId = $this->getTenantBoarding($transaction->tenant_boarding_id)->boarding_id;
         
-        return redirect('/paymentHistory?boarding='.$boardingId);
+        return redirect('/paymentHistory?boarding='.$boardingId)->with('message','Invoice has been edited !');
     }
     public function updateTransferredStatus(Request $request)
     {
         $status = $request->invoiceStatus;
         $transaction = RentTransaction::where('invoice_id',$request->invoiceID)->first();
         $transaction->payment_transferred_status = $status;
+        $msg = 'An error has occurred please contact your administrator';
         if($status=='Successful') {
             if($request->hasFile('image')){
                 $file = $request->file('image');
@@ -382,14 +387,18 @@ class PaymentController extends Controller
                 $tenantController = new TenantController;
                 $tenantController->acceptTenant($transaction->tenant_boarding_id);
             }
+            $msg = 'Payment invoice: '.$transaction->invoice_id.', has been remitted';
         }
         if($status == 'Declined') {
             $chatController = new ChatController;
             $chatController->storeSpecificChatMessage(User::where('email','bhfms@gmail.com')->first()->id,
             $this->getTenantBoarding($transaction->tenant_boarding_id)->user_id,
             $request->reason);
+            $msg = 'Payment invoice: '.$transaction->invoice_id.', has been rejected';
+        
         }
         $transaction->save();
+        return response()->json(['message' => $msg]);
     } 
 
     private function generateInvoice(String $date)
@@ -462,15 +471,15 @@ class PaymentController extends Controller
         ->where('boarding_id',$boardingId);
        
         return RentTransaction::joinSub($subquery, 'tenant_boardings', function ($join) {
-            $join->on('tenant_boardings.id', '=', 'tenant_boarding_id');
-        })
+                $join->on('tenant_boardings.id', '=', 'tenant_boarding_id');
+            })
         ->join('users', 'users.id', '=', 'tenant_boardings.user_id')
         ->paginate(self::PAGINATION_NUMBER);
     }
 
     private function getTenantById(int $tenantId)
     {
-        return User::find('id',$tenantId)->first();
+        return User::find($tenantId);
     }
 
 }

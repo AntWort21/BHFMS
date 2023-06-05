@@ -21,8 +21,11 @@ ctrl -> ctrl : generateInvoice(payment_information)
 
 alt (Payment Input Valid)
     ctrl -> tm : insertPayment(payment_information)
-    view <-- ctrl : displayBoaringHouseViewAll()
+    view <-- ctrl : response_message
+    act <-- view : displayResponseMessage(response_message) 
+
 else (Payment Input Invalid)
     view <-- ctrl : displayInputInvalid()
 end
+
 @enduml

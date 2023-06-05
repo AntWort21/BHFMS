@@ -16,6 +16,7 @@ repeat
 repeat while (Verify Payment) is (Invalid)
         ->Valid;
     :Add Payment in DB;
-    :Return Boaridng House Page;
+:Return Boaridng House Page;
+:Show Respone Message;
 stop
 @enduml

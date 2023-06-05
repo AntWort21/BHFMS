@@ -36,4 +36,7 @@ else (Payment Status is Pending)
         act <-- view : displayEditPaymentPage(payment_data)
     end 
 end 
+view <-- ctrl : response_message
+act <-- view : displayResponseMessage(response_message)
+
 @enduml
