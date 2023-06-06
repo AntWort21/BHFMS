@@ -255,7 +255,7 @@ class PaymentController extends Controller
         }
 
         if (TransactionType::find($transaction->transaction_type_id)->transaction_type_name == 'Down Payment') {
-            return redirect('/paymentHistory?boarding=' . $_GET['boarding']);
+            return redirect('/paymentHistory?boarding=' . $_GET['boarding'])->with('message','Cannot cancel Down Payment !');
         }
         
         switch ($transaction->payment_status) {

@@ -22,6 +22,7 @@ rectangle BHFMS {
     usecase (Make Payment Invoice) as mk_pay_inv
     usecase (Edit Payment Invoice) as edit_pay_inv
     usecase (Cancel Payment Invoice) as cancel_pay_inv
+    usecase (Down Payment Invoice) as down_pay_inv
 
     ' Boarding House Owner'
     usecase (Request New Boarding) as req_bh
@@ -225,6 +226,7 @@ view_bh_own_mng <... view_bh: <<Extend>>
 
 
 view_tenant <...  accept_tenant: <<Extend>>
+accept_tenant <... down_pay_inv: <<Include>>
 view_tenant <... view_tenant_detail: <<Extend>>
 
 ' Filters
