@@ -1,0 +1,12 @@
+@startuml
+title Logout
+|Authenticated User|
+start
+    :Clicks Logout button;
+
+|System|
+    :Logout Authenticated User;
+    :redirect user to homepage;
+
+stop
+@enduml

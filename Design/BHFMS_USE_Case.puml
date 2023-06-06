@@ -7,6 +7,7 @@ rectangle BHFMS {
     usecase (Chat) as cht
     usecase (Login) as lgn
     usecase (Register) as rgs
+    usecase (Logout) as logout
     usecase (Edit Profile) as edt_profile
     usecase (View Payment History) as view_ph
     usecase (View Payment History Detail) as view_ph_detail
@@ -109,6 +110,9 @@ actor :Tenant: as tenant
 actor :Admin: as adm
 actor :Manager: as mngr
 
+adm ---> logout
+tenant ---> logout
+mngr ---> logout
 
 adm ---> edt_profile
 tenant ---> edt_profile
