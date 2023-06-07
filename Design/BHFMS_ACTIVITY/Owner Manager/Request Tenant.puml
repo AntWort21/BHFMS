@@ -8,19 +8,24 @@ title Tenant Request
     :Manager/Owner Click Button;
 |System|
     If () then (Approve)
-        :Update Tenant Request Status to Approved;
-        :Check If Current Boarding Room became Full;
-        If () then (Full)
-        :Reject Other Tenant that have Requested to this Boarding;
-        else (Not Full)
+        :Add Down Payment;
+        :Update Tenant Request Status to Pending Payment;
+        if () then (Approve)
+            :Update Tenant Request Status to Approved;
+            :Check If Current Boarding Room became Full;
+            If () then (Full)
+                :Reject Other Tenant that have Requested to this Boarding;
+            else (Not Full)
+            endif
+            :Check Tenant Pending Request;
+            If () then (Exist)
+                :Reject Tenant`s other Pending Request;
+            else (Not Exist)
+            endif
+            :Show Success Accepting Message;
+        else (Reject)
+            :Update Tenant Request Status to Declined;
         endif
-
-        :Check Tenant Pending Request;
-        If () then (Exist)
-        :Reject Tenant`s other Pending Request;
-        else (Not Exist)
-        endif
-    :Show Success Accepting Message;
     else (Decline)
         :Update Tenant Request Status to Declined;
         :Show Success Declining Message;

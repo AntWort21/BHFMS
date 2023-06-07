@@ -16,6 +16,7 @@ repeat
 repeat while (Verify New Payment) is (Invalid)
         ->Valid;
     :Update Payment in DB;
-    :Return Payment View;
+:Show response message;
 stop
+
 @enduml

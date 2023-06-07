@@ -1,14 +1,10 @@
 @startuml
-title Make Payment Invoice
+title Make Down Payment Invoice
 |Owner & Manager|
 start
-:Select Boarding House Page;
+:Accept Tenant;
 |Website|
-:Return Boarding House Page;
-|Owner & Manager|
-:Select Add Payment for Boarding House;
-|Website|
-:Show Add Payment Page;
+:Return Add Down Payment Page;
 |Owner & Manager|
 repeat
 :Insert Payment Info;
@@ -16,7 +12,7 @@ repeat
 repeat while (Verify Payment) is (Invalid)
         ->Valid;
     :Add Payment in DB;
-:Return Boaridng House Page;
+:Return Tenant Boarding Page;
 :Show Respone Message;
 stop
 @enduml

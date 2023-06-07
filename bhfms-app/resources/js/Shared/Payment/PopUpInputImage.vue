@@ -8,11 +8,13 @@ const props = defineProps({
     linkPop: String,
 });
 const csrfToken = document.getElementsByName("csrf-token")[0].content; 
-const emit = defineEmits(['closePopUp']);
-let closePopUp = () => {
+const emit = defineEmits(['closePopUp','infoAlert']);
+const closePopUp = () => {
     emit('closePopUp');
 }
-
+const infoAlert = (message) => {
+    emit('infoAlert', message)
+}
 
 const selectedFile = ref(null);
 
@@ -21,19 +23,21 @@ const handleNewImage = (event) => {
   selectedFile.value = file;
 };
 
-let confirm = () => {
+let confirm = async () => {
     
     const formData = new FormData();
     formData.append('image', selectedFile.value);
     formData.append('invoiceID', props.id);
     formData.append('invoiceStatus', props.value);
-    fetch(props.linkPop, {
+    const response = await fetch(props.linkPop, {
         method: 'POST',
         headers: {
         "X-CSRF-Token": csrfToken,
         },
         body: formData,
     })
+    const data = await response.json();
+    infoAlert(data.message);
     closePopUp();
 }
 

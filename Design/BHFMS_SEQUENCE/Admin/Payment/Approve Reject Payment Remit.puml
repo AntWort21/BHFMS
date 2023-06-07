@@ -11,23 +11,21 @@ act -> view : openPaymentRemitPage()
 view -> pctrl : getPaymentRemitPage()
 pctrl -> tm : getProcessingTransaction()
 pctrl <-- tm : transaction_data
-view <-- ctrl : transaction_data
+view <-- pctrl : transaction_data
 act <-- view : displayPaymentRemitPage(transaction_data) 
 alt (Approve transfer)
-
     act -> view : approveRemit()
-    
     act <-- view : displayProofOfTransferBox()
     act -> view : uploadProofOfTransfer()
     view -> pctrl : updateInvoiceApproveStatus(invoice_id, proof, response)
     pctrl -> pctrl : validateImage()
     alt (Image is Valid) 
-        ctrl -> stg : saveImage(image_proof)
+        pctrl -> strg : saveImage(image_proof)
         pctrl -> tm : updateInvoiceStatus(invoice_id)
-        view <-- ctrl : displayPaymentRemit()
+        view <-- pctrl : displayPaymentRemit()
         act <-- view: displayPaymentRemitPage()
     else (Image is Invalid)
-        view <-- ctrl : error_response
+        view <-- pctrl : error_response
         act <-- view : displayPaymentRemitPage(transaction_data, error_response) 
     end
 else (Reject Invoice)
@@ -39,4 +37,6 @@ else (Reject Invoice)
     pctrl -> cctrl : sendMessage(owner_id, reason)
     pctrl -> tm : updateInvoiceStatus(invoice_id, response)
 end
+view <-- pctrl : response_message
+act <-- view : displayResponseMessage(response_message)
 @enduml

@@ -19,8 +19,7 @@ class ReadPaymentMiddleware
      */
     public function handle(Request $request, Closure $next)
     {   
-       
-        if(!isset($_GET['boarding'])) {
+        if(!isset($_GET['boarding']) || $_GET['boarding'] === 'null') {
             return $next($request);
         }
         $boardingId = $_GET['boarding'];
