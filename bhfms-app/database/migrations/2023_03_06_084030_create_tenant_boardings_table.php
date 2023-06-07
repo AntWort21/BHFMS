@@ -26,7 +26,7 @@ class CreateTenantBoardingsTable extends Migration
 
             $table->date('start_date');
             $table->date('end_date')->nullable();
-            $table->enum('tenant_status',['pending','approved','declined', 'checkout'])->default('pending');
+            $table->enum('tenant_status',['pending','pending_payment','approved','declined', 'checkout'])->default('pending');
             $table->longtext('declined_reason')->nullable();
             $table->timestamps();
         });

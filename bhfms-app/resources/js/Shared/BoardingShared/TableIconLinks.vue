@@ -297,7 +297,7 @@ const DisableBoarding = (idx) => {
                     class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                 >
                     <Link
-                        :href="`/addPaymentBoarding/`"
+                        :href="`/paymentBoarding/add`"
                         :data="{ boarding: currentID }"
                     >
                         <svg

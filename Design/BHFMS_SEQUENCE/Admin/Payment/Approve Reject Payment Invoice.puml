@@ -10,7 +10,7 @@ act -> view : openCheckInvoicePage()
 view -> pctrl : getCheckInvoicePage()
 pctrl -> tm : getProcessingTransaction()
 pctrl <-- tm : transaction_data
-view <-- ctrl : transaction_data
+view <-- pctrl : transaction_data
 act <-- view : displayCheckInvoicePage(transaction_data) 
 alt (Approve Invoice)
     act -> view : approveInvoice()
@@ -34,4 +34,6 @@ else (Reject Invoice)
         pctrl -> tm : cancelPaymentStatus(invoice_id)
     end
 end
+view <-- pctrl : response_message
+act <-- view : displayResponseMessage(response_message)
 @enduml

@@ -6,14 +6,14 @@ participant PaymentController as ctrl
 participant TransactionModel as tm
 
 act -> view : getTransactionDetailPage()
-view -> ctrl : getTransactionDetail(invoiceId)
-ctrl -> tm : getTransaction(invoiceId)
+view -> ctrl : getTransactionDetail(invoice_id)
+ctrl -> tm : getTransaction(invoice_id)
 ctrl <-- tm : transaction_data
 view <-- ctrl : displayTransactionDetail(transaction_data)
 
 act -> view : editPayment()
-view -> ctrl : getEditPaymentPage(invoiceId)
-ctrl -> tm : getTransaction(invoiceId)
+view -> ctrl : getEditPaymentPage(invoice_id)
+ctrl -> tm : getTransaction(invoice_id)
 ctrl <-- tm : transaction_data
 
 alt (Payment Status Not Pending)
@@ -36,4 +36,7 @@ else (Payment Status is Pending)
         act <-- view : displayEditPaymentPage(payment_data)
     end 
 end 
+view <-- ctrl : response_message
+act <-- view : displayResponseMessage(response_message)
+
 @enduml

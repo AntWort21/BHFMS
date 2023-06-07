@@ -7,6 +7,7 @@ rectangle BHFMS {
     usecase (Chat) as cht
     usecase (Login) as lgn
     usecase (Register) as rgs
+    usecase (Logout) as logout
     usecase (Edit Profile) as edt_profile
     usecase (View Payment History) as view_ph
     usecase (View Payment History Detail) as view_ph_detail
@@ -22,6 +23,7 @@ rectangle BHFMS {
     usecase (Make Payment Invoice) as mk_pay_inv
     usecase (Edit Payment Invoice) as edit_pay_inv
     usecase (Cancel Payment Invoice) as cancel_pay_inv
+    usecase (Down Payment Invoice) as down_pay_inv
 
     ' Boarding House Owner'
     usecase (Request New Boarding) as req_bh
@@ -109,6 +111,9 @@ actor :Tenant: as tenant
 actor :Admin: as adm
 actor :Manager: as mngr
 
+adm ---> logout
+tenant ---> logout
+mngr ---> logout
 
 adm ---> edt_profile
 tenant ---> edt_profile
@@ -225,6 +230,7 @@ view_bh_own_mng <... view_bh: <<Extend>>
 
 
 view_tenant <...  accept_tenant: <<Extend>>
+accept_tenant <... down_pay_inv: <<Include>>
 view_tenant <... view_tenant_detail: <<Extend>>
 
 ' Filters

@@ -16,7 +16,7 @@ class FacilityController extends Controller
             } else {
                 $query->where('facility_detail_name', 'like', '%'. $searchQuery . '%');
             }
-        })->paginate(5)->withQueryString();;
+        })->paginate(5)->withQueryString();
         return inertia('Facility/ListFacility', [
             'facilities' => $facilities
         ]);

@@ -9,7 +9,7 @@ act -> view : openPaymentHistoryPage()
 view -> ctrl : getPaymentHistoryPage()
 
 alt (BoardingID Specified)
-    ctrl -> tm : getPaymentHistoryBasedOnID(BoardingID)
+    ctrl -> tm : getPaymentHistoryBasedOnID(boarding_id)
 else (BoardingID Not Specified)
     ctrl -> tm : getPaymentHistory()
 end

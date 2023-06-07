@@ -15,6 +15,6 @@ if(Cancellation is Possible) then (Possible)
 else (Not Possible)
     stop
 endif
-
+:Show response message;
 stop
 @enduml
