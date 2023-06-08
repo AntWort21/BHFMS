@@ -28,9 +28,9 @@ const getSelectedChat = (id) => {
     data.chatDestination = id;
     data.messages = [];
     data.showChat = true;
-    fetch(`/chat/get?id=${id}`)
-        .then((response) => response.json())
-        .then((incomingData) => {
+    axios.get(`/chat/get?id=${id}`)
+        .then((response) => {
+            const incomingData = response.data;
             data.messages = incomingData.messages;
             data.receiverDetails = incomingData.receiverDetails;
         });

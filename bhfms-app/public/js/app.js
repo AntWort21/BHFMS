@@ -21112,9 +21112,8 @@ __webpack_require__.r(__webpack_exports__);
       data.chatDestination = id;
       data.messages = [];
       data.showChat = true;
-      fetch("/chat/get?id=".concat(id)).then(function (response) {
-        return response.json();
-      }).then(function (incomingData) {
+      axios.get("/chat/get?id=".concat(id)).then(function (response) {
+        var incomingData = response.data;
         data.messages = incomingData.messages;
         data.receiverDetails = incomingData.receiverDetails;
       });
