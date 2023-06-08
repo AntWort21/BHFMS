@@ -7,6 +7,7 @@ import DetailBoxTenant from '../../Shared/Payment/DetailBoxTenant.vue';
 import PopUpInputText from '../../Shared/Payment/PopUpInputText.vue';
 import PopUpInputImage from '../../Shared/Payment/PopUpInputImage.vue';
 import PaymentRemitTab from '../../Shared/Payment/PaymentRemitTab.vue';
+import axios from 'axios';
 defineProps({
   userRole: Number,
   invoiceList: Object,
@@ -16,7 +17,6 @@ defineExpose({
   detailInvoice
 });
 
-const csrfToken = document.getElementsByName("csrf-token")[0].content; 
 const detailBox = ref(false);
 const detailInvoice = ref({
   invoice: [],
@@ -33,24 +33,17 @@ const popUpDetail = ref({
   status: ''
 })
 
-let showDetail = (invoiceId) => {
-  fetch('/getInvoiceData', {
-    method: 'POST',
-    headers: {
-      "X-CSRF-Token": csrfToken,
-    },
-    body: JSON.stringify({
-      invoice_id: invoiceId,
-    })
+let showDetail = (invoice_id) => {
+  axios.post('/getInvoiceData', {
+    invoice_id: invoice_id,
   })
-  .then((response) => response.json())
-  .then((data) => {
+  .then((response) => {
+    const data = response.data;
     detailInvoice.value.price = convertAmount(data[0]);
     detailInvoice.value.invoice = data[1];
     detailInvoice.value.username = data[2];
     detailInvoice.value.boardingName = data[3];
-  });
-
+  })
   detailBox.value = true;
 }
 
