@@ -679,7 +679,7 @@ class BoardingController extends Controller
             return back()->with('message', 'Only a Tenant Can Rent this Boarding House !');
         }
 
-        $currTenantBoardingPending = TenantBoarding::where([['user_id', '=', Auth::user()->id], ['tenant_status', '=', 'pending'],['boarding_id','=',$request->id]])->get();
+        $currTenantBoardingPending = TenantBoarding::where([['user_id', '=', Auth::user()->id], ['tenant_status', '=', 'pending'],['boarding_id','=',$request->id]])->first();
         //Exist Pending Status of Current Boarding House
 
         if(!$currTenantBoardingPending->isEmpty()){
