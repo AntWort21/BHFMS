@@ -3,9 +3,6 @@ defineProps({
     userRole: Number,
     invoice: Object
 })
-
-const csrfToken = document.getElementsByName("csrf-token")[0].content; 
-
 const emit = defineEmits(['showDetail']);
 
 let showInvoiceDetail = (invoiceId) => {

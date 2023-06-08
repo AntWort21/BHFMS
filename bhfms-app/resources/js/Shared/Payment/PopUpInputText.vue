@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import axios from 'axios';
 
 const props = defineProps({
     labelName: String,
@@ -8,7 +9,6 @@ const props = defineProps({
     id: String,
     linkPop: String,
 });
-const csrfToken = document.getElementsByName("csrf-token")[0].content; 
 const emit = defineEmits(['closePopUp','infoAlert']);
 const inputValue = ref('');
 let closePopUp = () => {
@@ -23,13 +23,7 @@ let confirm = async () => {
     formData.append('reason', inputValue.value);
     formData.append('invoiceID', props.id);
     formData.append('invoiceStatus', props.value);
-    const response = await fetch(props.linkPop, {
-        method: 'POST',
-        headers: {
-        "X-CSRF-Token": csrfToken,
-        },
-        body: formData,
-    });
+    const response = await axios.post(props.linkPop, formData);
     const data = await response.json();
     infoAlert(data.message);
     closePopUp();
