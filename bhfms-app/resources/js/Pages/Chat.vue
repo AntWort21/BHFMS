@@ -4,6 +4,7 @@ import { onMounted, reactive } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 import Header from "../Shared/Header.vue";
 import Footer from "../Shared/Footer.vue";
+import axios from "axios";
 
 const props = defineProps({
     contactDetails: Object,
@@ -16,11 +17,14 @@ const data = reactive({
     channel: null,
     receiverDetails: "",
     showChat: false,
-    chatDestination: ""
+    chatDestination: "",
 });
 
 const sendMessage = () => {
-    Inertia.post("/chat", { id: data.chatDestination, message: data.newMessage });
+    Inertia.post("/chat", {
+        id: data.chatDestination,
+        message: data.newMessage,
+    });
     data.newMessage = "";
 };
 
@@ -28,12 +32,11 @@ const getSelectedChat = (id) => {
     data.chatDestination = id;
     data.messages = [];
     data.showChat = true;
-    axios.get(`/chat/get?id=${id}`)
-        .then((response) => {
-            const incomingData = response.data;
-            data.messages = incomingData.messages;
-            data.receiverDetails = incomingData.receiverDetails;
-        });
+    axios.get(`/chat/get?id=${id}`).then((response) => {
+        const incomingData = response.data;
+        data.messages = incomingData.messages;
+        data.receiverDetails = incomingData.receiverDetails;
+    });
 };
 
 const initializeMessages = () => {
@@ -68,7 +71,11 @@ onMounted(() => {
                     >
                         <div>
                             <img
-                                :src="contact.profile_picture ? contact.profile_picture : '/storage/images/CJ-GTASA.png'"
+                                :src="
+                                    contact.profile_picture
+                                        ? contact.profile_picture
+                                        : '/storage/images/CJ-GTASA.png'
+                                "
                                 alt="no image"
                                 class="w-[3rem] h-[3rem] bg-white rounded-full object-scale-down"
                             />
@@ -82,7 +89,11 @@ onMounted(() => {
             <div v-if="data.showChat == true" class="w-4/5 p-[1rem]">
                 <div class="h-1/6 flex items-center space-x-3">
                     <img
-                        :src="data.receiverDetails.profile_picture ? data.receiverDetails.profile_picture : '/storage/images/CJ-GTASA.png'"
+                        :src="
+                            data.receiverDetails.profile_picture
+                                ? data.receiverDetails.profile_picture
+                                : '/storage/images/CJ-GTASA.png'
+                        "
                         alt="no image"
                         class="w-[3rem] h-[3rem] bg-white rounded-full object-scale-down"
                     />
@@ -96,7 +107,9 @@ onMounted(() => {
                 >
                     <div class="grow"></div>
                     <div
-                        v-for="(message, key) in data.messages.slice().reverse()"
+                        v-for="(message, key) in data.messages
+                            .slice()
+                            .reverse()"
                         :key="key"
                         class="w-full space-y-2 flex items-end"
                         :class="{

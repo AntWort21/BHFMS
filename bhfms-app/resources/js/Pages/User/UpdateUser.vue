@@ -84,7 +84,7 @@ const submit = () => {
                     class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
                 >
                     <h1 class="text-blue-600 font-bold text-2xl mb-8">
-                        User Detail
+                        Update User
                     </h1>
                     <div class="mb-4">
                         <TextBoxInput
@@ -149,7 +149,7 @@ const submit = () => {
                     <div class="mb-4">
                         <label
                             class="block text-gray-700 text-sm font-bold mb-2"
-                            for="staus"
+                            for="status"
                         >
                             Status
                         </label>
@@ -174,7 +174,6 @@ const submit = () => {
                             :error-message="form.errors.email"
                         />
                     </div>
-                    {{ form.dob }}
                     <div class="mb-4">
                         <TextBoxInput
                             v-model="form.dob"

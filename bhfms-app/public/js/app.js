@@ -21078,6 +21078,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
 /* harmony import */ var _Shared_Header_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Shared/Header.vue */ "./resources/js/Shared/Header.vue");
 /* harmony import */ var _Shared_Footer_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Shared/Footer.vue */ "./resources/js/Shared/Footer.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
+
 
 
 
@@ -21112,7 +21115,7 @@ __webpack_require__.r(__webpack_exports__);
       data.chatDestination = id;
       data.messages = [];
       data.showChat = true;
-      axios.get("/chat/get?id=".concat(id)).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_5___default().get("/chat/get?id=".concat(id)).then(function (response) {
         var incomingData = response.data;
         data.messages = incomingData.messages;
         data.receiverDetails = incomingData.receiverDetails;
@@ -21142,7 +21145,8 @@ __webpack_require__.r(__webpack_exports__);
       reactive: vue__WEBPACK_IMPORTED_MODULE_1__.reactive,
       Inertia: _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia,
       Header: _Shared_Header_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-      Footer: _Shared_Footer_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+      Footer: _Shared_Footer_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+      axios: (axios__WEBPACK_IMPORTED_MODULE_5___default())
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -32767,7 +32771,7 @@ var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNod
 var _hoisted_5 = ["onSubmit"];
 var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
   "class": "text-blue-600 font-bold text-2xl mb-8"
-}, " User Detail ", -1 /* HOISTED */);
+}, " Update User ", -1 /* HOISTED */);
 var _hoisted_7 = {
   "class": "mb-4"
 };
@@ -32795,7 +32799,7 @@ var _hoisted_15 = {
 };
 var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "block text-gray-700 text-sm font-bold mb-2",
-  "for": "staus"
+  "for": "status"
 }, " Status ", -1 /* HOISTED */);
 var _hoisted_17 = ["textContent"];
 var _hoisted_18 = {
@@ -32922,7 +32926,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "label-name": 'Email',
     placeholder: '',
     "error-message": $setup.form.errors.email
-  }, null, 8 /* PROPS */, ["modelValue", "error-message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.form.dob) + " ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TextBoxInput"], {
+  }, null, 8 /* PROPS */, ["modelValue", "error-message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TextBoxInput"], {
     modelValue: $setup.form.dob,
     "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
       return $setup.form.dob = $event;
