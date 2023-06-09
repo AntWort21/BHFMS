@@ -38,7 +38,7 @@ class PaymentMethodController extends Controller
             'status'=> $request->status,
         ]);
 
-        return redirect('/paymentMethodAll')->with('message', 'Success Creating new Transaction Type');
+        return redirect('/paymentMethodAll')->with('message', 'Success Creating new Payment Method');
     }
 
     public function getPaymentMethodUpdate(Request $request){
