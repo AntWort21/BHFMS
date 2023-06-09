@@ -4,6 +4,7 @@ import { onMounted, reactive } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 import Header from "../Shared/Header.vue";
 import Footer from "../Shared/Footer.vue";
+import axios from "axios";
 
 const props = defineProps({
     contactDetails: Object,
@@ -28,12 +29,16 @@ const getSelectedChat = (id) => {
     data.chatDestination = id;
     data.messages = [];
     data.showChat = true;
-    axios.get(`/chat/get?id=${id}`)
-        .then((response) => {
-            const incomingData = response.data;
-            data.messages = incomingData.messages;
-            data.receiverDetails = incomingData.receiverDetails;
-        });
+    axios.get('/chat/get', {
+        params: {
+            id: id,
+        },
+    })
+    .then((response) => {
+        let incomingData = response.data
+        data.messages = incomingData.messages;
+        data.receiverDetails = incomingData.receiverDetails;
+    });
 };
 
 const initializeMessages = () => {
