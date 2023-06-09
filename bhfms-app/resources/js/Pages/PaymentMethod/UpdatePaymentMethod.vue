@@ -45,7 +45,7 @@ const submit = () => {
                     class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
                 >
                     <h1 class="text-blue-600 font-bold text-2xl mb-8">
-                        Add new Payment Method
+                        Update Payment Method
                     </h1>
                     <div class="mb-4">
                         <TextBoxInput

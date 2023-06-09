@@ -31406,7 +31406,7 @@ var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNod
 var _hoisted_5 = ["onSubmit"];
 var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
   "class": "text-blue-600 font-bold text-2xl mb-8"
-}, " Add new Payment Method ", -1 /* HOISTED */);
+}, " Update Payment Method ", -1 /* HOISTED */);
 var _hoisted_7 = {
   "class": "mb-4"
 };
