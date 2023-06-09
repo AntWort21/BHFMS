@@ -175,7 +175,7 @@ class TenantController extends Controller
             
         }else{
             TenantBoarding::where('id','=',$request->currID)->update([
-                'tenant_status' => 3,
+                'tenant_status' => 'declined',
                 'declined_reason' => $request['reason'],
             ]);
             return redirect('/tenantBoarding')->with('message', 'Success Declining new Tenant');
