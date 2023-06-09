@@ -34,9 +34,10 @@ const getSelectedChat = (id) => {
             id: id,
         },
     })
-    .then((incomingData) => {
-        data.messages = incomingData.data.messages;
-        data.receiverDetails = incomingData.data.receiverDetails;
+    .then((response) => {
+        let incomingData = response.data
+        data.messages = incomingData.messages;
+        data.receiverDetails = incomingData.receiverDetails;
     });
 };
 

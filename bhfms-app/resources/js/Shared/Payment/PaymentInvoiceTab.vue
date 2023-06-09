@@ -1,10 +1,10 @@
 <script setup>
+import axios from 'axios';
+
 defineProps({
     userRole: Number,
     invoice: Object
 })
-
-const csrfToken = document.getElementsByName("csrf-token")[0].content; 
 
 const emit = defineEmits(['showDetail','infoAlert']);
 
@@ -36,13 +36,8 @@ let updateInvoiceStatus = async (invoiceStatus, invoiceId) => {
     const formData = new FormData();
     formData.append('invoiceID',invoiceId);
     formData.append('invoiceStatus', invoiceStatus);
-    const response = await fetch('/updateInvoiceStatus', {
-        method: 'POST',
-        headers: {
-            "X-CSRF-Token": csrfToken,
-        },
-        body: formData
-    });
+    const response = await axios.post('/updateInvoiceStatus', formData);
+    
     const data = await response.json();
     infoAlert(data.message);
     }
