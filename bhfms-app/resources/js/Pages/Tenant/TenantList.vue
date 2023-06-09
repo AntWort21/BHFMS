@@ -118,6 +118,7 @@ watch(searchQuery, (value) => {
                                 <th class="py-3 px-6 text-center">
                                     Boarding House name
                                 </th>
+                                <th class="py-3 px-6 text-center">Capacity</th>
                                 <th class="py-3 px-6 text-left">Status</th>
                                 <th class="py-3 px-6 text-center">Actions</th>
                             </tr>
@@ -138,6 +139,10 @@ watch(searchQuery, (value) => {
 
                                 <td class="py-3 px-6 text-center">
                                     <a href="#">{{ user.boarding_name }}</a>
+                                </td>
+
+                                <td class="py-3 px-6 text-center">
+                                    <a href="#">{{ user.capacity }}</a>
                                 </td>
 
                                 <StatusIcon :user="user" />

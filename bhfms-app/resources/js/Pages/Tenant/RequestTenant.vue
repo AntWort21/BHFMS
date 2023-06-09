@@ -9,6 +9,7 @@ import { Link } from "@inertiajs/inertia-vue3";
 const props = defineProps({
     currID: String,
     currUser: Object,
+    capacity: String,
 });
 
 let form = useForm({
@@ -52,6 +53,16 @@ const acceptRequest = (this_id) => {
                     <h1 class="text-blue-600 font-bold text-2xl mb-8">
                         Tenant Detail
                     </h1>
+                    <div class="mb-4">
+                        <TextBoxInput
+                            :read-only="true"
+                            v-model="props.capacity"
+                            :input-type="'text'"
+                            :label-name="'Rooms Left in Boarding House'"
+                            :placeholder="'Current Boarding Capacity'"
+                        />
+                    </div>
+                    <hr class="h-px my-8 bg-gray-200 border-0" />
                     <div class="mb-4">
                         <TextBoxInput
                             :read-only="true"
@@ -101,7 +112,7 @@ const acceptRequest = (this_id) => {
                         <label
                             class="block text-gray-700 text-sm font-bold mb-2"
                         >
-                           Decline Reason (Optional)
+                            Decline Reason (Optional)
                         </label>
                         <textarea
                             v-model="form.reason"

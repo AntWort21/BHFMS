@@ -10,6 +10,7 @@ const props = defineProps({
     reason: String,
     tenantBoarding: Object,
     currUser: Object,
+    capacity: String,
 });
 
 let form = useForm({
@@ -42,6 +43,15 @@ let form = useForm({
                     <h1 class="text-blue-600 font-bold text-2xl mb-8">
                         Tenant Detail
                     </h1>
+                    <div class="mb-4">
+                        <TextBoxInput
+                            :read-only="true"
+                            v-model="props.capacity"
+                            :input-type="'text'"
+                            :label-name="'Rooms Left in Boarding House'"
+                            :placeholder="'Current Boarding Capacity'"
+                        />
+                    </div>
                     <div class="mb-4">
                         <TextBoxInput
                             :read-only="true"
@@ -85,6 +95,7 @@ let form = useForm({
                             />
                         </div>
                     </div>
+                    <hr class="h-px my-8 bg-gray-200 border-0" />
                     <div class="mb-4">
                         <TextBoxInput
                             :read-only="true"
