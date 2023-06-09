@@ -27602,7 +27602,7 @@ var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNod
 var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Back ");
 var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
   "class": "text-blue-600 font-bold text-2xl mb-8"
-}, " Update Boarding House ", -1 /* HOISTED */);
+}, " Reapprove Boarding House ", -1 /* HOISTED */);
 var _hoisted_7 = {
   "class": "mb-4"
 };
@@ -33907,7 +33907,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1 /* STABLE */
   }, 8 /* PROPS */, ["data"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), $setup.popup.show ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
     key: 0,
-    "class": "fixed inset-0 grid place-items-center",
+    "class": "fixed inset-0 grid place-items-center z-50",
     style: {
       "background": "rgba(0, 0, 0, 0.4)"
     },
@@ -33928,7 +33928,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, " Back ")])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.popupDisable.show ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
     key: 1,
-    "class": "fixed inset-0 grid place-items-center",
+    "class": "fixed inset-0 grid place-items-center z-50",
     style: {
       "background": "rgba(0, 0, 0, 0.4)"
     },

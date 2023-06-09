@@ -476,7 +476,7 @@ const DisableBoarding = (idx) => {
 
     <div
         v-if="popup.show"
-        class="fixed inset-0 grid place-items-center"
+        class="fixed inset-0 grid place-items-center z-50"
         style="background: rgba(0, 0, 0, 0.4)"
         @click="popup.show = false"
     >
@@ -502,7 +502,7 @@ const DisableBoarding = (idx) => {
 
     <div
         v-if="popupDisable.show"
-        class="fixed inset-0 grid place-items-center"
+        class="fixed inset-0 grid place-items-center z-50"
         style="background: rgba(0, 0, 0, 0.4)"
         @click="popupDisable.show = false"
     >
