@@ -60,7 +60,7 @@ class PaymentMethodController extends Controller
             'status'=> $request->status,
         ]);
 
-        return redirect('/paymentMethodAll')->with('message', 'Success Updating Transaction Type');
+        return redirect('/paymentMethodAll')->with('message', 'Success Updating Payment Method');
     }
 
     public function PaymentMethodDelete(Request $request){
@@ -68,6 +68,6 @@ class PaymentMethodController extends Controller
 
         $currPaymentMethod->delete();
 
-        return redirect('paymentMethodAll')->with('message', 'Success Deleting Transaction Type');
+        return redirect('paymentMethodAll')->with('message', 'Success Deleting Payment Method');
     }
 }
