@@ -40,7 +40,7 @@ class UserController extends Controller
         }
 
         User::findOrFail(Auth::user()->id)->update([
-            'name' => $validation['name'],
+            'user_name' => $validation['name'],
             'email' => $validation['email'],
             'date_of_birth' => $validation['dateOfBirth'],
             'phone' => $validation['phoneNumber'],
@@ -108,7 +108,7 @@ class UserController extends Controller
         if (($request->file('images') !== null)) {
             $currImage = User::where('id','=',$request->id)->first()->profile_picture;
             $currImagePath = explode('/storage/', $currImage);
-            
+
             if($currImage){
                 Storage::delete('public/'.$currImagePath[1]);
             }
