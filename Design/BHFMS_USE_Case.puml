@@ -125,8 +125,6 @@ user <|-right- tenant
 user <|-right- adm
 
 
-
-
 adm ---> lgn
 tenant ---> lgn
 mngr ---> lgn
