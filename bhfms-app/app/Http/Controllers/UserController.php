@@ -25,7 +25,7 @@ class UserController extends Controller
             'email' => ['required', 'email','unique:users,email,' . Auth::user()->id],
             'dateOfBirth' => ['required'],
             'phoneNumber' => ['required', 'max:50'],
-            'profilePicture' => ['mimes:jpeg,png,jpg,gif,svg']
+            'profilePicture' => ['nullable'], ['mimes:jpeg,png,jpg,gif,svg']
         ]);
 
         if ($request->hasFile('profilePicture')) {
