@@ -4,7 +4,7 @@ import Footer from "../../Shared/Footer.vue";
 import Carousel from "../../Shared/Carousel/Carousel.vue";
 import FormTextBoxInput from "../../Shared/AccountFormInput/FormTextBoxInput.vue";
 import { Link, useForm } from "@inertiajs/inertia-vue3";
-import { ref, onMounted, onUpdated, onErrorCaptured } from "vue";
+import { ref, reactive } from "vue";
 import { Inertia } from "@inertiajs/inertia";
 
 let props = defineProps({
@@ -25,6 +25,16 @@ let props = defineProps({
 let buttonClicked = ref(false);
 let totalPrice = ref(null);
 let mouseover = ref(false);
+const popup = reactive({
+    wishlist: {
+        success: {
+            show: false,
+        },
+        remove: {
+            show: false,
+        },
+    },
+});
 
 let strokeColor = () => {
     return mouseover.value == false ? "#000000" : "#9b9b9b";
@@ -52,6 +62,12 @@ let addToWishlist = () => {
         },
         { preserveScroll: true }
     );
+
+    popup.wishlist.success.show = true;
+
+    setTimeout(() => {
+        popup.wishlist.success.show = false;
+    }, 1500);
 };
 
 let removeFromWishlist = () => {
@@ -62,6 +78,12 @@ let removeFromWishlist = () => {
         },
         { preserveScroll: true }
     );
+
+    popup.wishlist.remove.show = true;
+
+    setTimeout(() => {
+        popup.wishlist.remove.show = false;
+    }, 1500);
 };
 
 const restartRent = () => {
@@ -113,7 +135,7 @@ const restartRent = () => {
                                 d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"
                             ></path>
                         </svg>
-                        <div>Save</div>
+                        <div>Wishlist</div>
                     </div>
                 </div>
                 <hr class="w-full h-0.5 bg-slate-100 border-0" />
@@ -557,5 +579,76 @@ const restartRent = () => {
             </div>
         </div>
     </section>
+    <div
+        v-if="popup.wishlist.remove.show"
+        class="fixed inset-0 grid place-items-center"
+        style="background: rgba(0, 0, 0, 0.4)"
+        @click="popup.wishlist.remove.show = false"
+    >
+        <div class="bg-white w-1/4 rounded flex flex-col items-center">
+            <div class="w-2/3 flex justify-center items-center pt-4">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#d0021b"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                </svg>
+                <header class="text-xl m-3">Removed from Wishlist!</header>
+            </div>
+            <div class="w-full flex justify-end px-6 pt-2 pb-3">
+                <button
+                    class="bg-blue-500 hover:bg-blue-600 rounded px-4 py-1 ml-3 text-white"
+                    type="button"
+                    @click="popup.wishlist.remove.show = false"
+                >
+                    Ok
+                </button>
+            </div>
+        </div>
+    </div>
+    <div
+        v-if="popup.wishlist.success.show"
+        class="fixed inset-0 grid place-items-center"
+        style="background: rgba(0, 0, 0, 0.4)"
+        @click="popup.wishlist.success.show = false"
+    >
+        <div class="bg-white w-1/5 rounded flex flex-col items-center">
+            <div class="w-2/3 flex justify-center items-center pt-4">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#7ed321"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <header class="text-xl m-3">Added to Wishlist!</header>
+            </div>
+            <div class="w-full flex justify-end px-6 pt-2 pb-3">
+                <button
+                    class="bg-blue-500 hover:bg-blue-600 rounded px-4 py-1 ml-3 text-white"
+                    type="button"
+                    @click="popup.wishlist.success.show = false"
+                >
+                    Ok
+                </button>
+            </div>
+        </div>
+    </div>
     <Footer />
 </template>
