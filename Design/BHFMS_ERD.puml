@@ -222,7 +222,6 @@ lobh ||..o{ bh
 
 usr ||..o{ mabh
 bh ||.o{ mabh
-' lobh ||..|| mabh
 
 usr ||..o{ rvw
 bh ||..o{ rvw
@@ -238,13 +237,5 @@ usr ||..o{ fr
 bh ||..o{ fr
 
 usr |o..o{ cht
-chtrm |o..o{ cht
 
 @enduml
-
-
-' https://plantuml.com/ie-diagram
-' * Meaning
-' optional attribute
-'   **optional bold attribute
-'   * mandatory bold attribute
