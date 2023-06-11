@@ -24,7 +24,7 @@ class TenantController extends Controller
                 join('users', 'users.id', '=', 'tenant_boardings.user_id')
                 ->join('boardings', 'boardings.id', '=', 'tenant_boardings.boarding_id')
                 ->join('owner_boardings', 'boardings.id', '=', 'owner_boardings.boarding_id')
-                ->select('users.user_name','boardings.boarding_name','tenant_boardings.id','tenant_boardings.tenant_status')
+                ->select('users.user_name','boardings.boarding_name','tenant_boardings.id','tenant_boardings.tenant_status','boardings.rooms','boardings.id AS boardingID')
                 ->where('owner_boardings.user_id','=',auth()->id())
                 ->when($request->search, function ($query, $search) {
                     if ($search == 'all') {
@@ -42,6 +42,10 @@ class TenantController extends Controller
                     }
                 })->paginate(5)->withQueryString();
             
+            foreach ($Tenant_data as $key => $tenantData) {
+                $Tenant_data[$key]->capacity = $tenantData->rooms - (TenantBoarding::where([['boarding_id','=', $tenantData->boardingID], ['tenant_status', 'approved']])->count());
+            }
+            
             $all_boarding_count = TenantBoarding::join('boardings', 'boardings.id', "=", 'tenant_boardings.boarding_id')
             ->join('owner_boardings','owner_boardings.boarding_id',"=",'boardings.id')
             ->select('tenant_status', DB::raw('count(*) as total'))
@@ -54,7 +58,7 @@ class TenantController extends Controller
             join('users', 'users.id', '=', 'tenant_boardings.user_id')
             ->join('boardings', 'boardings.id', '=', 'tenant_boardings.boarding_id')
                 ->join('manager_boardings', 'boardings.id', '=', 'manager_boardings.boarding_id')
-                ->select('users.user_name','boardings.boarding_name','tenant_boardings.id','tenant_boardings.tenant_status')
+                ->select('users.user_name','boardings.boarding_name','tenant_boardings.id','tenant_boardings.tenant_status','boardings.rooms','boardings.id AS boardingID')
                 ->where('manager_boardings.user_id','=',auth()->id())
                 ->when($request->search, function ($query, $search) {
                     if ($search == 'all') {
@@ -71,6 +75,10 @@ class TenantController extends Controller
                         ->orWhere('user_name', 'like', '%'. $searchQuery . '%');
                     }
                 })->paginate(5)->withQueryString();
+            
+            foreach ($Tenant_data as $key => $tenantData) {
+                $Tenant_data[$key]->capacity = $tenantData->rooms - (TenantBoarding::where([['boarding_id','=', $tenantData->boardingID], ['tenant_status', 'approved']])->count());
+            }
             
             $all_boarding_count = TenantBoarding::join('boardings', 'boardings.id', "=", 'tenant_boardings.boarding_id')
             ->join('manager_boardings','manager_boardings.boarding_id',"=",'boardings.id')
@@ -128,20 +136,26 @@ class TenantController extends Controller
     public function getDetailTenantBoarding(Request $request){
         $tenantBoarding = TenantBoarding::find($request->id);
         $user_data = User::where("id",$tenantBoarding->user_id)->first();
+        $boardingHouseRoom = Boarding::where('id',$tenantBoarding->boarding_id)->first()->rooms;
+        $capacity = $boardingHouseRoom - (TenantBoarding::where([['boarding_id','=', $tenantBoarding->boarding_id], ['tenant_status', 'approved']])->count());
         return Inertia::render('Tenant/ReadTenant', [
             'reason' => $tenantBoarding->declined_reason,
             'tenantBoarding' => $tenantBoarding,
             'currUser' => $user_data,
+            'capacity' =>$capacity,
         ]);
     }
 
     public function getRequestTenant(Request $request){
         $tenantBoarding = TenantBoarding::find($request->id);
         $user_data = User::where("id",$tenantBoarding->user_id)->first();
+        $boardingHouseRoom = Boarding::where('id',$tenantBoarding->boarding_id)->first()->rooms;
+        $capacity = $boardingHouseRoom - (TenantBoarding::where([['boarding_id','=', $tenantBoarding->boarding_id], ['tenant_status', 'approved']])->count());
         
         return Inertia::render('Tenant/RequestTenant', [
             'currID' => $request->id,
             'currUser' => $user_data,
+            'capacity' =>$capacity,
         ]);
     }
 
@@ -161,7 +175,7 @@ class TenantController extends Controller
             
         }else{
             TenantBoarding::where('id','=',$request->currID)->update([
-                'tenant_status' => 3,
+                'tenant_status' => 'declined',
                 'declined_reason' => $request['reason'],
             ]);
             return redirect('/tenantBoarding')->with('message', 'Success Declining new Tenant');
