@@ -173,7 +173,7 @@ let convertAmount = (amount) => {
     @infoAlert = "infoAlert"/>
     
     <PopUpInputText v-if="popUpBoxText" 
-    :pop-up-name="'Declined Reason'"
+    :pop-up-name="'Reject Reason'"
     :value= popUpDetail.status
     :label-name= "'Reason'"
     :id= popUpDetail.id

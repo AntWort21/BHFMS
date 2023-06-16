@@ -30,7 +30,7 @@ let confirm = async () => {
     formData.append('invoiceID', props.id);
     formData.append('invoiceStatus', props.value);
     const response = await axios.post(props.linkPop, formData);
-    const data = await response.json();
+    const data = await response.data;
     infoAlert(data.message);
     closePopUp();
 }

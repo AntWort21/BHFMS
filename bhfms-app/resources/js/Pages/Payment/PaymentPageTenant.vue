@@ -5,7 +5,7 @@ import Header from '../../Shared/Header.vue';
 import Footer from '../../Shared/Footer.vue';
 import FormTextBoxInputReadOnly from '../../Shared/Payment/FormTextBoxInputReadOnly.vue';
 import FormErrorMessage from '../../Shared/AccountFormInput/FormErrorMessage.vue';
-import FormSelectInputPaymentType from '../../Shared/Payment/FormSelectInputPaymentType.vue';
+import FormSelectInputPaymentMethod from '../../Shared/Payment/FormSelectInputPaymentMethod.vue';
 
 defineProps({
     listPaymentMethod: Array,
@@ -52,12 +52,12 @@ let convertAmount = (amount) => {
                         />
             </div>
             <div class="w-[450px] my-2">
-                <FormSelectInputPaymentType
+                <FormSelectInputPaymentMethod
                     v-model="form.paymentMethod"
                     :option-list="listPaymentMethod"
-                    :label-desc="'Payment Type'"
-                    :label-name="'Payment Type'"
-                    :default-text="'Select Payment Type'"
+                    :label-desc="'Payment Method'"
+                    :label-name="'Payment Method'"
+                    :default-text="'Select Payment Method'"
                     @update:value="updateValue" 
                 />
                 <FormErrorMessage

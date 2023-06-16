@@ -112,11 +112,11 @@ const getFileName = (paymentDate, invoiceId) => {
                         </div>
                     </div>
                     <div class="flex flex-col border w-2/6 px-3 items-center" v-if="userRole!=1">
-                        <button class="mt-4 mb-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-if="invoiceDetail.payment_status=='Pending' && userRole==2" @click="redirect('/pay?order='+invoiceDetail.invoice_id)">Pay</button>
+                        <button class="mt-4 mb-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-if="(payment.payment_status=='Pending' || payment.payment_status=='Late') && userRole==2" @click="redirect('/pay?order='+invoiceDetail.invoice_id)">Pay</button>
                         
                         <button class="my-2 bg-blue-500 py-1 w-24 text-white rounded-full" @click="redirect('/chat')">Chat</button>
                         
-                        <button class="my-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-if="userRole==2">Complain</button>
+                        <button class="my-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-if="userRole==2"  @click="redirect('/complain')">Complain</button>
                         <button class="my-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-if="(userRole==4||userRole==3) && (invoiceDetail.payment_transferred_status !='Successful' && invoiceDetail.payment_status !='Canceled') && invoiceDetail.transaction_type_name != 'Down Payment'" @click="redirect('/paymentBoarding/cancel?order='+invoiceDetail.invoice_id+'&boarding='+query.get('boarding'))">Cancel</button>
                         <button class="my-2 bg-blue-500 py-1 w-24 text-white rounded-full" v-if="userRole==4||userRole==3 && invoiceDetail.payment_status =='Pending'" @click="redirect('/paymentBoarding/edit?order='+invoiceDetail.invoice_id+'&boarding='+query.get('boarding'))">Edit</button>
                     </div>
