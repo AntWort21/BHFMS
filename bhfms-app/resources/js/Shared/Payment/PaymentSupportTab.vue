@@ -23,7 +23,7 @@ let convertTime = (date) =>{
         <p v-if="payment.payment_transferred_status=='Processing_Refund'" class="py-2 px-8 bg-yellow-400 border-2 w-min text-white rounded-md">
             Processing_Refund
         </p>
-        <p v-else-if="payment.payment_status=='Declined'" class="py-2 px-5 bg-yellow-400 border-2 w-min text-white rounded-md">
+        <p v-else-if="payment.payment_transferred_status=='Declined'" class="py-2 px-5 bg-yellow-400 border-2 w-min text-white rounded-md">
             Declined
         </p>
     </div>

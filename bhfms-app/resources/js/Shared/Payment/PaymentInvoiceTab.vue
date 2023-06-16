@@ -38,7 +38,7 @@ let updateInvoiceStatus = async (invoiceStatus, invoiceId) => {
     formData.append('invoiceStatus', invoiceStatus);
     const response = await axios.post('/updateInvoiceStatus', formData);
     
-    const data = await response.json();
+    const data = response.data;
     infoAlert(data.message);
     }
 

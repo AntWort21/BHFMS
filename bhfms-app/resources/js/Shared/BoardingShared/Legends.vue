@@ -233,7 +233,7 @@ const toggleList = () => {
                             </svg>
                         </div>
                         <span class="mr-2 text-xs bold"
-                            >Add Payment History</span
+                            >Payment History</span
                         >
                     </li>
                 </div>

@@ -59,10 +59,10 @@ class PaymentController extends Controller
         ]);   
         
         if(Auth::user()->user_role_id == 3) {
-            return redirect('/boardingOwner')->with('message', 'Invoice has been made !'); 
+            return redirect('/boardingOwner')->with('message', 'Payment has been made !'); 
         }
         
-        return redirect('/boardingManager')->with('message', 'Invoice has been made !');
+        return redirect('/boardingManager')->with('message', 'Payment has been made !');
 
     }
 
@@ -298,6 +298,7 @@ class PaymentController extends Controller
         $invoiceId = $request->invoiceID;
         $transaction = RentTransaction::where('invoice_id',$invoiceId)->first();
         $transaction->payment_status = $invoiceStatus;
+        $msg = 'Payment invoice: '.$transaction->invoice_id.', has been '.$invoiceStatus;
         if($invoiceStatus == 'Approved' && TransactionType::find($transaction->transaction_type_id)->transaction_type_name == 'Down Payment') {
             $tenantController = new TenantController;
             $tenantController->acceptTenant($transaction->tenant_boarding_id);

@@ -74,7 +74,7 @@ let convertAmount = (amount) => {
           </svg>
           <p>{{ $page.props.flash.message }}</p>
         </div>
-        <section class="mx-2 my-5">
+        <section class="mx-9 my-5">
             <div class="flex justify-around text-center">
                 <div class="w-1/4">
                     <h4>Status</h4>
@@ -93,7 +93,6 @@ let convertAmount = (amount) => {
         </section>
         <section class="mx-2 my-3">
             <div v-for="(payment) in paymentList.data" class="flex justify-around text-center py-1">
-             
               <PaymentHistoryTab
                 :payment=payment
                 :userRole="userRole"
