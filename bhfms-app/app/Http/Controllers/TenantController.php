@@ -137,7 +137,7 @@ class TenantController extends Controller
         $tenantBoarding = TenantBoarding::find($request->id);
         $user_data = User::where("id",$tenantBoarding->user_id)->first();
         $boardingHouseRoom = Boarding::where('id',$tenantBoarding->boarding_id)->first()->rooms;
-        $capacity = $boardingHouseRoom - (TenantBoarding::where([['boarding_id','=', $tenantBoarding->boarding_id], ['tenant_status', 'approved']])->count());
+        $capacity = $boardingHouseRoom - (TenantBoarding::where([['boarding_id','=', $tenantBoarding->boarding_id]])->whereIn('tenant_status', ['approved', 'pending_payment'])->count());
         return Inertia::render('Tenant/ReadTenant', [
             'reason' => $tenantBoarding->declined_reason,
             'tenantBoarding' => $tenantBoarding,
@@ -150,7 +150,7 @@ class TenantController extends Controller
         $tenantBoarding = TenantBoarding::find($request->id);
         $user_data = User::where("id",$tenantBoarding->user_id)->first();
         $boardingHouseRoom = Boarding::where('id',$tenantBoarding->boarding_id)->first()->rooms;
-        $capacity = $boardingHouseRoom - (TenantBoarding::where([['boarding_id','=', $tenantBoarding->boarding_id], ['tenant_status', 'approved']])->count());
+        $capacity = $boardingHouseRoom - (TenantBoarding::where([['boarding_id','=', $tenantBoarding->boarding_id]])->whereIn('tenant_status', ['approved', 'pending_payment'])->count());
         
         return Inertia::render('Tenant/RequestTenant', [
             'currID' => $request->id,

@@ -513,7 +513,7 @@ class BoardingController extends Controller
         $currType = $currBoarding->boardingType()->get()->first();
         $currManager = ($currBoarding->managerBoardings()->exists()) ? $currBoarding->managerBoardings()->get()->first() : null;
         $currImages = $currBoarding->images()->get();
-        $currVacancy = $currBoarding->rooms - (TenantBoarding::where([['boarding_id', $request->id], ['tenant_status', 'approved']])->count());
+        $currVacancy = $currBoarding->rooms - (TenantBoarding::where([['boarding_id', $request->id]])->whereIn('tenant_status', ['approved', 'pending_payment'])->count());
         $currOwner = OwnerBoarding::where('owner_boardings.boarding_id', '=', $currBoarding->id)->first();
 
         return Inertia::render('Boarding/ReadBoarding', [
