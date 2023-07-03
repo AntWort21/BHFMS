@@ -43,7 +43,7 @@ class TenantController extends Controller
                 })->paginate(5)->withQueryString();
             
             foreach ($Tenant_data as $key => $tenantData) {
-                $Tenant_data[$key]->capacity = $tenantData->rooms - (TenantBoarding::where([['boarding_id','=', $tenantData->boardingID], ['tenant_status', 'approved']])->count());
+                $Tenant_data[$key]->capacity = $tenantData->rooms - (TenantBoarding::where([['boarding_id','=', $tenantData->boardingID]])->whereIn('tenant_status', ['approved', 'pending_payment'])->count());
             }
             
             $all_boarding_count = TenantBoarding::join('boardings', 'boardings.id', "=", 'tenant_boardings.boarding_id')
@@ -77,7 +77,7 @@ class TenantController extends Controller
                 })->paginate(5)->withQueryString();
             
             foreach ($Tenant_data as $key => $tenantData) {
-                $Tenant_data[$key]->capacity = $tenantData->rooms - (TenantBoarding::where([['boarding_id','=', $tenantData->boardingID], ['tenant_status', 'approved']])->count());
+                $Tenant_data[$key]->capacity = $tenantData->rooms - (TenantBoarding::where([['boarding_id','=', $tenantData->boardingID]])->whereIn('tenant_status', ['approved', 'pending_payment'])->count());
             }
             
             $all_boarding_count = TenantBoarding::join('boardings', 'boardings.id', "=", 'tenant_boardings.boarding_id')

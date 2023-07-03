@@ -363,7 +363,7 @@ class BoardingController extends Controller
             $facilityList[$key]->facility_img_path = $facilityDetail->facility_img_path;
         }
 
-        $currVacancy = $selectedBoardingHouseDetail->rooms - (TenantBoarding::where([['boarding_id', $request->id], ['tenant_status', 'approved']])->count());
+        $currVacancy = $selectedBoardingHouseDetail->rooms - (TenantBoarding::where([['boarding_id', $request->id]])->whereIn('tenant_status', ['approved', 'pending_payment'])->count());
         $currVacancy > 0 ? $isAvailable = true : $isAvailable = false;
         $reviews = Review::where('boarding_id', $request->id)->get();
         $totalRating = 0;
