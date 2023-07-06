@@ -363,7 +363,7 @@ class BoardingController extends Controller
             $facilityList[$key]->facility_img_path = $facilityDetail->facility_img_path;
         }
 
-        $currVacancy = $selectedBoardingHouseDetail->rooms - (TenantBoarding::where([['boarding_id', $request->id], ['tenant_status', 'approved']])->count());
+        $currVacancy = $selectedBoardingHouseDetail->rooms - (TenantBoarding::where([['boarding_id', $request->id]])->whereIn('tenant_status', ['approved', 'pending_payment'])->count());
         $currVacancy > 0 ? $isAvailable = true : $isAvailable = false;
         $reviews = Review::where('boarding_id', $request->id)->get();
         $totalRating = 0;
@@ -513,7 +513,7 @@ class BoardingController extends Controller
         $currType = $currBoarding->boardingType()->get()->first();
         $currManager = ($currBoarding->managerBoardings()->exists()) ? $currBoarding->managerBoardings()->get()->first() : null;
         $currImages = $currBoarding->images()->get();
-        $currVacancy = $currBoarding->rooms - (TenantBoarding::where([['boarding_id', $request->id], ['tenant_status', 'approved']])->count());
+        $currVacancy = $currBoarding->rooms - (TenantBoarding::where([['boarding_id', $request->id]])->whereIn('tenant_status', ['approved', 'pending_payment'])->count());
         $currOwner = OwnerBoarding::where('owner_boardings.boarding_id', '=', $currBoarding->id)->first();
 
         return Inertia::render('Boarding/ReadBoarding', [
